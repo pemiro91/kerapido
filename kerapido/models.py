@@ -22,11 +22,21 @@ class Negocio(AbstractUser):
     persona_encargada = models.CharField(max_length=255)
     telefono = models.CharField(max_length=255)
     direccion = models.CharField(max_length=255)
+    servicio_domicilio = models.BooleanField(default=False)
+    servicio_recogida = models.BooleanField(default=False)
     especialidad = models.CharField(max_length=255)
     provincia = models.CharField(max_length=255)
     municipio = models.CharField(max_length=255)
     localidad = models.CharField(max_length=255)
-    rating = models.FloatField(max_length=20)
+    rating = models.FloatField(max_length=20, null=True, blank=True)
+    tipo = models.CharField(max_length=255)
+
+
+class Tipo_Negocio(models.Model):
+    tipo = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=200)
+
+    def __str__(self): return self.tipo
 
 
 class Producto(models.Model):

@@ -23,8 +23,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.upload_images, name='base'),
+    path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
+    path('form_general', views.form_general, name="form_general"),
+    path('form_editors', views.form_editors, name="form_editors"),
+    path('form_advanced', views.form_advanced, name="form_advanced"),
+    path('', views.login_negocio, name="login"),
+    path('register_member', views.register_member, name="register_member"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
