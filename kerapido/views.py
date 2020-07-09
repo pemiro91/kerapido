@@ -47,6 +47,11 @@ def admin_panel(request):
     return render(request, "control_panel/index_panel.html", context)
 
 
+def admin_panel_v2(request):
+    context = {}
+    return render(request, "control_panel/index2.html", context)
+
+
 def form_general(request):
     context = {}
     return render(request, "control_panel/pages/forms/general.html", context)
@@ -60,3 +65,44 @@ def form_editors(request):
 def form_advanced(request):
     context = {}
     return render(request, "control_panel/pages/forms/advanced.html", context)
+
+
+def table_simple(request):
+    context = {}
+    return render(request, "control_panel/pages/tables/simple.html", context)
+
+
+def table_advanced(request):
+    context = {}
+    return render(request, "control_panel/pages/tables/data.html", context)
+
+
+# ----------UI-----------#
+def buttons(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/buttons.html", context)
+
+
+def general(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/general.html", context)
+
+
+def icon(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/icons.html", context)
+
+
+def modals(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/modals.html", context)
+
+
+def sliders(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/sliders.html", context)
+
+
+def timeline(request):
+    context = {}
+    return render(request, "control_panel/pages/UI/timeline.html", context)

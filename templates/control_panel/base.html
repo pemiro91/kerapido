@@ -348,8 +348,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="base.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            <li class="active"><a href="{% url 'panel' %}"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li><a href="{% url 'panel2' %}"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -399,12 +399,12 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+            <li><a href="{% url 'general' %}"><i class="fa fa-circle-o"></i> General</a></li>
+            <li><a href="{% url 'icon' %}"><i class="fa fa-circle-o"></i> Icons</a></li>
+            <li><a href="{% url 'buttons' %}"><i class="fa fa-circle-o"></i> Buttons</a></li>
+            <li><a href="{% url 'sliders' %}"><i class="fa fa-circle-o"></i> Sliders</a></li>
+            <li><a href="{% url 'timeline' %}"><i class="fa fa-circle-o"></i> Timeline</a></li>
+            <li><a href="{% url 'modals' %}"><i class="fa fa-circle-o"></i> Modals</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -428,8 +428,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="{% url 'table_simple' %}"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+            <li><a href="{% url 'table_advanced' %}"><i class="fa fa-circle-o"></i> Data tables</a></li>
           </ul>
         </li>
         <li>
@@ -462,7 +462,7 @@
             <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
             <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
             <li><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+            <li><a href="{% url 'register_member' %}"><i class="fa fa-circle-o"></i> Register</a></li>
             <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
             <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
             <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>

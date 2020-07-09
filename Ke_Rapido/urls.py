@@ -25,11 +25,20 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
+    path('panel2', views.admin_panel_v2, name="panel2"),
     path('form_general', views.form_general, name="form_general"),
     path('form_editors', views.form_editors, name="form_editors"),
     path('form_advanced', views.form_advanced, name="form_advanced"),
     path('', views.login_negocio, name="login"),
     path('register_member', views.register_member, name="register_member"),
+    path('table_simple', views.table_simple, name="table_simple"),
+    path('table_advanced', views.table_advanced, name="table_advanced"),
+    path('buttons', views.buttons, name="buttons"),
+    path('general', views.general, name="general"),
+    path('icon', views.icon, name="icon"),
+    path('modals', views.modals, name="modals"),
+    path('sliders', views.sliders, name="sliders"),
+    path('timeline', views.timeline, name="timeline"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
