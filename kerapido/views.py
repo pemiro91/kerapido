@@ -53,9 +53,9 @@ def profile(request):
     return render(request, "control_panel/pages/examples/profile.html", context)
 
 
-def register_member(request):
+def register_business(request):
     context = {}
-    return render(request, "control_panel/pages/examples/register.html", context)
+    return render(request, "control_panel/pages/examples/sign-up.html", context)
 
 
 def admin_panel_v2(request):
