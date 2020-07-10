@@ -17,7 +17,7 @@ def upload_images(request):
             )
             instance.save()
     context = {}
-    return render(request, "base.html", context)
+    return render(request, "control_panel/base.html", context)
 
 
 def login_negocio(request):
@@ -35,7 +35,12 @@ def login_negocio(request):
             return redirect('login')
     else:
         form = AuthenticationForm()
-    return render(request, "control_panel/pages/examples/login.html", {'form': form})
+    return render(request, "control_panel/pages/examples/sign-in.html", {'form': form})
+
+
+def admin_panel(request):
+    context = {}
+    return render(request, "control_panel/index.html", context)
 
 
 def logout(request):
@@ -51,11 +56,6 @@ def profile(request):
 def register_member(request):
     context = {}
     return render(request, "control_panel/pages/examples/register.html", context)
-
-
-def admin_panel(request):
-    context = {}
-    return render(request, "control_panel/index_panel.html", context)
 
 
 def admin_panel_v2(request):

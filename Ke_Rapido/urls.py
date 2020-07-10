@@ -23,15 +23,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.login_negocio, name="login"),
+    path('logout', views.logout, name="logout"),
+    path('profile', views.profile, name="profile"),
+
     path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
     path('panel2', views.admin_panel_v2, name="panel2"),
     path('form_general', views.form_general, name="form_general"),
     path('form_editors', views.form_editors, name="form_editors"),
     path('form_advanced', views.form_advanced, name="form_advanced"),
-    path('', views.login_negocio, name="login"),
-    path('logout', views.logout, name="logout"),
-    path('profile', views.profile, name="profile"),
     path('register_member', views.register_member, name="register_member"),
     path('table_simple', views.table_simple, name="table_simple"),
     path('table_advanced', views.table_advanced, name="table_advanced"),
