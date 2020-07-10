@@ -3,6 +3,7 @@ from kerapido.models import Fotos
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as do_logout
 
 
 # Create your views here.
@@ -35,6 +36,16 @@ def login_negocio(request):
     else:
         form = AuthenticationForm()
     return render(request, "control_panel/pages/examples/login.html", {'form': form})
+
+
+def logout(request):
+    do_logout(request)
+    return redirect('/')
+
+
+def profile(request):
+    context = {}
+    return render(request, "control_panel/pages/examples/profile.html", context)
 
 
 def register_member(request):

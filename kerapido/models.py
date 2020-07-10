@@ -20,11 +20,10 @@ def images_directory_path(instance, filename):
 class Negocio(AbstractUser):
     logo = models.ImageField(upload_to='logo/%Y/%m/%d', null=True, blank=True)
     persona_encargada = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=255)
-    direccion = models.CharField(max_length=255)
+    telefono_negocio = models.CharField(max_length=255)
+    direccion_negocio = models.CharField(max_length=255)
     servicio_domicilio = models.BooleanField(default=False)
     servicio_recogida = models.BooleanField(default=False)
-    especialidad = models.CharField(max_length=255)
     provincia = models.CharField(max_length=255)
     municipio = models.CharField(max_length=255)
     localidad = models.CharField(max_length=255)
