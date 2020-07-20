@@ -11,8 +11,8 @@
     <link rel="icon" href="{% static 'control_panel/favicon.ico' %}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
@@ -30,14 +30,14 @@
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="{% static 'control_panel/css/themes/all-themes.css' %}" rel="stylesheet" />
+    <link href="{% static 'control_panel/css/themes/theme-amber.css' %}" rel="stylesheet" />
 
     {% block header_style %}
 
     {% endblock %}
 </head>
 
-<body class="theme-red">
+<body class="theme-amber">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -646,10 +646,10 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                    &copy; 2020 <a href="javascript:void(0);">Ke-RAPIDO</a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.5
+                    <b>Version: </b> 1.0
                 </div>
             </div>
             <!-- #Footer -->
@@ -800,7 +800,7 @@
         <!-- #END# Right Sidebar -->
     </section>
 
-    <section class="content">
+    <section class="content" >
         {% block content %}
 
         {% endblock %}
@@ -820,30 +820,23 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+    <!-- Sweet Alert Plugin Js -->
+    <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
 
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="{% static 'control_panel/plugins/jquery-countto/jquery.countTo.js' %}"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="{% static 'control_panel/plugins/raphael/raphael.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/morrisjs/morris.js' %}"></script>
-
-    <!-- ChartJs -->
-    <script src="{% static 'control_panel/plugins/chartjs/Chart.bundle.js' %}"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    <script src="{% static 'control_panel/plugins/flot-charts/jquery.flot.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/flot-charts/jquery.flot.resize.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/flot-charts/jquery.flot.pie.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/flot-charts/jquery.flot.categories.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/flot-charts/jquery.flot.time.js' %}"></script>
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="{% static 'control_panel/plugins/jquery-sparkline/jquery.sparkline.js' %}"></script>
+{#    <!-- Jquery CountTo Plugin Js -->#}
+{#    <script src="{% static 'control_panel/plugins/jquery-countto/jquery.countTo.js' %}"></script>#}
+{##}
+{#    <!-- Morris Plugin Js -->#}
+{#    <script src="{% static 'control_panel/plugins/raphael/raphael.min.js' %}"></script>#}
+{#    <script src="{% static 'control_panel/plugins/morrisjs/morris.js' %}"></script>#}
+{##}
+{##}
+{#    <!-- Sparkline Chart Plugin Js -->#}
+{#    <script src="{% static 'control_panel/plugins/jquery-sparkline/jquery.sparkline.js' %}"></script>#}
 
     <!-- Custom Js -->
     <script src="{% static 'control_panel/js/admin.js' %}"></script>
-    <script src="{% static 'control_panel/js/pages/index.js' %}"></script>
+
 
     <!-- Demo Js -->
     <script src="{% static 'control_panel/js/demo.js' %}"></script>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from kerapido.models import Fotos
+from kerapido.models import Plato
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -53,9 +53,9 @@ def profile(request):
     return render(request, "control_panel/pages/examples/profile.html", context)
 
 
-def register_business(request):
-    context = {}
-    return render(request, "control_panel/pages/examples/sign-up.html", context)
+# def register_business(request):
+#     context = {}
+#     return render(request, "control_panel/pages/examples/sign-up.html", context)
 
 
 def admin_panel_v2(request):
@@ -75,7 +75,7 @@ def form_editors(request):
 
 def form_advanced(request):
     context = {}
-    return render(request, "control_panel/pages/forms/advanced.html", context)
+    return render(request, "control_panel/pages/forms/form-wizard.html", context)
 
 
 def table_simple(request):
@@ -117,3 +117,7 @@ def sliders(request):
 def timeline(request):
     context = {}
     return render(request, "control_panel/pages/UI/timeline.html", context)
+
+def register_business(request):
+    context = {}
+    return render(request, "control_panel/pages/examples/sign-up.html", context)
