@@ -50,7 +50,7 @@ def logout(request):
 
 def profile(request):
     context = {}
-    return render(request, "control_panel/pages/examples/profile.html", context)
+    return render(request, "control_panel/pages/examples/mi_negocio.html", context)
 
 
 # def register_business(request):
@@ -83,9 +83,9 @@ def table_simple(request):
     return render(request, "control_panel/pages/tables/simple.html", context)
 
 
-def table_advanced(request):
+def users(request):
     context = {}
-    return render(request, "control_panel/pages/tables/data.html", context)
+    return render(request, "control_panel/pages/tables/listado_usuarios.html", context)
 
 
 # ----------UI-----------#

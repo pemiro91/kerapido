@@ -7896,14 +7896,14 @@ fieldset[disabled] .form-control {
 
 /* Profile Page ================================ */
 .profile-card .profile-header {
-  background-color: #ad1455;
+  background-color: #ffc107;
   padding: 42px 0; }
 
 .profile-card .profile-body .image-area {
   text-align: center;
   margin-top: -64px; }
   .profile-card .profile-body .image-area img {
-    border: 2px solid #ad1455;
+    border: 2px solid #000;
     padding: 2px;
     margin: 2px;
     -webkit-border-radius: 50%;

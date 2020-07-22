@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login_negocio, name="login"),
     path('logout', views.logout, name="logout"),
-    path('profile', views.profile, name="profile"),
+    path('profile', views.profile, name="my_business"),
     path('register_business', views.register_business, name="register_business"),
 
     path('upload_images', views.upload_images, name='base'),
@@ -35,7 +35,7 @@ urlpatterns = [
     path('form_editors', views.form_editors, name="form_editors"),
     path('form_advanced', views.form_advanced, name="form_advanced"),
     path('table_simple', views.table_simple, name="table_simple"),
-    path('table_advanced', views.table_advanced, name="table_advanced"),
+    path('users', views.users, name="users"),
     path('buttons', views.buttons, name="buttons"),
     path('general', views.general, name="general"),
     path('icon', views.icon, name="icon"),

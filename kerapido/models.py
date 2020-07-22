@@ -55,7 +55,8 @@ class Plato(models.Model):
     precio = models.CharField(max_length=255)
     negocio = models.ForeignKey(PerfilNegocio, on_delete=models.CASCADE)
 
-    def str(self): return str(self.nombre)
+    def str(self):
+        return str(self.nombre)
 
 
 class Tarifa(models.Model):
