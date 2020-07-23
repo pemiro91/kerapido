@@ -13,17 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls import include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
-from django.conf import settings
-from kerapido import views
-from django.views.generic import TemplateView
-from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from kerapido import api
+from kerapido.api import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.upload_images, name='base'),
+    # path('', views.upload_images, name='base'),
+    path('api/account/register', UserCreate.as_view()),
+    path('api/login', api.login),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/negocios/', getNegociosApi),
+    path('api/platos/<int:pk>/', getPlatoApi),
+    path('api/agregos/<int:pk>/', getAgregoApi),
+    path('api/reservar/', postReservaApi),
+    path('api/reservas/<int:pk>/', getReservasApiForID),
+    path('api/tarifas/<int:pk>/', getTarifaApiForID)
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns = format_suffix_patterns(urlpatterns)
