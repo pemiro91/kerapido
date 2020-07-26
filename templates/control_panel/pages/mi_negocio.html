@@ -12,7 +12,8 @@
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
                         <div class="image-area">
-                            <img style="width: 90px" src="{% static 'control_panel/images/negocios/levant.jpg' %}"
+                            <img style="width: 90px;height: 90px"
+                                 src="{% static 'control_panel/images/negocios/levant.jpg' %}"
                                  alt="AdminBSB - Profile Image"/>
                         </div>
                         <div class="content-area">
@@ -108,15 +109,24 @@
                                         <div class="panel-heading">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <a href="#">
-                                                        <img src="{% static 'control_panel/images/negocios/levant.jpg' %}"/>
-                                                    </a>
+                                                    {#                                                    <a href="#">#}
+                                                    {#                                                        <img style="height: 50px;width: 50px" src="{% static 'control_panel/images/negocios/levant.jpg' %}"/>#}
+                                                    {#                                                    </a>#}
                                                 </div>
                                                 <div class="media-body">
-                                                    <h4 class="media-heading">
-                                                        <a href="#">El Levant</a>
-                                                    </h4>
-                                                    De alta desde el 26 Oct 2018
+                                                    <span class="icon">
+                                                        <i class="material-icons">place</i>
+                                                        Aguila y Salud. Centro Habana. La Habana
+                                                    </span><br>
+                                                    <span class="icon">
+                                                        <i class="material-icons">smartphone</i>
+                                                        +53-555555
+                                                    </span><br>
+                                                    <span class="icon">
+                                                        <i class="material-icons">phone</i>
+                                                        +53-777777
+                                                    </span>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +138,7 @@
                                                         require little more information to use effectively.</p>
                                                 </div>
                                                 <div class="post-content">
-                                                    <img src="{% static 'control_panel/mdb/images/profile-post-image.jpg' %}"
+                                                    <img src="{% static 'control_panel/images/profile-post-image.jpg' %}"
                                                          class="img-responsive"/>
                                                 </div>
                                             </div>

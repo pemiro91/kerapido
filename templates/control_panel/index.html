@@ -70,7 +70,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 align-right">
                                 <div class="switch panel-switch-btn">
-                                    <a class="btn bg-amber waves-effect m-b-15" role="button" data-toggle="collapse"
+
+                                    <a class="btn bg-secondary waves-effect m-b-15" role="button" data-toggle="collapse"
                                        href="#collapseExample" aria-expanded="false"
                                        aria-controls="collapseExample">
                                         <i class="material-icons">more_horiz</i>
@@ -84,16 +85,7 @@
                         <div class="collapse" id="collapseExample">
 
                             <div class="panel panel-default panel-post">
-                                {#                                <div class="panel-heading">#}
-                                {#                                    <div class="media">#}
-                                {#                                        <div class="media-body">#}
-                                {#                                            <h3 class="media-heading">#}
-                                {#                                                <a href="#">Platos</a>#}
-                                {#                                            </h3>#}
-                                {##}
-                                {#                                        </div>#}
-                                {#                                    </div>#}
-                                {#                                </div>#}
+
                                 <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}
                                     <div class="row" style="margin: 2em 0 0 0">
                                         <div class="col-md-8 col-sm-10 col-xs-12">
@@ -132,7 +124,7 @@
                                                                          src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}">
                                                                 </div>
                                                                 {#                                                                     <hr>#}
-                                                                <div class="body">
+                                                                <div class="body" >
                                                                     <div class="row">
                                                                         <div class="col-lg-8">
                                                                             <h4>Masas de Cerdo fritas</h4>
@@ -195,10 +187,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="margin-left: 70%">
-                                        <nav aria-label="Page navigation example">
+                                    <div >
+                                        <nav aria-label="Page navigation example" >
                                             <ul class="pagination pg-blue justify-content-end">
-                                                <li class="page-item ">
+                                                <li class="page-item">
                                                     <a class="page-link" tabindex="-1">Anterior</a>
                                                 </li>
                                                 <li class="page-item"><a class="page-link">1</a></li>
@@ -227,15 +219,16 @@
                         <h2>ÚLTIMAS 5 RESERVACIONES</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                   role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
+                                <a class="btn bg-pink waves-effect m-b-15" role="button"
+                                       href="" aria-expanded="false"
+                                       aria-controls="">
+                                        Ver más
+                                    </a>
+{#                                <ul class="dropdown-menu pull-right">#}
+{#                                    <li><a href="javascript:void(0);">Action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
+{#                                </ul>#}
                             </li>
                         </ul>
                     </div>
@@ -286,24 +279,24 @@
             <!-- Answered Tickets -->
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="card">
-                    <div class="body bg-black">
-                        <div class="font-bold m-b--35">AGREGOS</div>
-                        <ul class="dashboard-stat-list">
+                    <div class="body bg-amber">
+                        <div style="color: #000" class="font-bold m-b--35">AGREGOS</div>
+                        <ul style="color: #000" class="dashboard-stat-list">
                             <li>
                                 QUESO
-                                <span class="pull-right"><b>$1.00</b> <small>CUC</small></span>
+                                <span style="color: #000" class="pull-right"><b>$1.00</b> <small  >CUC</small></span>
                             </li>
                             <li>
                                 JAMON
-                                <span class="pull-right"><b>$1.00</b> <small>CUC</small></span>
+                                <span style="color: #000" class="pull-right"><b>$1.00</b> <small style="color: #000" >CUC</small></span>
                             </li>
                             <li>
                                 CHORIZO
-                                <span class="pull-right"><b>$1.50</b> <small>CUC</small></span>
+                                <span style="color: #000" class="pull-right"><b>$1.50</b> <small style="color: #000" >CUC</small></span>
                             </li>
                             <li>
                                 PIMIENTO
-                                <span class="pull-right"><b>$1.50</b> <small>CUC</small></span>
+                                <span style="color: #000"  class="pull-right"><b>$1.50</b> <small style="color: #000" >CUC</small></span>
                             </li>
 {#                            <li>#}
 {#                                LAST YEAR#}
@@ -325,7 +318,7 @@
 {% endblock %}
 {% block plugin_section %}
 
-    <script src="{% static 'control_panel/mdb/js/pages/index.js' %}"></script>
+    <script src="{% static 'control_panel/js/pages/index.js' %}"></script>
     <script>
         $('li').click(function () {
             $(this).addClass('active').siblings().removeClass('active');

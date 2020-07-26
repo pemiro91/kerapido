@@ -8047,7 +8047,7 @@ fieldset[disabled] .form-control {
 }
 
 .pagination li.active a {
-    background-color: #2196F3;
+    background-color: #FEC010;
 }
 
 .pagination li {
@@ -10084,7 +10084,7 @@ fieldset[disabled] .form-control {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-family: "Roboto", sans-serif;
-    background: #fdfdfd;
+    background: #FEC010;
     width: 250px;
     overflow: hidden;
     display: inline-block;
@@ -10211,7 +10211,7 @@ fieldset[disabled] .form-control {
 }
 
 .sidebar .menu .list .header {
-    background: #eee;
+    background: #F2F2F2;
     font-size: 12px;
     font-weight: 600;
     padding: 8px 16px;
@@ -10427,7 +10427,7 @@ fieldset[disabled] .form-control {
     /* El fonde se re-escala automáticamente */
     background-size: cover;
 
-    background-color: #ffc107;
+    background-color: #FEC010;
     padding-left: 0;
     max-width: 360px;
     margin: 5% auto;
@@ -10443,7 +10443,7 @@ fieldset[disabled] .form-control {
 .login-page .login-box a {
     font-size: 14px;
     text-decoration: none;
-    color: #ffc107;
+    color: #FEC010;
 }
 
 .login-page .login-box .logo {
@@ -10479,7 +10479,7 @@ fieldset[disabled] .form-control {
     background-attachment: fixed;
     /* El fonde se re-escala automáticamente */
     background-size: cover;
-    background-color: #ffc107;
+    background-color: #FEC010;
     padding-left: 0;
     max-width: 360px;
     margin: 5% auto;
@@ -10605,7 +10605,7 @@ fieldset[disabled] .form-control {
 
 /* Profile Page ================================ */
 .profile-card .profile-header {
-    background-color: #ffc107;
+    background-color: #FEC010;
     padding: 42px 0;
 }
 
