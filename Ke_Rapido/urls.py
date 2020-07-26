@@ -30,8 +30,8 @@ urlpatterns = [
 
     path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
-    path('panel2', views.admin_panel_v2, name="panel2"),
-    path('form_general', views.form_general, name="form_general"),
+    # path('panel2', views.admin_panel_v2, name="panel2"),
+    path('dishes', views.dishes, name="dishes"),
     path('form_editors', views.form_editors, name="form_editors"),
     path('form_advanced', views.form_advanced, name="form_advanced"),
     path('table_simple', views.table_simple, name="table_simple"),

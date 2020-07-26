@@ -1,4 +1,4 @@
-﻿{% extends 'control_panel/base.html' %}
+{% extends 'control_panel/base.html' %}
 {% load static %}
 {% block header_style %}
 
@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DE USUARIOS
-                <small>Módulo para la gestion de usuarios</small>
+                GESTIÓN DE PLATOS
+                <small>Módulo para la gestion de platos de su negocio</small>
             </h2>
         </div>
 
@@ -24,40 +24,40 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE USUARIOS
+                            LISTADO DE PLATOS
                         </h2>
-{#                        <ul class="header-dropdown m-r--5">#}
-{#                            <li class="dropdown">#}
-{#                                <button type="button" class="btn bg-amber waves-effect">#}
-{#                                    <i class="material-icons " style="color: #fff">add_circle</i>#}
-{#                                    <span>AGREGAR</span>#}
-{#                                </button>#}
-{##}
-{#                            </li>#}
-{#                        </ul>#}
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <button type="button" class="btn bg-amber waves-effect">
+                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                    <span>AGREGAR</span>
+                                </button>
+
+                            </li>
+                        </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                 <tr>
+                                    <th>Imagen</th>
                                     <th>Nombre</th>
-                                    <th>Usuario</th>
-                                    <th>Tipo</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Fecha de alta</th>
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+{#                                    <th>Correo</th>#}
+{#                                    <th>Fecha de alta</th>#}
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Imagen</th>
                                     <th>Nombre</th>
-                                    <th>Usuario</th>
-                                    <th>Tipo</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Fecha de alta</th>
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+{#                                    <th>Correo</th>#}
+{#                                    <th>Fecha de alta</th>#}
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
@@ -66,13 +66,13 @@
                                     <td>Jose</td>
                                     <td>pepe</td>
                                     <td>cliente</td>
-                                    <td>52525415</td>
-                                    <td>pepe@as.as</td>
+{#                                    <td>52525415</td>#}
+{#                                    <td>pepe@as.as</td>#}
                                     <td>2011/04/25</td>
                                     <td>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">accessibility</i>
-                                        </a>
+{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+{#                                            <i class="material-icons">accessibility</i>#}
+{#                                        </a>#}
                                         <a type="button" class="btn btn-default waves-effect waves-amber">
                                             <i class="material-icons">edit</i>
                                         </a>
@@ -86,12 +86,12 @@
                                     <td>System Architect</td>
                                     <td>System Architect</td>
                                     <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
+{#                                    <td>61</td>#}
+{#                                    <td>2011/04/25</td>#}
                                     <td>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">accessibility</i>
-                                        </a>
+{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+{#                                            <i class="material-icons">accessibility</i>#}
+{#                                        </a>#}
                                         <a type="button" class="btn btn-default waves-effect waves-amber">
                                             <i class="material-icons">edit</i>
                                         </a>

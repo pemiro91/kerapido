@@ -30,7 +30,9 @@
 .theme-amber .sidebar .menu .list li.active {
   background-color: transparent; }
   .theme-amber .sidebar .menu .list li.active > :first-child i, .theme-amber .sidebar .menu .list li.active > :first-child span {
-    color: #F2F2F2; }
+    /*color: #F2F2F2; */
+    color: #FEC010;
+  }
 
 .theme-amber .sidebar .menu .list .toggled {
   background-color: transparent; }

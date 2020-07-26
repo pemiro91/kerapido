@@ -63,9 +63,9 @@ def admin_panel_v2(request):
     return render(request, "control_panel/index2.html", context)
 
 
-def form_general(request):
+def dishes(request):
     context = {}
-    return render(request, "control_panel/pages/forms/general.html", context)
+    return render(request, "control_panel/pages/listado_platos.html", context)
 
 
 def form_editors(request):

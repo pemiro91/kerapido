@@ -162,7 +162,7 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-.col-red .navbar .nav > li > a {
+    .col-red .navbar .nav > li > a {
     color: #fff;
 }
 
@@ -3774,7 +3774,7 @@ section.content {
 .card .bg-black h2,
 .card .bg-black small,
 .card .bg-black .material-icons {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .card .bg-red .badge,
@@ -10084,7 +10084,8 @@ fieldset[disabled] .form-control {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-family: "Roboto", sans-serif;
-    background: #FEC010;
+    /*background: #FEC010;*/
+    background: #F2F2F2;
     width: 250px;
     overflow: hidden;
     display: inline-block;
@@ -10211,7 +10212,8 @@ fieldset[disabled] .form-control {
 }
 
 .sidebar .menu .list .header {
-    background: #F2F2F2;
+    /*background: #F2F2F2;*/
+    background: #FEC010;
     font-size: 12px;
     font-weight: 600;
     padding: 8px 16px;
@@ -10272,7 +10274,7 @@ fieldset[disabled] .form-control {
 }
 
 .sidebar .menu .list a {
-    color: #747474;
+    color: #212121;
     position: relative;
     display: inline-flex;
     vertical-align: middle;
