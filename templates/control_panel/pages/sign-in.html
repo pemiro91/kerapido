@@ -6,36 +6,36 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
-    <link rel="icon" href="{% static 'control_panel/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/mdb/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/mdb/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'control_panel/mdb/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+    <link href="{% static 'control_panel/mdb/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
 
     <!-- Animation Css -->
-    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
+    <link href="{% static 'control_panel/mdb/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
 
     <!-- Custom Css -->
-    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'control_panel/mdb/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body class="login-page" style="height:100vh;">
 
 <div class="login-box">
-    <div class="logo">
-        <a href="javascript:void(0);"><img  style="max-height: 75px;" src="{% static 'control_panel/images/logo.jpg' %}">
-        Ke<b>RÁPIDO</b></a>
+    <div class="logo" style="height: 30px">
+{#        <a href="javascript:void(0);"><img  style="max-height: 75px;" src="{% static 'control_panel/images/logo.jpg' %}">#}
+{#        Ke<b>RÁPIDO</b></a>#}
 {#        <small>Admin BootStrap Based - Material Design</small>#}
     </div>
     <div class="card">
         <div class="body">
-            <form id="sign_in" method="POST" href="{% url 'base' %}">{% csrf_token %}
+            <form id="sign_in" method="POST" href="{% url 'principal' %}">{% csrf_token %}
                 <div class="msg">Iniciar session</div>
                 <div class="input-group">
                         <span class="input-group-addon">
@@ -65,10 +65,10 @@
                 </div>
                 <div class="row m-t-15 m-b--20">
                     <div class="col-xs-6">
-                        <a href="{% url 'register_business' %}">Regístrese ahora!</a>
+                        <a href="{% url 'register_business' %}"><b>Regístrese ahora!</b></a>
                     </div>
                     <div class="col-xs-6 align-right">
-                        <a href="forgot-password.html">Olvidó la contraseña?</a>
+                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>
                     </div>
                 </div>
             </form>
@@ -79,20 +79,20 @@
 </div>
 
 <!-- Jquery Core Js -->
-<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'control_panel/mdb/plugins/jquery/jquery.min.js' %}"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script src="{% static 'control_panel/mdb/plugins/bootstrap/js/bootstrap.js' %}"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+<script src="{% static 'control_panel/mdb/plugins/node-waves/waves.js' %}"></script>
 
 <!-- Validation Plugin Js -->
-<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
+<script src="{% static 'control_panel/mdb/plugins/jquery-validation/jquery.validate.js' %}"></script>
 
 <!-- Custom Js -->
-<script src="{% static 'control_panel/js/admin.js' %}"></script>
-<script src="{% static 'control_panel/js/pages/examples/sign-in.js' %}"></script>
+<script src="{% static 'control_panel/mdb/js/admin.js' %}"></script>
+<script src="{% static 'control_panel/mdb/js/pages/examples/sign-in.js' %}"></script>
 
 </body>
 

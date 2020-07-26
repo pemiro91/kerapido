@@ -42,6 +42,8 @@ urlpatterns = [
     path('modals', views.modals, name="modals"),
     path('sliders', views.sliders, name="sliders"),
     path('timeline', views.timeline, name="timeline"),
+
+    path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

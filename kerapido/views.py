@@ -35,7 +35,7 @@ def login_negocio(request):
             return redirect('login')
     else:
         form = AuthenticationForm()
-    return render(request, "control_panel/pages/examples/sign-in.html", {'form': form})
+    return render(request, "control_panel/pages/sign-in.html", {'form': form})
 
 
 def admin_panel(request):
@@ -50,7 +50,7 @@ def logout(request):
 
 def profile(request):
     context = {}
-    return render(request, "control_panel/pages/examples/mi_negocio.html", context)
+    return render(request, "control_panel/pages/mi_negocio.html", context)
 
 
 # def register_business(request):
@@ -85,7 +85,7 @@ def table_simple(request):
 
 def users(request):
     context = {}
-    return render(request, "control_panel/pages/tables/listado_usuarios.html", context)
+    return render(request, "control_panel/pages/listado_usuarios.html", context)
 
 
 # ----------UI-----------#
@@ -120,4 +120,8 @@ def timeline(request):
 
 def register_business(request):
     context = {}
-    return render(request, "control_panel/pages/examples/sign-up.html", context)
+    return render(request, "control_panel/pages/sign-up.html", context)
+
+def terminos_condiciones(request):
+    context = {}
+    return render(request, "control_panel/pages/terminos_condiicones.html", context)
