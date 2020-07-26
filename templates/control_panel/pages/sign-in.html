@@ -9,33 +9,31 @@
     <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="{% static 'control_panel/mdb/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'control_panel/mdb/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="{% static 'control_panel/mdb/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="{% static 'control_panel/mdb/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
 
     <!-- Animation Css -->
-    <link href="{% static 'control_panel/mdb/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
+    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
 
     <!-- Custom Css -->
-    <link href="{% static 'control_panel/mdb/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body class="login-page" style="height:100vh;">
 
 <div class="login-box">
     <div class="logo" style="height: 30px">
-{#        <a href="javascript:void(0);"><img  style="max-height: 75px;" src="{% static 'control_panel/images/logo.jpg' %}">#}
-{#        Ke<b>RÁPIDO</b></a>#}
-{#        <small>Admin BootStrap Based - Material Design</small>#}
+
     </div>
     <div class="card">
         <div class="body">
-            <form id="sign_in" method="POST" href="{% url 'principal' %}">{% csrf_token %}
+            <form id="sign_in" method="POST" href="{% url 'panel' %}">{% csrf_token %}
                 <div class="msg">Iniciar session</div>
                 <div class="input-group">
                         <span class="input-group-addon">
@@ -56,8 +54,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8 p-t-5">
-                        {#                        <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">#}
-                        {#                        <label for="rememberme">Remember Me</label>#}
+
                     </div>
                     <div class="col-xs-4">
                         <button class="btn btn-block bg-amber waves-effect" type="submit">REGISTRAR</button>
@@ -79,20 +76,20 @@
 </div>
 
 <!-- Jquery Core Js -->
-<script src="{% static 'control_panel/mdb/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="{% static 'control_panel/mdb/plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="{% static 'control_panel/mdb/plugins/node-waves/waves.js' %}"></script>
+<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
 
 <!-- Validation Plugin Js -->
-<script src="{% static 'control_panel/mdb/plugins/jquery-validation/jquery.validate.js' %}"></script>
+<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
 
 <!-- Custom Js -->
-<script src="{% static 'control_panel/mdb/js/admin.js' %}"></script>
-<script src="{% static 'control_panel/mdb/js/pages/examples/sign-in.js' %}"></script>
+<script src="{% static 'control_panel/js/admin.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/examples/sign-in.js' %}"></script>
 
 </body>
 
