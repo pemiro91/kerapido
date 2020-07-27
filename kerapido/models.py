@@ -29,7 +29,6 @@ class User(AbstractUser):
             perfil_negocio = self.perfil_negocio
         return perfil_negocio
 
-
 class PerfilNegocio(models.Model):
     usuario = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
@@ -39,7 +38,6 @@ class PerfilNegocio(models.Model):
     provincia = models.CharField(max_length=255, null=True, blank=True)
     municipio = models.CharField(max_length=255, null=True, blank=True)
     persona_encargada = models.CharField(max_length=255, null=True, blank=True)
-
     def __unicode__(self):
         return self.id
 

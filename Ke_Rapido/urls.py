@@ -13,30 +13,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls import include
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-
-from kerapido import api
-from kerapido.api import *
+from django.conf.urls import url, include
+from django.conf import settings
+from kerapido import views
+from django.views.generic import TemplateView
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', views.upload_images, name='base'),
-    path('api/account/register', UserCreate.as_view()),
-    path('api/login', api.login),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/negocios/', getNegociosApi),
-    path('api/platos/<int:pk>/', getPlatoApi),
-    path('api/agregos/<int:pk>/', getAgregoApi),
-    path('api/reservar/', postReservaApi),
-    path('api/reservas/<int:pk>/', getReservasApiForID),
-    path('api/tarifas/<int:pk>/', getTarifaApiForID)
+    path('', views.login_negocio, name="login"),
+    path('logout', views.logout, name="logout"),
+    path('profile', views.profile, name="my_business"),
+    path('register_business', views.register_business, name="register_business"),
+
+    path('upload_images', views.upload_images, name='base'),
+    path('panel', views.admin_panel, name="panel"),
+    path('panel2', views.admin_panel_v2, name="panel2"),
+    path('form_general', views.form_general, name="form_general"),
+    path('form_editors', views.form_editors, name="form_editors"),
+    path('form_advanced', views.form_advanced, name="form_advanced"),
+    path('table_simple', views.table_simple, name="table_simple"),
+    path('users', views.users, name="users"),
+    path('buttons', views.buttons, name="buttons"),
+    path('general', views.general, name="general"),
+    path('icon', views.icon, name="icon"),
+    path('modals', views.modals, name="modals"),
+    path('sliders', views.sliders, name="sliders"),
+    path('timeline', views.timeline, name="timeline"),
+
+    path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns = format_suffix_patterns(urlpatterns)
