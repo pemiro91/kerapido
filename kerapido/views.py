@@ -89,9 +89,9 @@ def reservations(request):
     return render(request, "control_panel/pages/listado_reservaciones.html", context)
 
 
-def table_simple(request):
+def nuestros_afiliados(request):
     context = {}
-    return render(request, "control_panel/pages/tables/simple.html", context)
+    return render(request, "nuestros_afiliados.html", context)
 
 
 def users(request):
@@ -100,9 +100,9 @@ def users(request):
 
 
 # ----------UI-----------#
-def buttons(request):
+def terminos_servicio(request):
     context = {}
-    return render(request, "control_panel/pages/UI/buttons.html", context)
+    return render(request, "terminos_servicio.html", context)
 
 
 def general(request):

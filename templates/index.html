@@ -161,8 +161,8 @@
             <div class="section-title">
                 <h2>Quiénes Somos</h2>
                 <p>Ke Rapido tiene el propósito de brindar una herramienta,
-                    que permite a los afiliados, gestionar sus negocios y a los clientes, realizar solicitudes y
-                    reservaciones de productos y/o servicios en linea. De esta forma, pretende garantizar la
+                    que le permite a sus afiliados, gestionar sus negocios y a sus clientes, realizar reservaciones de
+                    productos y/o servicios en linea.De esta forma, pretende garantizar la
                     retroalimentacion continua entre afiliados y clientes, satisfaciendo sus necesidades.
                 </p>
             </div>
@@ -429,9 +429,9 @@
 
 
             </div>
-            <div class="col-lg-12 text-center">
-                <a href="#" class="">Más detalles</a>
-            </div>
+{#            <div class="col-lg-12 text-center">#}
+{#                <a href="#" class="">Más detalles</a>#}
+{#            </div>#}
 
         </div>
     </section><!-- End Portfolio Section -->
@@ -598,9 +598,8 @@
 
             <div class="section-title">
                 <h2>Contáctenos</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <p>Ke Rápido pone a su disposición sus datos de contacto y un formulario para la retroalimentación
+                    continua entre clientes y el equipo de trabajo. Esperamos que le sea de gran utilidad.</p>
             </div>
 
             <div class="row">
@@ -699,15 +698,47 @@
     <div class="footer-top">
         <div class="container">
             <div class="row">
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Nuestro Boletín de Noticias</h4>
+                    <p>Manténgase actualizado con nuestras noticias y actualizaciones.</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscríbete">
+                    </form>
 
+                </div>
+
+
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Enlaces Internos</h4>
+                    <ul>
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros Afiliados</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del Servicio</a></li>
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>#}
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Sitios de Interés</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-info">
                         <h3>Ke Rápido</h3>
-                        <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam excepturi
-                            quod.</em></p>
+                        <p class="pb-3"><em>Le propone a sus afiliados, emplear una herramienta, que le permite
+                            gestionar sus negocios y a los clientes, realizar reservaciones de productos
+                            y/o servicios en linea.</em></p>
                         <p>
-                            A108 Adam Street <br>
-                            NY 535022, USA<br><br>
+{#                            A108 Adam Street <br>#}
+{#                            NY 535022, USA<br><br>#}
                             <strong>Phone:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
@@ -721,36 +752,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Servicios</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Nuestros Servicios</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
-
-                </div>
 
             </div>
         </div>
@@ -758,14 +759,14 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>Alstar</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>Ke Rápido</span></strong>. Todos los Derechos Reservados
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Desarrollado por <a href="https://bootstrapmade.com/">Equipo HabanaTrans</a>
         </div>
     </div>
 </footer><!-- End Footer -->
