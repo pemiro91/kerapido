@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block arbol_ofertas %}
+    <ol>
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'ofertas' %}">Ofertas Laborales</a></li>
+        <li>El Levant</li>
+    </ol>
+{% endblock %}
+{% block contenido %}
+
+    <!-- ======= Oferta Afiliado ======= -->
+    <section id="about" class="about">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    {#                    style="margin-top: 5%" #}
+                    <img src="{% static 'site/img/card-1.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h3>Descripción de la Oferta</h3>
+                    <p >
+                        El equipo de Ke Rapido tiene la misión de brindar un servicio de excelencia a afiliados y a sus
+                        clientes, con rapidez y máxima calidad.
+                    </p>
+                    <ul>
+                        <p >Datos de la persona a contactar</p>
+                        <li><i class="icofont-check-circled"></i>Nombre:
+                        </li>
+
+                        <li><i class="icofont-check-circled"></i>Teléfono:
+                        </li>
+                        <li><i class="icofont-check-circled"></i>Correo:
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Section -->
+
+
+{% endblock %}

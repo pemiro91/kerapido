@@ -69,9 +69,9 @@ def profile(request):
 #     return render(request, "control_panel/pages/examples/sign-up.html", context)
 
 
-def admin_panel_v2(request):
+def detalles_oferta(request,id_negocio):
     context = {}
-    return render(request, "control_panel/index2.html", context)
+    return render(request, "oferta_detalles.html", context)
 
 
 def ofertas_laborales(request):
