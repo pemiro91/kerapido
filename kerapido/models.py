@@ -20,18 +20,12 @@ def images_directory_path(instance, filename):
 class User(AbstractUser):
     telefono = models.CharField(max_length=255, null=True, blank=True)
     is_cliente = models.BooleanField(default=False)
-    is_negocio = models.BooleanField(default=False)
+    is_persona_nogocio = models.BooleanField(default=False)
     is_administrador = models.BooleanField(default=False)
-
-    def get_perfil_negocio(self):
-        perfil_negocio = None
-        if hasattr(self, 'perfilnegocio'):
-            perfil_negocio = self.perfil_negocio
-        return perfil_negocio
 
 
 class PerfilNegocio(models.Model):
-    usuario = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     logo = models.ImageField(upload_to='logo/%Y/%m/%d', null=True, blank=True)
     especialidad = models.CharField(max_length=255, null=True, blank=True)
@@ -95,3 +89,15 @@ class Reservacion_Generada(models.Model):
     reservaciones = models.ManyToManyField(Reservacion_Simple)
     estado = models.CharField(max_length=50, default='Pendiente', name='estado')
     fecha_estado = models.DateField(default=datetime.date.today)
+
+
+class Provincia(models.Model):
+    nombre = models.CharField(max_length=255)
+    def str(self): return str(self.nombre)
+
+
+class Municipio(models.Model):
+    nombre = models.CharField(max_length=255)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, name='provincia')
+
+    def str(self): return str(self.nombre)
