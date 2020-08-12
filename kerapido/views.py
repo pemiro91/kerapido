@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.conf.urls import handler404
 
+
 # Create your views here.
 
 def upload_images(request):
@@ -19,6 +20,7 @@ def upload_images(request):
     context = {}
     return render(request, "control_panel/base.html", context)
 
+
 #
 # def principal(request):
 #     context = {}
@@ -28,7 +30,8 @@ def principal(request):
     context = {}
     return render(request, "index.html", context)
 
-def login(request):
+
+def login_admin(request):
     if request.POST:
         form = AuthenticationForm(request.POST)
         username = request.POST.get('username')
@@ -71,9 +74,9 @@ def admin_panel_v2(request):
     return render(request, "control_panel/index2.html", context)
 
 
-def menu(request):
+def ofertas_laborales(request):
     context = {}
-    return render(request, "control_panel/pages/menu.html", context)
+    return render(request, "ofertas.html", context)
 
 
 def categories(request):
@@ -126,9 +129,11 @@ def error404(request):
     context = {}
     return render(request, "control_panel/pages/404.html", context)
 
+
 def register_business(request):
     context = {}
     return render(request, "control_panel/pages/sign-up.html", context)
+
 
 def terminos_condiciones(request):
     context = {}

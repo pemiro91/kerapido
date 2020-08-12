@@ -38,8 +38,8 @@
 <body>
 
 <!-- ======= Header ======= -->
-<header id="header" class="fixed-top">
-    <div class="container d-flex">
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
 
         <div class="logo mr-auto">
             <h1 class="text-dark"><a href="index.html"><span>Ke Rápido</span></a></h1>
@@ -53,104 +53,29 @@
                 <li><a href="#about">Quiénes somos</a></li>
                 <li><a href="#services">Servicios</a></li>
                 <li><a href="#portfolio"> Afiliados</a></li>
-                {#          <li><a href="#team">Equipo</a></li>#}
-                {#          <li class="drop-down"><a href="">Drop Down</a>#}
-                {#            <ul>#}
-                {#              <li><a href="#">Drop Down 1</a></li>#}
-                {#              <li class="drop-down"><a href="#">Drop Down 2</a>#}
-                {#                <ul>#}
-                {#                  <li><a href="#">Deep Drop Down 1</a></li>#}
-                {#                  <li><a href="#">Deep Drop Down 2</a></li>#}
-                {#                  <li><a href="#">Deep Drop Down 3</a></li>#}
-                {#                  <li><a href="#">Deep Drop Down 4</a></li>#}
-                {#                  <li><a href="#">Deep Drop Down 5</a></li>#}
-                {#                </ul>#}
-                {#              </li>#}
-                {#              <li><a href="#">Drop Down 3</a></li>#}
-                {#              <li><a href="#">Drop Down 4</a></li>#}
-                {#              <li><a href="#">Drop Down 5</a></li>#}
-                {#            </ul>#}
-                {#          </li>#}
+
                 <li><a href="#contact">Contáctenos</a></li>
-{#                <li><a href="#pricing" class="btn-dark" style="color: #FEC010">Descárgue la apk</a></li>#}
-                 <li><a href="#pricing">Descárgue la apk</a></li>
+                <li><a href="#pricing" class="btn-dark" style="color: #FEC010">Descárgue la apk</a></li>
                 <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
             </ul>
         </nav><!-- .nav-menu -->
 
     </div>
 </header><!-- End Header -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
 
-<!-- ======= Hero Section ======= -->
-<section id="hero">
-    <div class="hero-container">
-        <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-
-            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-
-            <div class="carousel-inner" role="listbox">
-
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
-                                                          alt="">
-                    </div>
-                    <div class="carousel-container">
-                        <div class="carousel-content">
-                            <h2 class="animated fadeInDown">Bienvenido
-                                {#                    <span>Alstar</span>#}
-                            </h2>
-                            <p class="animated fadeInUp">Lo invitamos a navegar por nuestro sitio web y conocer detalles
-                                de los servicios que ofrecemos </p>
-                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">COMENZAR</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
-                                                          alt="">
-                    </div>
-                    <div class="carousel-container">
-                        <div class="carousel-content">
-                            <h2 class="animated fadeInDown">Bienvenido</h2>
-                            <p class="animated fadeInUp">Deguste las exquisitas ofertas de los restaurantes y
-                                paladares cubanos, ya sea por pedido a domicilio, recogida o reservación.</p>
-                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">Comenzar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
-                                                          alt="">
-                    </div>
-                    <div class="carousel-container">
-                        <div class="carousel-content">
-                            <h2 class="animated fadeInDown">Bienvenido</h2>
-                            <p class="animated fadeInUp">Al alcance de una simple gestión con Ke Rápido.</p>
-                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">Comenzar</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon icofont-thin-double-left" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-            </a>
-
-            <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon icofont-thin-double-right" aria-hidden="true"></span>
-                <span class="sr-only">Siguiente</span>
-            </a>
-
+        <div class="section-title d-flex justify-content-between align-items-center">
+            <h2>Ofertas Laborales</h2>
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Portfolio Details</li>
+            </ol>
         </div>
+
     </div>
-</section><!-- End Hero -->
+</section>
+
 
 <main id="main">
 
@@ -167,91 +92,51 @@
                 </p>
             </div>
 
+        </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Cards Section ======= -->
+    <section id="cards" class="cards">
+        <div class="container">
+
             <div class="row">
-                <div class="col-lg-4">
-                    <img src="{% static 'control_panel/images/logo.jpg' %}" class="img-fluid" alt="">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="card">
+                        <img src="assets/img/card-1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="">Autem sunt earum</a></h5>
+                            <p class="card-text">Et architecto provident deleniti facere repellat nobis iste. Id facere
+                                quia quae dolores dolorem tempore</p>
+                            <a href="#" class="btn">Explore more</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-8 pt-4 pt-lg-0 content">
-                    <h3>¿Qué hacemos?</h3>
-                    <p class="font-italic">
-                        El equipo de Ke Rapido tiene la misión de brindar un servicio de excelencia a afiliados y a sus
-                        clientes, con rapidez y máxima calidad.
-                    </p>
-                    <ul>
-                        <li><i class="icofont-check-circled"></i> Nuestros afiliados mediante la herramienta pueden
-                            gestionar sus negocios, despachar las reservaciones y atender a las solicitudes de sus
-                            clientes.
-                        </li>
-                        <li><i class="icofont-check-circled"></i> Los clientes mediante la herramienta pueden realizar
-                            reservaciones de productos y/o servicios ofertados
-                            por nuestros afiliados.
-                        </li>
-                        {#              <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>#}
-                    </ul>
-                    {#            <p>#}
-                    {#              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate#}
-                    {#              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in#}
-                    {#              culpa qui officia deserunt mollit anim id est laborum#}
-                    {#            </p>#}
-                    <h3>Hacia donde vamos</h3>
-                    <p class="font-italic">
-                        El equipo de Ke Rapido tiene la visión de aumentar nuestros servicios, con la posibilidad de
-                        realizar pagos en línea
-                        tanto en el territorio nacional como en el internacional
-                    </p>
-                    <ul>
-                        <li><i class="icofont-check-circled"></i> A Nuestros afiliados, ofrecerles un
-                            mayor alcance a sus productos y/o servicios, con los porcientos más bajos a pagar por los
-                            servicios prestados con la herramienta.
-                        </li>
-                        {#              <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>#}
-                        {#              <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>#}
-                    </ul>
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="card">
+                        <img src="assets/img/card-2.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="">Nobis et tempore</a></h5>
+                            <p class="card-text">Ut quas omnis est. Non et aut tempora dignissimos similique in
+                                dignissimos. Sit incidunt et odit iusto</p>
+                            <a href="#" class="btn">Explore more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="card">
+                        <img src="assets/img/card-3.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="">Facere quia quae dolores</a></h5>
+                            <p class="card-text">Modi ut et delectus. Modi nobis saepe voluptates nostrum. Sed quod
+                                consequatur quia provident dera</p>
+                            <a href="#" class="btn">Explore more</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
-    </section><!-- End About Section -->
-
-    {#    <!-- ======= Cards Section ======= -->#}
-    {#    <section id="cards" class="cards">#}
-    {#      <div class="container">#}
-    {##}
-    {#        <div class="row">#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-1.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Autem sunt earum</a></h5>#}
-    {#                <p class="card-text">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-2.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Nobis et tempore</a></h5>#}
-    {#                <p class="card-text">Ut quas omnis est. Non et aut tempora dignissimos similique in dignissimos. Sit incidunt et odit iusto</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-3.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Facere quia quae dolores</a></h5>#}
-    {#                <p class="card-text">Modi ut et delectus. Modi nobis saepe voluptates nostrum. Sed quod consequatur quia provident dera</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#        </div>#}
-    {##}
-    {#      </div>#}
-    {#    </section><!-- End Cards Section -->#}
+    </section><!-- End Cards Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services section-bg">
@@ -259,7 +144,8 @@
 
             <div class="section-title">
                 <h2>Servicios</h2>
-                <p>Los servicios principales de Ke Rápido, han sido diseñados y desarrollados pensando en las necesidades de nuestros
+                <p>Los servicios principales de Ke Rápido, han sido diseñados y desarrollados pensando en las
+                    necesidades de nuestros
                     afiliados y sus clientes </p>
             </div>
 
@@ -325,7 +211,7 @@
             <div class="text-center">
                 <h3>Ofertas Laborales</h3>
                 <p> Los invitamos a conocer las ofertas laborales publicadas por nuestros afiliados.</p>
-                <a class="cta-btn" href="{% url 'ofertas' %}">Leer Más</a>
+                <a class="cta-btn" href="#">Leer Más</a>
             </div>
 
         </div>

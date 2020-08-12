@@ -25,7 +25,7 @@ from django.conf.urls import handler404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.principal, name="index"),
-    path('user', views.login, name="login"),
+    path('user', views.login_admin, name="login"),
     path('logout', views.logout, name="logout"),
     path('profile', views.profile, name="my_business"),
     path('register_business', views.register_business, name="register_business"),
@@ -33,7 +33,7 @@ urlpatterns = [
     path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
     # path('panel2', views.admin_panel_v2, name="panel2"),
-    path('menu', views.menu, name="menu"),
+    path('ofertas', views.ofertas_laborales, name="ofertas"),
     path('categories', views.categories, name="categories"),
     path('reservations', views.reservations, name="reservations"),
     path('table_simple', views.table_simple, name="table_simple"),

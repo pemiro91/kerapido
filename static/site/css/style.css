@@ -135,8 +135,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
-  color: #F2F2F2;
+  color: #FEC010;
   text-decoration: none;
+  background-color: #212121;
 }
 
 .nav-menu .drop-down ul {
@@ -615,7 +616,7 @@ section {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: linear-gradient(rgba(2, 2, 2, 0.1), rgba(0, 0, 0, 0.5)), url("../../control_panel/images/fondo.jpg") fixed center center;
+  background: linear-gradient(rgba(2, 2, 2, 0.1), rgba(0, 0, 0, 0.5)), url("../../site/img/Ke_rapido1.3.3.2_1080x607.jpg") fixed center center;
   background-size: cover;
   padding: 120px 0;
 }
@@ -1245,3 +1246,25 @@ section {
     margin: -20px 0 30px 0;
   }
 }
+.breadcrumbs {
+    padding: 15px 0;
+    background: #F2F2F2;
+    min-height: 40px;
+    margin-top: 80px;}
+/*.align-items-center {*/
+/*    -ms-flex-align: center!important;*/
+/*    align-items: center!important}*/
+/*.justify-content-between {*/
+/*    -ms-flex-pack: justify!important;*/
+/*    justify-content: space-between!important;*/
+/*}*/
+.breadcrumbs ol li + li {
+    padding-left: 10px;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.breadcrumbs ol {
+
+    list-style: none;}

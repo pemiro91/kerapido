@@ -10419,7 +10419,7 @@ fieldset[disabled] .form-control {
 .login-page {
 
     /* Ruta relativa o completa a la imagen */
-    background-image: url("../images/fondo.jpg");
+    background-image: url("../../site/img/Ke_rapido1.3.3.2_1080x607.jpg");
     /* Centramos el fondo horizontal y verticalmente */
     background-position: center center;
     /* El fonde no se repite */
