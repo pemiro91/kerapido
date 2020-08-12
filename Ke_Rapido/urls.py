@@ -22,6 +22,8 @@ from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf.urls import handler404
 
+from kerapido.api import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.principal, name="index"),
@@ -46,6 +48,16 @@ urlpatterns = [
     # path('timeline', views.timeline, name="timeline"),
 
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
+
+    path('api/account/register', UserCreate.as_view()),
+    path('api/login', login),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/negocios/', getNegociosApi),
+    path('api/platos/<int:pk>/', getPlatoApi),
+    path('api/agregos/<int:pk>/', getAgregoApi),
+    path('api/reservar/', postReservaApi),
+    path('api/reservas/<int:pk>/', getReservasApiForID),
+    path('api/tarifas/<int:pk>/', getTarifaApiForID)
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
