@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
-            <h2>DASHBOARD</h2>
+            <h2>PRINCIPAL</h2>
         </div>
 
         <!-- Widgets -->
@@ -14,7 +14,7 @@
                         <i class="material-icons">playlist_add_check</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW TASKS</div>
+                        <div class="text">NUEVAS RESERVACIONES</div>
                         <div class="number count-to" data-from="0" data-to="125" data-speed="15"
                              data-fresh-interval="20"></div>
                     </div>
@@ -26,7 +26,7 @@
                         <i class="material-icons">help</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW TICKETS</div>
+                        <div class="text">NUEVOS PLATOS</div>
                         <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
@@ -38,7 +38,7 @@
                         <i class="material-icons">forum</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW COMMENTS</div>
+                        <div class="text">NUEVOS MENSAJES</div>
                         <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
@@ -50,7 +50,7 @@
                         <i class="material-icons">person_add</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW VISITORS</div>
+                        <div class="text">NUEVOS CLIENTES</div>
                         <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
@@ -58,167 +58,159 @@
             </div>
         </div>
         <!-- #END# Widgets -->
-        <!-- CPU Usage -->
-        <div class="row clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="header">
-                        <div class="row clearfix">
-                            <div class="col-xs-12 col-sm-6">
-                                <h2>PLATOS</h2>
-                                <p style="margin-top: 1em">Revise el listado de platos que oferta en su negocio</p>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 align-right">
-                                <div class="switch panel-switch-btn">
-                                    <a class="btn bg-amber waves-effect m-b-15" role="button" data-toggle="collapse"
-                                       href="#collapseExample" aria-expanded="false"
-                                       aria-controls="collapseExample">
-                                        <i class="material-icons">more_horiz</i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="body">
-                        <div class="collapse" id="collapseExample">
-
-                            <div class="panel panel-default panel-post">
-                                {#                                <div class="panel-heading">#}
-                                {#                                    <div class="media">#}
-                                {#                                        <div class="media-body">#}
-                                {#                                            <h3 class="media-heading">#}
-                                {#                                                <a href="#">Platos</a>#}
-                                {#                                            </h3>#}
-                                {##}
-                                {#                                        </div>#}
-                                {#                                    </div>#}
-                                {#                                </div>#}
-                                <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}
-                                    <div class="row" style="margin: 2em 0 0 0">
-                                        <div class="col-md-8 col-sm-10 col-xs-12">
-
-                                        </div>
-                                        <div class="col-lg-4 col-sm-10 col-xs-12">
-                                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                        <i class="material-icons">search</i>
-                                    </span>
-                                                <div class="form-line">
-                                                    <input type="search" class="form-control" name="buscar"
-                                                           placeholder="Buscar" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="post">
+{#        <!-- Platos -->#}
+{#        <div class="row clearfix">#}
+{#            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
+{#                <div class="card">#}
+{#                    <div class="header">#}
+{#                        <div class="row clearfix">#}
+{#                            <div class="col-xs-12 col-sm-6">#}
+{#                                <h2>PLATOS</h2>#}
+{#                                <p style="margin-top: 1em">Revise el listado de platos que oferta en su negocio</p>#}
+{#                            </div>#}
+{#                            <div class="col-xs-12 col-sm-6 align-right">#}
+{#                                <div class="switch panel-switch-btn">#}
+{##}
+{#                                    <a class="btn bg-secondary waves-effect m-b-15" role="button" data-toggle="collapse"#}
+{#                                       href="#collapseExample" aria-expanded="false"#}
+{#                                       aria-controls="collapseExample">#}
+{#                                        <i class="material-icons">more_horiz</i>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                    <div class="body">#}
+{#                        <div class="collapse" id="collapseExample">#}
+{##}
+{#                            <div class="panel panel-default panel-post">#}
+{##}
+{#                                <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}#}
+{#                                    <div class="row" style="margin: 2em 0 0 0">#}
+{#                                        <div class="col-md-8 col-sm-10 col-xs-12">#}
+{##}
+{#                                        </div>#}
+{#                                        <div class="col-lg-4 col-sm-10 col-xs-12">#}
+{#                                            <div class="input-group">#}
+{#                                        <span class="input-group-addon">#}
+{#                                        <i class="material-icons">search</i>#}
+{#                                    </span>#}
+{#                                                <div class="form-line">#}
+{#                                                    <input type="search" class="form-control" name="buscar"#}
+{#                                                           placeholder="Buscar" required>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="panel-body">#}
+{#                                        <div class="post">#}
                                             {#                                                <div class="post-heading">#}
                                             {#                                                    <p>Listado de platos que ofertan</p>#}
                                             {#                                                </div>#}
-                                            <div class="post-content">
-                                                <div class="container-fluid">
-                                                    <div class="block-header">
+{#                                            <div class="post-content">#}
+{#                                                <div class="container-fluid">#}
+{#                                                    <div class="block-header">#}
                                                         {#                                                            <h2>BASIC CARD</h2>#}
-                                                    </div>
-                                                    <!-- Basic Card -->
-                                                    <div class="row clearfix">
-
-
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header" style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}" alt="">
-                                                                </div>
+{#                                                    </div>#}
+{#                                                    <!-- Basic Card -->#}
+{#                                                    <div class="row clearfix">#}
+{##}
+{##}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}" alt="">#}
+{#                                                                </div>#}
                                                                 {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Masas de Cerdo fritas</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$5.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Masas de cerdo fritas,acompañado de una racion
-                                                                    de arroz congris, yuca,platanos fritos y
-                                                                    ensalada de aguacate
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header" style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}" alt="">
-                                                                </div>
+{#                                                                <div class="body" >#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Masas de Cerdo fritas</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$5.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Masas de cerdo fritas,acompañado de una racion#}
+{#                                                                    de arroz congris, yuca,platanos fritos y#}
+{#                                                                    ensalada de aguacate#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}" alt="">#}
+{#                                                                </div>#}
                                                                 {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Ropa vieja</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$7.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Ropa vieja,acompañada de arroz,
-                                                                    frijoles,platanos fritos y ensalada de aguacate
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header" style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}" alt="">
-                                                                </div>
+{#                                                                <div class="body">#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Ropa vieja</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$7.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Ropa vieja,acompañada de arroz,#}
+{#                                                                    frijoles,platanos fritos y ensalada de aguacate#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}" alt="">#}
+{#                                                                </div>#}
                                                                 {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Carne de Cerdo</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$5.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Carne de cerdo, acompañado de arroz
-                                                                    congris,tamal,tostones y ensalada de aguacate.
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-left: 70%">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination pg-blue justify-content-end">
-                                                <li class="page-item ">
-                                                    <a class="page-link" tabindex="-1">Anterior</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link">1</a></li>
-                                                <li class="page-item active">
-                                                    <a class="page-link">2 <span class="sr-only">(current)</span></a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link">3</a></li>
-                                                <li class="page-item ">
-                                                    <a class="page-link">Próximo</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{#                                                                <div class="body">#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Carne de Cerdo</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$5.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Carne de cerdo, acompañado de arroz#}
+{#                                                                    congris,tamal,tostones y ensalada de aguacate.#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div style="margin-left: 68%">#}
+{#                                        <nav aria-label="Page navigation example" >#}
+{#                                            <ul class="pagination pg-blue ">#}
+{#                                                <li class="page-item justify-content-end">#}
+{#                                                    <a class="page-link" tabindex="-1">Anterior</a>#}
+{#                                                </li>#}
+{#                                                <li class="page-item"><a class="page-link">1</a></li>#}
+{#                                                <li class="page-item active">#}
+{#                                                    <a class="page-link">2 <span class="sr-only">(current)</span></a>#}
+{#                                                </li>#}
+{#                                                <li class="page-item"><a class="page-link">3</a></li>#}
+{#                                                <li class="page-item ">#}
+{#                                                    <a class="page-link">Próximo</a>#}
+{#                                                </li>#}
+{#                                            </ul>#}
+{#                                        </nav>#}
+{#                                    </div>#}
+{#                                </form>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <!-- #END# CPU Usage -->
         <div class="row clearfix">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -227,15 +219,16 @@
                         <h2>ÚLTIMAS 5 RESERVACIONES</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                   role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
+                                <a class="btn bg-pink waves-effect m-b-15" role="button"
+                                       href="" aria-expanded="false"
+                                       aria-controls="">
+                                        VER MÁS
+                                    </a>
+{#                                <ul class="dropdown-menu pull-right">#}
+{#                                    <li><a href="javascript:void(0);">Action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
+{#                                </ul>#}
                             </li>
                         </ul>
                     </div>
@@ -267,7 +260,7 @@
                                 <tr>
                                     <td>2</td>
 
-                                    <td>John Doe</td>
+                                    <td><a>Raquel Zalazar</a></td>
                                     <td>Comida para llevar</td>
                                     <td><span class="label bg-blue">Entregada</span></td>
                                     <td>
@@ -286,24 +279,28 @@
             <!-- Answered Tickets -->
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="card">
-                    <div class="body bg-black">
-                        <div class="font-bold m-b--35">AGREGOS</div>
-                        <ul class="dashboard-stat-list">
+                    <div class="body bg-amber">
+                        <div style="color: #000" class="font-bold m-b--35">AGREGOS</div>
+                        <ul style="color: #000" class="dashboard-stat-list">
                             <li>
                                 QUESO
-                                <span class="pull-right"><b>$1.00</b> <small>CUC</small></span>
+                                <span  class="pull-right"><b>$1.00</b> <small  >CUC</small></span>
                             </li>
                             <li>
-                                JAMON
-                                <span class="pull-right"><b>$1.00</b> <small>CUC</small></span>
+                                JAMÓN
+                                <span  class="pull-right"><b>$1.00</b> <small >CUC</small></span>
+                            </li>
+                            <li>
+                                CEBOLLA
+                                <span  class="pull-right"><b>$1.00</b> <small >CUC</small></span>
                             </li>
                             <li>
                                 CHORIZO
-                                <span class="pull-right"><b>$1.50</b> <small>CUC</small></span>
+                                <span  class="pull-right"><b>$1.50</b> <small >CUC</small></span>
                             </li>
                             <li>
                                 PIMIENTO
-                                <span class="pull-right"><b>$1.50</b> <small>CUC</small></span>
+                                <span  class="pull-right"><b>$1.50</b> <small>CUC</small></span>
                             </li>
 {#                            <li>#}
 {#                                LAST YEAR#}

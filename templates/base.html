@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Ke Rápido-Sitio Web</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'control_panel/images/logo.jpg' %}" rel="icon">
+    <link href="{% static 'control_panel/images/logo.jpg' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'site/css3.css' %}" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'site/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/venobox/venobox.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'site/css/style.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Alstar - v2.0.0
+    * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+        <div class="logo mr-auto">
+            <h1 class="text-dark"><a href="{% url 'index' %}"><span>Ke Rápido</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="{% url 'index' %}#header">Inicio</a></li>
+                <li><a href="{% url 'index' %}#about">Quiénes somos</a></li>
+                <li><a href="{% url 'index' %}#services">Servicios</a></li>
+                <li><a href="{% url 'index' %}#portfolio"> Afiliados</a></li>
+
+                <li><a href="{% url 'index' %}#contact">Contáctenos</a></li>
+                <li><a href="{% url 'index' %}#pricing" class="btn-dark" style="color: #FEC010">Descárgue la apk</a>
+                </li>
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
+
+    </div>
+</header><!-- End Header -->
+<section id="breadcrumbs" class="breadcrumbs" style="height: 100px">
+    <div class="container">
+
+        <div class="section-title d-flex justify-content-between align-items-center">
+
+            {% block arbol_ofertas %}
+
+            {% endblock %}
+        </div>
+
+    </div>
+</section>
+
+
+<main id="main">
+{% block contenido %}
+
+{% endblock %}
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Nuestro Boletín de Noticias</h4>
+                    <p>Manténgase actualizado con nuestras noticias y actualizaciones.</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscríbete">
+                    </form>
+
+                </div>
+
+
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Enlaces Internos</h4>
+                    <ul>
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros Afiliados</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del Servicio</a></li>
+{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>#}
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Sitios de Interés</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-info">
+                        <h3>Ke Rápido</h3>
+                        <p class="pb-3"><em>Le propone a sus afiliados, emplear una herramienta, que le permite
+                            gestionar sus negocios y a los clientes, realizar reservaciones de productos
+                            y/o servicios en linea.</em></p>
+                        <p>
+{#                            A108 Adam Street <br>#}
+{#                            NY 535022, USA<br><br>#}
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Ke Rápido</span></strong>. Todos los Derechos Reservados
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/ -->
+            Desarrollado por <a href="https://bootstrapmade.com/">Equipo HabanaTrans</a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'site/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'site/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'site/js/main.js' %}"></script>
+
+</body>
+
+</html>

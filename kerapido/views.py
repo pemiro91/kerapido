@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
+from django.conf.urls import handler404
 
 
 # Create your views here.
@@ -20,7 +21,17 @@ def upload_images(request):
     return render(request, "control_panel/base.html", context)
 
 
-def login_negocio(request):
+#
+# def principal(request):
+#     context = {}
+#     return render(request, "master/index.html", context)
+
+def principal(request):
+    context = {}
+    return render(request, "index.html", context)
+
+
+def login_admin(request):
     if request.POST:
         form = AuthenticationForm(request.POST)
         username = request.POST.get('username')
@@ -58,29 +69,29 @@ def profile(request):
 #     return render(request, "control_panel/pages/examples/sign-up.html", context)
 
 
-def admin_panel_v2(request):
+def detalles_oferta(request,id_negocio):
     context = {}
-    return render(request, "control_panel/index2.html", context)
+    return render(request, "oferta_detalles.html", context)
 
 
-def form_general(request):
+def ofertas_laborales(request):
     context = {}
-    return render(request, "control_panel/pages/forms/general.html", context)
+    return render(request, "ofertas.html", context)
 
 
-def form_editors(request):
+def categories(request):
     context = {}
-    return render(request, "control_panel/pages/forms/editors.html", context)
+    return render(request, "control_panel/pages/listado_categorias.html", context)
 
 
-def form_advanced(request):
+def reservations(request):
     context = {}
-    return render(request, "control_panel/pages/forms/form-wizard.html", context)
+    return render(request, "control_panel/pages/listado_reservaciones.html", context)
 
 
-def table_simple(request):
+def nuestros_afiliados(request):
     context = {}
-    return render(request, "control_panel/pages/tables/simple.html", context)
+    return render(request, "nuestros_afiliados.html", context)
 
 
 def users(request):
@@ -89,9 +100,9 @@ def users(request):
 
 
 # ----------UI-----------#
-def buttons(request):
+def terminos_servicio(request):
     context = {}
-    return render(request, "control_panel/pages/UI/buttons.html", context)
+    return render(request, "terminos_servicio.html", context)
 
 
 def general(request):
@@ -114,13 +125,15 @@ def sliders(request):
     return render(request, "control_panel/pages/UI/sliders.html", context)
 
 
-def timeline(request):
+def error404(request):
     context = {}
-    return render(request, "control_panel/pages/UI/timeline.html", context)
+    return render(request, "control_panel/pages/404.html", context)
+
 
 def register_business(request):
     context = {}
     return render(request, "control_panel/pages/sign-up.html", context)
+
 
 def terminos_condiciones(request):
     context = {}

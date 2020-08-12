@@ -4,7 +4,7 @@
 <head style="height:100vh;">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+    <title>Inicio de sessión | Panel de Control</title>
     <!-- Favicon-->
     <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
 
@@ -25,7 +25,7 @@
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 </head>
 
-<body class="login-page" style="height:100vh;">
+<body class="login-page">
 
 <div class="login-box">
     <div class="logo" style="height: 30px">
@@ -34,7 +34,7 @@
     <div class="card">
         <div class="body">
             <form id="sign_in" method="POST" href="{% url 'panel' %}">{% csrf_token %}
-                <div class="msg">Iniciar session</div>
+                <div class="msg">Inicio de sessión </div>
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -52,20 +52,24 @@
                         <input type="password" class="form-control" name="password" placeholder="Password" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-8 p-t-5">
-
+{#                <div class="row">#}
+                    <button class="btn btn-block bg-amber waves-effect" type="submit">INICIAR</button>
+{#                    <div class="col-xs-8 p-t-5">#}
+{##}
+{#                    </div>#}
+{#                    <div class="col-xs-4">#}
+{#                        <button class="btn btn-block bg-amber waves-effect" type="submit">INICIAR</button>#}
+{#                    </div>#}
+{#                </div>#}
+                <div class="row m-t-20 m-b--10">
+                    <div class="col-xs-5">
+                        <a href="{% url 'register_business' %}" ><b>Regístrese aquí!</b></a>
                     </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-block bg-amber waves-effect" type="submit">REGISTRAR</button>
-                    </div>
-                </div>
-                <div class="row m-t-15 m-b--20">
-                    <div class="col-xs-6">
-                        <a href="{% url 'register_business' %}"><b>Regístrese ahora!</b></a>
-                    </div>
-                    <div class="col-xs-6 align-right">
+                    <div class="col-xs-7 align-right">
                         <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>
+                    </div>
+                    <div class="col-xs-12 align-center">
+                        <a href="{% url 'index' %}"><b>Ir al Sitio Web Oficial</b></a>
                     </div>
                 </div>
             </form>

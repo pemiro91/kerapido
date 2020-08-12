@@ -1,0 +1,146 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>
+                GESTIÓN DE RESERVACIONES
+                <small>Módulo para la gestion de reservaciones</small>
+            </h2>
+        </div>
+
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE RESERVACIONES
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <button type="button" class="btn bg-amber waves-effect">
+                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                    <span>AGREGAR</span>
+                                </button>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+{#                                    <th>Correo</th>#}
+{#                                    <th>Fecha de alta</th>#}
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+{#                                    <th>Correo</th>#}
+{#                                    <th>Fecha de alta</th>#}
+                                    <th>Acciones</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td>Jose</td>
+                                    <td>pepe</td>
+                                    <td>cliente</td>
+{#                                    <td>52525415</td>#}
+{#                                    <td>pepe@as.as</td>#}
+                                    <td>2011/04/25</td>
+                                    <td>
+{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+{#                                            <i class="material-icons">accessibility</i>#}
+{#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+{#                                    <td>61</td>#}
+{#                                    <td>2011/04/25</td>#}
+                                    <td>
+{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+{#                                            <i class="material-icons">accessibility</i>#}
+{#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+
+{% endblock %}
+
+{#    <!-- Jquery Core Js -->#}
+{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
+{##}
+{#    <!-- Bootstrap Core Js -->#}
+{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
+{##}
+{#    <!-- Select Plugin Js -->#}
+{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
+{##}
+{#    <!-- Slimscroll Plugin Js -->#}
+{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
+{##}
+{#    <!-- Waves Effect Plugin Js -->#}
+{#    <script src="../../plugins/node-waves/waves.js"></script>#}
+

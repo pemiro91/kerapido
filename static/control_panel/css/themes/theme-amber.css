@@ -1,5 +1,5 @@
 ﻿.theme-amber .navbar {
-  background-color: #FFC107; }
+  background-color: #212121; }
 
 .theme-amber .navbar-brand {
   color: #fff; }
@@ -30,7 +30,9 @@
 .theme-amber .sidebar .menu .list li.active {
   background-color: transparent; }
   .theme-amber .sidebar .menu .list li.active > :first-child i, .theme-amber .sidebar .menu .list li.active > :first-child span {
-    color: #FFC107; }
+    /*color: #F2F2F2; */
+    color: #FEC010;
+  }
 
 .theme-amber .sidebar .menu .list .toggled {
   background-color: transparent; }
@@ -39,7 +41,9 @@
   background-color: transparent; }
 
 .theme-amber .sidebar .legal {
-  background-color: #fff; }
+  /*background-color: #FEC010; */
+  background-color: #F2F2F2;
+}
   .theme-amber .sidebar .legal .copyright a {
     color: #FFC107 !important; }
 
