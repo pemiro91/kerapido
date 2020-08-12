@@ -1,0 +1,360 @@
+﻿{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/mdb/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-3">
+                <div class="card profile-card">
+                    <div class="profile-header">&nbsp;</div>
+                    <div class="profile-body">
+                        <div class="image-area">
+                            <img style="width: 90px;height: 90px"
+                                 src="{% static 'control_panel/images/negocios/levant.jpg' %}"
+                                 alt="AdminBSB - Profile Image"/>
+                        </div>
+                        <div class="content-area">
+                            <h3>El Levant</h3>
+{#                            <p>Web Software Developer</p>#}
+                            <p>Negocio</p>
+                        </div>
+                    </div>
+                    <div class="profile-footer">
+                        <ul>
+                            <li>
+                                <span>Ofertas</span>
+                                <span>1.234</span>
+                            </li>
+                            <li>
+                                <span>Reservaciones</span>
+                                <span>1.201</span>
+                            </li>
+                            <li>
+                                <span>Friends</span>
+                                <span>14.252</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>
+                    </div>
+                </div>
+
+                <div class="card card-about-me">
+                    <div class="header">
+                        <h2>DATOS DEL NEGOCIO</h2>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">location_on</i>
+                                    Dirección
+                                </div>
+                                <div class="content">
+                                    Malibu, California
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">edit</i>
+                                    Especialidad
+                                </div>
+                                <div class="content">
+                                    <span class="label bg-red">UI Design</span>
+                                    <span class="label bg-teal">JavaScript</span>
+                                    <span class="label bg-blue">PHP</span>
+                                    <span class="label bg-amber">Node.js</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">library_books</i>
+                                    Servicios
+                                </div>
+                                <div class="content">
+                                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">notes</i>
+                                    Description
+                                </div>
+                                <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <div class="card">
+                    <div class="body">
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                                          data-toggle="tab">Información</a></li>
+                                <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab"
+                                                           data-toggle="tab">Actualizar Información</a></li>
+                                <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
+                                                           role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                    <div class="panel panel-default panel-post">
+                                        <div class="panel-heading">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    {#                                                    <a href="#">#}
+                                                    {#                                                        <img style="height: 50px;width: 50px" src="{% static 'control_panel/images/negocios/levant.jpg' %}"/>#}
+                                                    {#                                                    </a>#}
+                                                </div>
+                                                <div class="media-body">
+                                                    <span class="icon">
+                                                        <i class="material-icons">place</i>
+                                                        Aguila y Salud. Centro Habana. La Habana
+                                                    </span><br>
+                                                    <span class="icon">
+                                                        <i class="material-icons">smartphone</i>
+                                                        +53-555555
+                                                    </span><br>
+                                                    <span class="icon">
+                                                        <i class="material-icons">phone</i>
+                                                        +53-777777
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="post">
+                                                <div class="post-heading">
+                                                    <p>
+                                                        Eslogan
+                                                    </p>
+                                                </div>
+                                                <div class="post-content">
+                                                    <img src="{% static 'control_panel/images/profile-post-image.jpg' %}"
+                                                         class="img-responsive"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="panel panel-default panel-post">
+                                        <div class="panel-heading">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h3 class="media-heading">
+                                                        <a href="#">Agregos</a>
+                                                    </h3>
+                                                    Listado de agregos que se oferta
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="post">
+                                                {#                                                <div class="post-heading">#}
+                                                {#                                                    <p>Listado de platos que ofertan</p>#}
+                                                {#                                                </div>#}
+                                                <div class="post-content">
+                                                    <div class="container-fluid">
+                                                        <div class="block-header">
+                                                            {#                                                            <h2>BASIC CARD</h2>#}
+                                                        </div>
+                                                        <!-- Basic Card -->
+                                                        <div class="row clearfix">
+
+
+                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h3>Agregos</h3>
+                                                                    </div>
+
+                                                                    <div class="body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8">
+                                                                                <h6>Masas de Cerdo fritas</h6>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <h6>$5.00</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        Masas de cerdo fritas,acompañado de una racion
+                                                                        de arroz congris, yuca,platanos fritos y
+                                                                        ensalada de aguacate
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="card">
+                                                                    <div class="card-header" style="height: 150px">
+                                                                        <img style="width: 100%;height: 100%"
+                                                                             src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}">
+                                                                    </div>
+                                                                    {#                                                                     <hr>#}
+                                                                    <div class="body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8">
+                                                                                <h6>Ropa vieja</h6>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <h6>$7.00</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        Ropa vieja,acompañada de arroz,
+                                                                        frijoles,platanos fritos y ensalada de aguacate
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="card">
+                                                                    <div class="card-header" style="height: 150px">
+                                                                        <img style="width: 100%;height: 100%"
+                                                                             src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}">
+                                                                    </div>
+                                                                    {#                                                                     <hr>#}
+                                                                    <div class="body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8">
+                                                                                <h6>Carne de Cerdo</h6>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <h6>5.00</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        Carne de cerdo, acompañado de arroz
+                                                                        congris,tamal,tostones y ensalada de aguacate.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="NameSurname" class="col-sm-2 control-label">Name Surname</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="NameSurname" placeholder="Name Surname"
+                                                           value="Marc K. Hammond" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="email" class="form-control" id="Email" name="Email"
+                                                           placeholder="Email" value="example@example.com" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="InputExperience"
+                                                   class="col-sm-2 control-label">Experience</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <textarea class="form-control" id="InputExperience"
+                                                              name="InputExperience" rows="3"
+                                                              placeholder="Experience"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="InputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="InputSkills"
+                                                           name="InputSkills" placeholder="Skills">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <input type="checkbox" id="terms_condition_check"
+                                                       class="chk-col-red filled-in"/>
+                                                <label for="terms_condition_check">I agree to the <a href="#">terms and
+                                                    conditions</a></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="OldPassword"
+                                                           name="OldPassword" placeholder="Old Password" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPassword" class="col-sm-3 control-label">New Password</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="NewPassword"
+                                                           name="NewPassword" placeholder="New Password" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">New Password
+                                                (Confirm)</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="NewPasswordConfirm"
+                                                           name="NewPasswordConfirm"
+                                                           placeholder="New Password (Confirm)" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Custom Js -->
+    <script src="{% static 'control_panel/mdb/js/admin.js' %}"></script>
+    <script src="{% static 'control_panel/mdb/js/pages/examples/profile.js' %}"></script>
+    <script src="{% static 'control_panel/mdb/js/pages/cards/basic.js' %}"></script>
+{% endblock %}

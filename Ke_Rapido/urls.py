@@ -20,10 +20,46 @@ from django.conf import settings
 from kerapido import views
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
+from django.conf.urls import handler404
+
+from kerapido.api import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.upload_images, name='base'),
+    path('', views.principal, name="index"),
+    path('user', views.login_admin, name="login"),
+    path('logout', views.logout, name="logout"),
+    path('profile', views.profile, name="my_business"),
+    path('register_business', views.register_business, name="register_business"),
+
+    path('upload_images', views.upload_images, name='base'),
+    path('panel', views.admin_panel, name="panel"),
+    path('ofertas', views.ofertas_laborales, name="ofertas"),
+    path('oferta/<int:id_negocio>', views.detalles_oferta, name="detalles_oferta"),
+    path('categories', views.categories, name="categories"),
+    path('reservations', views.reservations, name="reservations"),
+    path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
+    path('users', views.users, name="users"),
+    path('terminos', views.terminos_servicio, name="terminos_servicio"),
+    path('general', views.general, name="general"),
+    path('icon', views.icon, name="icon"),
+    path('modals', views.modals, name="modals"),
+    path('sliders', views.sliders, name="sliders"),
+    # path('timeline', views.timeline, name="timeline"),
+
+    path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
+
+    path('api/account/register', UserCreate.as_view()),
+    path('api/login', login),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/negocios/', getNegociosApi),
+    path('api/platos/<int:pk>/', getPlatoApi),
+    path('api/agregos/<int:pk>/', getAgregoApi),
+    path('api/reservar/', postReservaApi),
+    path('api/reservas/<int:pk>/', getReservasApiForID),
+    path('api/tarifas/<int:pk>/', getTarifaApiForID)
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# handler404 = 'views.error404'

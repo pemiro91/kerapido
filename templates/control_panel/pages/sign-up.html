@@ -1,0 +1,233 @@
+﻿{% load static %}<!DOCTYPE html>
+<html>
+
+<head style="height:100vh;">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+
+    <!-- Animation Css -->
+    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
+
+    <!-- Colorpicker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Bootstrap Tagsinput Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">
+
+    <!-- Multi Select Css -->
+    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
+
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
+
+
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
+    <!-- noUISlider Css -->
+    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>
+
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
+
+</head>
+<body class="signup-page" style="height:100vh;">
+<div class="signup-box">
+    <div class="logo" style="height:30px">
+        {#        <a href="javascript:void(0);"><img style="max-height: 75px;"#}
+        {#                                           src="{% static 'control_panel/images/logo.jpg' %}">#}
+        {#            Ke<b>RÁPIDO</b></a>#}
+        {#        <small>Admin BootStrap Based - Material Design</small>#}
+    </div>
+    <div class="card">
+        <div class="body">
+            <form id="sign_up" method="POST">
+                <div class="msg">Registro de Negocio</div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">home</i>
+                        </span>
+                    <div class="form-line fa-">
+                        <input type="text" class="form-control" name="namesurname"
+                               placeholder="Nombre de Negocio"
+                               required
+                               autofocus>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">place</i>
+                        </span>
+                    <div class="form-line">
+                        <textarea type="text" class="form-control" name="direccion"
+                                  placeholder="Direccion"
+                                  required></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="form-line">
+                        <p><strong>Provincia</strong></p>
+                        <select class="form-control show-tick justify-content-center" data-live-search="true">
+                            <option style="margin-left: 55px">La Habana</option>
+                            <option style="margin-left: 55px">Matanzas</option>
+                            <option style="margin-left: 55px">Pinar del Rio</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="form-line">
+                        <p><strong>Municipio</strong></p>
+                        <select class="form-control show-tick justify-content-center" data-live-search="true">
+                            <option style="margin-left: 55px">Boyeros</option>
+                            <option style="margin-left: 55px">Arroyo Naranjo</option>
+                            <option style="margin-left: 55px">Marianao</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person_outline</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" name="persona_encargada"
+                               placeholder="Nombre de la persona encargada"
+                               required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">smartphone</i>
+                        </span>
+                    <div class="form-line fa">
+                        <input type="text" class="form-control" name="telefono2"
+                               placeholder="Telefono"
+                               autofocus>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                    <div class="form-line fa">
+                        <input type="text" class="form-control" name="username" placeholder="Email Address"
+                               required>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line fa">
+                        <input type="password" class="form-control" name="password" minlength="6"
+                               placeholder="Password"
+                               required>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" name="confirm" minlength="6"
+                               placeholder="Confirm Password" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
+                    <label for="terms">He leído y estoy de acuerdo con los
+                        <a href="{% url 'terminos_condiciones' %}">términos
+                        y condiciones de
+                        uso</a>.</label>
+                </div>
+
+                <button class="btn btn-block bg-amber waves-effect" type="submit">REGISTRAR</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Jquery Core Js -->
+<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+<!-- Select Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+<!-- Bootstrap Colorpicker Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
+
+<!-- Input Mask Plugin Js -->
+<script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+
+<!-- Multi Select Plugin Js -->
+<script src="{% static 'control_panel/plugins/multi-select/js/jquery.multi-select.js' %}"></script>
+
+<!-- Jquery Spinner Plugin Js -->
+<script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}"></script>
+
+<!-- Bootstrap Tags Input Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+
+<!-- noUISlider Plugin Js -->
+<script src="{% static 'control_panel/plugins/nouislider/nouislider.js' %}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+
+<!-- Custom Js -->
+<script src="{% static 'control_panel/js/admin.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/examples/sign-up.js' %}"></script>
+
+<!-- Demo Js -->
+<script src="{% static 'control_panel/js/demo.js' %}"></script>
+{##}
+{##}
+{#<!-- Validation Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>#}
+
+
+</body>
+
+</html>

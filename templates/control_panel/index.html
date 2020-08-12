@@ -1,0 +1,331 @@
+{% extends "control_panel/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>PRINCIPAL</h2>
+        </div>
+
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-pink hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">playlist_add_check</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">NUEVAS RESERVACIONES</div>
+                        <div class="number count-to" data-from="0" data-to="125" data-speed="15"
+                             data-fresh-interval="20"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-cyan hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">help</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">NUEVOS PLATOS</div>
+                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-light-green hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">forum</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">NUEVOS MENSAJES</div>
+                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
+                             data-fresh-interval="20"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-orange hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">person_add</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">NUEVOS CLIENTES</div>
+                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
+                             data-fresh-interval="20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Widgets -->
+{#        <!-- Platos -->#}
+{#        <div class="row clearfix">#}
+{#            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
+{#                <div class="card">#}
+{#                    <div class="header">#}
+{#                        <div class="row clearfix">#}
+{#                            <div class="col-xs-12 col-sm-6">#}
+{#                                <h2>PLATOS</h2>#}
+{#                                <p style="margin-top: 1em">Revise el listado de platos que oferta en su negocio</p>#}
+{#                            </div>#}
+{#                            <div class="col-xs-12 col-sm-6 align-right">#}
+{#                                <div class="switch panel-switch-btn">#}
+{##}
+{#                                    <a class="btn bg-secondary waves-effect m-b-15" role="button" data-toggle="collapse"#}
+{#                                       href="#collapseExample" aria-expanded="false"#}
+{#                                       aria-controls="collapseExample">#}
+{#                                        <i class="material-icons">more_horiz</i>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                    <div class="body">#}
+{#                        <div class="collapse" id="collapseExample">#}
+{##}
+{#                            <div class="panel panel-default panel-post">#}
+{##}
+{#                                <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}#}
+{#                                    <div class="row" style="margin: 2em 0 0 0">#}
+{#                                        <div class="col-md-8 col-sm-10 col-xs-12">#}
+{##}
+{#                                        </div>#}
+{#                                        <div class="col-lg-4 col-sm-10 col-xs-12">#}
+{#                                            <div class="input-group">#}
+{#                                        <span class="input-group-addon">#}
+{#                                        <i class="material-icons">search</i>#}
+{#                                    </span>#}
+{#                                                <div class="form-line">#}
+{#                                                    <input type="search" class="form-control" name="buscar"#}
+{#                                                           placeholder="Buscar" required>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="panel-body">#}
+{#                                        <div class="post">#}
+                                            {#                                                <div class="post-heading">#}
+                                            {#                                                    <p>Listado de platos que ofertan</p>#}
+                                            {#                                                </div>#}
+{#                                            <div class="post-content">#}
+{#                                                <div class="container-fluid">#}
+{#                                                    <div class="block-header">#}
+                                                        {#                                                            <h2>BASIC CARD</h2>#}
+{#                                                    </div>#}
+{#                                                    <!-- Basic Card -->#}
+{#                                                    <div class="row clearfix">#}
+{##}
+{##}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}" alt="">#}
+{#                                                                </div>#}
+                                                                {#                                                                     <hr>#}
+{#                                                                <div class="body" >#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Masas de Cerdo fritas</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$5.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Masas de cerdo fritas,acompañado de una racion#}
+{#                                                                    de arroz congris, yuca,platanos fritos y#}
+{#                                                                    ensalada de aguacate#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}" alt="">#}
+{#                                                                </div>#}
+                                                                {#                                                                     <hr>#}
+{#                                                                <div class="body">#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Ropa vieja</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$7.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Ropa vieja,acompañada de arroz,#}
+{#                                                                    frijoles,platanos fritos y ensalada de aguacate#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
+{#                                                            <div class="card">#}
+{#                                                                <div class="card-header" style="height: 170px">#}
+{#                                                                    <img style="width: 100%;height: 100%"#}
+{#                                                                         src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}" alt="">#}
+{#                                                                </div>#}
+                                                                {#                                                                     <hr>#}
+{#                                                                <div class="body">#}
+{#                                                                    <div class="row">#}
+{#                                                                        <div class="col-lg-8">#}
+{#                                                                            <h4>Carne de Cerdo</h4>#}
+{#                                                                        </div>#}
+{#                                                                        <div class="col-lg-4">#}
+{#                                                                            <h4>$5.00</h4>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{#                                                                    Carne de cerdo, acompañado de arroz#}
+{#                                                                    congris,tamal,tostones y ensalada de aguacate.#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div style="margin-left: 68%">#}
+{#                                        <nav aria-label="Page navigation example" >#}
+{#                                            <ul class="pagination pg-blue ">#}
+{#                                                <li class="page-item justify-content-end">#}
+{#                                                    <a class="page-link" tabindex="-1">Anterior</a>#}
+{#                                                </li>#}
+{#                                                <li class="page-item"><a class="page-link">1</a></li>#}
+{#                                                <li class="page-item active">#}
+{#                                                    <a class="page-link">2 <span class="sr-only">(current)</span></a>#}
+{#                                                </li>#}
+{#                                                <li class="page-item"><a class="page-link">3</a></li>#}
+{#                                                <li class="page-item ">#}
+{#                                                    <a class="page-link">Próximo</a>#}
+{#                                                </li>#}
+{#                                            </ul>#}
+{#                                        </nav>#}
+{#                                    </div>#}
+{#                                </form>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <!-- #END# CPU Usage -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="header">
+                        <h2>ÚLTIMAS 5 RESERVACIONES</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a class="btn bg-pink waves-effect m-b-15" role="button"
+                                       href="" aria-expanded="false"
+                                       aria-controls="">
+                                        VER MÁS
+                                    </a>
+{#                                <ul class="dropdown-menu pull-right">#}
+{#                                    <li><a href="javascript:void(0);">Action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
+{#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
+{#                                </ul>#}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover dashboard-task-infos">
+                                <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cliente</th>
+                                    <th>Servicio</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+
+                                    <td><a>Jose Espinosa</a></td>
+                                    <td>Entrega a domicilio</td>
+                                    <td><span class="label bg-green">Pendiente</span></td>
+                                    <td>
+                                        <div class="date">
+                                            26/7/2020 11:00 am
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+
+                                    <td><a>Raquel Zalazar</a></td>
+                                    <td>Comida para llevar</td>
+                                    <td><span class="label bg-blue">Entregada</span></td>
+                                    <td>
+                                        <div class="date">
+                                            25/7/2020 7:05pm
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Latest Social Trends -->
+            <!-- Answered Tickets -->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="body bg-amber">
+                        <div style="color: #000" class="font-bold m-b--35">AGREGOS</div>
+                        <ul style="color: #000" class="dashboard-stat-list">
+                            <li>
+                                QUESO
+                                <span  class="pull-right"><b>$1.00</b> <small  >CUC</small></span>
+                            </li>
+                            <li>
+                                JAMÓN
+                                <span  class="pull-right"><b>$1.00</b> <small >CUC</small></span>
+                            </li>
+                            <li>
+                                CEBOLLA
+                                <span  class="pull-right"><b>$1.00</b> <small >CUC</small></span>
+                            </li>
+                            <li>
+                                CHORIZO
+                                <span  class="pull-right"><b>$1.50</b> <small >CUC</small></span>
+                            </li>
+                            <li>
+                                PIMIENTO
+                                <span  class="pull-right"><b>$1.50</b> <small>CUC</small></span>
+                            </li>
+{#                            <li>#}
+{#                                LAST YEAR#}
+{#                                <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                ALL#}
+{#                                <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>#}
+{#                            </li>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Answered Tickets -->
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <script src="{% static 'control_panel/js/pages/index.js' %}"></script>
+    <script>
+        $('li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+    </script>
+{% endblock %}
