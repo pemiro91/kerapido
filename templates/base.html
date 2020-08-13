@@ -37,33 +37,48 @@
 
 <body>
 
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center">
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height: calc(65vh + 72px);">
+    <div class="hero-container">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 
-        <div class="logo mr-auto">
-            <h1 class="text-dark"><a href="{% url 'index' %}"><span>Ke Rápido</span></a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+            <div class="carousel-inner" role="listbox">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
+                                                          alt="">
+                    </div>
+{#                    <div class="carousel-container">#}
+{#                        <div class="carousel-content">#}
+{#                            <h2 class="animated fadeInDown">Bienvenido#}
+                                {#                    <span>Alstar</span>#}
+{#                            </h2>#}
+{#                            <p class="animated fadeInUp">Lo invitamos a navegar por nuestro sitio web y conocer detalles#}
+{#                                de los servicios que ofrecemos </p>#}
+{#                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">COMENZAR</a>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+
+            </div>
+
+{#            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">#}
+{#                <span class="carousel-control-prev-icon icofont-thin-double-left" aria-hidden="true"></span>#}
+{#                <span class="sr-only">Anterior</span>#}
+{#            </a>#}
+{##}
+{#            <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">#}
+{#                <span class="carousel-control-next-icon icofont-thin-double-right" aria-hidden="true"></span>#}
+{#                <span class="sr-only">Siguiente</span>#}
+{#            </a>#}
+
         </div>
-
-        <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li class="active"><a href="{% url 'index' %}#header">Inicio</a></li>
-                <li><a href="{% url 'index' %}#about">Quiénes somos</a></li>
-                <li><a href="{% url 'index' %}#services">Servicios</a></li>
-                <li><a href="{% url 'index' %}#portfolio"> Afiliados</a></li>
-
-                <li><a href="{% url 'index' %}#contact">Contáctenos</a></li>
-                <li><a href="{% url 'index' %}#pricing" class="btn-dark" style="color: #FEC010">Descárgue la apk</a>
-                </li>
-                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
-            </ul>
-        </nav><!-- .nav-menu -->
-
     </div>
-</header><!-- End Header -->
-<section id="breadcrumbs" class="breadcrumbs" style="height: 100px">
+</section><!-- End Hero -->
+<section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
 
         <div class="section-title d-flex justify-content-between align-items-center">
@@ -78,9 +93,9 @@
 
 
 <main id="main">
-{% block contenido %}
+    {% block contenido %}
 
-{% endblock %}
+    {% endblock %}
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
@@ -98,15 +113,17 @@
                 </div>
 
 
-
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Enlaces Internos</h4>
                     <ul>
-{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
-{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros Afiliados</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del Servicio</a></li>
-{#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>#}
+                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
+                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
+                            Afiliados</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
+                            Servicio</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'login' %}">Inicio de Sesión</a></li>
+                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>#}
                     </ul>
                 </div>
 
@@ -123,12 +140,13 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-info">
                         <h3>Ke Rápido</h3>
+                        {#                        <a href="index.html"><img src="{% static 'control_panel/images/logo.jpg' %}" alt="" class="img-fluid"></a>#}
                         <p class="pb-3"><em>Le propone a sus afiliados, emplear una herramienta, que le permite
                             gestionar sus negocios y a los clientes, realizar reservaciones de productos
                             y/o servicios en linea.</em></p>
                         <p>
-{#                            A108 Adam Street <br>#}
-{#                            NY 535022, USA<br><br>#}
+                            {#                            A108 Adam Street <br>#}
+                            {#                            NY 535022, USA<br><br>#}
                             <strong>Phone:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
@@ -156,7 +174,7 @@
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/ -->
-            Desarrollado por <a href="https://bootstrapmade.com/">Equipo HabanaTrans</a>
+            Desarrollado por <a href="https://habanatrans.com/">Equipo HabanaTrans</a>
         </div>
     </div>
 </footer><!-- End Footer -->
