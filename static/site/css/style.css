@@ -916,14 +916,14 @@ section {
     border-radius: 50px;
     width: 36px;
     height: 36px;
-    background: rgba(0, 193, 193, 0.8);
+    background: rgb(254, 192, 16);
     display: inline-block;
     transition: ease-in-out 0.3s;
-    color: #fff;
+    color: #212121;
 }
 
 .team .member .social a:hover {
-    background: #00c1c1;
+    background: #FEC010;
 }
 
 .team .member .social i {
