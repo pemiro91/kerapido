@@ -32,7 +32,7 @@ urlpatterns = [
     path('profile', views.profile, name="my_business"),
     path('register_business', views.register_business, name="register_business"),
 
-    path('upload_images', views.upload_images, name='base'),
+    # path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
     path('ofertas', views.ofertas_laborales, name="ofertas"),
     path('oferta/<int:id_negocio>', views.detalles_oferta, name="detalles_oferta"),
@@ -53,11 +53,12 @@ urlpatterns = [
     path('api/login', login),
     path('api-auth/', include('rest_framework.urls')),
     path('api/negocios/', getNegociosApi),
-    path('api/platos/<int:pk>/', getPlatoApi),
-    path('api/agregos/<int:pk>/', getAgregoApi),
+    path('api/productos/<int:pk>/', getProductoApi),
+    path('api/servicio/<int:pk>/', getServicioApiForID),
     path('api/reservar/', postReservaApi),
     path('api/reservas/<int:pk>/', getReservasApiForID),
-    path('api/tarifas/<int:pk>/', getTarifaApiForID)
+    path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
+    path('api/comment/', postComentarioApi),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

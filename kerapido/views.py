@@ -1,24 +1,22 @@
-from django.shortcuts import render, redirect
-from kerapido.models import Plato
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
-from django.conf.urls import handler404
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
 
-def upload_images(request):
-    if request.POST:
-        for file in request.FILES.getlist('images'):
-            instance = Fotos(
-                title="Pacho",
-                file=file
-            )
-            instance.save()
-    context = {}
-    return render(request, "control_panel/base.html", context)
+# def upload_images(request):
+#     if request.POST:
+#         for file in request.FILES.getlist('images'):
+#             instance = Fotos(
+#                 title="Pacho",
+#                 file=file
+#             )
+#             instance.save()
+#     context = {}
+#     return render(request, "control_panel/base.html", context)
 
 
 #

@@ -12,9 +12,7 @@ from rest_framework.status import (
     HTTP_201_CREATED
 )
 
-from kerapido.models import Reservacion_Generada, Plato, User, Agrego, Tarifa
-from kerapido.serializers import ReservacionGeneradaSerializer, PlatoSerializer, NegocioSerializer, AgregoSerializer, \
-    TarifaSerializer, UserSerializer
+from kerapido.serializers import *
 
 
 class UserCreate(generics.CreateAPIView):
@@ -49,18 +47,18 @@ def getNegociosApi(request):
 
 @csrf_exempt
 @api_view(["GET"])
-def getPlatoApi(request, pk):
-    plato = Plato.objects.filter(negocio=pk)
-    serializer = PlatoSerializer(plato, many=True)
+def getProductoApi(request, pk):
+    producto = Producto.objects.filter(negocio=pk)
+    serializer = ProductoSerializer(producto, many=True)
     return Response({'list_dishes': serializer.data}, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(["GET"])
-def getAgregoApi(request, pk):
-    agrego = Agrego.objects.filter(negocio=pk)
-    serializer = AgregoSerializer(agrego, many=True)
-    return Response(serializer.data, status=HTTP_200_OK)
+def getCategoriaApi(request, pk):
+    categoria = Categoria_Producto.objects.filter(negocio=pk)
+    serializer = Categoria_ProductoSerializer(categoria, many=True)
+    return Response({'list_categorias': serializer.data}, status=HTTP_200_OK)
 
 
 @csrf_exempt
@@ -82,7 +80,24 @@ def getReservasApiForID(request, pk):
 
 @csrf_exempt
 @api_view(["GET"])
-def getTarifaApiForID(request, pk):
-    tarifas = Tarifa.objects.filter(negocio=pk)
-    serializer = TarifaSerializer(tarifas, many=True)
-    return Response({'list_tarifas': serializer.data}, status=HTTP_200_OK)
+def getServicioApiForID(request, pk):
+    servicio = Servicio.objects.filter(negocio=pk)
+    serializer = ServicioSerializer(servicio, many=True)
+    return Response({'list_servicio': serializer.data}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET"])
+def getTarifaEntregaApiForID(request, pk):
+    tarifa = Tarifa_Entrega.objects.filter(negocio=pk)
+    serializer = Tarifa_EntregaSerializer(tarifa, many=True)
+    return Response({'list_tarifa': serializer.data}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["POST"])
+def postComentarioApi(request):
+    serializer = ComentarioEvaluacionSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response({'message': 'Comentario enviado satisfactoriamente'}, status=HTTP_201_CREATED)

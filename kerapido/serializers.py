@@ -1,7 +1,8 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from kerapido.models import Reservacion_Generada, Reservacion_Simple, Plato, User, Agrego, Tarifa, ComentarioEvaluacion
+from kerapido.models import Reservacion_Generada, Reservacion_Simple, Producto, User, Categoria_Producto, Servicio, \
+    ComentarioEvaluacion, Tarifa_Entrega, Negocio
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -19,11 +20,19 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class NegocioSerializer(serializers.ModelSerializer):
+class ServicioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('logo', 'persona_encargada', 'telefono', 'direccion', 'especialidad', 'provincia', 'municipio',
-                  'rating', 'first_name', 'email', 'is_negocio')
+        model = Servicio
+        fields = '__all__'
+
+
+class NegocioSerializer(WritableNestedModelSerializer):
+    servicios = ServicioSerializer(many=True)
+
+    class Meta:
+        model = Negocio
+        fields = ('afiliado', 'nombre', 'logo', 'portada', 'persona_encargada', 'direccion', 'provincia', 'municipio',
+                  'rating', 'first_name', 'email', 'is_negocio', 'telefono1', 'telefono2', 'horario', 'servicios')
 
 
 class ComentarioEvaluacionSerializer(serializers.ModelSerializer):
@@ -32,21 +41,24 @@ class ComentarioEvaluacionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PlatoSerializer(serializers.ModelSerializer):
+class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Plato
+        model = Producto
         fields = '__all__'
 
 
-class AgregoSerializer(serializers.ModelSerializer):
+class Categoria_ProductoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Agrego
+        model = Categoria_Producto
         fields = '__all__'
 
 
-class TarifaSerializer(serializers.ModelSerializer):
+
+
+
+class Tarifa_EntregaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tarifa
+        model = Tarifa_Entrega
         fields = '__all__'
 
 
