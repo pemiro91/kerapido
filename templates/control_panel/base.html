@@ -73,7 +73,8 @@
 <nav class="navbar">
     <div class="container-fluid">
 
-            <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute" src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>
+        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"
+             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                data-target="#navbar-collapse" aria-expanded="false"></a>
@@ -210,20 +211,20 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="image">
-                <img src="{% static 'control_panel/images/negocios/levant.jpg' %}" width="48" height="48" alt="User"/>
+                <img src="{% static 'control_panel/images/user.jpg' %}" width="48" height="48" alt="User"/>
             </div>
             <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">levant</div>
-                {#                    <div class="email">levant@example.com</div>#}
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">yeny</div>
+                                    <div class="email">superusuario</div>
                 <div class="btn-group user-helper-dropdown">
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="{% url 'my_business' %}"><i class="material-icons">person</i>Mi Perfil</a></li>
+                        <li><a href="{% url 'my_profile' %}"><i class="material-icons">person</i>Mi Perfil</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0);"><i class="material-icons">message</i>Mensajes</a></li>
-{#                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>#}
-{#                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>#}
-{#                        <li role="separator" class="divider"></li>#}
+                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>#}
+                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>#}
+                        {#                        <li role="separator" class="divider"></li>#}
                         <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Salir</a></li>
                     </ul>
                 </div>
@@ -235,17 +236,17 @@
             <ul class="list">
                 <li class="header">MENÚ NAVEGACIÓN</li>
                 <li class="active">
-                     <a href="{% url 'panel' %}">
+                    <a href="{% url 'panel' %}">
                         <i class="material-icons">home</i>
                         <span>Principal</span>
                     </a>
                 </li>
-{#                <li>#}
-{#                    <a href="{% url 'panel' %}">#}
-{#                        <i class="material-icons">home</i>#}
-{#                        <span>Principal</span>#}
-{#                    </a>#}
-{#                </li>#}
+                {#                <li>#}
+                {#                    <a href="{% url 'panel' %}">#}
+                {#                        <i class="material-icons">home</i>#}
+                {#                        <span>Principal</span>#}
+                {#                    </a>#}
+                {#                </li>#}
                 <li>
                     <a href="{% url 'users' %}">
                         <i class="material-icons">group</i>
@@ -254,18 +255,17 @@
                 </li>
 
                 <li>
-                    <a href="{% url 'categories' %}">
-                        <i class="material-icons">local_offer</i>
-                        <span>Categorías</span>
+                    <a href="{% url 'bussiness' %}">
+                        <i class="material-icons">store</i>
+                        <span>Negocios</span>
                     </a>
                 </li>
-
-{#                <li>#}
-{#                    <a href="{% url 'menu' %}">#}
-{#                        <i class="material-icons">restaurant</i>#}
-{#                        <span>Menú a ofertar</span>#}
-{#                    </a>#}
-{#                </li>#}
+                <li>
+                    <a href="{% url 'services' %}">
+                        <i class="material-icons">local_offer</i>
+                        <span>Servicios</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{% url 'reservations' %}">
                         <i class="material-icons">shopping_cart</i>
@@ -315,21 +315,9 @@
 <!-- Sweet Alert Plugin Js -->
 <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
 
-{#    <!-- Jquery CountTo Plugin Js -->#}
-{#    <script src="{% static 'control_panel/plugins/jquery-countto/jquery.countTo.js' %}"></script>#}
-{##}
-{#    <!-- Morris Plugin Js -->#}
-{#    <script src="{% static 'control_panel/plugins/raphael/raphael.min.js' %}"></script>#}
-{#    <script src="{% static 'control_panel/plugins/morrisjs/morris.js' %}"></script>#}
-{##}
-{##}
-{#    <!-- Sparkline Chart Plugin Js -->#}
-{#    <script src="{% static 'control_panel/plugins/jquery-sparkline/jquery.sparkline.js' %}"></script>#}
 
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/admin.js' %}"></script>
-
-
 <!-- Demo Js -->
 <script src="{% static 'control_panel/js/demo.js' %}"></script>
 {% block plugin_section %}

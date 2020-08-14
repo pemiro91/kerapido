@@ -2,7 +2,8 @@
 {% load static %}
 {% block header_style %}
     <!--WaitMe Css-->
-    <link href="{% static 'control_panel/mdb/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
@@ -13,31 +14,31 @@
                     <div class="profile-body">
                         <div class="image-area">
                             <img style="width: 90px;height: 90px"
-                                 src="{% static 'control_panel/images/negocios/levant.jpg' %}"
+                                 src="{% static 'control_panel/images/user.jpg' %}"
                                  alt="AdminBSB - Profile Image"/>
                         </div>
                         <div class="content-area">
-                            <h3>El Levant</h3>
-{#                            <p>Web Software Developer</p>#}
-                            <p>Negocio</p>
+                            <h3>Yeneisy Barroso Marquez</h3>
+                            <p>superusuario</p>
+                            <p>yeny</p>
                         </div>
                     </div>
                     <div class="profile-footer">
                         <ul>
                             <li>
-                                <span>Ofertas</span>
-                                <span>1.234</span>
+                                <span>Negocios</span>
+                                <span>1</span>
+                            </li>
+                            <li>
+                                <span>Productos</span>
+                                <span>15</span>
                             </li>
                             <li>
                                 <span>Reservaciones</span>
-                                <span>1.201</span>
-                            </li>
-                            <li>
-                                <span>Friends</span>
-                                <span>14.252</span>
+                                <span>2</span>
                             </li>
                         </ul>
-                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>
+{#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
                     </div>
                 </div>
 
@@ -47,45 +48,29 @@
                     </div>
                     <div class="body">
                         <ul>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">location_on</i>
-                                    Dirección
-                                </div>
-                                <div class="content">
-                                    Malibu, California
-                                </div>
-                            </li>
+
                             <li>
                                 <div class="title">
                                     <i class="material-icons">edit</i>
-                                    Especialidad
+                                    Servicios
                                 </div>
                                 <div class="content">
                                     <span class="label bg-red">UI Design</span>
                                     <span class="label bg-teal">JavaScript</span>
                                     <span class="label bg-blue">PHP</span>
-                                    <span class="label bg-amber">Node.js</span>
+                                    {#                                    <span class="label bg-amber">Node.js</span>#}
                                 </div>
                             </li>
                             <li>
                                 <div class="title">
                                     <i class="material-icons">library_books</i>
-                                    Servicios
+                                    Descripción
                                 </div>
                                 <div class="content">
                                     B.S. in Computer Science from the University of Tennessee at Knoxville
                                 </div>
                             </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">notes</i>
-                                    Description
-                                </div>
-                                <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -96,7 +81,8 @@
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                                                                          data-toggle="tab">Información</a></li>
+                                                                          data-toggle="tab">Negocios</a>
+                                </li>
                                 <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab"
                                                            data-toggle="tab">Actualizar Información</a></li>
                                 <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
@@ -109,33 +95,27 @@
                                         <div class="panel-heading">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    {#                                                    <a href="#">#}
-                                                    {#                                                        <img style="height: 50px;width: 50px" src="{% static 'control_panel/images/negocios/levant.jpg' %}"/>#}
-                                                    {#                                                    </a>#}
+                                                    <a href="#">
+                                                        <img style="height: 45px"
+                                                             src="{% static 'control_panel/images/negocios/levant.jpg ' %}"/>
+                                                    </a>
                                                 </div>
                                                 <div class="media-body">
-                                                    <span class="icon">
-                                                        <i class="material-icons">place</i>
-                                                        Aguila y Salud. Centro Habana. La Habana
-                                                    </span><br>
-                                                    <span class="icon">
-                                                        <i class="material-icons">smartphone</i>
-                                                        +53-555555
-                                                    </span><br>
-                                                    <span class="icon">
-                                                        <i class="material-icons">phone</i>
-                                                        +53-777777
-                                                    </span>
-
+                                                    <h4 class="media-heading">
+                                                        <a href="#">El Levant</a>
+                                                    </h4>
+                                                    Shared publicly - 26 Oct 2018
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="panel-body">
                                             <div class="post">
                                                 <div class="post-heading">
-                                                    <p>
-                                                        Eslogan
-                                                    </p>
+                                                    <p>Slogan:
+                                                        {#                                                        <a href="#">#small</a> bits of <a#}
+                                                        {#                                                            href="#">#information</a>. #}
+                                                        I require little more information
+                                                        to use effectively.</p>
                                                 </div>
                                                 <div class="post-content">
                                                     <img src="{% static 'control_panel/images/profile-post-image.jpg' %}"
@@ -144,107 +124,92 @@
                                             </div>
                                         </div>
                                         <div class="panel-footer">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="material-icons">smartphone</i>
+                                                        <span>+53 555555</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="material-icons">phone</i>
+                                                        <span>+53 78678178</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="material-icons">email</i>
+                                                        <span>levant@gmail.com</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url  'table' %}">
+                                                        <i class="material-icons">location_on</i>
+                                                        <span>Águila y Salud</span>
 
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-
 
                                     <div class="panel panel-default panel-post">
                                         <div class="panel-heading">
                                             <div class="media">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <i class="material-icons">restaurant</i>
+                                                        {#                                                        <span>Oferta</span>#}
+                                                    </a>
+                                                </div>
                                                 <div class="media-body">
-                                                    <h3 class="media-heading">
-                                                        <a href="#">Agregos</a>
-                                                    </h3>
-                                                    Listado de agregos que se oferta
+                                                    <h4 class="media-heading">
+                                                        <a href="{% url 'table' %}">Productos Ofertados</a>
+                                                    </h4>
+                                                    Última actualiazción - 01 Oct 2018
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="panel-body">
                                             <div class="post">
-                                                {#                                                <div class="post-heading">#}
-                                                {#                                                    <p>Listado de platos que ofertan</p>#}
-                                                {#                                                </div>#}
+                                                <div class="post-heading">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                </div>
                                                 <div class="post-content">
-                                                    <div class="container-fluid">
-                                                        <div class="block-header">
-                                                            {#                                                            <h2>BASIC CARD</h2>#}
-                                                        </div>
-                                                        <!-- Basic Card -->
-                                                        <div class="row clearfix">
+                                                    {#                                                    <iframe width="100%" height="360"#}
+                                                    {#                                                            src="https://www.youtube.com/embed/10r9ozshGVE"#}
+                                                    {#                                                            frameborder="0" allowfullscreen=""></iframe>#}
 
-
-                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="card">
-                                                                    <div class="header">
-                                                                        <h3>Agregos</h3>
-                                                                    </div>
-
-                                                                    <div class="body">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-8">
-                                                                                <h6>Masas de Cerdo fritas</h6>
-                                                                            </div>
-                                                                            <div class="col-lg-4">
-                                                                                <h6>$5.00</h6>
-                                                                            </div>
-                                                                        </div>
-                                                                        Masas de cerdo fritas,acompañado de una racion
-                                                                        de arroz congris, yuca,platanos fritos y
-                                                                        ensalada de aguacate
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="card">
-                                                                    <div class="card-header" style="height: 150px">
-                                                                        <img style="width: 100%;height: 100%"
-                                                                             src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}">
-                                                                    </div>
-                                                                    {#                                                                     <hr>#}
-                                                                    <div class="body">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-8">
-                                                                                <h6>Ropa vieja</h6>
-                                                                            </div>
-                                                                            <div class="col-lg-4">
-                                                                                <h6>$7.00</h6>
-                                                                            </div>
-                                                                        </div>
-                                                                        Ropa vieja,acompañada de arroz,
-                                                                        frijoles,platanos fritos y ensalada de aguacate
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="card">
-                                                                    <div class="card-header" style="height: 150px">
-                                                                        <img style="width: 100%;height: 100%"
-                                                                             src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}">
-                                                                    </div>
-                                                                    {#                                                                     <hr>#}
-                                                                    <div class="body">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-8">
-                                                                                <h6>Carne de Cerdo</h6>
-                                                                            </div>
-                                                                            <div class="col-lg-4">
-                                                                                <h6>5.00</h6>
-                                                                            </div>
-                                                                        </div>
-                                                                        Carne de cerdo, acompañado de arroz
-                                                                        congris,tamal,tostones y ensalada de aguacate.
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="panel-footer">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="material-icons" style="color: #FEC010">grade</i>
+                                                        <span class="label bg-amber">5.5</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="material-icons" style="color: #212121">comment</i>
+                                                        <span class="label bg-black">8 Comments</span>
+                                                    </a>
+                                                </li>
+{#                                                <li>#}
+{#                                                    <a href="#">#}
+{#                                                        <i class="material-icons">share</i>#}
+{#                                                        <span>Share</span>#}
+{#                                                    </a>#}
+{#                                                </li>#}
+                                            </ul>
 
+
+                                        </div>
+                                    </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
                                     <form class="form-horizontal">
@@ -353,8 +318,10 @@
     </div>
 {% endblock %}
 {% block plugin_section %}
-    <!-- Custom Js -->
-    <script src="{% static 'control_panel/mdb/js/admin.js' %}"></script>
-    <script src="{% static 'control_panel/mdb/js/pages/examples/profile.js' %}"></script>
-    <script src="{% static 'control_panel/mdb/js/pages/cards/basic.js' %}"></script>
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
 {% endblock %}

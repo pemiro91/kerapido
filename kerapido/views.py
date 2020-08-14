@@ -61,7 +61,7 @@ def logout(request):
 
 def profile(request):
     context = {}
-    return render(request, "control_panel/pages/mi_negocio.html", context)
+    return render(request, "control_panel/pages/perfil.html", context)
 
 
 # def register_business(request):
@@ -79,7 +79,7 @@ def ofertas_laborales(request):
     return render(request, "ofertas.html", context)
 
 
-def categories(request):
+def servicios(request):
     context = {}
     return render(request, "control_panel/pages/listado_categorias.html", context)
 
@@ -105,14 +105,14 @@ def terminos_servicio(request):
     return render(request, "terminos_servicio.html", context)
 
 
-def general(request):
+def menu(request):
     context = {}
-    return render(request, "control_panel/pages/UI/general.html", context)
+    return render(request, "control_panel/pages/menu.html", context)
 
 
-def icon(request):
+def negocios(request):
     context = {}
-    return render(request, "control_panel/pages/UI/icons.html", context)
+    return render(request, "control_panel/pages/listado_negocios.html", context)
 
 
 def modals(request):
