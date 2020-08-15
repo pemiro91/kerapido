@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from django.conf import settings
+from rest_framework.urlpatterns import format_suffix_patterns
+
 from kerapido import views
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
@@ -46,7 +48,6 @@ urlpatterns = [
     path('modals', views.modals, name="modals"),
     path('sliders', views.sliders, name="sliders"),
     # path('timeline', views.timeline, name="timeline"),
-
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 
     path('api/account/register', UserCreate.as_view()),
@@ -58,9 +59,10 @@ urlpatterns = [
     path('api/reservar/', postReservaApi),
     path('api/reservas/<int:pk>/', getReservasApiForID),
     path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
-    path('api/comment/', postComentarioApi),
+    path('api/comment/<int:pk>/', postComentarioApi),
+    path('api/comments/<int:pk>/', getComentarioApi),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# handler404 = 'views.error404'
+urlpatterns = format_suffix_patterns(urlpatterns)

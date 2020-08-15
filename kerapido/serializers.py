@@ -31,13 +31,16 @@ class NegocioSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Negocio
-        fields = ('afiliado', 'nombre', 'logo', 'portada', 'persona_encargada', 'direccion', 'provincia', 'municipio',
-                  'rating', 'first_name', 'email', 'is_negocio', 'telefono1', 'telefono2', 'horario', 'servicios')
+        fields = ('usuario_negocio', 'nombre', 'logo', 'portada', 'slogan', 'direccion', 'provincia', 'municipio',
+                  'telefono1', 'telefono2', 'horario', 'servicios', 'rating')
 
 
 class ComentarioEvaluacionSerializer(serializers.ModelSerializer):
+    cliente_username = serializers.ReadOnlyField(source='cliente.username')
+
     class Meta:
         model = ComentarioEvaluacion
+        read_only_fields = ('id', 'cliente_username')
         fields = '__all__'
 
 
@@ -51,9 +54,6 @@ class Categoria_ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria_Producto
         fields = '__all__'
-
-
-
 
 
 class Tarifa_EntregaSerializer(serializers.ModelSerializer):

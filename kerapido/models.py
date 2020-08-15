@@ -30,6 +30,9 @@ class Servicio(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=255, null=True, blank=True)
 
+    def __unicode__(self):
+        return self.nombre
+
 
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -44,9 +47,10 @@ class Negocio(models.Model):
     horario = models.CharField(max_length=255, null=True, blank=True)
     slogan = models.CharField(max_length=255, null=True, blank=True)
     servicios = models.ManyToManyField(Servicio)
+    rating = models.FloatField(null=True, blank=True)
 
     def __unicode__(self):
-        return self.id
+        return self.nombre
 
 
 class Categoria_Producto(models.Model):
@@ -88,9 +92,18 @@ class Reservacion_Generada(models.Model):
 
 
 class ComentarioEvaluacion(models.Model):
-    rating = models.PositiveIntegerField(null=True, blank=True)
+    rating = models.FloatField(null=True, blank=True)
     comentario = models.CharField(max_length=255, null=True, blank=True)
-    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, blank=True, null=True)
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    fecha_comentario = models.DateField(default=datetime.date.today)
+
+    def __unicode__(self):
+        return self.comentario
+
+    @property
+    def category_name(self):
+        return self.cliente.username
 
 
 class Evaluacion(models.Model):
