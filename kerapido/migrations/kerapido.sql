@@ -199,3 +199,7 @@ INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Manuel Tames', 15
 INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Caimanera', 15);
 
 INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Isla de la Juventud', 16);
+
+INSERT INTO kerapido_servicio (nombre, descripcion) VALUES ('Servicio domicilio', 'Entrega de productos hasta el lugar donde se encuentra el cliente');
+INSERT INTO kerapido_servicio (nombre, descripcion) VALUES ('Servicio recogida', 'Servicio de recogida de producto en el lugar');
+INSERT INTO kerapido_servicio (nombre, descripcion) VALUES ('VIP', 'Reservación de mesas o espacios');

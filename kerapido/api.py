@@ -1,4 +1,7 @@
+from abc import ABC
+
 from django.contrib.auth import authenticate
+from django.db.models import Avg, Func
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
@@ -12,9 +15,7 @@ from rest_framework.status import (
     HTTP_201_CREATED
 )
 
-from kerapido.models import Reservacion_Generada, Plato, User, Agrego, Tarifa
-from kerapido.serializers import ReservacionGeneradaSerializer, PlatoSerializer, NegocioSerializer, AgregoSerializer, \
-    TarifaSerializer, UserSerializer
+from kerapido.serializers import *
 
 
 class UserCreate(generics.CreateAPIView):
@@ -30,37 +31,37 @@ def login(request):
     username = request.data.get("username")
     password = request.data.get("password")
     if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'}, status=HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Por favor introduzca un usuario o contraseña válido'}, status=HTTP_400_BAD_REQUEST)
     user = authenticate(username=username, password=password)
     if not user:
-        return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Credenciales inválidas'}, status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username}}
+    context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username, 'telefono': user.telefono}}
     return Response(context, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(["GET"])
 def getNegociosApi(request):
-    negocio = User.objects.filter(is_negocio=True)
+    negocio = Negocio.objects.all()
     serializer = NegocioSerializer(negocio, many=True)
     return Response({'list_business': serializer.data}, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(["GET"])
-def getPlatoApi(request, pk):
-    plato = Plato.objects.filter(negocio=pk)
-    serializer = PlatoSerializer(plato, many=True)
+def getProductoApi(request, pk):
+    producto = Producto.objects.filter(negocio=pk)
+    serializer = ProductoSerializer(producto, many=True)
     return Response({'list_dishes': serializer.data}, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(["GET"])
-def getAgregoApi(request, pk):
-    agrego = Agrego.objects.filter(negocio=pk)
-    serializer = AgregoSerializer(agrego, many=True)
-    return Response(serializer.data, status=HTTP_200_OK)
+def getCategoriaApi(request, pk):
+    categoria = Categoria_Producto.objects.filter(negocio=pk)
+    serializer = Categoria_ProductoSerializer(categoria, many=True)
+    return Response({'list_categorias': serializer.data}, status=HTTP_200_OK)
 
 
 @csrf_exempt
@@ -82,7 +83,48 @@ def getReservasApiForID(request, pk):
 
 @csrf_exempt
 @api_view(["GET"])
-def getTarifaApiForID(request, pk):
-    tarifas = Tarifa.objects.filter(negocio=pk)
-    serializer = TarifaSerializer(tarifas, many=True)
-    return Response({'list_tarifas': serializer.data}, status=HTTP_200_OK)
+def getServicioApiForID(request, pk):
+    servicio = Servicio.objects.filter(negocio=pk)
+    serializer = ServicioSerializer(servicio, many=True)
+    return Response({'list_servicio': serializer.data}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET"])
+def getTarifaEntregaApiForID(request, pk):
+    tarifa = Tarifa_Entrega.objects.filter(negocio=pk)
+    serializer = Tarifa_EntregaSerializer(tarifa, many=True)
+    return Response({'list_tarifa': serializer.data}, status=HTTP_200_OK)
+
+
+class Round(Func, ABC):
+    function = 'ROUND'
+    arity = 2
+
+
+@csrf_exempt
+@api_view(["POST"])
+def postComentarioApi(request, pk):
+    cliente = request.data.get("cliente")
+    is_commet = ComentarioEvaluacion.objects.filter(cliente=cliente)
+    if is_commet:
+        return Response({'error': 'Usted ya ha comentado'}, status=HTTP_200_OK)
+    else:
+        serializer = ComentarioEvaluacionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        evaluacion = ComentarioEvaluacion.objects.filter(negocio=pk).aggregate(average=Round(Avg('rating'), 2))
+        comentarios = ComentarioEvaluacion.objects.filter(negocio=pk)
+        serializer_commets = ComentarioEvaluacionSerializer(comentarios, many=True)
+        return Response({'message': 'Comentario enviado satisfactoriamente', 'evaluacion': evaluacion,
+                         'list_comments': serializer_commets.data},
+                        status=HTTP_201_CREATED)
+
+
+@csrf_exempt
+@api_view(["GET"])
+def getComentarioApi(request, pk):
+    comments = ComentarioEvaluacion.objects.filter(negocio=pk)
+    evaluacion = ComentarioEvaluacion.objects.filter(negocio=pk).aggregate(average=Round(Avg('rating'), 2))
+    serializer = ComentarioEvaluacionSerializer(comments, many=True)
+    return Response({'list_comments': serializer.data, 'evaluacion': evaluacion}, status=HTTP_200_OK)
