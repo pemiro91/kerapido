@@ -42,6 +42,7 @@ urlpatterns = [
     path('reservations', views.reservations, name="reservations"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
     path('users', views.users, name="users"),
+    path('activate_user/<int:id_user>', views.activate_user, name="activate_user"),
     path('terminos', views.terminos_servicio, name="terminos_servicio"),
     path('table', views.menu, name="table"),
     path('bussiness', views.negocios, name="bussiness"),

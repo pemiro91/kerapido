@@ -13,67 +13,66 @@
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
                         <div class="image-area">
-                            <img style="width: 90px;height: 90px"
-                                 src="{% static 'control_panel/images/user.jpg' %}"
+                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"
                                  alt="AdminBSB - Profile Image"/>
                         </div>
                         <div class="content-area">
-                            <h3>Yeneisy Barroso Marquez</h3>
+                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
                             <p>superusuario</p>
-                            <p>yeny</p>
+                            <p>{{ request.user.username }}</p>
                         </div>
                     </div>
                     <div class="profile-footer">
                         <ul>
                             <li>
-                                <span>Negocios</span>
-                                <span>1</span>
+                                <span>Correo</span>
+                                <span>{{ request.user.email }}</span>
                             </li>
                             <li>
-                                <span>Productos</span>
-                                <span>15</span>
+                                <span>Teléfono</span>
+                                <span>{{ request.user.telefono }}</span>
                             </li>
                             <li>
-                                <span>Reservaciones</span>
-                                <span>2</span>
+                                <span>Afiliado desde</span>
+                                <span>{{ request.user.telefono }}</span>
                             </li>
                         </ul>
-{#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                        {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
                     </div>
                 </div>
 
-                <div class="card card-about-me">
-                    <div class="header">
-                        <h2>DATOS DEL NEGOCIO</h2>
-                    </div>
-                    <div class="body">
-                        <ul>
-
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">edit</i>
-                                    Servicios
-                                </div>
-                                <div class="content">
-                                    <span class="label bg-red">UI Design</span>
-                                    <span class="label bg-teal">JavaScript</span>
-                                    <span class="label bg-blue">PHP</span>
-                                    {#                                    <span class="label bg-amber">Node.js</span>#}
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">library_books</i>
-                                    Descripción
-                                </div>
-                                <div class="content">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
+                {#                <div class="card card-about-me">#}
+                {#                    <div class="header">#}
+                {#                        <h2>DATOS DE EL LEVANT</h2>#}
+                {#                    </div>#}
+                {#                    <div class="body">#}
+                {#                        <ul>#}
+                {##}
+                {#                            <li>#}
+                {#                                <div class="title">#}
+                {#                                    <i class="material-icons">edit</i>#}
+                {#                                    Servicios#}
+                {#                                </div>#}
+                {#                                <div class="content">#}
+                {#                                    <span class="label bg-red">UI Design</span>#}
+                {#                                    <span class="label bg-teal">JavaScript</span>#}
+                {#                                    <span class="label bg-blue">PHP</span>#}
+                {#                                    <span class="label bg-amber">Node.js</span>#}
+                {#                                </div>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <div class="title">#}
+                {#                                    <i class="material-icons">restaurant</i>#}
+                {#                                    <a href="{% url 'table' %}">Productos Ofertados</a>#}
+                {#                                </div>#}
+                {#                                <div class="content">#}
+                {##}
+                {#                                </div>#}
+                {#                            </li>#}
+                {##}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
             </div>
             <div class="col-xs-12 col-sm-9">
                 <div class="card">
@@ -115,6 +114,10 @@
                                                         {#                                                        <a href="#">#small</a> bits of <a#}
                                                         {#                                                            href="#">#information</a>. #}
                                                         I require little more information
+                                                        to use effectively.
+                                                        I require little more information
+                                                        to use effectively.
+                                                        I require little more information
                                                         to use effectively.</p>
                                                 </div>
                                                 <div class="post-content">
@@ -144,54 +147,46 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{% url  'table' %}">
-                                                        <i class="material-icons">location_on</i>
-                                                        <span>Águila y Salud</span>
+                                                    <i class="material-icons">room</i>
+                                                    <span>Aguila  y Salud</span>
 
-                                                    </a>
                                                 </li>
+
                                             </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="panel panel-default panel-post">
-                                        <div class="panel-heading">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <i class="material-icons">restaurant</i>
-                                                        {#                                                        <span>Oferta</span>#}
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">
-                                                        <a href="{% url 'table' %}">Productos Ofertados</a>
-                                                    </h4>
-                                                    Última actualiazción - 01 Oct 2018
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="post">
-                                                <div class="post-heading">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                                <div class="post-content">
-                                                    {#                                                    <iframe width="100%" height="360"#}
-                                                    {#                                                            src="https://www.youtube.com/embed/10r9ozshGVE"#}
-                                                    {#                                                            frameborder="0" allowfullscreen=""></iframe>#}
-
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="panel-footer">
                                             <ul>
                                                 <li>
+                                                    <i class="material-icons">edit</i>
+                                                    Servicios
+
+                                                    <span class="label bg-red">UI Design</span>
+                                                    <span class="label bg-teal">JavaScript</span>
+                                                    <span class="label bg-blue">PHP</span>
+                                                    <span class="label bg-amber" >Node.js</span>
+
+
+                                                </li>
+                                                <li>
+
+                                                    <i class="material-icons">restaurant</i>
+
+                                                    <a href="{% url 'table' %}">Productos Ofertados</a>
+
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <ul>
+
+                                                <li>
+
                                                     <a href="#">
-                                                        <i class="material-icons" style="color: #FEC010">grade</i>
-                                                        <span class="label bg-amber">5.5</span>
+                                                        <i class="material-icons" style="color: #FEC010;">grade</i>
+                                                        <span class="label bg-amber">Evaluaciòn 5.5</span>
                                                     </a>
+
                                                 </li>
                                                 <li>
                                                     <a href="#">
@@ -199,17 +194,68 @@
                                                         <span class="label bg-black">8 Comments</span>
                                                     </a>
                                                 </li>
-{#                                                <li>#}
-{#                                                    <a href="#">#}
-{#                                                        <i class="material-icons">share</i>#}
-{#                                                        <span>Share</span>#}
-{#                                                    </a>#}
-{#                                                </li>#}
+
+
                                             </ul>
-
-
                                         </div>
                                     </div>
+
+                                    {#                                    <div class="panel panel-default panel-post">#}
+                                    {#                                        <div class="panel-heading">#}
+                                    {#                                            <div class="media">#}
+                                    {#                                                <div class="media-left">#}
+                                    {#                                                    <a href="#">#}
+                                    {#                                                        <i class="material-icons">restaurant</i>#}
+                                    {#                                                        <span>Oferta</span>#}
+                                    {#                                                    </a>#}
+                                    {#                                                </div>#}
+                                    {#                                                <div class="media-body">#}
+                                    {#                                                    <h4 class="media-heading">#}
+                                    {#                                                        <a href="{% url 'table' %}">Productos Ofertados</a>#}
+                                    {#                                                    </h4>#}
+                                    {#                                                    Última actualiazción - 01 Oct 2018#}
+                                    {#                                                </div>#}
+                                    {#                                            </div>#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="panel-body">#}
+                                    {#                                            <div class="post">#}
+                                    {#                                                <div class="post-heading">#}
+                                    {#                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do#}
+                                    {#                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>#}
+                                    {#                                                </div>#}
+                                    {#                                                <div class="post-content">#}
+                                    {#                                                    <iframe width="100%" height="360"#}
+                                    {#                                                            src="https://www.youtube.com/embed/10r9ozshGVE"#}
+                                    {#                                                            frameborder="0" allowfullscreen=""></iframe>#}
+                                    {##}
+                                    {#                                                </div>#}
+                                    {#                                            </div>#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="panel-footer">#}
+                                    {#                                            <ul>#}
+                                    {#                                                <li>#}
+                                    {#                                                    <a href="#">#}
+                                    {#                                                        <i class="material-icons" style="color: #FEC010">grade</i>#}
+                                    {#                                                        <span class="label bg-amber">5.5</span>#}
+                                    {#                                                    </a>#}
+                                    {#                                                </li>#}
+                                    {#                                                <li>#}
+                                    {#                                                    <a href="#">#}
+                                    {#                                                        <i class="material-icons" style="color: #212121">comment</i>#}
+                                    {#                                                        <span class="label bg-black">8 Comments</span>#}
+                                    {#                                                    </a>#}
+                                    {#                                                </li>#}
+                                    {#                                                <li>#}
+                                    {#                                                    <a href="#">#}
+                                    {#                                                        <i class="material-icons">share</i>#}
+                                    {#                                                        <span>Share</span>#}
+                                    {#                                                    </a>#}
+                                    {#                                                </li>#}
+                                    {#                                            </ul>#}
+                                    {##}
+                                    {##}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
                                     <form class="form-horizontal">
