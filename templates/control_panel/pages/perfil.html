@@ -34,7 +34,7 @@
                             </li>
                             <li>
                                 <span>Afiliado desde</span>
-                                <span>{{ request.user.telefono }}</span>
+                                <span>{{ request.user.fecha_alta|date }}</span>
                             </li>
                         </ul>
                         {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
@@ -80,8 +80,7 @@
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                                                                          data-toggle="tab">Negocios</a>
-                                </li>
+                                                                          data-toggle="tab">Negocios</a></li>
                                 <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab"
                                                            data-toggle="tab">Actualizar Información</a></li>
                                 <li role="presentation"><a href="#change_password_settings" aria-controls="settings"

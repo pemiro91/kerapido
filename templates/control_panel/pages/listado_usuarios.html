@@ -46,6 +46,7 @@
                                         <th>Tipo</th>
                                         <th>Telefono</th>
                                         <th>Correo</th>
+                                        <th>Estado usuario</th>
                                         <th>Fecha de alta</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -57,6 +58,7 @@
                                         <th>Tipo</th>
                                         <th>Telefono</th>
                                         <th>Correo</th>
+                                        <th>Estado usuario</th>
                                         <th>Fecha de alta</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -78,17 +80,39 @@
 
                                         <td>{{ user.telefono }}</td>
                                         <td>{{ user.email }}</td>
-                                        <td>{{ user.fecha_alta|date }}</td>
+                                        {% if user.is_active %}
+                                            <td><span class="label bg-green">Activo</span></td>
+                                            <td>{{ user.fecha_alta }}</td>
+                                        {% else %}
+                                            <td><span class="label bg-red">Bloqueado</span></td>
+                                            <td>-</td>
+                                        {% endif %}
+
                                         <td>
-                                            <a type="button" class="btn btn-default waves-effect waves-amber"
-                                               href="{% url 'activate_user' user.id %}"
-                                            data-toggle="modal" data-target="#defaultModal" data-id="{{ user.id }}">
-                                                <i class="material-icons">accessibility</i>
-                                            </a>
+                                            {% if user.is_active %}
+                                                <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                                    data-href="{% url 'blocked_user' user.id %}"
+                                                    title="Bloquear Usuario"
+                                                    data-toggle="modal" data-target="#blockedModal" data-id="{{ user.id }}">
+                                                    <i class="material-icons">accessibility</i>
+                                                </a>
+                                            {% else %}
+                                                <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                                    data-href="{% url 'activate_user' user.id %}"
+                                                    title="Activar Usuario"
+                                                    data-toggle="modal" data-target="#activeModal" data-id="{{ user.id }}">
+                                                    <i class="material-icons">accessibility</i>
+                                                </a>
+                                            {% endif %}
                                             <a type="button" class="btn btn-default waves-effect waves-amber">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                                data-href="{% url 'delete_user' user.id %}"
+                                                data-id="{{ user.id }}"
+                                                data-toggle="modal"
+                                                data-target="#confirm-delete"
+                                                title="Eliminar Usuario">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
@@ -104,21 +128,45 @@
         <!-- #END# Exportable Table -->
     </div>
     <!-- Default Size -->
-    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="activeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">Activaci&oacute;n de cuenta</h4>
-                </div>
-                <div class="modal-body">
-                    Desea activar la cuenta ?
+                    <h4 class="modal-title" id="defaultModalLabel">Desea activar la cuenta?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-link waves-effect btn-ok">Activar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-success btn-ok">Activar</a>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="blockedModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Desea bloquear la cuenta?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Bloquear</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el usuario?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+          </div>
+        </div>
+      </div>
     </div>
 {% endblock %}
 {% block plugin_section %}
@@ -139,7 +187,15 @@
     <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>
 
     <script>
-        $('#defaultModal').on('show.bs.modal', function(e) {
+        $('#activeModal').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+
+        $('#blockedModal').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+
+        $('#confirm-delete').on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>

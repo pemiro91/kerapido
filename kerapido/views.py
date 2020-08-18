@@ -1,11 +1,20 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+#
+# def principal(request):
+#     context = {}
+#     return render(request, "master/index.html", context)
+from django.utils import timezone
+
+from kerapido.models import User, Negocio
+
 
 # Create your views here.
-
 # def upload_images(request):
 #     if request.POST:
 #         for file in request.FILES.getlist('images'):
@@ -16,13 +25,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 #             instance.save()
 #     context = {}
 #     return render(request, "control_panel/base.html", context)
-
-
-#
-# def principal(request):
-#     context = {}
-#     return render(request, "master/index.html", context)
-from kerapido.models import User, Negocio, Producto
 
 
 def principal(request):
@@ -137,7 +139,22 @@ def users(request):
 
 def activate_user(request, id_user):
     if request.user.is_authenticated:
-        User.objects.filter(pk=id_user).update(is_active=True)
+        User.objects.filter(pk=id_user).update(is_active=True, fecha_alta=datetime.now())
+        return redirect('users')
+    return redirect('login')
+
+
+def blocked_user(request, id_user):
+    if request.user.is_authenticated:
+        User.objects.filter(pk=id_user).update(is_active=False, fecha_alta=datetime.now())
+        return redirect('users')
+    return redirect('login')
+
+
+def delete_user(request, id_user):
+    if request.user.is_authenticated:
+        p = User.objects.get(id=id_user)
+        p.delete()
         return redirect('users')
     return redirect('login')
 
