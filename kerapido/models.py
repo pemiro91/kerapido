@@ -55,6 +55,7 @@ class Negocio(models.Model):
     slogan = models.CharField(max_length=255, null=True, blank=True)
     servicios = models.ManyToManyField(Servicio)
     rating = models.FloatField(null=True, blank=True)
+    categoria = models.ForeignKey(Categoria_Negocio, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.nombre
