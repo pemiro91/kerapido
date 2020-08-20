@@ -34,6 +34,13 @@ class Servicio(models.Model):
         return self.nombre
 
 
+class Categoria_Negocio(models.Model):
+    nombre = models.CharField(max_length=255)
+    descripcion = models.FloatField(max_length=55)
+
+    def str(self): return str(self.nombre)
+
+
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=255)
