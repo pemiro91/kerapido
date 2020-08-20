@@ -27,17 +27,18 @@ from django.conf.urls import handler404
 from kerapido.api import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # ------------- Landing Page -------------#
     path('', views.principal, name="index"),
+    path('ofertas', views.ofertas_laborales, name="ofertas"),
+    path('ofertas/<int:id_oferta>', views.detalles_oferta, name="detalles_oferta"),
+
+    # ------------- Panel Control -------------#
+    path('admin/', admin.site.urls),
     path('user', views.login_admin, name="login"),
     path('logout', views.logout, name="logout"),
     path('profile', views.profile, name="my_profile"),
     path('register_business', views.register_business, name="register_business"),
-
-    # path('upload_images', views.upload_images, name='base'),
     path('panel', views.admin_panel, name="panel"),
-    path('ofertas', views.ofertas_laborales, name="ofertas"),
-    path('oferta/<int:id_negocio>', views.detalles_oferta, name="detalles_oferta"),
     path('services', views.servicios, name="services"),
     path('reservations', views.reservations, name="reservations"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
@@ -50,9 +51,9 @@ urlpatterns = [
     path('bussiness', views.negocios, name="bussiness"),
     path('modals', views.modals, name="modals"),
     path('sliders', views.sliders, name="sliders"),
-    # path('timeline', views.timeline, name="timeline"),
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 
+    # ------------- Api -------------#
     path('api/account/register', UserCreate.as_view()),
     path('api/login', login),
     path('api-auth/', include('rest_framework.urls')),

@@ -4,14 +4,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 #
 # def principal(request):
 #     context = {}
 #     return render(request, "master/index.html", context)
 from django.utils import timezone
 
-from kerapido.models import User, Negocio
+from kerapido.models import User, Negocio, Oferta_Laboral
 
 
 # Create your views here.
@@ -104,13 +104,15 @@ def register_business(request):
     return render(request, "control_panel/pages/sign-up.html", context)
 
 
-def detalles_oferta(request, id_negocio):
-    context = {}
+def detalles_oferta(request, id_oferta):
+    oferta = get_object_or_404(Oferta_Laboral, pk=id_oferta)
+    context = {'oferta': oferta}
     return render(request, "oferta_detalles.html", context)
 
 
 def ofertas_laborales(request):
-    context = {}
+    ofertas = Oferta_Laboral.objects.all()
+    context = {'ofertas': ofertas}
     return render(request, "ofertas.html", context)
 
 

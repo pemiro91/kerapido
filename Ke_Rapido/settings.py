@@ -141,3 +141,12 @@ REST_FRAMEWORK = {
 }
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'hera.hostingdelcaribe.net'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = '465'
+EMAIL_USE_TLS: True
+EMAIL_USE_SSL: False
