@@ -5,6 +5,10 @@
     <!-- JQuery DataTable Css -->
     <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
           rel="stylesheet">
+    <!-- Multi Select Css -->
+    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
 
 {% endblock %}
 
@@ -12,8 +16,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DEL MENÚ
-                <small>Módulo para la gestion deL menú de su negocio</small>
+                GESTIÓN DE PRODUCTOS
+                <small>Módulo para la gestion de productos ofertados en su negocio</small>
             </h2>
         </div>
 
@@ -24,7 +28,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            MENÚ
+                            PRODUCTOS
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
@@ -40,138 +44,175 @@
                         <!-- Platos -->
                         <div class="panel panel-default panel-post">
 
-                                <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}
-                                    <div class="row" style="margin: 2em 0 0 0">
-                                        <div class="col-md-8 col-sm-10 col-xs-12">
+                            <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}
+                                <div class="row" style="margin: 2em 0 0 0">
 
+                                    <div class="col-lg-4 col-sm-12 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">flag</i>
+                                            </span>
+                                            <div class="form-line">
+
+                                                <select class="form-control show-tick" multiple>
+                                                    <option>Comida Criolla</option>
+                                                    <option>Bebidas y Licores</option>
+                                                    <option>Comida Italiana</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-4 col-sm-10 col-xs-12">
-                                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                        <i class="material-icons">search</i>
-                                    </span>
-                                                <div class="form-line">
-                                                    <input type="search" class="form-control"
-                                                           name="buscar"
-                                                           placeholder="Buscar" required>
-                                                </div>
+
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-xs-12">
+                                        {#                                        Seleccione las categorias#}
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-12 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">search</i>
+                                            </span>
+                                            <div class="form-line">
+                                                <input type="search" class="form-control"
+                                                       name="buscar"
+                                                       placeholder="Buscar">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel-body">
-                                        <div class="post">
-                                            {#                                                <div class="post-heading">#}
-                                            {#                                                    <p>Listado de platos que ofertan</p>#}
-                                            {#                                                </div>#}
-                                            <div class="post-content">
-                                                <div class="container-fluid">
-                                                    <div class="block-header">
-                                                        {#                                                            <h2>BASIC CARD</h2>#}
-                                                    </div>
-                                                    <!-- Basic Card -->
-                                                    <div class="row clearfix">
+                                </div>
+                                <div class="panel-body">
+                                    <div class="post">
 
-
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header"
-                                                                     style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}"
-                                                                         alt="">
-                                                                </div>
-                                                                {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Masas de Cerdo
-                                                                                fritas</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$5.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Masas de cerdo fritas,acompañado de
-                                                                    una racion
-                                                                    de arroz congris, yuca,platanos
-                                                                    fritos y
-                                                                    ensalada de aguacate
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header"
-                                                                     style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}"
-                                                                         alt="">
-                                                                </div>
-                                                                {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Ropa vieja</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$7.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Ropa vieja,acompañada de arroz,
-                                                                    frijoles,platanos fritos y ensalada
-                                                                    de aguacate
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="card">
-                                                                <div class="card-header"
-                                                                     style="height: 170px">
-                                                                    <img style="width: 100%;height: 100%"
-                                                                         src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}"
-                                                                         alt="">
-                                                                </div>
-                                                                {#                                                                     <hr>#}
-                                                                <div class="body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8">
-                                                                            <h4>Carne de Cerdo</h4>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <h4>$5.00</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    Carne de cerdo, acompañado de arroz
-                                                                    congris,tamal,tostones y ensalada de
-                                                                    aguacate.
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
+                                        <div class="post-content">
+                                            <div class="container-fluid">
+                                                <div class="block-header">
+                                                    {#                                                            <h2>BASIC CARD</h2>#}
                                                 </div>
+                                                <!-- Basic Card -->
+                                                <div class="row clearfix">
+
+
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="card">
+                                                            <div class="card-header"
+                                                                 style="height: 180px">
+
+
+                                                                <img style="width: 100%;height: 100%"
+                                                                     src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}"
+                                                                     alt="">
+                                                            </div>
+                                                            {#                                                                     <hr>#}
+                                                            <div class="body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8">
+                                                                        <h4>Masas de Cerdo
+                                                                            fritas</h4>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <h4>$5.00</h4>
+                                                                    </div>
+                                                                </div>
+                                                                Masas de cerdo fritas,acompañado de
+                                                                una racion
+                                                                de arroz congris, yuca,platanos
+                                                                fritos y
+                                                                ensalada de aguacate
+                                                                <a href="#" >
+                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                    </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="card">
+                                                            <div class="card-header"
+                                                                 style="height: 180px">
+                                                                <img style="width: 100%;height: 100%"
+                                                                     src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}"
+                                                                     alt="">
+                                                            </div>
+                                                            {#                                                                     <hr>#}
+                                                            <div class="body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8">
+                                                                        <h4>Ropa vieja</h4>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <h4>$7.00</h4>
+                                                                    </div>
+                                                                </div>
+                                                                Ropa vieja,acompañada de arroz,
+                                                                frijoles,platanos fritos y ensalada
+                                                                de aguacate
+                                                                <a href="#" >
+                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                    </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="card">
+                                                            <div class="card-header"
+                                                                 style="height: 180px">
+                                                                <img style="width: 100%;height: 100%"
+                                                                     src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}"
+                                                                     alt="">
+                                                            </div>
+                                                            {#                                                                     <hr>#}
+                                                            <div class="body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8">
+                                                                        <h4>Carne de Cerdo</h4>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <h4>$5.00</h4>
+                                                                    </div>
+                                                                </div>
+                                                                Carne de cerdo, acompañado de arroz
+                                                                congris,tamal,tostones y ensalada de
+                                                                aguacate.
+                                                                <a href="#" >
+                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                    </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="margin-left: 68%">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination pg-blue ">
-                                                <li class="page-item justify-content-end">
-                                                    <a class="page-link" tabindex="-1">Anterior</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link">1</a></li>
-                                                <li class="page-item active">
-                                                    <a class="page-link">2 <span class="sr-only">(current)</span></a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link">3</a></li>
-                                                <li class="page-item ">
-                                                    <a class="page-link">Próximo</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                                <div style="margin-left: 68%">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination pg-blue ">
+                                            <li class="page-item justify-content-end">
+                                                <a class="page-link" tabindex="-1">Anterior</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link">1</a></li>
+                                            <li class="page-item active">
+                                                <a class="page-link">2 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link">3</a></li>
+                                            <li class="page-item ">
+                                                <a class="page-link">Próximo</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -181,19 +222,21 @@
 {% endblock %}
 {% block plugin_section %}
     <!-- Jquery DataTable Plugin Js -->
-    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>#}
 
     <!-- Custom Js -->
 
-    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+    {#    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>#}
+
+    <script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
 
 {% endblock %}
 

@@ -139,3 +139,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

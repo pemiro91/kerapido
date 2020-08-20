@@ -3,6 +3,7 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 from Ke_Rapido import settings
 
@@ -24,6 +25,7 @@ class User(AbstractUser):
     is_afiliado = models.BooleanField(default=False)
     is_persona_encargada = models.BooleanField(default=False)
     is_administrador = models.BooleanField(default=False)
+    fecha_alta = models.DateTimeField(default=timezone.now)
 
 
 class Servicio(models.Model):
