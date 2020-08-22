@@ -4,6 +4,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
+from stdimage import StdImageField
 
 from Ke_Rapido import settings
 
@@ -30,24 +31,25 @@ class User(AbstractUser):
 
 class Servicio(models.Model):
     nombre = models.CharField(max_length=255)
-    descripcion = models.CharField(max_length=255, null=True, blank=True)
+    descripcion = models.TextField(null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
 
 
 class Categoria_Negocio(models.Model):
     nombre = models.CharField(max_length=255)
-    descripcion = models.FloatField(max_length=55)
+    descripcion = models.TextField(null=True, blank=True)
 
-    def str(self): return str(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='logo/%Y/%m/%d', null=True, blank=True)
-    portada = models.ImageField(upload_to='portada/%Y/%m/%d', null=True, blank=True)
+    portada = StdImageField(upload_to='portada/%Y/%m/%d',  variations={'thumbnail': (550, 412)}, null=True, blank=True)
     provincia = models.CharField(max_length=255, null=True, blank=True)
     municipio = models.CharField(max_length=255, null=True, blank=True)
     direccion = models.CharField(max_length=255, null=True, blank=True)
@@ -59,15 +61,16 @@ class Negocio(models.Model):
     rating = models.FloatField(null=True, blank=True)
     categoria = models.ForeignKey(Categoria_Negocio, on_delete=models.CASCADE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
 
 
 class Categoria_Producto(models.Model):
     nombre = models.CharField(max_length=255)
-    descripcion = models.FloatField(max_length=55)
+    descripcion = models.TextField(null=True, blank=True)
 
-    def str(self): return str(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Producto(models.Model):
@@ -78,8 +81,8 @@ class Producto(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria_Producto, on_delete=models.CASCADE)
 
-    def str(self):
-        return str(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Reservacion_Simple(models.Model):
@@ -108,7 +111,7 @@ class ComentarioEvaluacion(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     fecha_comentario = models.DateField(default=datetime.date.today)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.comentario
 
     @property
@@ -126,24 +129,28 @@ class Tarifa_Entrega(models.Model):
     precio = models.FloatField(max_length=55)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
 
-    def str(self): return str(self.lugar_destino)
+    def __str__(self):
+        return self.lugar_destino
 
 
 class Provincia(models.Model):
     nombre = models.CharField(max_length=255)
 
-    def str(self): return str(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Municipio(models.Model):
     nombre = models.CharField(max_length=255)
     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, name='provincia')
 
-    def str(self): return str(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Oferta_Laboral(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
     descripcion = models.CharField(max_length=255)
 
-    def str(self): return str(self.descripcion)
+    def __str__(self):
+        return self.descripcion

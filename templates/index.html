@@ -53,8 +53,11 @@
                 <li><a href="#about">Quiénes somos</a></li>
                 <li><a href="#services">Servicios</a></li>
 {#                <li><a href="#portfolio"> Ofertas</a></li>#}
-                <li><a href="#portfolio"> Afiliados</a></li>
-                          <li><a href="#team">Miembros</a></li>
+                {% ifnotequal bussiness.count 0 %}
+                    <li><a href="#portfolio"> Afiliados</a></li>
+                {% endifnotequal %}
+
+                <li><a href="#team">Miembros</a></li>
                 {#          <li class="drop-down"><a href="">Drop Down</a>#}
                 {#            <ul>#}
                 {#              <li><a href="#">Drop Down 1</a></li>#}
@@ -323,21 +326,23 @@
         </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Cta Section ======= -->
-    <section id="cta" class="cta">
-        <div class="container">
-
-            <div class="text-center">
-                <h3>Ofertas Laborales</h3>
-                <p> Los invitamos a conocer las ofertas laborales publicadas por nuestros afiliados.</p>
-                <a class="cta-btn" href="{% url 'ofertas' %}">Leer Más</a>
+    <!-- ======= Section Ofertas ======= -->
+    {% ifnotequal ofertas.count 0 %}
+        <section id="cta" class="cta">
+            <div class="container">
+                <div class="text-center">
+                    <h3>Ofertas Laborales</h3>
+                    <p> Los invitamos a conocer las ofertas laborales publicadas por nuestros afiliados.</p>
+                    <a class="cta-btn" href="{% url 'ofertas' %}">Leer Más</a>
+                </div>
             </div>
+        </section>
+    {% endifnotequal %}
+    <!-- ======= End Ofertas Section ======= -->
 
-        </div>
-    </section><!-- End Cta Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
+    <!-- ======= Section Afiliados ======= -->
+    {% ifnotequal bussiness.count 0 %}
+        <section id="portfolio" class="portfolio">
         <div class="container">
 
             <div class="section-title">
@@ -350,88 +355,40 @@
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">Todos</li>
-                        <li data-filter=".filter-app">Restaurantes</li>
-                        <li data-filter=".filter-card">Bares</li>
-                        <li data-filter=".filter-web">Paladares</li>
+                        {% for category in categories %}
+                            {% for negocio in bussiness %}
+                                {% if negocio.categoria == category %}
+                                    <li data-filter=".{{ category }}">{{ category.nombre }}</li>
+                                {% endif %}
+                            {% endfor %}
+
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
 
             <div class="row portfolio-container">
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>El Levant</h4>
-                        <p>Restaurante</p>
-                        <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="El Levant"><i class="bx bx-plus"></i></a>
-                        <i class="bx bxs-shopping-bag"></i>
+                {% for negocio in bussiness %}
+                    <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categoria }}">
+                        <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>{{ negocio.nombre }}</h4>
+                            <p>{{ negocio.categoria.nombre }}</p>
+{#                            <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}" data-gall="portfolioGallery"#}
+{#                               class="venobox preview-link" title="El Levant"><i class="bx bx-plus"></i></a>#}
+{#                            <i class="bx bxs-shopping-bag"></i>#}
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Web 3</h4>
-                        <p>Web</p>
-                        <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                        <a href="#" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>App 2</h4>
-                        <p>App</p>
-                        <a href="assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                        <a href="#" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Card 2</h4>
-                        <p>Card</p>
-                        <a href="assets/img/portfolio/portfolio-4.jpg" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                        <a href="#" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Web 2</h4>
-                        <p>Web</p>
-                        <a href="assets/img/portfolio/portfolio-5.jpg" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                        <a href="#" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="{% static 'control_panel/images/negocios/el-levant.jpg' %}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>App 3</h4>
-                        <p>App</p>
-                        <a href="assets/img/portfolio/portfolio-6.jpg" data-gall="portfolioGallery"
-                           class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                        <a href="#" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-
+                {% endfor %}
             </div>
-            {#            <div class="col-lg-12 text-center">#}
-            {#                <a href="#" class="">Más detalles</a>#}
-            {#            </div>#}
-
+            <div class="col-lg-12 text-center">
+                <a href="#" class="">Más detalles</a>
+            </div>
         </div>
-    </section><!-- End Portfolio Section -->
+    </section>
+    {% endifnotequal %}
+    <!-- ======= End Afiliados Section ======= -->
+
 
     <!-- ======= Pricing Section ======= -->
     {#    <section id="pricing" class="pricing section-bg">#}
@@ -627,10 +584,6 @@
             </div>
 
             <div class="row">
-
-                {#          <div class="col-lg-6 ">#}
-                {#            <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>#}
-                {#          </div>#}
                 <div class="col-lg-3 col-md-6">
                     <div class="info-box  mb-4">
                         <i class="bx bx-envelope"></i>
@@ -648,7 +601,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <form method="post" role="form" class="php-email-form">{% csrf_token %}
                         <div class="form-row">
                             <div class="col form-group">
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Nombre"
@@ -675,7 +628,10 @@
                         <div class="mb-3">
                             <div class="loading">Espere por favor</div>
                             <div class="error-message"></div>
-                            <div class="sent-message">Su mensaje ha sido enviado satisfactoriamente. Gracias!</div>
+                            {% if messages %}
+                                <div class="sent-message">Su mensaje ha sido enviado satisfactoriamente. Gracias!</div>
+                            {% endif %}
+
                         </div>
                         <div class="text-center">
                             <button type="submit">Enviar Mensaje</button>
@@ -775,7 +731,7 @@
 <script src="{% static 'site/vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'site/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>
+{#<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>#}
 <script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
 <script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
 

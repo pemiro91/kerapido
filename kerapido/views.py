@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 #
 # def principal(request):
@@ -11,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     return render(request, "master/index.html", context)
 from django.utils import timezone
 
-from kerapido.models import User, Negocio, Oferta_Laboral
+from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio
 
 
 # Create your views here.
@@ -28,7 +29,18 @@ from kerapido.models import User, Negocio, Oferta_Laboral
 
 
 def principal(request):
-    context = {}
+    categories = Categoria_Negocio.objects.all()
+    bussiness = Negocio.objects.all()[:6]
+    ofertas = Oferta_Laboral.objects.all()
+    if request.POST:
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        send_mail(subject, message, 'habanatrans16@gmail.com', ['pemiro91@gmail.com'], fail_silently=False)
+        messages.success(request, 'Su mensaje ha sido enviado satisfactoriamente. Gracias!')
+        # return redirect('/')
+    context = {'categories': categories, 'bussiness': bussiness, 'ofertas': ofertas}
     return render(request, "index.html", context)
 
 
