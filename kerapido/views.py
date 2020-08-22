@@ -151,6 +151,13 @@ def blocked_user(request, id_user):
     return redirect('login')
 
 
+def update_user(request, id_user):
+    if request.user.is_authenticated:
+        context = {}
+        return render(request, "control_panel/pages/editar_usuario.html", context)
+    return redirect('login')
+
+
 def delete_user(request, id_user):
     if request.user.is_authenticated:
         p = User.objects.get(id=id_user)

@@ -44,6 +44,7 @@ urlpatterns = [
     path('users', views.users, name="users"),
     path('activate_user/<int:id_user>', views.activate_user, name="activate_user"),
     path('blocked_user/<int:id_user>', views.blocked_user, name="blocked_user"),
+    path('update_user/<int:id_user>', views.update_user, name="update_user"),
     path('delete_user/<int:id_user>', views.delete_user, name="delete_user"),
     path('terminos', views.terminos_servicio, name="terminos_servicio"),
     path('table', views.menu, name="table"),
