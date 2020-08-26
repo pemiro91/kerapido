@@ -4,14 +4,16 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.db import transaction
+from django.shortcuts import render, redirect, get_object_or_404
 #
 # def principal(request):
 #     context = {}
 #     return render(request, "master/index.html", context)
 from django.utils import timezone
 
-from kerapido.models import User, Negocio
+from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio
 
 
 # Create your views here.
@@ -28,7 +30,18 @@ from kerapido.models import User, Negocio
 
 
 def principal(request):
-    context = {}
+    categories = Categoria_Negocio.objects.all()
+    bussiness = Negocio.objects.all()[:6]
+    ofertas = Oferta_Laboral.objects.all()
+    if request.POST:
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        send_mail(subject, message, 'habanatrans16@gmail.com', ['pemiro91@gmail.com'], fail_silently=False)
+        messages.success(request, 'Su mensaje ha sido enviado satisfactoriamente. Gracias!')
+        # return redirect('/')
+    context = {'categories': categories, 'bussiness': bussiness, 'ofertas': ofertas}
     return render(request, "index.html", context)
 
 
@@ -104,13 +117,15 @@ def register_business(request):
     return render(request, "control_panel/pages/sign-up.html", context)
 
 
-def detalles_oferta(request, id_negocio):
-    context = {}
+def detalles_oferta(request, id_oferta):
+    oferta = get_object_or_404(Oferta_Laboral, pk=id_oferta)
+    context = {'oferta': oferta}
     return render(request, "oferta_detalles.html", context)
 
 
 def ofertas_laborales(request):
-    context = {}
+    ofertas = Oferta_Laboral.objects.all()
+    context = {'ofertas': ofertas}
     return render(request, "ofertas.html", context)
 
 
@@ -153,7 +168,24 @@ def blocked_user(request, id_user):
 
 def update_user(request, id_user):
     if request.user.is_authenticated:
-        context = {}
+        user_custom = User.objects.get(id=id_user)
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            with transaction.atomic():
+                user_custom.set_password(password)
+                user_custom.save()
+                User.objects.filter(pk=id_user).update(
+                    first_name=first_name,
+                    last_name=last_name,
+                    telefono=phone,
+                    email=email
+                )
+                return redirect('users')
+        context = {'user': user_custom}
         return render(request, "control_panel/pages/editar_usuario.html", context)
     return redirect('login')
 

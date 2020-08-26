@@ -8,7 +8,7 @@ from kerapido.models import Reservacion_Generada, Reservacion_Simple, Producto, 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'password', 'telefono', 'is_cliente')
+        fields = ('username', 'first_name', 'last_name', 'email',  'password', 'telefono', 'is_cliente')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = User(**validated_data)
         user.set_password(password)
         user.is_cliente = True
+        user.is_active = False
         user.save()
         return user
 

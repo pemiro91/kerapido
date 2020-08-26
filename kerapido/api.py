@@ -34,7 +34,7 @@ def login(request):
         return Response({'error': 'Por favor introduzca un usuario o contraseña válido'}, status=HTTP_400_BAD_REQUEST)
     user = authenticate(username=username, password=password)
     if not user:
-        return Response({'error': 'Credenciales inválidas'}, status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Aún no se ha verificado su cuenta'}, status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
     context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username, 'telefono': user.telefono}}
     return Response(context, status=HTTP_200_OK)
