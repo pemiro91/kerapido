@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 #
 # def principal(request):
@@ -167,7 +168,24 @@ def blocked_user(request, id_user):
 
 def update_user(request, id_user):
     if request.user.is_authenticated:
-        context = {}
+        user_custom = User.objects.get(id=id_user)
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            with transaction.atomic():
+                user_custom.set_password(password)
+                user_custom.save()
+                User.objects.filter(pk=id_user).update(
+                    first_name=first_name,
+                    last_name=last_name,
+                    telefono=phone,
+                    email=email
+                )
+                return redirect('users')
+        context = {'user': user_custom}
         return render(request, "control_panel/pages/editar_usuario.html", context)
     return redirect('login')
 
