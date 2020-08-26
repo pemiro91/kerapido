@@ -182,9 +182,9 @@ def negocios(request):
     return render(request, "control_panel/pages/listado_negocios.html", context)
 
 
-def modals(request):
+def add_bussiness(request):
     context = {}
-    return render(request, "control_panel/pages/UI/modals.html", context)
+    return render(request, "control_panel/pages/agregar_negocio.html", context)
 
 
 def sliders(request):

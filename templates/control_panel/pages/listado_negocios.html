@@ -11,10 +11,25 @@
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
-            <h2>
-                GESTIÓN DE NEGOCIOS
-                <small>Módulo para la gestión de negocios</small>
-            </h2>
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestion de negocios</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>
+                        <li class="active"><i class="material-icons">store</i>
+                            Negocios
+                        </li>
+
+
+                    </ol>
+                </div>
+            </div>
         </div>
 
         <!-- #END# Basic Examples -->
@@ -28,10 +43,11 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <button type="button" class="btn bg-amber waves-effect">
-                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                <a href="{% url 'add_bussiness' %}" type="button"
+                                   class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
-                                </button>
+                                </a>
 
                             </li>
                         </ul>
@@ -65,18 +81,19 @@
                                     <td>Rolando Garcia</td>
                                     <td>El Levant</td>
                                     <td>
-                                        <span class="label bg-blue">Comida para llevar</span>
-                                        <span class="label bg-red">Entrega a domicilio</span></td></td>
+                                        <span class="label bg-amber">Comida para llevar</span>
+                                        <span class="label bg-red">Entrega a domicilio</span></td>
+                                    </td>
                                     <td>7.8</td>
 
                                     <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
                                             <i class="material-icons">edit</i>
                                         </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
                                             <i class="material-icons">delete</i>
                                         </a>
                                     </td>
@@ -84,18 +101,18 @@
                                 <tr>
                                     <td>Ernesto lopez</td>
                                     <td>La Mimosa</td>
-                                    <td><span class="label bg-teal">Mesas</span>
+                                    <td><span class="label bg-blue-grey">Mesas</span>
                                         <span class="label bg-red">Entrega a domicilio</span></td>
                                     <td>8.9</td>
 
                                     <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
                                             <i class="material-icons">edit</i>
                                         </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
                                             <i class="material-icons">delete</i>
                                         </a>
                                     </td>

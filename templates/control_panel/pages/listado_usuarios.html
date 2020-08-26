@@ -25,6 +25,9 @@
                         <li class="active"><i class="material-icons">group</i>
                             Usuarios
                         </li>
+                        <li class="active"><i class="material-icons">details</i>
+                            Listado de Usuarios
+                        </li>
 
                     </ol>
                 </div>
@@ -110,8 +113,9 @@
                                         <td>
 {#                                         <div class="icon-button-demo m-t-25">#}
                                             {% if user.is_active %}
-                                                <a href="#" type="button"
-                                                   class="btn btn-default btn-circle waves-effect waves-amber"
+
+                                                <a type="button"
+                                                   class="btn btn-default waves-effect waves-amber"
                                                    data-href="{% url 'blocked_user' user.id %}"
                                                    title="Bloquear Usuario"
                                                    data-toggle="modal" data-target="#blockedModal"
@@ -119,8 +123,8 @@
                                                     <i class="material-icons">accessibility</i>
                                                 </a>
                                             {% else %}
-                                                <a href="#" type="button"
-                                                   class="btn btn-default btn-circle waves-effect waves-amber"
+                                                <a type="button"
+                                                   class="btn btn-default waves-effect waves-amber"
                                                    data-href="{% url 'activate_user' user.id %}"
                                                    title="Activar Usuario"
                                                    data-toggle="modal" data-target="#activeModal"
@@ -129,10 +133,10 @@
                                                 </a>
                                             {% endif %}
                                             <a  type="button" href="{% url 'update_user' user.id %}"
-                                               class="btn btn-default btn-circle waves-effect waves-amber">
+                                               class="btn btn-default  waves-effect waves-amber">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <a href="#" type="button" class="btn btn-default btn-circle waves-effect waves-amber"
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
                                                data-href="{% url 'delete_user' user.id %}"
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
