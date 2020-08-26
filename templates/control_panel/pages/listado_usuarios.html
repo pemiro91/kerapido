@@ -25,9 +25,6 @@
                         <li class="active"><i class="material-icons">group</i>
                             Usuarios
                         </li>
-                        <li class="active"><i class="material-icons">details</i>
-                            Listado de Usuarios
-                        </li>
 
                     </ol>
                 </div>
@@ -104,17 +101,14 @@
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
                                             <td><span class="label bg-green" data-toggle="tooltip" data-placement="top" title="{{ user.fecha_alta }}">Activo</span></td>
-
                                         {% else %}
                                             <td><span class="label bg-red">Bloqueado</span></td>
-
                                         {% endif %}
 
                                         <td>
 {#                                         <div class="icon-button-demo m-t-25">#}
                                             {% if user.is_active %}
-
-                                                <a type="button"
+                                                <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-amber"
                                                    data-href="{% url 'blocked_user' user.id %}"
                                                    title="Bloquear Usuario"
@@ -123,7 +117,7 @@
                                                     <i class="material-icons">accessibility</i>
                                                 </a>
                                             {% else %}
-                                                <a type="button"
+                                                <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-amber"
                                                    data-href="{% url 'activate_user' user.id %}"
                                                    title="Activar Usuario"
@@ -133,7 +127,7 @@
                                                 </a>
                                             {% endif %}
                                             <a  type="button" href="{% url 'update_user' user.id %}"
-                                               class="btn btn-default  waves-effect waves-amber">
+                                               class="btn btn-default waves-effect waves-amber">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"

@@ -34,34 +34,21 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            EDITAR PERFIL DE USUARIO
-                        </h2>
-{#                        <ul class="header-dropdown m-r--5">#}
-{#                            <li class="dropdown">#}
-{#                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"#}
-{#                                   role="button"#}
-{#                                   aria-haspopup="true" aria-expanded="false">#}
-{#                                    <i class="material-icons">more_vert</i>#}
-{#                                </a>#}
-{#                                <ul class="dropdown-menu pull-right">#}
-{#                                    <li><a href="javascript:void(0);">Action</a></li>#}
-{#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
-{#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
-{#                                </ul>#}
-{#                            </li>#}
-{#                        </ul>#}
+                        <h2>EDITAR PERFIL DE USUARIO</h2>
                     </div>
                     <div class="body">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" role="form" method="post">{% csrf_token %}
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address_2">Nombre</label>
+                                    <label for="first_name">Nombre</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="email_address_2" class="form-control"
+                                            <input type="text" id="first_name" class="form-control"
+                                                   name="first_name"
+                                                   required
+                                                   value="{{ user.first_name }}"
                                                    placeholder="Nombre">
                                         </div>
                                     </div>
@@ -69,12 +56,15 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address_2">Apellidos</label>
+                                    <label for="last_name">Apellidos</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="email_address_2" class="form-control"
+                                            <input type="text" id="last_name" class="form-control"
+                                                   name="last_name"
+                                                   required
+                                                   value="{{ user.last_name }}"
                                                    placeholder="Apellidos">
                                         </div>
                                     </div>
@@ -82,39 +72,47 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address_2">Telefono</label>
+                                    <label for="phone">Tel&eacute;fono</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="email_address_2" class="form-control"
-                                                   placeholder="Telefono">
+                                            <input type="tel" id="phone" class="form-control"
+                                                   name="phone"
+                                                   required
+                                                   value="{{ user.telefono }}"
+                                                   placeholder="Tel&eacute;fono">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address_2">Correo Electrónico</label>
+                                    <label for="email_address">Correo Electr&oacute;nico</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="email_address_2" class="form-control"
-                                                   placeholder="Enter your email address">
+                                            <input type="email" id="email_address" class="form-control"
+                                                   name="email"
+                                                   required
+                                                   value="{{ user.email }}"
+                                                   placeholder="Escribe su correo electr&oacute;nico ">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="password_2">Contraseña</label>
+                                    <label for="password_2">Contrase&ntilde;a</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="password" id="password_2" class="form-control"
-                                                   placeholder="Enter your password">
+                                                   name="password"
+                                                   required
+                                                   placeholder="Escribe su contrase&ntilde;a">
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +125,7 @@
 {#                            </div>#}
                             <div class="row clearfix">
                                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                    <button type="button" class="btn bg-amber m-t-15 waves-effect">EDITAR PERFIL</button>
+                                    <button type="submit" class="btn bg-amber m-t-15 waves-effect">EDITAR PERFIL</button>
                                 </div>
                             </div>
                         </form>
