@@ -219,9 +219,9 @@ def add_bussiness(request):
     return render(request, "control_panel/pages/agregar_negocio.html", context)
 
 
-def sliders(request):
+def update_bussiness(request):
     context = {}
-    return render(request, "control_panel/pages/UI/sliders.html", context)
+    return render(request, "control_panel/pages/editar_negocio.html", context)
 
 
 def error404(request):

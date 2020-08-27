@@ -43,7 +43,7 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_bussiness' %}" type="button"
+                                <a href="{% url 'add_bussiness' %}" type="button" title="Agregar Datos de Negocio"
                                    class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
@@ -90,7 +90,7 @@
                                         {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
                                         {#                                            <i class="material-icons">accessibility</i>#}
                                         {#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-black">
+                                        <a type="button" href="{% url 'update_bussiness' %}" title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">
                                             <i class="material-icons">edit</i>
                                         </a>
                                         <a type="button" class="btn btn-default waves-effect waves-black">

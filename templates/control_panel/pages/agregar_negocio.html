@@ -60,344 +60,704 @@
             </div>
         </div>
 
-        <!-- Horizontal Layout -->
+        {#        <!-- Horizontal Layout -->#}
+        {#        <div class="row clearfix">#}
+        {#            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+        {#                <div class="card">#}
+        {#                    <div class="header">#}
+        {#                        <h2>#}
+        {#                            AGREGAR DATOS DE NEGOCIO#}
+        {#                        </h2>#}
+        {#                        <small>Taken from <a href="https://github.com/T00rk/bootstrap-material-datetimepicker"#}
+        {#                                             target="_blank">github.com/T00rk/bootstrap-material-datetimepicker</a> with#}
+        {#                            <a href="http://momentjs.com/" target="_blank">momentjs.com</a></small>#}
+        {##}
+        {#                    </div>#}
+        {#                    <div class="body">#}
+        {#                        <form id="wizard_with_validation" method="POST" action="{% url 'bussiness' %}">#}
+        {##}
+        {#                            <h3>Identidad</h3>#}
+        {#                            <fieldset>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="email_address_2">Nombre de negocio*</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input type="text" id="name" class="form-control"#}
+        {#                                                       placeholder="Nombre" required>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="logotipo">Logotipo</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input type="file" id="name" class="form-control"#}
+        {#                                                       placeholder=".jpg,.jpeg" required>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="portada">Portada</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input type="file" id="name" class="form-control"#}
+        {#                                                       placeholder=".jpg,.jpeg">#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="slogan">Slogan</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input type="text" id="slogan" class="form-control"#}
+        {#                                                       placeholder="Slogan">#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {##}
+        {#                            </fieldset>#}
+        {#                            <h3>Serivios</h3>#}
+        {#                            <fieldset>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="horario">Servicios</label>#}
+        {#                                    </div>#}
+        {##}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">#}
+        {#                                        <div class="form-group">#}
+        {##}
+        {#                                            <div class="demo-checkbox">#}
+        {#                                                <input type="checkbox" id="md_checkbox_8" class="chk-col-amber"#}
+        {#                                                       checked/>#}
+        {#                                                <label for="md_checkbox_8">Servicio 1</label>#}
+        {##}
+        {#                                                <input type="checkbox" id="md_checkbox_9" class="chk-col-amber"#}
+        {#                                                       checked/>#}
+        {#                                                <label for="md_checkbox_9">Servicio 2</label>#}
+        {##}
+        {#                                                <input type="checkbox" id="md_checkbox_10" class="chk-col-amber"/>#}
+        {#                                                <label for="md_checkbox_10">Servicio 3</label>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                        <select id="optgroup" class="ms" multiple="multiple">#}
+        {#                                            <optgroup label="Alaskan/Hawaiian Time Zone">#}
+        {#                                                <option value="AK">Alaska</option>#}
+        {#                                                <option value="HI">Hawaii</option>#}
+        {#                                            </optgroup>#}
+        {#                                            <optgroup label="Pacific Time Zone">#}
+        {#                                                <option value="CA">California</option>#}
+        {#                                                <option value="NV">Nevada</option>#}
+        {#                                                <option value="OR">Oregon</option>#}
+        {#                                                <option value="WA">Washington</option>#}
+        {#                                            </optgroup>#}
+        {#                                            <optgroup label="Mountain Time Zone">#}
+        {#                                                <option value="AZ">Arizona</option>#}
+        {#                                                <option value="CO">Colorado</option>#}
+        {#                                                <option value="ID">Idaho</option>#}
+        {#                                                <option value="MT">Montana</option>#}
+        {#                                                <option value="NE">Nebraska</option>#}
+        {#                                                <option value="NM">New Mexico</option>#}
+        {#                                                <option value="ND">North Dakota</option>#}
+        {#                                                <option value="UT">Utah</option>#}
+        {#                                                <option value="WY">Wyoming</option>#}
+        {#                                            </optgroup>#}
+        {#                                            <optgroup label="Central Time Zone">#}
+        {#                                                <option value="AL">Alabama</option>#}
+        {#                                                <option value="AR">Arkansas</option>#}
+        {#                                                <option value="IL">Illinois</option>#}
+        {#                                                <option value="IA">Iowa</option>#}
+        {#                                                <option value="KS">Kansas</option>#}
+        {#                                                <option value="KY">Kentucky</option>#}
+        {#                                                <option value="LA">Louisiana</option>#}
+        {#                                                <option value="MN">Minnesota</option>#}
+        {#                                                <option value="MS">Mississippi</option>#}
+        {#                                                <option value="MO">Missouri</option>#}
+        {#                                                <option value="OK">Oklahoma</option>#}
+        {#                                                <option value="SD">South Dakota</option>#}
+        {#                                                <option value="TX">Texas</option>#}
+        {#                                                <option value="TN">Tennessee</option>#}
+        {#                                                <option value="WI">Wisconsin</option>#}
+        {#                                            </optgroup>#}
+        {#                                            <optgroup label="Eastern Time Zone">#}
+        {#                                                <option value="CT">Connecticut</option>#}
+        {#                                                <option value="DE">Delaware</option>#}
+        {#                                                <option value="FL">Florida</option>#}
+        {#                                                <option value="GA">Georgia</option>#}
+        {#                                                <option value="IN">Indiana</option>#}
+        {#                                                <option value="ME">Maine</option>#}
+        {#                                                <option value="MD">Maryland</option>#}
+        {#                                                <option value="MA">Massachusetts</option>#}
+        {#                                                <option value="MI">Michigan</option>#}
+        {#                                                <option value="NH">New Hampshire</option>#}
+        {#                                                <option value="NJ">New Jersey</option>#}
+        {#                                                <option value="NY">New York</option>#}
+        {#                                                <option value="NC">North Carolina</option>#}
+        {#                                                <option value="OH">Ohio</option>#}
+        {#                                                <option value="PA">Pennsylvania</option>#}
+        {#                                                <option value="RI">Rhode Island</option>#}
+        {#                                                <option value="SC">South Carolina</option>#}
+        {#                                                <option value="VT">Vermont</option>#}
+        {#                                                <option value="VA">Virginia</option>#}
+        {#                                                <option value="WV">West Virginia</option>#}
+        {#                                            </optgroup>#}
+        {#                                        </select>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="horario">Horario de Servicio</label>#}
+        {#                                    </div>#}
+        {##}
+        {#                                            <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">#}
+        {#                                                <div class="input-daterange input-group" id="">#}
+        {#                                                    <span class="input-group-addon"></span>#}
+        {#                                                    <div class="form-line">#}
+        {#                                                        <input type="text" class="timepicker form-control"#}
+        {#                                                               placeholder="Inicio">#}
+        {#                                                    </div>#}
+        {#                                                    <span class="input-group-addon">hasta</span>#}
+        {#                                                    <div class="form-line">#}
+        {#                                                        <input type="text" class="timepicker form-control"#}
+        {#                                                               placeholder="Fin">#}
+        {#                                                    </div>#}
+        {#                                                </div>#}
+        {##}
+        {#                                            </div>#}
+        {#                                </div>#}
+        {#                                        <div class="row clearfix">#}
+        {#                                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                                <label for="horario">Frecuencia Semanal</label>#}
+        {#                                            </div>#}
+        {##}
+        {#                                            <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">#}
+        {#                                                <label for="horario">Frecuencia Semanal</label>#}
+        {#                                                <div class="form-group">#}
+        {##}
+        {#                                                    <div class="demo-checkbox">#}
+        {#                                                        <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_1">Lunes</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_2">Martes</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_3">Miercoles</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_4">Jueves</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_5">Viernes</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_6">Sabado</label>#}
+        {##}
+        {#                                                        <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"#}
+        {#                                                               checked/>#}
+        {#                                                        <label for="md_checkbox_7">Domingo</label>#}
+        {#                                                    </div>#}
+        {##}
+        {#                                                </div>#}
+        {##}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {##}
+        {##}
+        {#                            </fieldset>#}
+        {##}
+        {#                            <h3>Contacto</h3>#}
+        {#                            <fieldset>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="slogan">Dirección*</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <textarea class="form-control" name="address" cols="30" rows="3"#}
+        {#                                                          placeholder="Escriba la dirección completa"></textarea>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {##}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="slogan">Provincia*</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <select class="form-control show-tick">#}
+        {#                                                    <option value="">-- Seleccione --</option>#}
+        {#                                                    <option value="10">10</option>#}
+        {#                                                    <option value="20">20</option>#}
+        {#                                                    <option value="30">30</option>#}
+        {#                                                    <option value="40">40</option>#}
+        {#                                                    <option value="50">50</option>#}
+        {#                                                </select>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="slogan">Municipio*</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <select class="form-control show-tick">#}
+        {#                                                    <option value="">-- Seleccione --</option>#}
+        {#                                                    <option value="10">10</option>#}
+        {#                                                    <option value="20">20</option>#}
+        {#                                                    <option value="30">30</option>#}
+        {#                                                    <option value="40">40</option>#}
+        {#                                                    <option value="50">50</option>#}
+        {#                                                </select>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="phone1">Telefono 1*</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input min="6" type="phone" max="6" name="phone" class="form-control"#}
+        {#                                                >#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="email_address_2">Telefono 2</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input min="6" type="phone" max="6" name="phone" class="form-control">#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                        <label for="email_address_2">Correo Electrónico</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <div class="form-line">#}
+        {#                                                <input type="email" id="email_address_2" class="form-control"#}
+        {#                                                       placeholder="Enter your email address">#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {#                                <div class="row clearfix">#}
+        {#                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">#}
+        {#                                                                            <label for="email_address_2">Correo Electrónico</label>#}
+        {#                                    </div>#}
+        {#                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">#}
+        {#                                        <div class="form-group">#}
+        {#                                            <input id="acceptTerms-2" name="acceptTerms" type="checkbox">#}
+        {#                                            <label for="acceptTerms-2">Acepto los Términos y Condiciones</label>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                </div>#}
+        {##}
+        {#                            </fieldset>#}
+        {#                        </form>#}
+        {##}
+        {#                        <div>#}
+        {#                            <ul class="nav nav-tabs" role="tablist">#}
+        {#                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"#}
+        {#                                                                          data-toggle="tab">Negocios</a></li>#}
+        {#                                <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab"#}
+        {#                                                           data-toggle="tab">Actualizar Información</a></li>#}
+        {#                                <li role="presentation"><a href="#change_password_settings" aria-controls="settings"#}
+        {#                                                           role="tab" data-toggle="tab">Cambiar contraseña</a></li>#}
+        {#                            </ul>#}
+        {##}
+        {#                            <div class="tab-content">#}
+        {#                                <div role="tabpanel" class="tab-pane fade in active" id="home">#}
+        {#                                    <div class="panel panel-default panel-post">#}
+        {#                                        <div class="panel-heading">#}
+        {#                                            <div class="media">#}
+        {#                                                <div class="media-left">#}
+        {#                                                    <a href="#">#}
+        {#                                                        <img style="height: 45px"#}
+        {#                                                             src="{% static 'control_panel/images/negocios/levant.jpg ' %}"/>#}
+        {#                                                    </a>#}
+        {#                                                </div>#}
+        {#                                                <div class="media-body">#}
+        {#                                                    <h4 class="media-heading">#}
+        {#                                                        <a href="#">El Levant</a>#}
+        {#                                                    </h4>#}
+        {#                                                    Shared publicly - 26 Oct 2018#}
+        {#                                                </div>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                        <div class="panel-body">#}
+        {#                                            <div class="post">#}
+        {#                                                <div class="post-heading">#}
+        {#                                                    <p>Slogan:#}
+        {#                                                        <a href="#">#small</a> bits of <a#}
+        {#                                                            href="#">#information</a>. #}
+        {#                                                        I require little more information#}
+        {#                                                        to use effectively.#}
+        {#                                                        I require little more information#}
+        {#                                                        to use effectively.#}
+        {#                                                        I require little more information#}
+        {#                                                        to use effectively.</p>#}
+        {#                                                </div>#}
+        {#                                                <div class="post-content">#}
+        {#                                                    <img src="{% static 'control_panel/images/profile-post-image.jpg' %}"#}
+        {#                                                         class="img-responsive"/>#}
+        {#                                                </div>#}
+        {#                                            </div>#}
+        {#                                        </div>#}
+        {#                                        <div class="panel-footer">#}
+        {#                                            <ul>#}
+        {#                                                <li>#}
+        {#                                                    <a href="#">#}
+        {#                                                        <i class="material-icons">smartphone</i>#}
+        {#                                                        <span>+53 555555</span>#}
+        {#                                                    </a>#}
+        {#                                                </li>#}
+        {#                                                <li>#}
+        {#                                                    <a href="#">#}
+        {#                                                        <i class="material-icons">phone</i>#}
+        {#                                                        <span>+53 78678178</span>#}
+        {#                                                    </a>#}
+        {#                                                </li>#}
+        {#                                                <li>#}
+        {#                                                    <a href="#">#}
+        {#                                                        <i class="material-icons">email</i>#}
+        {#                                                        <span>levant@gmail.com</span>#}
+        {#                                                    </a>#}
+        {#                                                </li>#}
+        {#                                                <li>#}
+        {#                                                    <i class="material-icons">room</i>#}
+        {#                                                    <span>Aguila  y Salud</span>#}
+        {##}
+        {#                                                </li>#}
+        {##}
+        {#                                            </ul>#}
+        {#                                        </div>#}
+        {#                                        <div class="panel-footer">#}
+        {#                                            <ul>#}
+        {#                                                <li>#}
+        {#                                                    <i class="material-icons">edit</i>#}
+        {#                                                    Servicios#}
+        {##}
+        {#                                                    <span class="label bg-red">UI Design</span>#}
+        {#                                                    <span class="label bg-teal">JavaScript</span>#}
+        {#                                                    <span class="label bg-blue">PHP</span>#}
+        {#                                                    <span class="label bg-amber" >Node.js</span>#}
+        {##}
+        {##}
+        {#                                                </li>#}
+        {#                                                <li>#}
+        {##}
+        {#                                                    <i class="material-icons">restaurant</i>#}
+        {##}
+        {#                                                    <a href="{% url 'table' %}">Productos Ofertados</a>#}
+        {##}
+        {##}
+        {#                                                </li>#}
+        {#                                            </ul>#}
+        {#                                        </div>#}
+        {#                                        <div class="panel-footer">#}
+        {#                                            <ul>#}
+        {##}
+        {#                                                <li>#}
+        {##}
+        {#                                                    <a href="#">#}
+        {#                                                        <i class="material-icons" style="color: #FEC010;">grade</i>#}
+        {#                                                        <span class="label bg-amber">Evaluaciòn 5.5</span>#}
+        {#                                                    </a>#}
+        {##}
+        {#                                                </li>#}
+        {#                                                <li>#}
+        {#                                                    <a href="#">#}
+        {#                                                        <i class="material-icons" style="color: #212121">comment</i>#}
+        {#                                                        <span class="label bg-black">8 Comments</span>#}
+        {#                                                    </a>#}
+        {#                                                </li>#}
+        {##}
+        {##}
+        {#                                            </ul>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {##}
+        {#                                   #}
+        {#                            </div>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            AGREGAR DATOS DE NEGOCIO
-                        </h2>
-                        <small>Taken from <a href="https://github.com/T00rk/bootstrap-material-datetimepicker"
-                                             target="_blank">github.com/T00rk/bootstrap-material-datetimepicker</a> with
-                            <a href="http://momentjs.com/" target="_blank">momentjs.com</a></small>
-
+                        <h2>BASIC VALIDATION</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <div class="body">
-                        <form id="wizard_with_validation" method="POST">
+                        <form id="form_validation" method="POST">
+                            <h2 class="card-inside-title">Identidad</h2>
+                            <br>
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <b>Nombre de Negocio</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">store</i>
+                                            </span>
+                                        <div class="form-group form-float">
 
-                            <h3>Identidad</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Nombre de negocio*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" id="name" class="form-control"
-                                                       placeholder="Nombre" required>
+
+                                                <input type="text" class="form-control text" placeholder="Levant" required>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="logotipo">Logotipo</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
+                                <div class="col-sm-4">
+                                    <b>Logotipo</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">image</i>
+                                            </span>
+                                        <div class="form-group form-float">
+
                                             <div class="form-line">
-                                                <input type="file" id="name" class="form-control"
-                                                       placeholder=".jpg,.jpeg" required>
+
+                                                <input type="file" class="form-control file-field" placeholder="Levant"
+                                                       required>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="portada">Portada</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
+                                <div class="col-sm-4">
+                                    <b>Portada</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">image</i>
+                                            </span>
+                                        <div class="form-group form-float">
+
                                             <div class="form-line">
-                                                <input type="file" id="name" class="form-control"
-                                                       placeholder=".jpg,.jpeg">
+
+                                                <input type="file" class="form-control file-field" placeholder="Levant"
+                                                       required>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Slogan</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
+
+                            </div>
+                            <h2 class="card-inside-title">Servicios</h2>
+                            <br>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <b>Tipos de Servicios</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">store</i>
+                                            </span>
+                                        <div class="form-group form-float">
+
                                             <div class="form-line">
-                                                <input type="text" id="slogan" class="form-control"
-                                                       placeholder="Slogan">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </fieldset>
-                            <h3>Serivios</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="horario">Servicios</label>
-                                    </div>
-
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        <div class="form-group">
-
-                                            <div class="demo-checkbox">
-                                                <input type="checkbox" id="md_checkbox_8" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_8">Servicio 1</label>
-
-                                                <input type="checkbox" id="md_checkbox_9" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_9">Servicio 2</label>
-
-                                                <input type="checkbox" id="md_checkbox_10" class="chk-col-amber"/>
-                                                <label for="md_checkbox_10">Servicio 3</label>
-                                            </div>
-                                        </div>
-                                        {#                                        <select id="optgroup" class="ms" multiple="multiple">#}
-                                        {#                                            <optgroup label="Alaskan/Hawaiian Time Zone">#}
-                                        {#                                                <option value="AK">Alaska</option>#}
-                                        {#                                                <option value="HI">Hawaii</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Pacific Time Zone">#}
-                                        {#                                                <option value="CA">California</option>#}
-                                        {#                                                <option value="NV">Nevada</option>#}
-                                        {#                                                <option value="OR">Oregon</option>#}
-                                        {#                                                <option value="WA">Washington</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Mountain Time Zone">#}
-                                        {#                                                <option value="AZ">Arizona</option>#}
-                                        {#                                                <option value="CO">Colorado</option>#}
-                                        {#                                                <option value="ID">Idaho</option>#}
-                                        {#                                                <option value="MT">Montana</option>#}
-                                        {#                                                <option value="NE">Nebraska</option>#}
-                                        {#                                                <option value="NM">New Mexico</option>#}
-                                        {#                                                <option value="ND">North Dakota</option>#}
-                                        {#                                                <option value="UT">Utah</option>#}
-                                        {#                                                <option value="WY">Wyoming</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Central Time Zone">#}
-                                        {#                                                <option value="AL">Alabama</option>#}
-                                        {#                                                <option value="AR">Arkansas</option>#}
-                                        {#                                                <option value="IL">Illinois</option>#}
-                                        {#                                                <option value="IA">Iowa</option>#}
-                                        {#                                                <option value="KS">Kansas</option>#}
-                                        {#                                                <option value="KY">Kentucky</option>#}
-                                        {#                                                <option value="LA">Louisiana</option>#}
-                                        {#                                                <option value="MN">Minnesota</option>#}
-                                        {#                                                <option value="MS">Mississippi</option>#}
-                                        {#                                                <option value="MO">Missouri</option>#}
-                                        {#                                                <option value="OK">Oklahoma</option>#}
-                                        {#                                                <option value="SD">South Dakota</option>#}
-                                        {#                                                <option value="TX">Texas</option>#}
-                                        {#                                                <option value="TN">Tennessee</option>#}
-                                        {#                                                <option value="WI">Wisconsin</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Eastern Time Zone">#}
-                                        {#                                                <option value="CT">Connecticut</option>#}
-                                        {#                                                <option value="DE">Delaware</option>#}
-                                        {#                                                <option value="FL">Florida</option>#}
-                                        {#                                                <option value="GA">Georgia</option>#}
-                                        {#                                                <option value="IN">Indiana</option>#}
-                                        {#                                                <option value="ME">Maine</option>#}
-                                        {#                                                <option value="MD">Maryland</option>#}
-                                        {#                                                <option value="MA">Massachusetts</option>#}
-                                        {#                                                <option value="MI">Michigan</option>#}
-                                        {#                                                <option value="NH">New Hampshire</option>#}
-                                        {#                                                <option value="NJ">New Jersey</option>#}
-                                        {#                                                <option value="NY">New York</option>#}
-                                        {#                                                <option value="NC">North Carolina</option>#}
-                                        {#                                                <option value="OH">Ohio</option>#}
-                                        {#                                                <option value="PA">Pennsylvania</option>#}
-                                        {#                                                <option value="RI">Rhode Island</option>#}
-                                        {#                                                <option value="SC">South Carolina</option>#}
-                                        {#                                                <option value="VT">Vermont</option>#}
-                                        {#                                                <option value="VA">Virginia</option>#}
-                                        {#                                                <option value="WV">West Virginia</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                        </select>#}
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="horario">Horario de Servicio</label>
-                                    </div>
-
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        <div class="input-daterange input-group" id="">
-                                            {#                                            <span class="input-group-addon"></span>#}
-                                            <div class="form-line">
-                                                <input type="text" class="timepicker form-control"
-                                                       placeholder="Inicio">
-                                            </div>
-                                            <span class="input-group-addon">hasta</span>
-                                            <div class="form-line">
-                                                <input type="text" class="timepicker form-control"
-                                                       placeholder="Fin">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        {#                                        <label for="horario">Frecuencia Semanal</label>#}
-                                    </div>
-
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        {#                                        <label for="horario">Frecuencia Semanal</label>#}
-                                        <div class="form-group">
-
-                                            <div class="demo-checkbox">
-                                                <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_1">Lunes</label>
-
-                                                <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_2">Martes</label>
-
-                                                <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_3">Miercoles</label>
-
-                                                <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_4">Jueves</label>
-
-                                                <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_5">Viernes</label>
-
-                                                <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_6">Sabado</label>
-
-                                                <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_7">Domingo</label>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </fieldset>
-
-                            <h3>Contacto</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Dirección*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <textarea class="form-control" name="address" cols="30" rows="3"
-                                                          placeholder="Escriba la dirección completa"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Provincia*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-{#                                            <div class="form-line">#}
-                                                <select class="form-control show-tick">
-                                                    <option value="">-- Seleccione --</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="30">30</option>
-                                                    <option value="40">40</option>
-                                                    <option value="50">50</option>
+                                                <select class="form-control show-tick" multiple required>
+                                                    <option>Comida para llevar</option>
+                                                    <option>Mesas y Espacios</option>
+                                                    <option>Entrega a domicilio</option>
                                                 </select>
-{#                                            </div>#}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Municipio*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-{#                                            <div class="form-line">#}
-                                                <select class="form-control show-tick">
-                                                    <option value="">-- Seleccione --</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="30">30</option>
-                                                    <option value="40">40</option>
-                                                    <option value="50">50</option>
-                                                </select>
-{#                                            </div>#}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="phone1">Telefono 1*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input min="6" type="phone" max="6" name="phone" class="form-control"
-                                                >
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Telefono 2</label>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <b>Horario</b>
+                                    <div class="input-daterange input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">access_time</i>
+                                            </span>
+                                        {#                                        <div class="form-group form-float">#}
+                                        <div class="form-line">
+                                            <input type="text" class="timepicker form-control"
+                                                   placeholder="Horario Inicio" required>
+
+                                        </div>
+                                        <span class="input-group-addon">-</span>
+                                        <span class="input-group-addon">
+                                                <i class="material-icons">access_time</i>
+                                            </span>
+                                        <div class="form-line">
+                                            <input type="text" class="timepicker form-control"
+                                                   placeholder="Horario Fin" required>
+                                        </div>
+
+                                        {#                                        </div>#}
                                     </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
+                                </div>
+
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="horario">Frecuencia Semanal</label>
+                                </div>
+
+                                <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
+                                    {#                                                <label for="horario">Frecuencia Semanal</label>#}
+                                    <div class="form-group">
+
+                                        <div class="demo-checkbox">
+                                            <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"/>
+                                            <label for="md_checkbox_1">Lunes</label>
+
+                                            <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"/>
+                                            <label for="md_checkbox_2">Martes</label>
+
+                                            <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"/>
+                                            <label for="md_checkbox_3">Miercoles</label>
+
+                                            <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"/>
+                                            <label for="md_checkbox_4">Jueves</label>
+
+                                            <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"/>
+                                            <label for="md_checkbox_5">Viernes</label>
+
+                                            <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"/>
+                                            <label for="md_checkbox_6">Sabado</label>
+
+                                            <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"/>
+                                            <label for="md_checkbox_7">Domingo</label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <h2 class="card-inside-title">Contacto</h2>
+                            <br>
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <b>Dirección</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">place</i>
+                                            </span>
+                                        <div class="form-group form-float">
                                             <div class="form-line">
-                                                <input min="6" type="phone" max="6" name="phone" class="form-control">
+                                                <textarea name="description" cols="30" rows="2"
+                                                          class="form-control no-resize"
+                                                          required
+                                                          placeholder="Escriba la direccion completa"></textarea>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Correo Electrónico</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="email" id="email_address_2" class="form-control"
-                                                       placeholder="Enter your email address">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        {#                                                                            <label for="email_address_2">Correo Electrónico</label>#}
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <input id="acceptTerms-2" name="acceptTerms" type="checkbox">
-                                            <label for="acceptTerms-2">Acepto los Términos y Condiciones</label>
                                         </div>
                                     </div>
                                 </div>
 
-                            </fieldset>
+                                <div class="col-sm-4">
+                                    <b>Municipio</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">place</i>
+                                            </span>
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <select class="form-control show-tick" data-live-search="true">
+                                                    <option>Hot Dog, Fries and a Soda</option>
+                                                    <option>Burger, Shake and a Smile</option>
+                                                    <option>Sugar, Spice and all things nice</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <b>Municipio</b>
+                                    <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">place</i>
+                                            </span>
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <select class="form-control show-tick" data-live-search="true">
+                                                    <option>Hot Dog, Fries and a Soda</option>
+                                                    <option>Burger, Shake and a Smile</option>
+                                                    <option>Sugar, Spice and all things nice</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" id="checkbox" name="checkbox">
+                                <label for="checkbox">He leido y acepto los términos y condiciones</label>
+                            </div>
+                            <button class="btn btn-default waves-effect waves-amber" type="submit">
+                                <i class="material-icons " style="color: #212121">send</i>
+                                <span>ENVIAR</span></button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- #END# Horizontal Layout -->
     </div>
 {% endblock %}
 {% block plugin_section %}
@@ -413,14 +773,15 @@
     <script src="{% static 'control_panel/plugins/autosize/autosize.js' %}"></script>
     <!-- Moment Plugin Js -->
     <script src="{% static 'control_panel/plugins/momentjs/moment.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
     <!-- Bootstrap Datepicker Plugin Js -->
     <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
     <!-- Input Mask Plugin Js -->
-        <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
-    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+    {#    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>#}
 
     <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
 

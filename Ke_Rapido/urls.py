@@ -51,7 +51,7 @@ urlpatterns = [
     path('table', views.menu, name="table"),
     path('bussiness', views.negocios, name="bussiness"),
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
-    path('sliders', views.sliders, name="sliders"),
+    path('update_bussiness', views.update_bussiness, name="update_bussiness"),
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 
     # ------------- Api -------------#

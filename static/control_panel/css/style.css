@@ -10284,6 +10284,7 @@ fieldset[disabled] .form-control {
 
 .sidebar .menu .list a:hover, .sidebar .menu .list a:active, .sidebar .menu .list a:focus {
     text-decoration: none !important;
+    color:#FEC010
 }
 
 .sidebar .menu .list a small {
@@ -10472,7 +10473,7 @@ fieldset[disabled] .form-control {
 .signup-page {
 
     /* Ruta relativa o completa a la imagen */
-    background-image: url("../images/fondo.jpg");
+    background-image: url("../../site/img/Ke_rapido1.3.3.2_1080x607.jpg");
     /* Centramos el fondo horizontal y verticalmente */
     background-position: center center;
     /* El fonde no se repite */
