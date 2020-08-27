@@ -54,7 +54,11 @@ def login_admin(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('panel')
+                tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
+                if tiene_negocio:
+                    return redirect('panel')
+                else:
+                    return redirect('add_bussiness')
         else:
             messages.warning(request, 'username or password not correct')
             return redirect('login')
