@@ -135,8 +135,11 @@ def ofertas_laborales(request):
 
 def servicios(request):
     context = {}
-    return render(request, "control_panel/pages/listado_categorias.html", context)
+    return render(request, "control_panel/pages/listado_servicios.html", context)
 
+def add_services(request):
+    context = {}
+    return render(request, "control_panel/pages/agregar_servicios.html", context)
 
 def reservations(request):
     context = {}

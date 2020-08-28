@@ -40,6 +40,7 @@ urlpatterns = [
     path('register_business', views.register_business, name="register_business"),
     path('panel', views.admin_panel, name="panel"),
     path('services', views.servicios, name="services"),
+    path('add_services', views.add_services, name="add_services"),
     path('reservations', views.reservations, name="reservations"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
     path('users', views.users, name="users"),

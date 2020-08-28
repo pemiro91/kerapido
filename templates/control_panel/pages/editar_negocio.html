@@ -52,7 +52,7 @@
                             Negocios</a>
                         </li>
                         <li class="active"><i class="material-icons">add_circle</i>
-                            Modificar datos de Negocio
+                            Modificar información del Negocio
                         </li>
 
                     </ol>
@@ -60,344 +60,226 @@
             </div>
         </div>
 
-        <!-- Horizontal Layout -->
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            MODIFICAR DATOS DE NEGOCIO
-                        </h2>
-                        <small>Taken from <a href="https://github.com/T00rk/bootstrap-material-datetimepicker"
-                                             target="_blank">github.com/T00rk/bootstrap-material-datetimepicker</a> with
-                            <a href="http://momentjs.com/" target="_blank">momentjs.com</a></small>
+                        <h2>MODIFICAR INFORMACIÓN DEL NEGOCIO</h2>
 
                     </div>
+
+
                     <div class="body">
-                        <form id="wizard_with_validation" method="POST">
+                        <form class="form-horizontal form-form_validation" role="form" method="post">{% csrf_token %}
 
-                            <h3>Identidad</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Nombre de negocio*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" id="name" class="form-control"
-                                                       placeholder="Nombre" required>
-                                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="first_name">Nombre del Negocio*</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="name" class="form-control"
+                                                   name="first_name"
+                                                   required
+                                                   value=""
+                                                   placeholder="Nombre">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="logotipo">Logotipo</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="file" id="name" class="form-control"
-                                                       placeholder=".jpg,.jpeg" required>
-                                            </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="last_name">Logotipo</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="file" class="form-control file-field" placeholder=""
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="portada">Portada</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="file" id="name" class="form-control"
-                                                       placeholder=".jpg,.jpeg">
-                                            </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="last_name">Portada</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="file" class="form-control file-field" placeholder=""
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Slogan</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" id="slogan" class="form-control"
-                                                       placeholder="Slogan">
-                                            </div>
+                            </div>
+                            <hr>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="last_name">Servicios</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control show-tick" multiple required>
+                                                <option>Comida para llevar</option>
+                                                <option>Mesas y Espacios</option>
+                                                <option>Entrega a domicilio</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Horario</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                    <div class="input-daterange input-group" id="bs_datepicker_range_container">
 
-                            </fieldset>
-                            <h3>Serivios</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="horario">Servicios</label>
-                                    </div>
-
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        <div class="form-group">
-
-                                            <div class="demo-checkbox">
-                                                <input type="checkbox" id="md_checkbox_8" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_8">Servicio 1</label>
-
-                                                <input type="checkbox" id="md_checkbox_9" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_9">Servicio 2</label>
-
-                                                <input type="checkbox" id="md_checkbox_10" class="chk-col-amber"/>
-                                                <label for="md_checkbox_10">Servicio 3</label>
-                                            </div>
+                                        <div class="form-line">
+                                            <input type="text" class="timepicker form-control" placeholder="Inicio...">
                                         </div>
-                                        {#                                        <select id="optgroup" class="ms" multiple="multiple">#}
-                                        {#                                            <optgroup label="Alaskan/Hawaiian Time Zone">#}
-                                        {#                                                <option value="AK">Alaska</option>#}
-                                        {#                                                <option value="HI">Hawaii</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Pacific Time Zone">#}
-                                        {#                                                <option value="CA">California</option>#}
-                                        {#                                                <option value="NV">Nevada</option>#}
-                                        {#                                                <option value="OR">Oregon</option>#}
-                                        {#                                                <option value="WA">Washington</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Mountain Time Zone">#}
-                                        {#                                                <option value="AZ">Arizona</option>#}
-                                        {#                                                <option value="CO">Colorado</option>#}
-                                        {#                                                <option value="ID">Idaho</option>#}
-                                        {#                                                <option value="MT">Montana</option>#}
-                                        {#                                                <option value="NE">Nebraska</option>#}
-                                        {#                                                <option value="NM">New Mexico</option>#}
-                                        {#                                                <option value="ND">North Dakota</option>#}
-                                        {#                                                <option value="UT">Utah</option>#}
-                                        {#                                                <option value="WY">Wyoming</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Central Time Zone">#}
-                                        {#                                                <option value="AL">Alabama</option>#}
-                                        {#                                                <option value="AR">Arkansas</option>#}
-                                        {#                                                <option value="IL">Illinois</option>#}
-                                        {#                                                <option value="IA">Iowa</option>#}
-                                        {#                                                <option value="KS">Kansas</option>#}
-                                        {#                                                <option value="KY">Kentucky</option>#}
-                                        {#                                                <option value="LA">Louisiana</option>#}
-                                        {#                                                <option value="MN">Minnesota</option>#}
-                                        {#                                                <option value="MS">Mississippi</option>#}
-                                        {#                                                <option value="MO">Missouri</option>#}
-                                        {#                                                <option value="OK">Oklahoma</option>#}
-                                        {#                                                <option value="SD">South Dakota</option>#}
-                                        {#                                                <option value="TX">Texas</option>#}
-                                        {#                                                <option value="TN">Tennessee</option>#}
-                                        {#                                                <option value="WI">Wisconsin</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                            <optgroup label="Eastern Time Zone">#}
-                                        {#                                                <option value="CT">Connecticut</option>#}
-                                        {#                                                <option value="DE">Delaware</option>#}
-                                        {#                                                <option value="FL">Florida</option>#}
-                                        {#                                                <option value="GA">Georgia</option>#}
-                                        {#                                                <option value="IN">Indiana</option>#}
-                                        {#                                                <option value="ME">Maine</option>#}
-                                        {#                                                <option value="MD">Maryland</option>#}
-                                        {#                                                <option value="MA">Massachusetts</option>#}
-                                        {#                                                <option value="MI">Michigan</option>#}
-                                        {#                                                <option value="NH">New Hampshire</option>#}
-                                        {#                                                <option value="NJ">New Jersey</option>#}
-                                        {#                                                <option value="NY">New York</option>#}
-                                        {#                                                <option value="NC">North Carolina</option>#}
-                                        {#                                                <option value="OH">Ohio</option>#}
-                                        {#                                                <option value="PA">Pennsylvania</option>#}
-                                        {#                                                <option value="RI">Rhode Island</option>#}
-                                        {#                                                <option value="SC">South Carolina</option>#}
-                                        {#                                                <option value="VT">Vermont</option>#}
-                                        {#                                                <option value="VA">Virginia</option>#}
-                                        {#                                                <option value="WV">West Virginia</option>#}
-                                        {#                                            </optgroup>#}
-                                        {#                                        </select>#}
+                                        <span class="input-group-addon">-</span>
+
+                                        <div class="form-line">
+                                            <input type="text" class="timepicker form-control" placeholder="Fin...">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="horario">Horario de Servicio</label>
-                                    </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Frecuencia Semanal</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        {##}
+                                        <div class="demo-checkbox">
+                                            <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"/>
+                                            <label for="md_checkbox_1">Lunes</label>
 
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        <div class="input-daterange input-group" id="">
-                                            {#                                            <span class="input-group-addon"></span>#}
-                                            <div class="form-line">
-                                                <input type="text" class="timepicker form-control"
-                                                       placeholder="Inicio">
-                                            </div>
-                                            <span class="input-group-addon">hasta</span>
-                                            <div class="form-line">
-                                                <input type="text" class="timepicker form-control"
-                                                       placeholder="Fin">
-                                            </div>
+                                            <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"/>
+                                            <label for="md_checkbox_2">Martes</label>
+
+                                            <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"/>
+                                            <label for="md_checkbox_3">Miercoles</label>
+
+                                            <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"/>
+                                            <label for="md_checkbox_4">Jueves</label>
+
+                                            <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"/>
+                                            <label for="md_checkbox_5">Viernes</label>
+
+                                            <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"/>
+                                            <label for="md_checkbox_6">Sabado</label>
+
+                                            <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"/>
+                                            <label for="md_checkbox_7">Domingo</label>
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        {#                                        <label for="horario">Frecuencia Semanal</label>#}
-                                    </div>
+                            </div>
+                            <hr>
 
-                                    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6">
-                                        {#                                        <label for="horario">Frecuencia Semanal</label>#}
-                                        <div class="form-group">
-
-                                            <div class="demo-checkbox">
-                                                <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_1">Lunes</label>
-
-                                                <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_2">Martes</label>
-
-                                                <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_3">Miercoles</label>
-
-                                                <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_4">Jueves</label>
-
-                                                <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_5">Viernes</label>
-
-                                                <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_6">Sabado</label>
-
-                                                <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"
-                                                       checked/>
-                                                <label for="md_checkbox_7">Domingo</label>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Dirección</label>
                                 </div>
-
-
-                            </fieldset>
-
-                            <h3>Contacto</h3>
-                            <fieldset>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Dirección*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <textarea class="form-control" name="address" cols="30" rows="3"
-                                                          placeholder="Escriba la dirección completa"></textarea>
-                                            </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea name="description" cols="30" rows="1"
+                                                      class="form-control no-resize"
+                                                      required
+                                                      placeholder="Escriba la direccion completa"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+{#                                    <label for="email_address">Municipio</label>#}
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="input-daterange input-group" id="">
 
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Provincia*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-{#                                            <div class="form-line">#}
-                                                <select class="form-control show-tick">
-                                                    <option value="">-- Seleccione --</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="30">30</option>
-                                                    <option value="40">40</option>
-                                                    <option value="50">50</option>
-                                                </select>
-{#                                            </div>#}
+                                        <div class="form-line">
+                                             <label for="email_address">Municipio</label>
+                                            <select class="form-control show-tick" data-live-search="true">
+                                                <option>Hot Dog, Fries and a Soda</option>
+                                                <option>Burger, Shake and a Smile</option>
+                                                <option>Sugar, Spice and all things nice</option>
+                                            </select>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="slogan">Municipio*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-{#                                            <div class="form-line">#}
-                                                <select class="form-control show-tick">
-                                                    <option value="">-- Seleccione --</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="30">30</option>
-                                                    <option value="40">40</option>
-                                                    <option value="50">50</option>
-                                                </select>
-{#                                            </div>#}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="phone1">Telefono 1*</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input min="6" type="phone" max="6" name="phone" class="form-control"
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Telefono 2</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input min="6" type="phone" max="6" name="phone" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Correo Electrónico</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="email" id="email_address_2" class="form-control"
-                                                       placeholder="Enter your email address">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                                        {#                                                                            <label for="email_address_2">Correo Electrónico</label>#}
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <input id="acceptTerms-2" name="acceptTerms" type="checkbox">
-                                            <label for="acceptTerms-2">Acepto los Términos y Condiciones</label>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <span class="input-group-addon"></span>
 
-                            </fieldset>
+                                        <div class="form-line">
+                                             <label for="email_address">Provincia</label>
+                                            <select class="form-control show-tick" data-live-search="true">
+                                                <option>Hot Dog, Fries and a Soda</option>
+                                                <option>Burger, Shake and a Smile</option>
+                                                <option>Sugar, Spice and all things nice</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="password_2">Tel&eacute;fono</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="tel" id="password_2" class="form-control"
+                                                   maxlength="8"
+                                                   name="password"
+                                                   required
+                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="email_address">Correo Electr&oacute;nico</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="email" id="email_address" class="form-control"
+                                                   name="email"
+                                                   required
+                                                   value=""
+                                                   placeholder="Escribe su correo electr&oacute;nico de contacto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {#                            <div class="row clearfix">#}
+                            {#                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">#}
+                            {#                                    <input type="checkbox" id="remember_me_3" class="filled-in">#}
+                            {#                                    <label for="remember_me_3">Remember Me</label>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <div class="row clearfix">
+                                <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
+                                    <button class="btn btn-default waves-effect waves-amber" type="submit">
+                                        <i class="material-icons " style="color: #212121">send</i>
+                                        <span>ENVIAR</span></button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- #END# Horizontal Layout -->
     </div>
 {% endblock %}
 {% block plugin_section %}
@@ -418,9 +300,11 @@
     <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
     <!-- Bootstrap Datepicker Plugin Js -->
     <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
     <!-- Input Mask Plugin Js -->
-        <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
-    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+    {#    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>#}
 
     <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
 
