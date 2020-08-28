@@ -50,10 +50,16 @@ urlpatterns = [
     path('delete_user/<int:id_user>', views.delete_user, name="delete_user"),
     path('terminos', views.terminos_servicio, name="terminos_servicio"),
     path('table', views.menu, name="table"),
+    path('add_product', views.add_product, name="add_product"),
+    path('category_products', views.categoria_productos, name="category_products"),
+    path('add_category_product', views.agregar_categoria_productos, name="add_category_product"),
+    path('edit_category_product', views.editar_categoria_producto, name="edit_category_product"),
     path('bussiness', views.negocios, name="bussiness"),
+    path('my_bussiness/<int:id_bussiness>', views.mi_negocio, name="my_bussiness"),
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
     path('update_bussiness', views.update_bussiness, name="update_bussiness"),
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
+
 
     # ------------- Api -------------#
     path('api/account/register', UserCreate.as_view()),

@@ -1,0 +1,155 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
+                        <li><i class="material-icons">widgets</i>
+                            Mis Negocios
+                        </li>
+                        <li ><i class="material-icons">store</i>
+                            Negocio 1
+                        </li>
+                        <li class="active">
+                            Categorías de Productos
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix" style="margin-top: 2%">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE CATEGORÍAS DE PRODUCTOS
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="{% url 'add_category_product' %}" type="button" title="Agregar Categoría de Producto"
+                                   class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
+                                    <span>AGREGAR</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                <tr>
+                                    <th>Nombre de Categoría</th>
+                                    <th>Descripción</th>
+
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nombre de Categoría</th>
+                                    <th>Descripción</th>
+
+                                    <th>Acciones</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td>Comida para llevar</td>
+                                    <td>Comida para llevar</td>
+
+                                    <td>
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" href="{% url 'edit_category_product' %}" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Comida para llevar</td>
+                                    <td>Comida para llevar</td>
+
+                                    <td>
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-amber">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+
+{% endblock %}
+
+{#    <!-- Jquery Core Js -->#}
+{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
+{##}
+{#    <!-- Bootstrap Core Js -->#}
+{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
+{##}
+{#    <!-- Select Plugin Js -->#}
+{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
+{##}
+{#    <!-- Slimscroll Plugin Js -->#}
+{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
+{##}
+{#    <!-- Waves Effect Plugin Js -->#}
+{#    <script src="../../plugins/node-waves/waves.js"></script>#}
+

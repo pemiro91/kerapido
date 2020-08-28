@@ -137,9 +137,11 @@ def servicios(request):
     context = {}
     return render(request, "control_panel/pages/listado_servicios.html", context)
 
+
 def add_services(request):
     context = {}
     return render(request, "control_panel/pages/agregar_servicios.html", context)
+
 
 def reservations(request):
     context = {}
@@ -215,6 +217,21 @@ def menu(request):
     context = {}
     return render(request, "control_panel/pages/menu.html", context)
 
+def add_product(request):
+    context = {}
+    return render(request, "control_panel/pages/agregar_producto.html", context)
+
+def categoria_productos(request):
+    context = {}
+    return render(request, "control_panel/pages/listado_categoria_productos.html", context)
+
+def agregar_categoria_productos(request):
+    context = {}
+    return render(request, "control_panel/pages/agregar_categoria_producto.html", context)
+
+def editar_categoria_producto(request):
+    context = {}
+    return render(request, "control_panel/pages/editar_categoria_producto.html", context)
 
 def negocios(request):
     context = {}
@@ -239,3 +256,7 @@ def error404(request):
 def terminos_condiciones(request):
     context = {}
     return render(request, "control_panel/pages/terminos_condiicones.html", context)
+
+def mi_negocio(request,id_bussiness):
+    context = {}
+    return render(request, "control_panel/pages/mi_negocio.html", context)
