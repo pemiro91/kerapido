@@ -40,19 +40,25 @@
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
-                        GESTIÓN DE SERVICIOS
-                        <small>Módulo para la gestion de servicios</small>
+                        GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de los negocios del afiliado</small>
                     </h2>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
                         <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                        <li><a href="{% url 'services' %}"><i class="material-icons">store</i>
-                            Servicios</a>
+                        <li><i class="material-icons">widgets</i>
+                            Mis Negocios
                         </li>
-                        <li class="active"><i class="material-icons">add_circle</i>
-                            Agregar Servicio
+                        <li><i class="material-icons">store</i>
+                            Negocio 1
+                        </li>
+                        <li class="active"><a href="{% url 'category_products' %}">
+                            Categorías de Productos
+                        </a>
+                        </li>
+                        <li class="active">Modificar Categorías de Productos
                         </li>
 
                     </ol>
@@ -66,7 +72,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>AGREGAR SERVICIO</h2>
+                        <h2>MODIFICAR CATEGORÍA DE PRODUCTO</h2>
 
                     </div>
                     <div class="body">
@@ -74,7 +80,7 @@
 
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre del Servicio*</label>
+                                    <label for="first_name">Nombre de Categoría del Producto*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">

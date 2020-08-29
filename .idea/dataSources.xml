@@ -23,11 +23,5 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Python\kerapido\db.sqlite3</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="db.sqlite3" uuid="de1b563a-82af-4f48-89c7-e70316ed001b">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
-    </data-source>
   </component>
 </project>

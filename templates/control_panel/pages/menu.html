@@ -13,17 +13,36 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container-fluid">
         <div class="block-header">
-            <h2>
-                GESTIÓN DE PRODUCTOS
-                <small>Módulo para la gestion de productos ofertados en su negocio</small>
-            </h2>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>
+                    GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                </h2>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <ol class="breadcrumb breadcrumb-col-amber text-right">
+                    <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
+                    <li><i class="material-icons">widgets</i>
+                        Mis Negocios
+                    </li>
+                    <li class="active"><i class="material-icons">store</i>
+                        Negocio 1
+                    </li>
+                    <li class="active">
+                        Productos
+                    </li>
+
+                </ol>
+            </div>
         </div>
 
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
-        <div class="row clearfix">
+        <div class="row clearfix" style="margin-top:6%">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
@@ -32,10 +51,10 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <button type="button" class="btn bg-amber waves-effect">
-                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                <a type="button" href="{% url 'add_product' %}" class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
-                                </button>
+                                </a>
 
                             </li>
                         </ul>
@@ -118,11 +137,13 @@
                                                                 de arroz congris, yuca,platanos
                                                                 fritos y
                                                                 ensalada de aguacate
-                                                                <a href="#" >
-                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                    </a>
                                                                 <a href="#">
-                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                    <i class="material-icons "
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons"
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
                                                                 </a>
                                                             </div>
 
@@ -149,11 +170,13 @@
                                                                 Ropa vieja,acompañada de arroz,
                                                                 frijoles,platanos fritos y ensalada
                                                                 de aguacate
-                                                                <a href="#" >
-                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                    </a>
                                                                 <a href="#">
-                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                    <i class="material-icons "
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons"
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -179,11 +202,13 @@
                                                                 Carne de cerdo, acompañado de arroz
                                                                 congris,tamal,tostones y ensalada de
                                                                 aguacate.
-                                                                <a href="#" >
-                                                                    <i class="material-icons " style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                    </a>
                                                                 <a href="#">
-                                                                    <i class="material-icons" style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
+                                                                    <i class="material-icons "
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
+                                                                </a>
+                                                                <a href="#">
+                                                                    <i class="material-icons"
+                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
                                                                 </a>
                                                             </div>
                                                         </div>

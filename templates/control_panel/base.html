@@ -24,7 +24,7 @@
     <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
 
     <!-- Morris Chart Css-->
-{#    <link href="{% static 'control_panel/plugins/morrisjs/morris.css' %}" rel="stylesheet"/>#}
+    {#    <link href="{% static 'control_panel/plugins/morrisjs/morris.css' %}" rel="stylesheet"/>#}
 
     <!-- Custom Css -->
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
@@ -198,6 +198,22 @@
                     </ul>
                 </li>
                 <!-- #END# Notifications -->
+                <!-- Perfil -->
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <i class="material-icons">person</i>
+                        {#                        <span class="label-count">7</span>#}
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="{% url 'my_profile' %}"><i class="material-icons">person</i>Mi Perfil</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="javascript:void(0);"><i class="material-icons">message</i>Mensajes</a></li>
+                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>#}
+                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>#}
+                        {#                        <li role="separator" class="divider"></li>#}
+                        <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Salir</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </div>
@@ -214,20 +230,21 @@
                 <img src="{% static 'control_panel/images/user.jpg' %}" width="48" height="48" alt="User"/>
             </div>
             <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}</div>
-                                    <div class="email">{{ request.user.email }}</div>
-                <div class="btn-group user-helper-dropdown">
-                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="{% url 'my_profile' %}"><i class="material-icons">person</i>Mi Perfil</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">message</i>Mensajes</a></li>
-                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>#}
-                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>#}
-                        {#                        <li role="separator" class="divider"></li>#}
-                        <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Salir</a></li>
-                    </ul>
-                </div>
+                <div class="name" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">{{ request.user.username }}</div>
+                <div class="email">{{ request.user.email }}</div>
+                {#                <div class="btn-group user-helper-dropdown">#}
+                {#                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>#}
+                {#                    <ul class="dropdown-menu pull-right">#}
+                {#                        <li><a href="{% url 'my_profile' %}"><i class="material-icons">person</i>Mi Perfil</a></li>#}
+                {#                        <li role="separator" class="divider"></li>#}
+                {#                        <li><a href="javascript:void(0);"><i class="material-icons">message</i>Mensajes</a></li>#}
+                {#                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>#}
+                {#                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>#}
+                {#                        <li role="separator" class="divider"></li>#}
+                {#                        <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Salir</a></li>#}
+                {#                    </ul>#}
+                {#                </div>#}
             </div>
         </div>
         <!-- #User Info -->
@@ -241,12 +258,46 @@
                         <span>Principal</span>
                     </a>
                 </li>
-                {#                <li>#}
-                {#                    <a href="{% url 'panel' %}">#}
-                {#                        <i class="material-icons">home</i>#}
-                {#                        <span>Principal</span>#}
-                {#                    </a>#}
-                {#                </li>#}
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">widgets</i>
+                        <span>Mis Negocios</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{% url 'my_bussiness' 1 %}">Negocio 1</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">folder</i>
+                        <span>Administración</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <span>Negocio 1</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a href="{% url 'category_products' %}">Categoria de Productos</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'table' %}">Productos</a>
+                                </li>
+                                <li>
+                                    <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
+                                </li>
+                                <li>
+                                    <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
                 <li>
                     <a href="{% url 'users' %}">
                         <i class="material-icons">group</i>

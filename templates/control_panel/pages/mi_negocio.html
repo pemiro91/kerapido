@@ -1,0 +1,275 @@
+{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-8">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                <div class="panel panel-default panel-post">
+                                    <div class="panel-heading">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img style="height: 65px;width: 65px"
+                                                         src="{% static 'control_panel/images/negocios/levant.jpg ' %}"/>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">Negocio 1</a>
+                                                </h4>
+                                                Categoría 1,Categoría 2
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="post">
+                                            <div class="post-heading">
+                                                <p>Slogan:
+                                                    {#                                                        <a href="#">#small</a> bits of <a#}
+                                                    {#                                                            href="#">#information</a>. #}
+                                                    I require little more information
+                                                    to use effectively.
+                                                    I require little more information
+                                                    to use effectively.
+                                                    I require little more information
+                                                    to use effectively.</p>
+                                            </div>
+                                            <div class="post-content">
+                                                <img src="{% static 'site/img/portfolio/portfolio-2.jpg' %}"
+                                                     class="img-responsive"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="material-icons">smartphone</i>
+                                                    <span>+53 555555</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="material-icons">phone</i>
+                                                    <span>+53 78678178</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="material-icons">email</i>
+                                                    <span>levant@gmail.com</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <i class="material-icons">room</i>
+                                                <span>Aguila  y Salud</span>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <ul>
+                                            <li>
+                                                <i class="material-icons">edit</i>
+                                                Servicios
+
+                                                <span class="label bg-red">UI Design</span>
+                                                <span class="label bg-teal">JavaScript</span>
+                                                <span class="label bg-blue">PHP</span>
+                                                <span class="label bg-amber">Node.js</span>
+
+
+                                            </li>
+                                            <li>
+
+                                                <i class="material-icons">restaurant</i>
+
+                                                <a href="{% url 'table' %}">Productos Ofertados</a>
+
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <ul>
+
+                                            <li>
+
+                                                <a href="#">
+                                                    <i class="material-icons" style="color: #FEC010;">grade</i>
+                                                    <span class="label bg-amber">Evaluaciòn 5.5</span>
+                                                </a>
+
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="material-icons" style="color: #212121">comment</i>
+                                                    <span class="label bg-black">8 Comments</span>
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                {#                                    <div class="panel panel-default panel-post">#}
+                                {#                                        <div class="panel-heading">#}
+                                {#                                            <div class="media">#}
+                                {#                                                <div class="media-left">#}
+                                {#                                                    <a href="#">#}
+                                {#                                                        <i class="material-icons">restaurant</i>#}
+                                {#                                                        <span>Oferta</span>#}
+                                {#                                                    </a>#}
+                                {#                                                </div>#}
+                                {#                                                <div class="media-body">#}
+                                {#                                                    <h4 class="media-heading">#}
+                                {#                                                        <a href="{% url 'table' %}">Productos Ofertados</a>#}
+                                {#                                                    </h4>#}
+                                {#                                                    Última actualiazción - 01 Oct 2018#}
+                                {#                                                </div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="panel-body">#}
+                                {#                                            <div class="post">#}
+                                {#                                                <div class="post-heading">#}
+                                {#                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do#}
+                                {#                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>#}
+                                {#                                                </div>#}
+                                {#                                                <div class="post-content">#}
+                                {#                                                    <iframe width="100%" height="360"#}
+                                {#                                                            src="https://www.youtube.com/embed/10r9ozshGVE"#}
+                                {#                                                            frameborder="0" allowfullscreen=""></iframe>#}
+                                {##}
+                                {#                                                </div>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                        <div class="panel-footer">#}
+                                {#                                            <ul>#}
+                                {#                                                <li>#}
+                                {#                                                    <a href="#">#}
+                                {#                                                        <i class="material-icons" style="color: #FEC010">grade</i>#}
+                                {#                                                        <span class="label bg-amber">5.5</span>#}
+                                {#                                                    </a>#}
+                                {#                                                </li>#}
+                                {#                                                <li>#}
+                                {#                                                    <a href="#">#}
+                                {#                                                        <i class="material-icons" style="color: #212121">comment</i>#}
+                                {#                                                        <span class="label bg-black">8 Comments</span>#}
+                                {#                                                    </a>#}
+                                {#                                                </li>#}
+                                {#                                                <li>#}
+                                {#                                                    <a href="#">#}
+                                {#                                                        <i class="material-icons">share</i>#}
+                                {#                                                        <span>Share</span>#}
+                                {#                                                    </a>#}
+                                {#                                                </li>#}
+                                {#                                            </ul>#}
+                                {##}
+                                {##}
+                                {#                                        </div>#}
+                                {#                                    </div>#}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                {#                <div class="card profile-card">#}
+                {#                    <div class="profile-header">&nbsp;</div>#}
+                {#                    <div class="profile-body">#}
+                {#                        <div class="image-area">#}
+                {#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
+                {#                                 alt="AdminBSB - Profile Image"/>#}
+                {#                        </div>#}
+                {#                        <div class="content-area">#}
+                {#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
+                {#                            <p>superusuario</p>#}
+                {#                            <p>{{ request.user.username }}</p>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <div class="profile-footer">#}
+                {#                        <ul>#}
+                {#                            <li>#}
+                {#                                <span>Correo</span>#}
+                {#                                <span>{{ request.user.email }}</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <span>Teléfono</span>#}
+                {#                                <span>{{ request.user.telefono }}</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <span>Afiliado desde</span>#}
+                {#                                <span>{{ request.user.fecha_alta|date }}</span>#}
+                {#                            </li>#}
+                {#                        </ul>#}
+                {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                {#                    </div>#}
+                {#                </div>#}
+
+                <div class="card card-about-me">
+                    <div class="header">
+                        <h2>DATOS DE NEGOCIO 1</h2>
+                    </div>
+                    <div class="body">
+                        <ul>
+
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">edit</i>
+                                    Servicios
+                                </div>
+                                <div class="content">
+                                    <span class="label bg-red">UI Design</span>
+                                    <span class="label bg-teal">JavaScript</span>
+                                    <span class="label bg-blue">PHP</span>
+                                    <span class="label bg-amber">Node.js</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">access_time</i>
+                                    Horario
+                                </div>
+                                <div class="content">
+                                    <span >11:00am a 23:00 pm</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">restaurant</i>
+                                    <a href="{% url 'table' %}">Productos Ofertados</a>
+                                </div>
+                                <div class="content">
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}
