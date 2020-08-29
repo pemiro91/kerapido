@@ -13,7 +13,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     return render(request, "master/index.html", context)
 from django.utils import timezone
 
-from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio
+from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Provincia, Frecuencia, Servicio
 
 
 # Create your views here.
@@ -222,8 +222,55 @@ def negocios(request):
 
 
 def add_bussiness(request):
-    context = {}
-    return render(request, "control_panel/pages/agregar_negocio.html", context)
+    if request.user.is_authenticated:
+        municipios = Municipio.objects.all()
+        frecuencia = Frecuencia.objects.all()
+        if request.method == 'POST':
+            name_bussiness = request.POST.get('name_bussiness')
+            logo_bussiness = request.FILES['logo_bussiness']
+            portada_bussiness = request.FILES['portada_bussiness']
+            slogan_bussiness = request.POST.get('slogan_bussiness')
+            category_bussiness = request.POST.getlist('category_bussiness')
+            services_bussiness = request.POST.getlist('services_bussiness')
+            hour_init = request.POST.get('hour_init')
+            hour_end = request.POST.get('hour_end')
+            post_frecuencia = request.POST.getlist('frecuencia')
+            address_bussiness = request.POST.get('address_bussiness')
+            municipio = request.POST.get('municipio')
+            phone_bussiness_o = request.POST.get('phone_bussiness_o')
+            phone_bussiness = request.POST.get('phone_bussiness')
+
+            horario = str(hour_init) + ' - ' + str(hour_end)
+
+            negocio = Negocio.objects.create(
+                usuario_negocio=request.user,
+                nombre=name_bussiness,
+                logo=logo_bussiness,
+                portada=portada_bussiness,
+                eslogan=slogan_bussiness,
+                horario=horario,
+                direccion=address_bussiness,
+                municipio=municipio,
+                telefono1=phone_bussiness_o,
+                telefono2=phone_bussiness
+            )
+            for category in category_bussiness:
+                categoria = Categoria_Negocio.objects.create(nombre=category)
+                negocio.categorias.add(categoria)
+
+            for service in services_bussiness:
+                servicio = Servicio.objects.create(nombre=service)
+                negocio.servicios.add(servicio)
+
+            for frecu in post_frecuencia:
+                frecuen = Frecuencia.objects.create(nombre=frecu)
+                negocio.frecuencia.add(frecuen)
+
+            return redirect('add_bussiness')
+
+        context = {'municipios': municipios, 'frecuencia': frecuencia}
+        return render(request, "control_panel/pages/agregar_negocio.html", context)
+    return redirect('login')
 
 
 def update_bussiness(request):

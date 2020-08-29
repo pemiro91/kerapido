@@ -72,112 +72,162 @@
 
 
                     <div class="body">
-                        <form class="form-horizontal form-form_validation" role="form" method="post">{% csrf_token %}
+                        <form id="Form" class="form-horizontal form-form_validation" role="form" method="post">{% csrf_token %}
 
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="first_name">Nombre del Negocio*</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" id="name" class="form-control"
-                                                   name="first_name"
+                                                   name="name_bussiness"
                                                    required
-                                                   value=""
                                                    placeholder="Nombre">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="last_name">Logotipo</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="file" class="form-control file-field" placeholder=""
-                                                   required>
+                                            <input type="file" class="form-control file-field" name="logo_bussiness" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="last_name">Portada</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="file" class="form-control file-field" placeholder=""
-                                                   required>
+                                            <input type="file" class="form-control file-field" name="portada_bussiness"  required>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                             <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="first_name">Eslogan</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="name" class="form-control"
+                                                   name="slogan_bussiness"
+                                                   required
+                                                   placeholder="Nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="category">Categoria</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select id="category" class="form-control show-tick" name="category_bussiness" multiple required>
+                                                <optgroup label="Comercio y Gastronomía">
+                                                    <option value="Restaurante de comida criolla e internacional">Restaurante de comida criolla e internacional</option>
+                                                    <option value="Pizzería y cafetería">Pizzería y cafetería</option>
+                                                    <option value="Hamburguesera">Hamburguesera</option>
+                                                    <option value="Juguera">Juguera</option>
+                                                    <option value="Bar">Bar</option>
+                                                    <option value="Dulcería">Dulcería</option>
+                                                    <option value="Heladería">Heladería</option>
+                                                    <option value="Panadería">Panadería</option>
+                                                    <option value="Billar">Billar</option>
+                                                    <option value="Florería">Florería</option>
+                                                    <option value="Piscina">Piscina</option>
+                                                    <option value="Florería">Florería</option>
+                                                </optgroup>
+                                                <optgroup label="Mercado">
+                                                    <option value="Agromercado">Agromercado</option>
+                                                    <option value="Carnicería">Carnicería</option>
+                                                    <option value="Pescadería">Pescadería</option>
+                                                </optgroup>
+                                                <optgroup label="Transporte">
+                                                    <option value="Moto">Moto</option>
+                                                    <option value="Carro">Carro</option>
+                                                    <option value="Bicicleta">Bicicleta</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <hr>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="last_name">Servicios</label>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="service">Servicios</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select class="form-control show-tick" multiple required>
-                                                <option>Comida para llevar</option>
-                                                <option>Mesas y Espacios</option>
-                                                <option>Entrega a domicilio</option>
+                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>
+                                                <option value="Comida para llevar">Comida para llevar</option>
+                                                <option value="Mesas y Espacios">Mesas y Espacios</option>
+                                                <option value="Entrega a domicilio">Entrega a domicilio</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="phone">Horario</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                                    <div class="input-daterange input-group" id="bs_datepicker_range_container">
-
+                                <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6">
+                                    <div class="input-daterange input-group" id="">
                                         <div class="form-line">
-                                            <input type="text" class="timepicker form-control" placeholder="Inicio...">
+                                            <input type="text" name="hour_init" class="timepicker form-control" placeholder="Inicio..." required>
                                         </div>
+
                                         <span class="input-group-addon">-</span>
 
                                         <div class="form-line">
-                                            <input type="text" class="timepicker form-control" placeholder="Fin...">
+                                            <input type="text" name="hour_end" class="timepicker form-control" placeholder="Fin..." required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="phone">Frecuencia Semanal</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         {##}
                                         <div class="demo-checkbox">
-                                            <input type="checkbox" id="md_checkbox_1" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_1" name="frecuencia" value="Lunes" class="chk-col-amber"/>
                                             <label for="md_checkbox_1">Lunes</label>
 
-                                            <input type="checkbox" id="md_checkbox_2" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_2" name="frecuencia" value="Martes" class="chk-col-amber"/>
                                             <label for="md_checkbox_2">Martes</label>
 
-                                            <input type="checkbox" id="md_checkbox_3" class="chk-col-amber"/>
-                                            <label for="md_checkbox_3">Miercoles</label>
+                                            <input type="checkbox" id="md_checkbox_3" name="frecuencia" value="Mi&eacute;rcoles" class="chk-col-amber"/>
+                                            <label for="md_checkbox_3">Mi&eacute;rcoles</label>
 
-                                            <input type="checkbox" id="md_checkbox_4" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_4" name="frecuencia" value="Jueves" class="chk-col-amber"/>
                                             <label for="md_checkbox_4">Jueves</label>
 
-                                            <input type="checkbox" id="md_checkbox_5" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_5" name="frecuencia" value="Viernes" class="chk-col-amber"/>
                                             <label for="md_checkbox_5">Viernes</label>
 
-                                            <input type="checkbox" id="md_checkbox_6" class="chk-col-amber"/>
-                                            <label for="md_checkbox_6">Sabado</label>
+                                            <input type="checkbox" id="md_checkbox_6" name="frecuencia" value="S&aacute;bado" class="chk-col-amber"/>
+                                            <label for="md_checkbox_6">S&aacute;bado</label>
 
-                                            <input type="checkbox" id="md_checkbox_7" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_7" name="frecuencia" value="Domingo" class="chk-col-amber"/>
                                             <label for="md_checkbox_7">Domingo</label>
                                         </div>
 
@@ -185,15 +235,14 @@
                                 </div>
                             </div>
                             <hr>
-
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="phone">Dirección</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea name="description" cols="30" rows="1"
+                                            <textarea name="address_bussiness" cols="30" rows="1"
                                                       class="form-control no-resize"
                                                       required
                                                       placeholder="Escriba la direccion completa"></textarea>
@@ -202,43 +251,29 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-{#                                    <label for="email_address">Municipio</label>#}
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="municipio">Municipio</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="input-daterange input-group" id="">
-
-                                        <div class="form-line">
-                                             <label for="email_address">Municipio</label>
-                                            <select class="form-control show-tick" data-live-search="true">
-                                                <option>Hot Dog, Fries and a Soda</option>
-                                                <option>Burger, Shake and a Smile</option>
-                                                <option>Sugar, Spice and all things nice</option>
-                                            </select>
-                                        </div>
-                                        <span class="input-group-addon"></span>
-
-                                        <div class="form-line">
-                                             <label for="email_address">Provincia</label>
-                                            <select class="form-control show-tick" data-live-search="true">
-                                                <option>Hot Dog, Fries and a Soda</option>
-                                                <option>Burger, Shake and a Smile</option>
-                                                <option>Sugar, Spice and all things nice</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <select id="municipio" name="municipio" class="form-control show-tick" data-live-search="true">
+                                        {% if municipios %}
+                                            {% for municipio in municipios %}
+                                                <option value="{{ municipio.nombre }}">{{ municipio.nombre }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="password_2">Tel&eacute;fono</label>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone_o">Tel&eacute;fono*</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="tel" id="password_2" class="form-control"
+                                            <input type="tel" id="phone_o" class="form-control"
                                                    maxlength="8"
-                                                   name="password"
+                                                   name="phone_bussiness_o"
                                                    required
                                                    placeholder="Escribe el Tel&eacute;fono de contacto">
                                         </div>
@@ -246,30 +281,23 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address">Correo Electr&oacute;nico</label>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Tel&eacute;fono</label>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="email" id="email_address" class="form-control"
-                                                   name="email"
-                                                   required
-                                                   value=""
-                                                   placeholder="Escribe su correo electr&oacute;nico de contacto">
+                                            <input type="tel" id="phone" class="form-control"
+                                                   maxlength="8"
+                                                   name="phone_bussiness"
+                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {#                            <div class="row clearfix">#}
-                            {#                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">#}
-                            {#                                    <input type="checkbox" id="remember_me_3" class="filled-in">#}
-                            {#                                    <label for="remember_me_3">Remember Me</label>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
                             <div class="row clearfix">
-                                <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-amber" type="submit">
                                         <i class="material-icons " style="color: #212121">send</i>
                                         <span>ENVIAR</span></button>

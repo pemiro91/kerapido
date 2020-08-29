@@ -2,13 +2,13 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from kerapido.models import Reservacion_Generada, Reservacion_Simple, Producto, User, Categoria_Producto, Servicio, \
-    ComentarioEvaluacion, Tarifa_Entrega, Negocio
+    ComentarioEvaluacion, Tarifa_Entrega, Negocio, Categoria_Negocio, Frecuencia
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email',  'password', 'telefono', 'is_cliente')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'telefono', 'is_cliente')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -27,13 +27,28 @@ class ServicioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class Categoria_NegocioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria_Negocio
+        fields = '__all__'
+
+
+class FrecuenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Frecuencia
+        fields = '__all__'
+
+
 class NegocioSerializer(WritableNestedModelSerializer):
     servicios = ServicioSerializer(many=True)
+    categorias = Categoria_NegocioSerializer(many=True)
+    frecuencia = FrecuenciaSerializer(many=True)
 
     class Meta:
         model = Negocio
-        fields = ('usuario_negocio', 'nombre', 'logo', 'portada', 'slogan', 'direccion', 'provincia', 'municipio',
-                  'telefono1', 'telefono2', 'horario', 'servicios', 'rating')
+        fields = ('usuario_negocio', 'nombre', 'logo', 'portada', 'eslogan', 'categorias',
+                  'servicios', 'horario', 'frecuencia', 'direccion', 'municipio',
+                  'telefono1', 'telefono2', 'rating')
 
 
 class ComentarioEvaluacionSerializer(serializers.ModelSerializer):

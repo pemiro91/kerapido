@@ -45,21 +45,44 @@ class Categoria_Negocio(models.Model):
         return self.nombre
 
 
+class Provincia(models.Model):
+    nombre = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Municipio(models.Model):
+    nombre = models.CharField(max_length=255)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, name='provincia')
+
+    def __str__(self):
+        return self.nombre
+
+
+class Frecuencia(models.Model):
+    nombre = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nombre
+
+
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='logo/%Y/%m/%d', null=True, blank=True)
-    portada = StdImageField(upload_to='portada/%Y/%m/%d',  variations={'thumbnail': (550, 412)}, null=True, blank=True)
-    provincia = models.CharField(max_length=255, null=True, blank=True)
-    municipio = models.CharField(max_length=255, null=True, blank=True)
+    portada = StdImageField(upload_to='portada/%Y/%m/%d', variations={'thumbnail': (550, 412)}, null=True, blank=True)
+    eslogan = models.CharField(max_length=255, null=True, blank=True)
+    categorias = models.ManyToManyField(Categoria_Negocio)
+    servicios = models.ManyToManyField(Servicio)
+    horario = models.CharField(max_length=255, null=True, blank=True)
+    frecuencia = models.ManyToManyField(Frecuencia)
     direccion = models.CharField(max_length=255, null=True, blank=True)
+    # provincia = models.ForeignKey(Provincia, on_delete=models.SET_NULL, null=True)
+    municipio = models.CharField(max_length=255, null=True, blank=True)
     telefono1 = models.CharField(max_length=255, null=True, blank=True)
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
-    horario = models.CharField(max_length=255, null=True, blank=True)
-    slogan = models.CharField(max_length=255, null=True, blank=True)
-    servicios = models.ManyToManyField(Servicio)
     rating = models.FloatField(null=True, blank=True)
-    categoria = models.ForeignKey(Categoria_Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
@@ -131,21 +154,6 @@ class Tarifa_Entrega(models.Model):
 
     def __str__(self):
         return self.lugar_destino
-
-
-class Provincia(models.Model):
-    nombre = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.nombre
-
-
-class Municipio(models.Model):
-    nombre = models.CharField(max_length=255)
-    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, name='provincia')
-
-    def __str__(self):
-        return self.nombre
 
 
 class Oferta_Laboral(models.Model):
