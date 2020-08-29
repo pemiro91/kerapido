@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 # def principal(request):
 #     context = {}
 #     return render(request, "master/index.html", context)
+from django.urls import reverse
 from django.utils import timezone
 
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Provincia, Frecuencia, Servicio
@@ -283,7 +284,7 @@ def add_bussiness(request):
                 frecuen = Frecuencia.objects.create(nombre=frecu)
                 negocio.frecuencia.add(frecuen)
 
-            return redirect('add_bussiness')
+            return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
         context = {'municipios': municipios, 'frecuencia': frecuencia}
         return render(request, "control_panel/pages/agregar_negocio.html", context)
