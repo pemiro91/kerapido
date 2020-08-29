@@ -216,19 +216,20 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="card">
                     <div class="header">
-                        <h2>ÚLTIMAS 5 RESERVACIONES</h2>
+                        <h2>MIS NEGOCIOS</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a class="btn bg-pink waves-effect m-b-15" role="button"
+                                <a class="btn btn-default waves-effect waves-black m-b-15" role="button"
                                        href="" aria-expanded="false"
                                        aria-controls="">
-                                        VER MÁS
-                                    </a>
+                                         <i class="material-icons " style="color: #212121">add_circle</i>
+                                    <span>AGREGAR</span>
 {#                                <ul class="dropdown-menu pull-right">#}
 {#                                    <li><a href="javascript:void(0);">Action</a></li>#}
 {#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
 {#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
 {#                                </ul>#}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -237,38 +238,57 @@
                             <table class="table table-hover dashboard-task-infos">
                                 <thead>
                                 <tr>
-                                    <th>Orden</th>
-                                    <th>Cliente</th>
-                                    <th>Servicio</th>
-                                    <th>Estado</th>
-                                    <th>Fecha</th>
+                                    <th>Negocio</th>
+{#                                    <th>Nombre</th>#}
+                                    <th>Servicios</th>
+                                    <th>Evaluacion</th>
+
+
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-
-                                    <td><a>Jose Espinosa</a></td>
-                                    <td>Entrega a domicilio</td>
-                                    <td><span class="label bg-green">Pendiente</span></td>
+{#                                    <td>Rolando Garcia</td>#}
+                                    <td><a href="{% url 'my_bussiness' 1 %}">Negocio 1</a></td>
                                     <td>
-                                        <div class="date">
-                                            26/7/2020 11:00 am
-                                        </div>
+                                        <span class="label bg-amber">Comida para llevar</span>
+                                        <span class="label bg-red">Entrega a domicilio</span></td>
+                                    </td>
+                                    <td>7.8</td>
+
+                                    <td>
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" href="{% url 'update_bussiness' %}" title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">delete</i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
+{#                                    <td>Ernesto lopez</td>#}
+                                    <td>La Mimosa</td>
+                                    <td><span class="label bg-blue-grey">Mesas</span>
+                                        <span class="label bg-red">Entrega a domicilio</span></td>
+                                    <td>8.9</td>
 
-                                    <td><a>Raquel Zalazar</a></td>
-                                    <td>Comida para llevar</td>
-                                    <td><span class="label bg-blue">Entregada</span></td>
                                     <td>
-                                        <div class="date">
-                                            25/7/2020 7:05pm
-                                        </div>
+                                        {#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
+                                        {#                                            <i class="material-icons">accessibility</i>#}
+                                        {#                                        </a>#}
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a type="button" class="btn btn-default waves-effect waves-black">
+                                            <i class="material-icons">delete</i>
+                                        </a>
                                     </td>
                                 </tr>
+
                                 </tbody>
                             </table>
                         </div>
