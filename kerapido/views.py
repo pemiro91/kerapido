@@ -12,9 +12,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     context = {}
 #     return render(request, "master/index.html", context)
 from django.urls import reverse
-from django.utils import timezone
 
-from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Provincia, Frecuencia, \
+from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro
 
 
@@ -67,6 +66,15 @@ def login_admin(request):
     else:
         form = AuthenticationForm()
     return render(request, "control_panel/pages/sign-in.html", {'form': form})
+
+
+def base(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        services = Servicio.objects.all()
+        context = {'business': business, 'services': services}
+        return render(request, "control_panel/base.html", context)
+    return redirect('login')
 
 
 def admin_panel(request):
@@ -257,9 +265,13 @@ def terminos_servicio(request):
     return render(request, "terminos_servicio.html", context)
 
 
-def menu(request):
-    context = {}
-    return render(request, "control_panel/pages/menu.html", context)
+def products(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        services = Servicio.objects.all()
+        context = {'business': business, 'services': services}
+        return render(request, "control_panel/pages/listado_producto.html", context)
+    return redirect('login')
 
 
 def add_product(request):
@@ -282,9 +294,12 @@ def editar_categoria_producto(request):
     return render(request, "control_panel/pages/editar_categoria_producto.html", context)
 
 
-def negocios(request):
-    context = {}
-    return render(request, "control_panel/pages/listado_negocios.html", context)
+def businesses(request):
+    if request.user.is_authenticated:
+        negocios = Negocio.objects.all()
+        context = {'negocios': negocios}
+        return render(request, "control_panel/pages/listado_negocios.html", context)
+    return redirect('login')
 
 
 def add_bussiness(request):
@@ -482,7 +497,8 @@ def add_category(request):
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
             macro_field = request.POST.get('macro')
-            Categoria_Negocio.objects.create(nombre=name_category, descripcion=description_category, macro_id=macro_field)
+            Categoria_Negocio.objects.create(nombre=name_category, descripcion=description_category,
+                                             macro_id=macro_field)
             return redirect('categories')
         context = {'macros': macro}
         return render(request, "control_panel/pages/agregar_categoria.html", context)
