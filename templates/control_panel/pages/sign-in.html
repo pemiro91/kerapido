@@ -33,8 +33,8 @@
     </div>
     <div class="card">
         <div class="body">
-            <form id="sign_in" method="POST" href="{% url 'panel' %}">{% csrf_token %}
-                <div class="msg">Inicio de sessión </div>
+            <form id="sign_in" method="POST">{% csrf_token %}
+                <div class="msg">Inicio de sessión</div>
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -52,25 +52,24 @@
                         <input type="password" class="form-control" name="password" placeholder="Password" required>
                     </div>
                 </div>
-{#                <div class="row">#}
-                    <button class="btn btn-block bg-amber waves-effect" type="submit">INICIAR</button>
-{#                    <div class="col-xs-8 p-t-5">#}
-{##}
-{#                    </div>#}
-{#                    <div class="col-xs-4">#}
-{#                        <button class="btn btn-block bg-amber waves-effect" type="submit">INICIAR</button>#}
-{#                    </div>#}
-{#                </div>#}
-                <div class="row m-t-20 m-b--10">
-                    <div class="col-xs-5">
-                        <a href="{% url 'register_business' %}" ><b>Regístrese aquí!</b></a>
-                    </div>
-                    <div class="col-xs-7 align-right">
+                <div class="row ">
+                    <div class="col-xs-5 ">
                         <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>
                     </div>
-                    <div class="col-xs-12 align-center">
+                    <div class="col-xs-7 align-right">
+                        <button class="btn btn-default waves-effect waves-black " type="submit">
+                            <i class="material-icons " style="color: #212121">send</i>
+                            <span>INCIAR</span></button>
+                    </div>
+                </div>
+                <div class="row m-t-20 m-b--10">
+                    <div class="col-xs-5">
+                        <a href="{% url 'register_business' %}"><b>Regístrese aquí!</b></a>
+                    </div>
+                    <div class="col-xs-7 align-right">
                         <a href="{% url 'index' %}"><b>Ir al Sitio Web Oficial</b></a>
                     </div>
+
                 </div>
             </form>
         </div>

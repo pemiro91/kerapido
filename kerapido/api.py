@@ -1,4 +1,7 @@
+from abc import ABC
+
 from django.contrib.auth import authenticate
+from django.db.models import Avg, Func
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
@@ -28,19 +31,19 @@ def login(request):
     username = request.data.get("username")
     password = request.data.get("password")
     if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'}, status=HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Por favor introduzca un usuario o contraseña válido'}, status=HTTP_400_BAD_REQUEST)
     user = authenticate(username=username, password=password)
     if not user:
-        return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Aún no se ha verificado su cuenta'}, status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username}}
+    context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username, 'telefono': user.telefono}}
     return Response(context, status=HTTP_200_OK)
 
 
 @csrf_exempt
 @api_view(["GET"])
 def getNegociosApi(request):
-    negocio = User.objects.filter(is_negocio=True)
+    negocio = Negocio.objects.all()
     serializer = NegocioSerializer(negocio, many=True)
     return Response({'list_business': serializer.data}, status=HTTP_200_OK)
 
@@ -94,10 +97,36 @@ def getTarifaEntregaApiForID(request, pk):
     return Response({'list_tarifa': serializer.data}, status=HTTP_200_OK)
 
 
+class Round(Func, ABC):
+    function = 'ROUND'
+    arity = 2
+
+
 @csrf_exempt
 @api_view(["POST"])
-def postComentarioApi(request):
-    serializer = ComentarioEvaluacionSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response({'message': 'Comentario enviado satisfactoriamente'}, status=HTTP_201_CREATED)
+def postComentarioApi(request, id_negocio):
+    cliente = request.data.get("cliente")
+    is_commet = ComentarioEvaluacion.objects.filter(cliente=cliente)
+    if is_commet:
+        return Response({'error': 'Usted ya ha comentado'}, status=HTTP_200_OK)
+    else:
+        serializer = ComentarioEvaluacionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        evaluacion = ComentarioEvaluacion.objects.filter(negocio=id_negocio)
+        comentarios = ComentarioEvaluacion.objects.filter(negocio=id_negocio)
+        serializer_commets = ComentarioEvaluacionSerializer(comentarios, many=True)
+        stars_average = list(evaluacion.aggregate(average=Round(Avg('rating'), 2)).values())[0]
+        Negocio.objects.filter(pk=id_negocio).update(rating=stars_average)
+        return Response({'message': 'Comentario enviado satisfactoriamente', 'evaluacion': stars_average,
+                         'list_comments': serializer_commets.data},
+                        status=HTTP_201_CREATED)
+
+
+@csrf_exempt
+@api_view(["GET"])
+def getComentarioApi(request, pk):
+    comments = ComentarioEvaluacion.objects.filter(negocio=pk)
+    serializer = ComentarioEvaluacionSerializer(comments, many=True)
+    stars_average = list(comments.aggregate(average=Round(Avg('rating'), 2)).values())[0]
+    return Response({'list_comments': serializer.data, 'evaluacion': stars_average}, status=HTTP_200_OK)

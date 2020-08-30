@@ -1,10 +1,56 @@
 ﻿{% load static %}<!DOCTYPE html>
 <html>
 
-<head style="height:100vh;">
+{#<head style="height:100vh;">#}
+{#    <meta charset="UTF-8">#}
+{#    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">#}
+{#    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>#}
+{#    <!-- Favicon-->#}
+{#    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">#}
+{##}
+{#    <!-- Google Fonts -->#}
+{#    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">#}
+{#    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">#}
+{##}
+{#    <!-- Bootstrap Core Css -->#}
+{#    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">#}
+{##}
+{#    <!-- Waves Effect Css -->#}
+{#    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>#}
+{##}
+{#    <!-- Animation Css -->#}
+{#    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>#}
+{##}
+{#    <!-- Colorpicker Css -->#}
+{#    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"#}
+{#          rel="stylesheet"/>#}
+{##}
+{#    <!-- Bootstrap Tagsinput Css -->#}
+{#    <link href="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">#}
+{##}
+{#    <!-- Multi Select Css -->#}
+{#    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">#}
+{##}
+{##}
+{#    <!-- Bootstrap Spinner Css -->#}
+{#    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">#}
+{##}
+{##}
+{#    <!-- Bootstrap Select Css -->#}
+{#    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>#}
+{##}
+{#    <!-- noUISlider Css -->#}
+{#    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>#}
+{##}
+{#    <!-- Custom Css -->#}
+{#    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">#}
+{##}
+{#</head>#}
+
+<head >
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+    <title>Registrar | Panel de Control</title>
     <!-- Favicon-->
     <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
 
@@ -21,92 +67,27 @@
     <!-- Animation Css -->
     <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
 
-    <!-- Colorpicker Css -->
-    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"
-          rel="stylesheet"/>
-
-    <!-- Bootstrap Tagsinput Css -->
-    <link href="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">
-
-    <!-- Multi Select Css -->
-    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
-
-
-    <!-- Bootstrap Spinner Css -->
-    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
-
-
-    <!-- Bootstrap Select Css -->
-    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
-
-    <!-- noUISlider Css -->
-    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>
-
     <!-- Custom Css -->
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/themes/all-themes.css' %}" rel="stylesheet">
 </head>
-<body class="signup-page" style="height:100vh;">
+<body class="signup-page">
 <div class="signup-box">
-    <div class="logo" style="height:30px">
-        {#        <a href="javascript:void(0);"><img style="max-height: 75px;"#}
-        {#                                           src="{% static 'control_panel/images/logo.jpg' %}">#}
-        {#            Ke<b>RÁPIDO</b></a>#}
-        {#        <small>Admin BootStrap Based - Material Design</small>#}
-    </div>
+
     <div class="card">
         <div class="body">
-            <form id="sign_up" method="POST">
-                <div class="msg">Registro de Negocio</div>
+            <form id="sign_up" method="POST">{% csrf_token %}
+                <div class="msg">Registro de Afiliado</div>
 
                 <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">home</i>
-                        </span>
-                    <div class="form-line fa-">
-                        <input type="text" class="form-control" name="namesurname"
-                               placeholder="Nombre de Negocio"
-                               required
-                               autofocus>
-                    </div>
-                </div>
-
-
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">place</i>
+                            <i class="material-icons">person_outline</i>
                         </span>
                     <div class="form-line">
-                        <textarea type="text" class="form-control" name="direccion"
-                                  placeholder="Direccion"
-                                  required></textarea>
+                        <input type="text" class="form-control" name="first_name" placeholder="Nombre(s)" required>
                     </div>
-                </div>
-                <div class="col-md-12">
-
-                    <div class="form-line">
-                        <p><strong>Provincia</strong></p>
-                        <select class="form-control show-tick justify-content-center" data-live-search="true">
-                            <option style="margin-left: 55px">La Habana</option>
-                            <option style="margin-left: 55px">Matanzas</option>
-                            <option style="margin-left: 55px">Pinar del Rio</option>
-                        </select>
-                    </div>
-
-
-                </div>
-                <div class="col-md-12">
-
-                    <div class="form-line">
-                        <p><strong>Municipio</strong></p>
-                        <select class="form-control show-tick justify-content-center" data-live-search="true">
-                            <option style="margin-left: 55px">Boyeros</option>
-                            <option style="margin-left: 55px">Arroyo Naranjo</option>
-                            <option style="margin-left: 55px">Marianao</option>
-                        </select>
-                    </div>
-
-
                 </div>
 
                 <div class="input-group">
@@ -114,30 +95,46 @@
                             <i class="material-icons">person_outline</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="persona_encargada"
-                               placeholder="Nombre de la persona encargada"
-                               required>
+                        <input type="text" class="form-control" name="last_name" placeholder="Apellidos" required>
                     </div>
                 </div>
+
+{#                <div class="input-group">#}
+{#                        <span class="input-group-addon">#}
+{#                            <i class="material-icons">home</i>#}
+{#                        </span>#}
+{#                    <div class="form-line fa-">#}
+{#                        <input type="text" class="form-control" name="name_business" placeholder="Nombre de Negocio"#}
+{#                               required#}
+{#                               autofocus>#}
+{#                    </div>#}
+{#                </div>#}
+
 
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">smartphone</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="text" class="form-control" name="telefono2"
-                               placeholder="Telefono"
-                               autofocus>
+                        <input type="text" class="form-control" name="phone" placeholder="Telefono" required autofocus>
                     </div>
                 </div>
 
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                    <div class="form-line fa">
+                        <input type="text" class="form-control" name="email" placeholder="Correo" required autofocus>
+                    </div>
+                </div>
 
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="text" class="form-control" name="username" placeholder="Email Address"
+                        <input type="text" class="form-control" name="username" placeholder="Usuario"
                                required>
                     </div>
                 </div>
@@ -165,16 +162,68 @@
                     </div>
                 </div>
 
-
                 <div class="form-group">
-                    <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
+                    <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" required>
                     <label for="terms">He leído y estoy de acuerdo con los
-                        <a href="{% url 'terminos_condiciones' %}">términos
-                        y condiciones de
-                        uso</a>.</label>
+                        <a href="{% url 'terminos_condiciones' %}">términos y condiciones de uso</a>.</label>
                 </div>
 
-                <button class="btn btn-block bg-amber waves-effect" type="submit">REGISTRAR</button>
+                <div class="row ">
+                    <div class="col-xs-5 ">
+{#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
+                    </div>
+                    <div class="col-xs-7 align-right">
+                        <button class="btn btn-default waves-effect waves-black " type="submit">
+                            <i class="material-icons " style="color: #212121">send</i>
+                            <span>REGISTRAR</span></button>
+                    </div>
+                </div>
+
+{#                <div class="input-group">#}
+{#                        <span class="input-group-addon">#}
+{#                            <i class="material-icons">place</i>#}
+{#                        </span>#}
+{#                    <div class="form-line">#}
+{#                        <textarea type="text" class="form-control" name="direccion"#}
+{#                                  placeholder="Direccion"#}
+{#                                  required></textarea>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-12">#}
+{##}
+{#                    <div class="form-line">#}
+{#                        <p><strong>Provincia</strong></p>#}
+{#                        <select class="form-control show-tick justify-content-center" data-live-search="true">#}
+{#                            <option style="margin-left: 55px">La Habana</option>#}
+{#                            <option style="margin-left: 55px">Matanzas</option>#}
+{#                            <option style="margin-left: 55px">Pinar del Rio</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{##}
+{##}
+{#                </div>#}
+{#                <div class="col-md-12">#}
+{##}
+{#                    <div class="form-line">#}
+{#                        <p><strong>Municipio</strong></p>#}
+{#                        <select class="form-control show-tick justify-content-center" data-live-search="true">#}
+{#                            <option style="margin-left: 55px">Boyeros</option>#}
+{#                            <option style="margin-left: 55px">Arroyo Naranjo</option>#}
+{#                            <option style="margin-left: 55px">Marianao</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{##}
+{##}
+{#                </div>#}
+
+
+
+
+
+
+
+
+
 
             </form>
         </div>
@@ -194,39 +243,44 @@
 <!-- Slimscroll Plugin Js -->
 <script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
 
-<!-- Bootstrap Colorpicker Js -->
-<script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
-
-<!-- Input Mask Plugin Js -->
-<script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
-
-<!-- Multi Select Plugin Js -->
-<script src="{% static 'control_panel/plugins/multi-select/js/jquery.multi-select.js' %}"></script>
-
-<!-- Jquery Spinner Plugin Js -->
-<script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}"></script>
-
-<!-- Bootstrap Tags Input Plugin Js -->
-<script src="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
-
-<!-- noUISlider Plugin Js -->
-<script src="{% static 'control_panel/plugins/nouislider/nouislider.js' %}"></script>
-
 <!-- Waves Effect Plugin Js -->
 <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
 
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/admin.js' %}"></script>
-<script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
-<script src="{% static 'control_panel/js/pages/examples/sign-up.js' %}"></script>
 
 <!-- Demo Js -->
 <script src="{% static 'control_panel/js/demo.js' %}"></script>
-{##}
-{##}
+
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+<!-- Custom Js -->
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
+
+{#<!-- Bootstrap Colorpicker Js -->#}
+{#<script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>#}
+
+{#<!-- Input Mask Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>#}
+
+{#<!-- Multi Select Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/multi-select/js/jquery.multi-select.js' %}"></script>#}
+
+{#<!-- Jquery Spinner Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}"></script>#}
+
+{#<!-- Bootstrap Tags Input Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>#}
+
+{#<!-- noUISlider Plugin Js -->#}
+{#<script src="{% static 'control_panel/plugins/nouislider/nouislider.js' %}"></script>#}
+
+{#<script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>#}
+{#<script src="{% static 'control_panel/js/pages/examples/sign-up.js' %}"></script>#}
+
 {#<!-- Validation Plugin Js -->#}
 {#<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>#}
-
 
 </body>
 

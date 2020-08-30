@@ -1,0 +1,223 @@
+﻿{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-3">
+                <div class="card profile-card">
+                    <div class="profile-header">&nbsp;</div>
+                    <div class="profile-body">
+                        <div class="image-area">
+                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"
+                                 alt="AdminBSB - Profile Image"/>
+                        </div>
+                        <div class="content-area">
+                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                            <p>superusuario</p>
+                            <p>{{ request.user.username }}</p>
+                        </div>
+                    </div>
+                    <div class="profile-footer">
+                        <ul>
+                            <li>
+                                <span>Correo</span>
+                                <span>{{ request.user.email }}</span>
+                            </li>
+                            <li>
+                                <span>Teléfono</span>
+                                <span>{{ request.user.telefono }}</span>
+                            </li>
+                            <li>
+                                <span>Afiliado desde</span>
+                                <span>{{ request.user.fecha_alta|date }}</span>
+                            </li>
+                        </ul>
+                        {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                    </div>
+                </div>
+
+                {#                <div class="card card-about-me">#}
+                {#                    <div class="header">#}
+                {#                        <h2>DATOS DE EL LEVANT</h2>#}
+                {#                    </div>#}
+                {#                    <div class="body">#}
+                {#                        <ul>#}
+                {##}
+                {#                            <li>#}
+                {#                                <div class="title">#}
+                {#                                    <i class="material-icons">edit</i>#}
+                {#                                    Servicios#}
+                {#                                </div>#}
+                {#                                <div class="content">#}
+                {#                                    <span class="label bg-red">UI Design</span>#}
+                {#                                    <span class="label bg-teal">JavaScript</span>#}
+                {#                                    <span class="label bg-blue">PHP</span>#}
+                {#                                    <span class="label bg-amber">Node.js</span>#}
+                {#                                </div>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <div class="title">#}
+                {#                                    <i class="material-icons">restaurant</i>#}
+                {#                                    <a href="{% url 'table' %}">Productos Ofertados</a>#}
+                {#                                </div>#}
+                {#                                <div class="content">#}
+                {##}
+                {#                                </div>#}
+                {#                            </li>#}
+                {##}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <div class="card">
+                    <div class="body">
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+
+                                <li role="presentation" class="active"><a href="#profile_settings"
+                                                                          aria-controls="settings" role="tab"
+                                                                          data-toggle="tab">Actualizar Información</a>
+                                </li>
+                                <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
+                                                           role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="NameSurname" class="col-sm-2 control-label">Nombre(s)</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="first_name" placeholder="Name Surname"
+                                                           value="Marc K. Hammond" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NameSurname" class="col-sm-2 control-label">Apellidos</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="last_name" placeholder="Name Surname"
+                                                           value="Marc K. Hammond" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-2 control-label">Teléfono</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="tel" maxlength="8" class="form-control" id="Email"
+                                                           name="Email"
+                                                           placeholder="Email" value="52525252" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-2 control-label">Correo</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="email" class="form-control" id="Email" name="Email"
+                                                           placeholder="Email" value="example@example.com" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NameSurname" class="col-sm-2 control-label">Usuario</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="NameSurname" placeholder="Name Surname"
+                                                           value="marc" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <input type="checkbox" id="terms_condition_check"
+                                                       class="chk-col-amber filled-in"/>
+                                                <label for="terms_condition_check">He leído y estoy de acuerdo con los
+                                                    <a href="#">términos y condiciones</a></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button class="btn btn-default waves-effect waves-amber"
+                                                        type="submit">
+                                                    <i class="material-icons " style="color: #212121">send</i>
+                                                    <span>ENVIAR</span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="OldPassword" class="col-sm-3 control-label">Contraseña
+                                                anterior</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="OldPassword"
+                                                           name="OldPassword" placeholder="Old Password" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPassword" class="col-sm-3 control-label">Contraseña
+                                                nueva</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="NewPassword"
+                                                           name="NewPassword" placeholder="New Password" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">Contraseña
+                                                nueva
+                                                (Confirmación)</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-line">
+                                                    <input type="password" class="form-control" id="NewPasswordConfirm"
+                                                           name="NewPasswordConfirm"
+                                                           placeholder="New Password (Confirm)" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <button class="btn btn-default waves-effect waves-amber" type="submit">
+                                                    <i class="material-icons " style="color: #212121">send</i>
+                                                    <span>ENVIAR</span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}
