@@ -67,12 +67,12 @@
                 <div class="card">
                     <div class="header">
                         <h2>AGREGAR INFORMACIÓN DEL NEGOCIO</h2>
-
                     </div>
 
 
                     <div class="body">
-                        <form id="Form" class="form-horizontal form-form_validation" role="form" method="post">{% csrf_token %}
+                        <form id="Form" class="form-horizontal form-form_validation" enctype="multipart/form-data"
+                              role="form" method="post">{% csrf_token %}
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -136,30 +136,17 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                             <select id="category" class="form-control show-tick" name="category_bussiness" multiple required>
-                                                <optgroup label="Comercio y Gastronomía">
-                                                    <option value="Restaurante de comida criolla e internacional">Restaurante de comida criolla e internacional</option>
-                                                    <option value="Pizzería y cafetería">Pizzería y cafetería</option>
-                                                    <option value="Hamburguesera">Hamburguesera</option>
-                                                    <option value="Juguera">Juguera</option>
-                                                    <option value="Bar">Bar</option>
-                                                    <option value="Dulcería">Dulcería</option>
-                                                    <option value="Heladería">Heladería</option>
-                                                    <option value="Panadería">Panadería</option>
-                                                    <option value="Billar">Billar</option>
-                                                    <option value="Florería">Florería</option>
-                                                    <option value="Piscina">Piscina</option>
-                                                    <option value="Florería">Florería</option>
-                                                </optgroup>
-                                                <optgroup label="Mercado">
-                                                    <option value="Agromercado">Agromercado</option>
-                                                    <option value="Carnicería">Carnicería</option>
-                                                    <option value="Pescadería">Pescadería</option>
-                                                </optgroup>
-                                                <optgroup label="Transporte">
-                                                    <option value="Moto">Moto</option>
-                                                    <option value="Carro">Carro</option>
-                                                    <option value="Bicicleta">Bicicleta</option>
-                                                </optgroup>
+                                                {% if macros %}
+                                                    {% for macro in macros %}
+                                                        <optgroup label="{{ macro.nombre }}">
+                                                            {% for category in categorias %}
+                                                                {% ifequal macro category.macro %}
+                                                                    <option value="{{ category.nombre }}">{{ category.nombre }}</option>
+                                                                {% endifequal %}
+                                                            {% endfor %}
+                                                        </optgroup>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </select>
                                         </div>
                                     </div>
@@ -174,11 +161,18 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>
-                                                <option value="Comida para llevar">Comida para llevar</option>
-                                                <option value="Mesas y Espacios">Mesas y Espacios</option>
-                                                <option value="Entrega a domicilio">Entrega a domicilio</option>
+                                            <select id="service" name="services_bussiness" class="form-control show-tick" multiple required>
+                                                {% if servicios_mostrar %}
+                                                    {% for servicio in servicios_mostrar %}
+                                                        <option value="{{ servicio.nombre }}">{{ servicio.nombre }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </select>
+{#                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>#}
+{#                                                <option value="Comida para llevar">Comida para llevar</option>#}
+{#                                                <option value="Mesas y Espacios">Mesas y Espacios</option>#}
+{#                                                <option value="Entrega a domicilio">Entrega a domicilio</option>#}
+{#                                            </select>#}
                                         </div>
                                     </div>
                                 </div>

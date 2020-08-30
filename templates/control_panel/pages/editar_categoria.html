@@ -40,19 +40,19 @@
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
-                        GESTIÓN DE SERVICIOS
-                        <small>Módulo para la gestion de servicios</small>
+                        GESTIÓN DE CATEGORIA
+                        <small>Módulo para la gestion de categoria</small>
                     </h2>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
                         <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                        <li><a href="{% url 'services' %}"><i class="material-icons">store</i>
-                            Servicios</a>
+                        <li><a href="{% url 'categories' %}"><i class="material-icons">store</i>
+                            Categorias</a>
                         </li>
                         <li class="active"><i class="material-icons">add_circle</i>
-                            Editar Servicio
+                            Editar Categoria
                         </li>
 
                     </ol>
@@ -66,7 +66,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>MODIFICAR SERVICIO</h2>
+                        <h2>MODIFICAR CATEGORIA</h2>
 
                     </div>
                     <div class="body">
@@ -74,14 +74,14 @@
 
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre del Servicio*</label>
+                                    <label for="first_name">Nombre de la Categoria*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control text" name="name_service"
-                                                   placeholder="Escriba el nombre del servicio"
-                                                   value="{{ service.nombre }}"
+                                            <input type="text" class="form-control text" name="name_category"
+                                                   placeholder="Escriba el nombre del categoria"
+                                                   value="{{ category.nombre }}"
                                                    required>
                                         </div>
                                     </div>
@@ -95,13 +95,37 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="description" name="description_service"
+                                            <input id="description" name="description_category"
                                                       class="form-control no-resize"
                                                       required
-                                                      value="{{ service.descripcion }}"
-                                                      placeholder="Escriba la descripción del servicio"/>
+                                                      value="{{ category.descripcion }}"
+                                                      placeholder="Escriba la descripción de la categoria"/>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="macro">Macro categoria</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <select id="macro" name="macro" class="form-control show-tick" data-live-search="true">
+                                        {% ifequal category.macro.nombre 'Comercio y Gastronomía' %}
+                                            <option value="Comercio y Gastronomía" selected>Comercio y Gastronomía</option>
+                                            <option value="Mercado">Mercado</option>
+                                            <option value="Transporte">Transporte</option>
+                                        {% endifequal %}
+                                        {% ifequal category.macro.nombre 'Mercado' %}
+                                            <option value="Comercio y Gastronomía">Comercio y Gastronomía</option>
+                                            <option value="Mercado" selected>Mercado</option>
+                                            <option value="Transporte">Transporte</option>
+                                        {% endifequal %}
+                                        {% ifequal category.macro.nombre 'Transporte' %}
+                                            <option value="Comercio y Gastronomía">Comercio y Gastronomía</option>
+                                            <option value="Mercado">Mercado</option>
+                                            <option value="Transporte" selected>Transporte</option>
+                                        {% endifequal %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="row clearfix">

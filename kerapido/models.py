@@ -32,6 +32,14 @@ class User(AbstractUser):
 class Servicio(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField(null=True, blank=True)
+    color = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Macro(models.Model):
+    nombre = models.CharField(max_length=255)
 
     def __str__(self):
         return self.nombre
@@ -40,6 +48,7 @@ class Servicio(models.Model):
 class Categoria_Negocio(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField(null=True, blank=True)
+    macro = models.ForeignKey(Macro, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre

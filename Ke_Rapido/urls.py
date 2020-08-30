@@ -41,6 +41,8 @@ urlpatterns = [
     path('panel', views.admin_panel, name="panel"),
     path('services', views.servicios, name="services"),
     path('add_services', views.add_services, name="add_services"),
+    path('update_service/<int:id_service>', views.update_service, name="update_service"),
+    path('delete_service/<int:id_service>', views.delete_service, name="delete_service"),
     path('reservations', views.reservations, name="reservations"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
     path('users', views.users, name="users"),
@@ -57,7 +59,14 @@ urlpatterns = [
     path('bussiness', views.negocios, name="bussiness"),
     path('my_bussiness/<int:id_bussiness>', views.mi_negocio, name="my_bussiness"),
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
-    path('update_bussiness', views.update_bussiness, name="update_bussiness"),
+    path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
+    path('delete_bussiness/<int:id_bussiness>', views.delete_bussiness, name="delete_bussiness"),
+
+    path('categories', views.categories, name="categories"),
+    path('add_category', views.add_category, name="add_category"),
+    path('update_category/<int:id_category>', views.update_category, name="update_category"),
+    path('delete_category/<int:id_category>', views.delete_category, name="delete_category"),
+
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 
 
@@ -71,7 +80,7 @@ urlpatterns = [
     path('api/reservar/', postReservaApi),
     path('api/reservas/<int:pk>/', getReservasApiForID),
     path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
-    path('api/comment/<int:pk>/', postComentarioApi),
+    path('api/comment/<int:id_negocio>/', postComentarioApi),
     path('api/comments/<int:pk>/', getComentarioApi),
 ]
 if settings.DEBUG:

@@ -14,7 +14,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 
-from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Provincia, Frecuencia, Servicio
+from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Provincia, Frecuencia, \
+    Servicio, Macro
 
 
 # Create your views here.
@@ -31,7 +32,7 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
 
 
 def principal(request):
-    categories = Categoria_Negocio.objects.all()
+    categorias = Categoria_Negocio.objects.all()
     bussiness = Negocio.objects.all()[:6]
     ofertas = Oferta_Laboral.objects.all()
     if request.POST:
@@ -42,7 +43,7 @@ def principal(request):
         send_mail(subject, message, 'habanatrans16@gmail.com', ['pemiro91@gmail.com'], fail_silently=False)
         messages.success(request, 'Su mensaje ha sido enviado satisfactoriamente. Gracias!')
         # return redirect('/')
-    context = {'categories': categories, 'bussiness': bussiness, 'ofertas': ofertas}
+    context = {'categories': categorias, 'bussiness': bussiness, 'ofertas': ofertas}
     return render(request, "index.html", context)
 
 
@@ -69,8 +70,12 @@ def login_admin(request):
 
 
 def admin_panel(request):
-    context = {}
-    return render(request, "control_panel/index.html", context)
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        services = Servicio.objects.all()
+        context = {'business': business, 'services': services}
+        return render(request, "control_panel/index.html", context)
+    return redirect('login')
 
 
 def logout(request):
@@ -135,13 +140,51 @@ def ofertas_laborales(request):
 
 
 def servicios(request):
-    context = {}
-    return render(request, "control_panel/pages/listado_servicios.html", context)
+    if request.user.is_authenticated:
+        services = Servicio.objects.all()
+        context = {'services': services}
+        return render(request, "control_panel/pages/listado_servicios.html", context)
+    return redirect('login')
 
 
 def add_services(request):
-    context = {}
-    return render(request, "control_panel/pages/agregar_servicios.html", context)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            name_service = request.POST.get('name_service')
+            description_service = request.POST.get('description_service')
+            color_service = request.POST.get('color_service')
+            Servicio.objects.create(nombre=name_service, descripcion=description_service, color=color_service)
+            return redirect('services')
+        context = {}
+        return render(request, "control_panel/pages/agregar_servicios.html", context)
+    return redirect('login')
+
+
+def update_service(request, id_service):
+    if request.user.is_authenticated:
+        service = Servicio.objects.get(id=id_service)
+        if request.method == 'POST':
+            name_service = request.POST.get('name_service')
+            description_service = request.POST.get('description_service')
+            color_service = request.POST.get('color_service')
+            with transaction.atomic():
+                Servicio.objects.filter(pk=id_service).update(
+                    nombre=name_service,
+                    descripcion=description_service,
+                    color=color_service
+                )
+                return redirect('services')
+        context = {'service': service}
+        return render(request, "control_panel/pages/editar_servicios.html", context)
+    return redirect('login')
+
+
+def delete_service(request, id_service):
+    if request.user.is_authenticated:
+        p = Servicio.objects.get(id=id_service)
+        p.delete()
+        return redirect('services')
+    return redirect('login')
 
 
 def reservations(request):
@@ -218,21 +261,26 @@ def menu(request):
     context = {}
     return render(request, "control_panel/pages/menu.html", context)
 
+
 def add_product(request):
     context = {}
     return render(request, "control_panel/pages/agregar_producto.html", context)
+
 
 def categoria_productos(request):
     context = {}
     return render(request, "control_panel/pages/listado_categoria_productos.html", context)
 
+
 def agregar_categoria_productos(request):
     context = {}
     return render(request, "control_panel/pages/agregar_categoria_producto.html", context)
 
+
 def editar_categoria_producto(request):
     context = {}
     return render(request, "control_panel/pages/editar_categoria_producto.html", context)
+
 
 def negocios(request):
     context = {}
@@ -243,6 +291,9 @@ def add_bussiness(request):
     if request.user.is_authenticated:
         municipios = Municipio.objects.all()
         frecuencia = Frecuencia.objects.all()
+        servicios_mostrar = Servicio.objects.all()
+        categorias = Categoria_Negocio.objects.all()
+        macro = Macro.objects.all()
         if request.method == 'POST':
             name_bussiness = request.POST.get('name_bussiness')
             logo_bussiness = request.FILES['logo_bussiness']
@@ -273,11 +324,11 @@ def add_bussiness(request):
                 telefono2=phone_bussiness
             )
             for category in category_bussiness:
-                categoria = Categoria_Negocio.objects.create(nombre=category)
+                categoria = Categoria_Negocio.objects.get(nombre=category)
                 negocio.categorias.add(categoria)
 
             for service in services_bussiness:
-                servicio = Servicio.objects.create(nombre=service)
+                servicio = Servicio.objects.get(nombre=service)
                 negocio.servicios.add(servicio)
 
             for frecu in post_frecuencia:
@@ -286,14 +337,119 @@ def add_bussiness(request):
 
             return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
-        context = {'municipios': municipios, 'frecuencia': frecuencia}
+        context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
+                   'categorias': categorias, 'macros': macro}
         return render(request, "control_panel/pages/agregar_negocio.html", context)
     return redirect('login')
 
 
-def update_bussiness(request):
-    context = {}
-    return render(request, "control_panel/pages/editar_negocio.html", context)
+def update_bussiness(request, id_bussiness):
+    if request.user.is_authenticated:
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        servicios = Servicio.objects.all()
+        servicios_marcados = list(negocio.servicios.all())
+        categorias_marcadas = list(negocio.categorias.all())
+        categorias = Categoria_Negocio.objects.all()
+        macro = Macro.objects.all()
+        servicios_no_marcados = []
+        categoria_no_marcados = []
+        hr_init = negocio.horario.split('-')[0]
+        hr_end = negocio.horario.split('-')[1]
+        lunes = False
+        martes = False
+        miercoles = False
+        jueves = False
+        viernes = False
+        sabado = False
+        domingo = False
+        for i in servicios:
+            if (i not in servicios_no_marcados) and (i not in servicios_marcados):
+                servicios_no_marcados.append(i)
+
+        for i in categorias:
+            if (i not in categoria_no_marcados) and (i not in categorias_marcadas):
+                categoria_no_marcados.append(i)
+
+        for neg in negocio.frecuencia.all():
+            if neg.nombre == 'Lunes':
+                lunes = True
+            if neg.nombre == 'Martes':
+                martes = True
+            if neg.nombre == 'Miércoles':
+                miercoles = True
+            if neg.nombre == 'Jueves':
+                jueves = True
+            if neg.nombre == 'Viernes':
+                viernes = True
+            if neg.nombre == 'Sábado':
+                sabado = True
+            if neg.nombre == 'Domingo':
+                domingo = True
+
+        if request.method == 'POST':
+            name_bussiness = request.POST.get('name_bussiness')
+            logo_bussiness = request.FILES['logo_bussiness']
+            portada_bussiness = request.FILES['portada_bussiness']
+            slogan_bussiness = request.POST.get('slogan_bussiness')
+            category_bussiness = request.POST.getlist('category_bussiness')
+            services_bussiness = request.POST.getlist('services_bussiness')
+            hour_init = request.POST.get('hour_init')
+            hour_end = request.POST.get('hour_end')
+            post_frecuencia = request.POST.getlist('frecuencia')
+            address_bussiness = request.POST.get('address_bussiness')
+            municipio = request.POST.get('municipio')
+            phone_bussiness_o = request.POST.get('phone_bussiness_o')
+            phone_bussiness = request.POST.get('phone_bussiness')
+
+            horario = str(hour_init) + ' - ' + str(hour_end)
+
+            with transaction.atomic():
+                negocio = Negocio.objects.filter(pk=id_bussiness).update(
+                    usuario_negocio=request.user,
+                    nombre=name_bussiness,
+                    logo=logo_bussiness,
+                    portada=portada_bussiness,
+                    eslogan=slogan_bussiness,
+                    horario=horario,
+                    direccion=address_bussiness,
+                    municipio=municipio,
+                    telefono1=phone_bussiness_o,
+                    telefono2=phone_bussiness
+                )
+
+                for category in category_bussiness:
+                    categoria = Categoria_Negocio.objects.get(nombre=category)
+                    negocio.categorias.add(categoria)
+
+                for service in services_bussiness:
+                    servicio = Servicio.objects.get(nombre=service)
+                    negocio.servicios.add(servicio)
+
+                for frecu in post_frecuencia:
+                    frecuen = Frecuencia.objects.create(nombre=frecu)
+                    negocio.frecuencia.add(frecuen)
+
+                return redirect('panel')
+        context = {'negocio': negocio,
+                   'lunes': lunes, 'martes': martes, 'miercoles': miercoles,
+                   'jueves': jueves, 'viernes': viernes,
+                   'sabado': sabado, 'domingo': domingo,
+                   'hr_init': hr_init, 'hr_end': hr_end,
+                   'servicios': servicios,
+                   'servicios_marcados': servicios_marcados,
+                   'servicios_no_marcados': servicios_no_marcados,
+                   'categoria_no_marcados': categoria_no_marcados,
+                   'categorias_marcadas': categorias_marcadas, 'categorias': categorias, 'macros': macro}
+        return render(request, "control_panel/pages/editar_negocio.html", context)
+    return redirect('login')
+
+
+def delete_bussiness(request, id_bussiness):
+    if request.user.is_authenticated:
+        p = Negocio.objects.get(id=id_bussiness)
+        p.delete()
+        return redirect('panel')
+    return redirect('login')
 
 
 def error404(request):
@@ -305,6 +461,57 @@ def terminos_condiciones(request):
     context = {}
     return render(request, "control_panel/pages/terminos_condiicones.html", context)
 
-def mi_negocio(request,id_bussiness):
+
+def mi_negocio(request, id_bussiness):
     context = {}
     return render(request, "control_panel/pages/mi_negocio.html", context)
+
+
+def categories(request):
+    if request.user.is_authenticated:
+        category = Categoria_Negocio.objects.all()
+        context = {'categories': category}
+        return render(request, "control_panel/pages/listado_categoria.html", context)
+    return redirect('login')
+
+
+def add_category(request):
+    if request.user.is_authenticated:
+        macro = Macro.objects.all()
+        if request.method == 'POST':
+            name_category = request.POST.get('name_category')
+            description_category = request.POST.get('description_category')
+            macro_field = request.POST.get('macro')
+            Categoria_Negocio.objects.create(nombre=name_category, descripcion=description_category, macro_id=macro_field)
+            return redirect('categories')
+        context = {'macros': macro}
+        return render(request, "control_panel/pages/agregar_categoria.html", context)
+    return redirect('login')
+
+
+def update_category(request, id_category):
+    if request.user.is_authenticated:
+        category = Categoria_Negocio.objects.get(id=id_category)
+        macro = Macro.objects.all()
+        if request.method == 'POST':
+            name_category = request.POST.get('name_category')
+            description_category = request.POST.get('description_category')
+            macro = request.POST.get('macro')
+            with transaction.atomic():
+                Categoria_Negocio.objects.filter(pk=id_category).update(
+                    nombre=name_category,
+                    descripcion=description_category,
+                    macro=macro
+                )
+                return redirect('categories')
+        context = {'category': category}
+        return render(request, "control_panel/pages/editar_categoria.html", context)
+    return redirect('login')
+
+
+def delete_category(request, id_category):
+    if request.user.is_authenticated:
+        p = Categoria_Negocio.objects.get(id=id_category)
+        p.delete()
+        return redirect('categories')
+    return redirect('login')

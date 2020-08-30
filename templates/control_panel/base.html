@@ -260,41 +260,51 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">widgets</i>
-                        <span>Mis Negocios</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="{% url 'my_bussiness' 1 %}">Negocio 1</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">folder</i>
                         <span>Administración</span>
                     </a>
                     <ul class="ml-menu">
-                        <li>
-                            <a href="javascript:void(0);" class="menu-toggle">
-                                <span>Negocio 1</span>
-                            </a>
-                            <ul class="ml-menu">
-                                <li>
-                                    <a href="{% url 'category_products' %}">Categoria de Productos</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'table' %}">Productos</a>
-                                </li>
-                                <li>
-                                    <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
-                                </li>
-                                <li>
-                                    <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
-                                </li>
-                            </ul>
-                        </li>
+                        {% for negocio in business %}
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>{{ negocio.nombre }}</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="{% url 'category_products' %}">Categoria de Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'table' %}">Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
+                                    </li>
+                                    <li>
+                                        <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% empty %}
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Pan con pasta</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="{% url 'category_products' %}">Categoria de Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'table' %}">Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
+                                    </li>
+                                    <li>
+                                        <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
 
                     </ul>
                 </li>
@@ -309,6 +319,12 @@
                     <a href="{% url 'bussiness' %}">
                         <i class="material-icons">store</i>
                         <span>Negocios</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{% url 'categories' %}">
+                        <i class="material-icons">class</i>
+                        <span>Categorias</span>
                     </a>
                 </li>
                 <li>

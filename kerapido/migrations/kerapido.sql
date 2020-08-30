@@ -68,6 +68,10 @@ INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Habana Vieja', 4)
 INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Cotorro', 4);
 INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Regla', 4);
 
+INSERT INTO kerapido_macro (nombre) VALUES ('Comercio y Gastronomía');
+INSERT INTO kerapido_macro (nombre) VALUES ('Mercado');
+INSERT INTO kerapido_macro (nombre) VALUES ('Transporte');
+
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Matanzas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Cárdenas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Colón', 5);

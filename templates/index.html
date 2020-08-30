@@ -356,12 +356,12 @@
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">Todos</li>
                         {% for category in categories %}
-                            {% for negocio in bussiness %}
-                                {% if negocio.categoria == category %}
-                                    <li data-filter=".{{ category }}">{{ category.nombre }}</li>
-                                {% endif %}
-                            {% endfor %}
-
+                            <li data-filter=".{{ category }}">{{ category.nombre }}</li>
+{#                            {% for negocio in bussiness %}#}
+{#                                {% if negocio.categorias == category %}#}
+{#                                    <li data-filter=".{{ category }}">{{ category.nombre }}</li>#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
                         {% endfor %}
                     </ul>
                 </div>
@@ -369,7 +369,7 @@
 
             <div class="row portfolio-container">
                 {% for negocio in bussiness %}
-                    <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categoria }}">
+                    <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categorias }}">
                         <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt="">
                         <div class="portfolio-info">
                             <h4>{{ negocio.nombre }}</h4>

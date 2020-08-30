@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DE SERVICIOS
-                <small>Módulo para la gestión de servicios</small>
+                GESTIÓN DE CATEGORIA
+                <small>Módulo para la gestión de categoria</small>
             </h2>
         </div>
 
@@ -24,11 +24,11 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE SERVICIOS
+                            LISTADO DE CATEGORIAS PARA NEGOCIO
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_services' %}" type="button" title="Agregar Servicios"
+                                <a href="{% url 'add_category' %}" type="button" title="Agregar Servicios"
                                    class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
@@ -44,7 +44,7 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
-                                    <th>Color</th>
+                                    <th>Macro-categoria</th>
 
                                     <th>Acciones</th>
                                 </tr>
@@ -53,28 +53,28 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
-                                    <th>Color</th>
+                                    <th>Macro-categoria</th>
 
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for service in services %}
+                                {% for category in categories %}
                                     <tr>
-                                        <td>{{ service.nombre }}</td>
-                                        <td>{{ service.descripcion }}</td>
-                                        <td>{{ service.color }}</td>
+                                        <td>{{ category.nombre }}</td>
+                                        <td>{{ category.descripcion }}</td>
+                                        <td>{{ category.macro.nombre }}</td>
                                         <td>
                                             <a type="button" class="btn btn-default waves-effect waves-amber"
-                                                href="{% url 'update_service' service.id %}">
+                                                href="{% url 'update_category' category.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-                                               data-href="{% url 'delete_service' service.id %}"
+                                               data-href="{% url 'delete_category' category.id %}"
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Servicio">
+                                               title="Eliminar Categoria">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
