@@ -18,25 +18,9 @@
         <div class="block-header">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h2>
-                    GESTIÓN DE MIS NEGOCIOS
-                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                    GESTIÓN DE PRODUCTOS
+                    <small>Módulo para la gestion de los productos "{{ negocio.nombre }}"</small>
                 </h2>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <ol class="breadcrumb breadcrumb-col-amber text-right">
-                    <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                    <li><i class="material-icons">widgets</i>
-                        Mis Negocios
-                    </li>
-                    <li class="active"><i class="material-icons">store</i>
-                        Negocio 1
-                    </li>
-                    <li class="active">
-                        Productos
-                    </li>
-
-                </ol>
             </div>
         </div>
 
@@ -51,7 +35,7 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a type="button" href="{% url 'add_product' %}" class="btn btn-default waves-effect waves-black">
+                                <a type="button" href="{% url 'add_product' negocio.id %}" class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
                                 </a>
@@ -86,133 +70,68 @@
                                         {#                                        Seleccione las categorias#}
                                     </div>
 
-                                    <div class="col-lg-4 col-sm-12 col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">search</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="search" class="form-control"
-                                                       name="buscar"
-                                                       placeholder="Buscar">
-                                            </div>
-                                        </div>
-                                    </div>
+{#                                    <div class="col-lg-4 col-sm-12 col-xs-12">#}
+{#                                        <div class="input-group">#}
+{#                                            <span class="input-group-addon">#}
+{#                                                <i class="material-icons">search</i>#}
+{#                                            </span>#}
+{#                                            <div class="form-line">#}
+{#                                                <input type="search" class="form-control"#}
+{#                                                       name="buscar"#}
+{#                                                       placeholder="Buscar">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
                                 </div>
                                 <div class="panel-body">
                                     <div class="post">
-
                                         <div class="post-content">
                                             <div class="container-fluid">
                                                 <div class="block-header">
-                                                    {#                                                            <h2>BASIC CARD</h2>#}
+                                                {#<h2>BASIC CARD</h2>#}
                                                 </div>
                                                 <!-- Basic Card -->
                                                 <div class="row clearfix">
-
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="card">
-                                                            <div class="card-header"
-                                                                 style="height: 180px">
-
-
-                                                                <img style="width: 100%;height: 100%"
-                                                                     src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}"
-                                                                     alt="">
-                                                            </div>
-                                                            {#                                                                     <hr>#}
-                                                            <div class="body">
-                                                                <div class="row">
-                                                                    <div class="col-lg-8">
-                                                                        <h4>Masas de Cerdo
-                                                                            fritas</h4>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <h4>$5.00</h4>
-                                                                    </div>
+                                                    {% for product in products %}
+                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="card">
+                                                                <div class="card-header" style="height: 180px">
+                                                                    <img style="width: 100%;height: 100%"
+                                                                         src="{{ product.imagen.url }}"
+                                                                         alt="">
                                                                 </div>
-                                                                Masas de cerdo fritas,acompañado de
-                                                                una racion
-                                                                de arroz congris, yuca,platanos
-                                                                fritos y
-                                                                ensalada de aguacate
-                                                                <a href="#">
-                                                                    <i class="material-icons "
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                </a>
-                                                                <a href="#">
-                                                                    <i class="material-icons"
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
-                                                                </a>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="card">
-                                                            <div class="card-header"
-                                                                 style="height: 180px">
-                                                                <img style="width: 100%;height: 100%"
-                                                                     src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}"
-                                                                     alt="">
-                                                            </div>
-                                                            {#                                                                     <hr>#}
-                                                            <div class="body">
-                                                                <div class="row">
-                                                                    <div class="col-lg-8">
-                                                                        <h4>Ropa vieja</h4>
+                                                                {#<hr>#}
+                                                                <div class="body">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8">
+                                                                            <h4>{{ product.nombre }}</h4>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <h4>${{ product.precio }}</h4>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-lg-4">
-                                                                        <h4>$7.00</h4>
-                                                                    </div>
+                                                                    <p style="overflow: hidden;
+                                                                   text-overflow: ellipsis;
+                                                                   display: -webkit-box;
+                                                                   -webkit-line-clamp: 1; /* number of lines to show */
+                                                                   -webkit-box-orient: vertical;">
+                                                                        {{ product.descripcion }}
+                                                                    </p>
+{#                                                                    <a href="#"><i class="material-icons" style="color:#FEC010;position: absolute;padding: 12px;right: 55px">visibility</i></a>#}
+                                                                    <a href="{% url 'edit_product' negocio.id product.id %}">
+                                                                        <i class="material-icons" style="color:#FEC010;position: absolute;padding: 12px;right: 35px">edit</i></a>
+                                                                    <a href="#"
+                                                                       data-href="{% url 'delete_product' product.id %}"
+                                                                       data-toggle="modal"
+                                                                       data-target="#confirm-delete"
+                                                                       title="Eliminar Producto"
+                                                                    ><i class="material-icons" style="color:#FEC010;position: absolute;padding: 12px;right: 10px">delete</i></a>
                                                                 </div>
-                                                                Ropa vieja,acompañada de arroz,
-                                                                frijoles,platanos fritos y ensalada
-                                                                de aguacate
-                                                                <a href="#">
-                                                                    <i class="material-icons "
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                </a>
-                                                                <a href="#">
-                                                                    <i class="material-icons"
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
-                                                                </a>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="card">
-                                                            <div class="card-header"
-                                                                 style="height: 180px">
-                                                                <img style="width: 100%;height: 100%"
-                                                                     src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}"
-                                                                     alt="">
-                                                            </div>
-                                                            {#                                                                     <hr>#}
-                                                            <div class="body">
-                                                                <div class="row">
-                                                                    <div class="col-lg-8">
-                                                                        <h4>Carne de Cerdo</h4>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <h4>$5.00</h4>
-                                                                    </div>
-                                                                </div>
-                                                                Carne de cerdo, acompañado de arroz
-                                                                congris,tamal,tostones y ensalada de
-                                                                aguacate.
-                                                                <a href="#">
-                                                                    <i class="material-icons "
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 35px">edit</i>
-                                                                </a>
-                                                                <a href="#">
-                                                                    <i class="material-icons"
-                                                                       style="color:#FEC010;position: absolute;padding: 2px;right: 10px">delete</i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {% empty %}
+                                                        <h4 class="center-align">No hay productos</h4>
+                                                    {% endfor %}
                                                 </div>
 
                                             </div>
@@ -244,10 +163,30 @@
         </div>
         <!-- #END# Exportable Table -->
     </div>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el producto?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block plugin_section %}
 
     <script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
+
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
 
 {% endblock %}
 

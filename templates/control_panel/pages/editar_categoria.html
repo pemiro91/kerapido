@@ -105,25 +105,25 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
                                     <label for="macro">Macro categoria</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <select id="macro" name="macro" class="form-control show-tick" data-live-search="true">
                                         {% ifequal category.macro.nombre 'Comercio y Gastronomía' %}
-                                            <option value="Comercio y Gastronomía" selected>Comercio y Gastronomía</option>
+                                            <option value="1" selected>Comercio y Gastronomía</option>
                                             <option value="Mercado">Mercado</option>
                                             <option value="Transporte">Transporte</option>
                                         {% endifequal %}
                                         {% ifequal category.macro.nombre 'Mercado' %}
                                             <option value="Comercio y Gastronomía">Comercio y Gastronomía</option>
-                                            <option value="Mercado" selected>Mercado</option>
+                                            <option value="2" selected>Mercado</option>
                                             <option value="Transporte">Transporte</option>
                                         {% endifequal %}
                                         {% ifequal category.macro.nombre 'Transporte' %}
                                             <option value="Comercio y Gastronomía">Comercio y Gastronomía</option>
                                             <option value="Mercado">Mercado</option>
-                                            <option value="Transporte" selected>Transporte</option>
+                                            <option value="3" selected>Transporte</option>
                                         {% endifequal %}
                                     </select>
                                 </div>

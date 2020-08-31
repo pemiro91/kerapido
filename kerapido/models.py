@@ -100,6 +100,7 @@ class Negocio(models.Model):
 class Categoria_Producto(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField(null=True, blank=True)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre

@@ -47,20 +47,10 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                        <li><i class="material-icons">widgets</i>
-                            Mis Negocios
-                        </li>
-                        <li><i class="material-icons">store</i>
-                            Negocio 1
-                        </li>
-                        <li class="active"><a href="{% url 'category_products' %}">
-                            Categorías de Productos
-                        </a>
-                        </li>
+                        <li><a href="{% url 'category_products' negocio.id %}"><i class="material-icons">widgets</i>
+                            Categorías de Productos</a></li>
                         <li class="active">Agregar Categorías de Productos
                         </li>
-
                     </ol>
                 </div>
             </div>
@@ -73,48 +63,40 @@
                 <div class="card">
                     <div class="header">
                         <h2>AGREGAR CATEGORÍA DE PRODUCTO</h2>
-
                     </div>
                     <div class="body">
-                        <form id="form-horizontal form-form_validation" method="POST">
-
+                        <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre del Servicio*</label>
+                                    <label for="name_category">Nombre de la categoria*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control text"
-                                                   placeholder="Escriba el nombre del servicio"
+                                            <input id="name_category" type="text" class="form-control text"
+                                                   name="name_category"
+                                                   placeholder="Escriba el nombre de la categoria"
                                                    required>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Descripción</label>
+                                    <label for="description">Descripción</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea name="description" cols="30" rows="2"
+                                            <textarea id="description" name="description_category" cols="30" rows="2"
                                                       class="form-control no-resize"
                                                       required
-                                                      placeholder="Escriba la descripción del servicio"></textarea>
+                                                      placeholder="Escriba la descripción de la categoria"></textarea>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
-
-                            {#                            <div class="form-group">#}
-                            {#                                <input type="checkbox" id="checkbox" name="checkbox">#}
-                            {#                                <label for="checkbox">He leido y acepto los términos y condiciones</label>#}
-                            {#                            </div>#}
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-black" type="submit">

@@ -1,4 +1,4 @@
-{% extends 'control_panel/base.html' %}
+    {% extends 'control_panel/base.html' %}
 {% load  static %}
 {% block header_style %}
     <!-- Bootstrap Material Datetime Picker Css -->
@@ -37,21 +37,18 @@
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
-            <div class="row clearfix">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <h2>
-                        GESTIÓN DE MIS NEGOCIOS
-                        <small>Módulo para la gestion de los negocios del afiliado</small>
-                    </h2>
-                </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>
+                    GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de los productos "{{ negocio.nombre }}"</small>
+                </h2>
+            </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'category_products' negocio.id %}"><i class="material-icons">widgets</i>
-                            Categorías de Productos</a></li>
-                        <li class="active">Modificar Categorías de Productos</li>
-                    </ol>
-                </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <ol class="breadcrumb breadcrumb-col-amber text-right">
+                    <li><a href="{% url 'products' negocio.id %}"><i class="material-icons">widgets</i>Productos</a></li>
+                    <li class="active">Modificar Producto</li>
+                </ol>
             </div>
         </div>
 
@@ -61,27 +58,37 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>MODIFICAR CATEGORÍA DE PRODUCTO</h2>
+                        <h2>MODIFICAR PRODUCTO</h2>
                     </div>
                     <div class="body">
-                        <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
-
+                        <form id="form-horizontal form-form_validation" enctype="multipart/form-data" method="POST">{% csrf_token %}
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="name_category">Nombre de Categoría del Producto*</label>
+                                    <label for="last_name">Imagen</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="name_category" type="text" class="form-control text"
-                                                   name="name_category"
-                                                   value="{{ categoria.nombre }}"
-                                                   placeholder="Escriba el nombre del servicio"
+                                            <input type="file" class="form-control file-field" name="image_product">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="name_product">Nombre del producto*</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="name_product" type="text" class="form-control text"
+                                                   name="name_product"
+                                                   value="{{ producto.nombre }}"
+                                                   placeholder="Escriba el nombre del producto"
                                                    required>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
@@ -90,12 +97,43 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="description" name="description_category" class="form-control no-resize"
-                                                   value="{{ categoria.descripcion }}"
-                                                   required
-                                                   placeholder="Escriba la descripción de la categoria"/>
+                                            <input id="description" name="description_product"
+                                                      class="form-control no-resize"
+                                                      value="{{ producto.descripcion }}"
+                                                      required
+                                                      placeholder="Escriba la descripción del producto"/>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="price_product">Precio*</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="price_product" type="text" class="form-control text"
+                                                   name="price_product"
+                                                   value="{{ producto.precio }}"
+                                                   placeholder="Escriba el precio del producto"
+                                                   required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="categoria">Categoria</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <select id="categoria" name="category_product" class="form-control show-tick" data-live-search="true">
+                                        {% if categorias %}
+                                            {% for categoria in categorias %}
+                                                <option value="{{ categoria.pk }}">{{ categoria.nombre }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="row clearfix">

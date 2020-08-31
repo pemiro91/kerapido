@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
-    Servicio, Macro
+    Servicio, Macro, Categoria_Producto, Producto
 
 
 # Create your views here.
@@ -265,33 +265,115 @@ def terminos_servicio(request):
     return render(request, "terminos_servicio.html", context)
 
 
-def products(request):
+def products(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        services = Servicio.objects.all()
-        context = {'business': business, 'services': services}
+        productos = Producto.objects.all()
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        context = {'business': business, 'products': productos, 'negocio': negocio}
         return render(request, "control_panel/pages/listado_producto.html", context)
     return redirect('login')
 
 
-def add_product(request):
-    context = {}
-    return render(request, "control_panel/pages/agregar_producto.html", context)
+def add_product(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categorias = Categoria_Producto.objects.filter(negocio=id_bussiness)
+        if request.method == 'POST':
+            image_product = request.FILES['image_product']
+            name_product = request.POST.get('name_product')
+            description_product = request.POST.get('description_product')
+            price_product = request.POST.get('price_product')
+            category_product = request.POST.get('category_product')
+            Producto.objects.create(imagen=image_product,
+                                    nombre=name_product, descripcion=description_product, precio=price_product,
+                                    negocio=negocio, categoria_id=category_product)
+            return redirect(reverse('products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        return render(request, "control_panel/pages/agregar_producto.html", context)
+    return redirect('login')
 
 
-def categoria_productos(request):
-    context = {}
-    return render(request, "control_panel/pages/listado_categoria_productos.html", context)
+def editar_product(request, id_bussiness, id_product):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        producto = get_object_or_404(Producto, pk=id_product)
+        categorias = Categoria_Producto.objects.filter(negocio=id_bussiness)
+        if request.method == 'POST':
+            name_product = request.POST.get('name_product')
+            description_product = request.POST.get('description_product')
+            price_product = request.POST.get('price_product')
+            category_product = request.POST.get('category_product')
+            Producto.objects.filter(id=id_product).update(
+                nombre=name_product,
+                descripcion=description_product,
+                precio=price_product,
+                categoria_id=category_product
+            )
+            return redirect(reverse('products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'producto': producto, 'categorias': categorias}
+        return render(request, "control_panel/pages/editar_producto.html", context)
+    return redirect('login')
 
 
-def agregar_categoria_productos(request):
-    context = {}
-    return render(request, "control_panel/pages/agregar_categoria_producto.html", context)
+def delete_product(request, id_product):
+    if request.user.is_authenticated:
+        p = Producto.objects.get(id=id_product)
+        p.delete()
+        return redirect(reverse('products', args=(p.negocio.id,)))
+    return redirect('login')
 
 
-def editar_categoria_producto(request):
-    context = {}
-    return render(request, "control_panel/pages/editar_categoria_producto.html", context)
+def categoria_productos(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categorias = Categoria_Producto.objects.filter(negocio=negocio).order_by('-nombre').reverse()
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        return render(request, "control_panel/pages/listado_categoria_productos.html", context)
+    return redirect('login')
+
+
+def agregar_categoria_productos(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        if request.method == 'POST':
+            name_category = request.POST.get('name_category')
+            description_category = request.POST.get('description_category')
+            Categoria_Producto.objects.create(nombre=name_category, descripcion=description_category, negocio=negocio)
+            return redirect(reverse('category_products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio}
+        return render(request, "control_panel/pages/agregar_categoria_producto.html", context)
+    return redirect('login')
+
+
+def editar_categoria_producto(request, id_bussiness, id_category):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categoria = get_object_or_404(Categoria_Producto, pk=id_category)
+        if request.method == 'POST':
+            name_category = request.POST.get('name_category')
+            description_category = request.POST.get('description_category')
+            Categoria_Producto.objects.filter(id=id_category).update(
+                nombre=name_category,
+                descripcion=description_category
+            )
+            return redirect(reverse('category_products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'categoria': categoria}
+        return render(request, "control_panel/pages/editar_categoria_producto.html", context)
+    return redirect('login')
+
+
+def delete_categoria(request, id_category):
+    if request.user.is_authenticated:
+        p = Categoria_Producto.objects.get(id=id_category)
+        p.delete()
+        return redirect(reverse('category_products', args=(p.negocio.id,)))
+    return redirect('login')
 
 
 def businesses(request):
@@ -478,8 +560,12 @@ def terminos_condiciones(request):
 
 
 def mi_negocio(request, id_bussiness):
-    context = {}
-    return render(request, "control_panel/pages/mi_negocio.html", context)
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        context = {'business': business, 'negocio': negocio}
+        return render(request, "control_panel/pages/mi_negocio.html", context)
+    return redirect('login')
 
 
 def categories(request):
@@ -501,7 +587,7 @@ def add_category(request):
                                              macro_id=macro_field)
             return redirect('categories')
         context = {'macros': macro}
-        return render(request, "control_panel/pages/agregar_categoria.html", context)
+        return render(request, "control_panel/pages/agregar_categoria_negocio.html", context)
     return redirect('login')
 
 
@@ -512,14 +598,13 @@ def update_category(request, id_category):
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
-            macro = request.POST.get('macro')
-            with transaction.atomic():
-                Categoria_Negocio.objects.filter(pk=id_category).update(
-                    nombre=name_category,
-                    descripcion=description_category,
-                    macro=macro
-                )
-                return redirect('categories')
+            macro_field = request.POST.get('macro')
+            Categoria_Negocio.objects.filter(id=id_category).update(
+                nombre=name_category,
+                descripcion=description_category,
+                macro_id=macro_field
+            )
+            return redirect('categories')
         context = {'category': category}
         return render(request, "control_panel/pages/editar_categoria.html", context)
     return redirect('login')
