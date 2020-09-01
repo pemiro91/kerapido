@@ -207,7 +207,7 @@ def nuestros_afiliados(request):
 
 def users(request):
     if request.user.is_authenticated:
-        usuarios = User.objects.all()
+        usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
         context = {'usuarios': usuarios}
         return render(request, "control_panel/pages/listado_usuarios.html", context)
     return redirect('login')
