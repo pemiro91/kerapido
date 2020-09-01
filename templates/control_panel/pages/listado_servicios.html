@@ -65,11 +65,11 @@
                                         <td>{{ service.descripcion }}</td>
                                         <td>{{ service.color }}</td>
                                         <td>
-                                            <a type="button" class="btn btn-default waves-effect waves-amber"
+                                            <a type="button" class="btn btn-default waves-effect waves-black"
                                                 href="{% url 'update_service' service.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-black"
                                                data-href="{% url 'delete_service' service.id %}"
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
