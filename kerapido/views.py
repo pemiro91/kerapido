@@ -1,4 +1,5 @@
 from datetime import datetime
+from itertools import product
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -14,7 +15,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
-    Servicio, Macro, Categoria_Producto, Producto
+    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion
 
 
 # Create your views here.
@@ -563,7 +564,14 @@ def mi_negocio(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        context = {'business': business, 'negocio': negocio}
+        productos = Producto.objects.filter(negocio=negocio.id)
+        ofertas_laborales = Oferta_Laboral.objects.filter(negocio=negocio.id)
+        comentarios = ComentarioEvaluacion.objects.filter(negocio=negocio.id)
+
+        context = {'business': business, 'negocio': negocio,
+                   'productos_negocio': productos,
+                   'ofertas_laborales': ofertas_laborales,
+                   'comentarios_negocio': comentarios}
         return render(request, "control_panel/pages/mi_negocio.html", context)
     return redirect('login')
 
