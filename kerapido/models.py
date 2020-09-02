@@ -91,6 +91,7 @@ class Negocio(models.Model):
     municipio = models.CharField(max_length=255, null=True, blank=True)
     telefono1 = models.CharField(max_length=255, null=True, blank=True)
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255,null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
 
     def __str__(self):
