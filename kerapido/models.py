@@ -79,8 +79,8 @@ class Frecuencia(models.Model):
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='logo/%Y/%m/%d', null=True, blank=True)
-    portada = StdImageField(upload_to='portada/%Y/%m/%d', variations={'thumbnail': (550, 412)}, null=True, blank=True)
+    logo = models.ImageField(upload_to='logo/', null=True, blank=True)
+    portada = StdImageField(upload_to='portada/', variations={'thumbnail': (550, 412)}, null=True, blank=True)
     eslogan = models.CharField(max_length=255, null=True, blank=True)
     categorias = models.ManyToManyField(Categoria_Negocio)
     servicios = models.ManyToManyField(Servicio)
@@ -107,7 +107,7 @@ class Categoria_Producto(models.Model):
 
 
 class Producto(models.Model):
-    imagen = models.ImageField(upload_to='imagen_plato/%Y/%m/%d', null=True, blank=True)
+    imagen = models.ImageField(upload_to='imagen_plato/', null=True, blank=True)
     nombre = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=255)
     precio = models.CharField(max_length=255)
