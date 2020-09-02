@@ -72,6 +72,29 @@ INSERT INTO kerapido_macro (nombre) VALUES ('Comercio y Gastronomía');
 INSERT INTO kerapido_macro (nombre) VALUES ('Mercado');
 INSERT INTO kerapido_macro (nombre) VALUES ('Transporte');
 
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Restaurantes de comida criolla e internacionales', '', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Pizzerías y cafeterías ','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Hamburguesera','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Juguera','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Bar','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Dulcería','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Heladería','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Billar','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Florería','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Piscina','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Comida rápida','', 1);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Agromercado','', 2);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Carnicería','', 2);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Pescadería','', 2);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Mercado mixto','', 2);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Moto','', 3);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Carro','', 3);
+INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Bicicleta','', 3);
+
+INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Comida para llevar', '', 'amber');
+INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Entrega a domicilio','', 'blue');
+INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Mesas y Espacios','', 'red');
+
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Matanzas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Cárdenas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Colón', 5);
