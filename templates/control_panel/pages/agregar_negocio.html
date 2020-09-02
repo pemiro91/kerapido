@@ -14,7 +14,6 @@
 
     <!-- Dropzone Css -->
     <link href="{% static 'control_panel/plugins/dropzone/dropzone.css' %}" rel="stylesheet"/>
-
     <!-- Multi Select Css -->
     <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
 
@@ -93,8 +92,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="file" class="form-control file-field" name="logo_bussiness"
-                                                   required>
+                                            <input type="file" class="form-control file-field" name="logo_bussiness" required>
                                         </div>
                                     </div>
                                 </div>
@@ -106,13 +104,12 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="file" class="form-control file-field" name="portada_bussiness"
-                                                   required>
+                                            <input type="file" class="form-control file-field" name="portada_bussiness"  required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix">
+                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="first_name">Eslogan</label>
                                 </div>
@@ -134,8 +131,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select id="category" class="form-control show-tick"
-                                                    name="category_bussiness" multiple required>
+                                            <select id="category" class="form-control show-tick" name="category_bussiness" multiple required>
                                                 {% if macros %}
                                                     {% for macro in macros %}
                                                         <optgroup label="{{ macro.nombre }}">
@@ -161,19 +157,18 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select id="service" name="services_bussiness"
-                                                    class="form-control show-tick" multiple required>
+                                            <select id="service" name="services_bussiness" class="form-control show-tick" multiple required>
                                                 {% if servicios_mostrar %}
                                                     {% for servicio in servicios_mostrar %}
                                                         <option value="{{ servicio.nombre }}">{{ servicio.nombre }}</option>
                                                     {% endfor %}
                                                 {% endif %}
                                             </select>
-                                            {#                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>#}
-                                            {#                                                <option value="Comida para llevar">Comida para llevar</option>#}
-                                            {#                                                <option value="Mesas y Espacios">Mesas y Espacios</option>#}
-                                            {#                                                <option value="Entrega a domicilio">Entrega a domicilio</option>#}
-                                            {#                                            </select>#}
+{#                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>#}
+{#                                                <option value="Comida para llevar">Comida para llevar</option>#}
+{#                                                <option value="Mesas y Espacios">Mesas y Espacios</option>#}
+{#                                                <option value="Entrega a domicilio">Entrega a domicilio</option>#}
+{#                                            </select>#}
                                         </div>
                                     </div>
                                 </div>
@@ -183,23 +178,15 @@
                                     <label for="phone">Horario</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6">
-                                    {#                                    <div class="input-daterange input-group" id="">#}
-                                    {#                                        <div class="form-line">#}
-                                    {#                                            <input type="text" name="hour_init" class="timepicker form-control" placeholder="Inicio..." required>#}
-                                    {#                                        </div>#}
-                                    {##}
-                                    {#                                        <span class="input-group-addon">-</span>#}
-                                    {##}
-                                    {#                                        <div class="form-line">#}
-                                    {#                                            <input type="text" name="hour_end" class="timepicker form-control" placeholder="Fin..." required>#}
-                                    {#                                        </div>#}
-                                    {#                                    </div>#}
-                                    <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">access_time</i>
-                                            </span>
+                                    <div class="input-daterange input-group" id="">
                                         <div class="form-line">
-                                            <input type="text" class="form-control time12" placeholder="Ex: 11:59 pm">
+                                            <input type="text" name="hour_init" class="timepicker form-control" placeholder="Inicio..." required>
+                                        </div>
+
+                                        <span class="input-group-addon">-</span>
+
+                                        <div class="form-line">
+                                            <input type="text" name="hour_end" class="timepicker form-control" placeholder="Fin..." required>
                                         </div>
                                     </div>
                                 </div>
@@ -212,32 +199,25 @@
                                     <div class="form-group">
                                         {##}
                                         <div class="demo-checkbox">
-                                            <input type="checkbox" id="md_checkbox_1" name="frecuencia" value="Lunes"
-                                                   class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_1" name="frecuencia" value="Lunes" class="chk-col-amber"/>
                                             <label for="md_checkbox_1">Lunes</label>
 
-                                            <input type="checkbox" id="md_checkbox_2" name="frecuencia" value="Martes"
-                                                   class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_2" name="frecuencia" value="Martes" class="chk-col-amber"/>
                                             <label for="md_checkbox_2">Martes</label>
 
-                                            <input type="checkbox" id="md_checkbox_3" name="frecuencia"
-                                                   value="Mi&eacute;rcoles" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_3" name="frecuencia" value="Mi&eacute;rcoles" class="chk-col-amber"/>
                                             <label for="md_checkbox_3">Mi&eacute;rcoles</label>
 
-                                            <input type="checkbox" id="md_checkbox_4" name="frecuencia" value="Jueves"
-                                                   class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_4" name="frecuencia" value="Jueves" class="chk-col-amber"/>
                                             <label for="md_checkbox_4">Jueves</label>
 
-                                            <input type="checkbox" id="md_checkbox_5" name="frecuencia" value="Viernes"
-                                                   class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_5" name="frecuencia" value="Viernes" class="chk-col-amber"/>
                                             <label for="md_checkbox_5">Viernes</label>
 
-                                            <input type="checkbox" id="md_checkbox_6" name="frecuencia"
-                                                   value="S&aacute;bado" class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_6" name="frecuencia" value="S&aacute;bado" class="chk-col-amber"/>
                                             <label for="md_checkbox_6">S&aacute;bado</label>
 
-                                            <input type="checkbox" id="md_checkbox_7" name="frecuencia" value="Domingo"
-                                                   class="chk-col-amber"/>
+                                            <input type="checkbox" id="md_checkbox_7" name="frecuencia" value="Domingo" class="chk-col-amber"/>
                                             <label for="md_checkbox_7">Domingo</label>
                                         </div>
 
@@ -265,8 +245,7 @@
                                     <label for="municipio">Municipio</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <select id="municipio" name="municipio" class="form-control show-tick"
-                                            data-live-search="true">
+                                    <select id="municipio" name="municipio" class="form-control show-tick" data-live-search="true">
                                         {% if municipios %}
                                             {% for municipio in municipios %}
                                                 <option value="{{ municipio.nombre }}">{{ municipio.nombre }}</option>
@@ -322,31 +301,29 @@
     </div>
 {% endblock %}
 {% block plugin_section %}
-    <!-- Bootstrap Colorpicker Js -->
-    <script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
-    <!-- Input Mask Plugin Js -->
-    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
-    <!-- Jquery Spinner Plugin Js -->
-    <script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}../../plugins/"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
     <!-- JQuery Steps Plugin Js -->
     <script src="{% static 'control_panel/plugins/jquery-steps/jquery.steps.js' %}"></script>
 
     <script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
 
     <!-- Autosize Plugin Js -->
-    {#    <script src="{% static 'control_panel/plugins/autosize/autosize.js' %}"></script>#}
+    <script src="{% static 'control_panel/plugins/autosize/autosize.js' %}"></script>
     <!-- Moment Plugin Js -->
-    {#    <script src="{% static 'control_panel/plugins/momentjs/moment.js' %}"></script>#}
+    <script src="{% static 'control_panel/plugins/momentjs/moment.js' %}"></script>
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    {#    <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>#}
+    <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
     <!-- Bootstrap Datepicker Plugin Js -->
-    {#    <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>#}
+    <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
-
-
+    <!-- Input Mask Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
     {#    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>#}
 
-    {#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
 
 {% endblock %}
