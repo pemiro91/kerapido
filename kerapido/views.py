@@ -14,6 +14,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     return render(request, "master/index.html", context)
 from django.urls import reverse
 
+from kerapido.forms import RegistrarNegocio
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion
 
@@ -95,7 +96,44 @@ def logout(request):
 def profile(request):
     if request.user.is_authenticated:
         bussiness = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'negocios': bussiness}
+        if request.method == "POST":
+            nombre = request.POST.get('first_name')
+            apellidos = request.POST.get('last_name')
+            telefono = request.POST.get('phone')
+            correo = request.POST.get('email')
+            usuario = request.POST.get('username')
+            User.objects.filter(pk=request.user.id).update(
+                first_name=nombre,
+                last_name=apellidos,
+                email=correo,
+                telefono=telefono,
+                username=usuario
+            )
+            return redirect('login')
+        context = {'business': bussiness}
+        return render(request, "control_panel/pages/perfil.html", context)
+    return redirect('login')
+
+
+def change_password(request):
+    if request.user.is_authenticated:
+        bussiness = Negocio.objects.filter(usuario_negocio=request.user)
+        if request.method == "POST":
+            old_password = request.POST.get('oldPassword')
+            new_password = request.POST.get('newPassword')
+            confirmed_new_password = request.POST.get('newPasswordConfirm')
+            U = User.objects.get(username=request.user.username)
+            if not U.check_password(old_password):
+                error = "Contraseña Incorrecta."
+                return render(request, "control_panel/pages/perfil.html", {'error': error})
+            if confirmed_new_password != new_password:
+                error = "Las Contraseñas No Coinciden."
+                return render(request, "control_panel/pages/perfil.html", {'error': error})
+            U.set_password(new_password)
+            U.save()
+            messages.success(request, 'Se cambió la contraseña satisfactoriamente')
+            return redirect('login')
+        context = {'business': bussiness}
         return render(request, "control_panel/pages/perfil.html", context)
     return redirect('login')
 
@@ -392,51 +430,53 @@ def add_bussiness(request):
         servicios_mostrar = Servicio.objects.all()
         categorias = Categoria_Negocio.objects.all()
         macro = Macro.objects.all()
+        register_form = RegistrarNegocio(request.POST, request.FILES)
         if request.method == 'POST':
-            name_bussiness = request.POST.get('name_bussiness')
-            logo_bussiness = request.FILES['logo_bussiness']
-            portada_bussiness = request.FILES['portada_bussiness']
-            slogan_bussiness = request.POST.get('slogan_bussiness')
-            category_bussiness = request.POST.getlist('category_bussiness')
-            services_bussiness = request.POST.getlist('services_bussiness')
-            hour_init = request.POST.get('hour_init')
-            hour_end = request.POST.get('hour_end')
-            post_frecuencia = request.POST.getlist('frecuencia')
-            address_bussiness = request.POST.get('address_bussiness')
-            municipio = request.POST.get('municipio')
-            phone_bussiness_o = request.POST.get('phone_bussiness_o')
-            phone_bussiness = request.POST.get('phone_bussiness')
+            if register_form.is_valid():
+                name_bussiness = register_form.cleaned_data['name_bussiness']
+                logo_bussiness = register_form.cleaned_data['logo_bussiness']
+                portada_bussiness = register_form.cleaned_data['portada_bussiness']
+                slogan_bussiness = register_form.cleaned_data['slogan_bussiness']
+                category_bussiness = request.POST.getlist('category_bussiness')
+                services_bussiness = request.POST.getlist('services_bussiness')
+                hour_init = request.POST.get('hour_init')
+                hour_end = request.POST.get('hour_end')
+                post_frecuencia = request.POST.getlist('frecuencia')
+                address_bussiness = request.POST.get('address_bussiness')
+                municipio = request.POST.get('municipio')
+                phone_bussiness_o = request.POST.get('phone_bussiness_o')
+                phone_bussiness = request.POST.get('phone_bussiness')
 
-            horario = str(hour_init) + ' - ' + str(hour_end)
+                horario = str(hour_init) + ' - ' + str(hour_end)
 
-            negocio = Negocio.objects.create(
-                usuario_negocio=request.user,
-                nombre=name_bussiness,
-                logo=logo_bussiness,
-                portada=portada_bussiness,
-                eslogan=slogan_bussiness,
-                horario=horario,
-                direccion=address_bussiness,
-                municipio=municipio,
-                telefono1=phone_bussiness_o,
-                telefono2=phone_bussiness
-            )
-            for category in category_bussiness:
-                categoria = Categoria_Negocio.objects.get(nombre=category)
-                negocio.categorias.add(categoria)
+                negocio = Negocio.objects.create(
+                    usuario_negocio=request.user,
+                    nombre=name_bussiness,
+                    logo=logo_bussiness,
+                    portada=portada_bussiness,
+                    eslogan=slogan_bussiness,
+                    horario=horario,
+                    direccion=address_bussiness,
+                    municipio=municipio,
+                    telefono1=phone_bussiness_o,
+                    telefono2=phone_bussiness
+                )
+                for category in category_bussiness:
+                    categoria = Categoria_Negocio.objects.get(nombre=category)
+                    negocio.categorias.add(categoria)
 
-            for service in services_bussiness:
-                servicio = Servicio.objects.get(nombre=service)
-                negocio.servicios.add(servicio)
+                for service in services_bussiness:
+                    servicio = Servicio.objects.get(nombre=service)
+                    negocio.servicios.add(servicio)
 
-            for frecu in post_frecuencia:
-                frecuen = Frecuencia.objects.create(nombre=frecu)
-                negocio.frecuencia.add(frecuen)
+                for frecu in post_frecuencia:
+                    frecuen = Frecuencia.objects.create(nombre=frecu)
+                    negocio.frecuencia.add(frecuen)
 
-            return redirect(reverse('my_bussiness', args=(negocio.id,)))
+                return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
         context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
-                   'categorias': categorias, 'macros': macro}
+                   'categorias': categorias, 'macros': macro, 'register_form': register_form}
         return render(request, "control_panel/pages/agregar_negocio.html", context)
     return redirect('login')
 

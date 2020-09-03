@@ -69,61 +69,20 @@
                     <div class="body">
                         <form id="Form" class="form-horizontal form-form_validation" enctype="multipart/form-data"
                               role="form" method="post">{% csrf_token %}
-
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre del Negocio*</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="name" class="form-control"
-                                                   name="name_bussiness"
-                                                   required
-                                                   placeholder="Nombre">
+                            {% for field in register_form %}
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="{{ field.name }}">{{ field.label }}</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                {{ field }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="last_name">Logotipo</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="file" class="form-control file-field" name="logo_bussiness" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="last_name">Portada</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="file" class="form-control file-field" name="portada_bussiness"  required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Eslogan</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="name" class="form-control"
-                                                   name="slogan_bussiness"
-                                                   required
-                                                   placeholder="Nombre">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="category">Categoria</label>
@@ -164,11 +123,6 @@
                                                     {% endfor %}
                                                 {% endif %}
                                             </select>
-{#                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>#}
-{#                                                <option value="Comida para llevar">Comida para llevar</option>#}
-{#                                                <option value="Mesas y Espacios">Mesas y Espacios</option>#}
-{#                                                <option value="Entrega a domicilio">Entrega a domicilio</option>#}
-{#                                            </select>#}
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +151,6 @@
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
-                                        {##}
                                         <div class="demo-checkbox">
                                             <input type="checkbox" id="md_checkbox_1" name="frecuencia" value="Lunes" class="chk-col-amber"/>
                                             <label for="md_checkbox_1">Lunes</label>
@@ -224,7 +177,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="phone">Dirección</label>
@@ -232,10 +184,10 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea name="address_bussiness" cols="30" rows="1"
+                                            <textarea id="phone" name="address_bussiness" cols="30" rows="1"
                                                       class="form-control no-resize"
                                                       required
-                                                      placeholder="Escriba la direccion completa"></textarea>
+                                                      placeholder="Escriba la direcci&oacute;n completa"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -265,7 +217,7 @@
                                                    maxlength="8"
                                                    name="phone_bussiness_o"
                                                    required
-                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
+                                                   placeholder="Escribe el tel&eacute;fono de contacto">
                                         </div>
                                     </div>
                                 </div>
@@ -280,12 +232,26 @@
                                             <input type="tel" id="phone" class="form-control"
                                                    maxlength="8"
                                                    name="phone_bussiness"
-                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
+                                                   placeholder="Escribe el tel&eacute;fono de contacto">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="email">Correo</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="email" id="email" class="form-control"
+                                                   name="email_bussiness"
+                                                   placeholder="Escriba el correo de contacto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="row clearfix">
                                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-amber" type="submit">

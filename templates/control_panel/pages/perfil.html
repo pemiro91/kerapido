@@ -91,14 +91,14 @@
                             <div class="tab-content">
 
                                 <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="post">{% csrf_token %}
                                         <div class="form-group">
                                             <label for="NameSurname" class="col-sm-2 control-label">Nombre(s)</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="NameSurname"
-                                                           name="first_name" placeholder="Name Surname"
-                                                           value="Marc K. Hammond" required>
+                                                           name="first_name" placeholder="nombre(s)"
+                                                           value="{{ request.user.first_name }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,18 +107,18 @@
                                             <div class="col-sm-10">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="NameSurname"
-                                                           name="last_name" placeholder="Name Surname"
-                                                           value="Marc K. Hammond" required>
+                                                           name="last_name" placeholder="apellidos"
+                                                           value="{{ request.user.last_name }}" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="Email" class="col-sm-2 control-label">Teléfono</label>
+                                            <label for="phone" class="col-sm-2 control-label">Teléfono</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
-                                                    <input type="tel" maxlength="8" class="form-control" id="Email"
-                                                           name="Email"
-                                                           placeholder="Email" value="52525252" required>
+                                                    <input type="tel" maxlength="8" class="form-control" id="phone"
+                                                           name="phone"
+                                                           placeholder="teléfono" value="{{ request.user.telefono }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,29 +126,19 @@
                                             <label for="Email" class="col-sm-2 control-label">Correo</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
-                                                    <input type="email" class="form-control" id="Email" name="Email"
-                                                           placeholder="Email" value="example@example.com" required>
+                                                    <input type="email" class="form-control" id="Email" name="email"
+                                                           placeholder="correo" value="{{ request.user.email }}" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="NameSurname" class="col-sm-2 control-label">Usuario</label>
+                                            <label for="username" class="col-sm-2 control-label">Usuario</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="NameSurname"
-                                                           name="NameSurname" placeholder="Name Surname"
-                                                           value="marc" required>
+                                                    <input type="text" class="form-control" id="username"
+                                                           name="username" placeholder="usuario"
+                                                           value="{{ request.user.username }}" required>
                                                 </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <input type="checkbox" id="terms_condition_check"
-                                                       class="chk-col-amber filled-in"/>
-                                                <label for="terms_condition_check">He leído y estoy de acuerdo con los
-                                                    <a href="#">términos y condiciones</a></label>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -162,36 +152,36 @@
                                     </form>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="post">{% csrf_token %}
                                         <div class="form-group">
-                                            <label for="OldPassword" class="col-sm-3 control-label">Contraseña
-                                                anterior</label>
+                                            <label for="OldPassword" class="col-sm-3 control-label">Contrase&ntilde;a
+                                                    anterior</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="OldPassword"
-                                                           name="OldPassword" placeholder="Old Password" required>
+                                                           name="oldPassword" placeholder="Contrase&ntilde;a anterior" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="NewPassword" class="col-sm-3 control-label">Contraseña
+                                            <label for="NewPassword" class="col-sm-3 control-label">Contrase&ntilde;a
                                                 nueva</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPassword"
-                                                           name="NewPassword" placeholder="New Password" required>
+                                                           name="newPassword" placeholder="Contrase&ntilde;a nueva" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">Contraseña
+                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">Contrase&ntilde;a
                                                 nueva
                                                 (Confirmación)</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPasswordConfirm"
-                                                           name="NewPasswordConfirm"
-                                                           placeholder="New Password (Confirm)" required>
+                                                           name="newPasswordConfirm"
+                                                           placeholder="Contrase&ntilde;a nueva (Confirmaci&oacute;n)" required>
                                                 </div>
                                             </div>
                                         </div>
