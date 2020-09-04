@@ -153,20 +153,22 @@ def ofertas_laborales(request):
 def servicios(request):
     if request.user.is_authenticated:
         services = Servicio.objects.all()
-        context = {'services': services}
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'services': services, 'business': business}
         return render(request, "control_panel/pages/listado_servicios.html", context)
     return redirect('login')
 
 
 def add_services(request):
     if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
             description_service = request.POST.get('description_service')
             color_service = request.POST.get('color_service')
             Servicio.objects.create(nombre=name_service, descripcion=description_service, color=color_service)
             return redirect('services')
-        context = {}
+        context = {'business': business}
         return render(request, "control_panel/pages/agregar_servicios.html", context)
     return redirect('login')
 
@@ -174,6 +176,7 @@ def add_services(request):
 def update_service(request, id_service):
     if request.user.is_authenticated:
         service = Servicio.objects.get(id=id_service)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
             description_service = request.POST.get('description_service')
@@ -185,7 +188,7 @@ def update_service(request, id_service):
                     color=color_service
                 )
                 return redirect('services')
-        context = {'service': service}
+        context = {'service': service, 'business': business}
         return render(request, "control_panel/pages/editar_servicios.html", context)
     return redirect('login')
 
@@ -199,8 +202,11 @@ def delete_service(request, id_service):
 
 
 def reservations(request):
-    context = {}
-    return render(request, "control_panel/pages/listado_reservaciones.html", context)
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'business': business}
+        return render(request, "control_panel/pages/listado_reservaciones.html", context)
+    return redirect('login')
 
 
 def nuestros_afiliados(request):
@@ -211,7 +217,8 @@ def nuestros_afiliados(request):
 def users(request):
     if request.user.is_authenticated:
         usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
-        context = {'usuarios': usuarios}
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'usuarios': usuarios, 'business': business}
         return render(request, "control_panel/pages/listado_usuarios.html", context)
     return redirect('login')
 
@@ -233,6 +240,7 @@ def blocked_user(request, id_user):
 def update_user(request, id_user):
     if request.user.is_authenticated:
         user_custom = User.objects.get(id=id_user)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
         if request.method == 'POST':
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
@@ -249,7 +257,7 @@ def update_user(request, id_user):
                     email=email
                 )
                 return redirect('users')
-        context = {'user': user_custom}
+        context = {'user': user_custom, 'business': business}
         return render(request, "control_panel/pages/editar_usuario.html", context)
     return redirect('login')
 
@@ -381,8 +389,9 @@ def delete_categoria(request, id_category):
 
 def businesses(request):
     if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
-        context = {'negocios': negocios}
+        context = {'negocios': negocios, 'business': business}
         return render(request, "control_panel/pages/listado_negocios.html", context)
     return redirect('login')
 
@@ -581,7 +590,8 @@ def mi_negocio(request, id_bussiness):
 def categories(request):
     if request.user.is_authenticated:
         category = Categoria_Negocio.objects.all()
-        context = {'categories': category}
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'categories': category, 'business': business}
         return render(request, "control_panel/pages/listado_categoria.html", context)
     return redirect('login')
 
