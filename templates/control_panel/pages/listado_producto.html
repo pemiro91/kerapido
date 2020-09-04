@@ -40,54 +40,48 @@
                         </ul>
                     </div>
                     <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <div class="table-responsive" >
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
                                 <thead>
                                 <tr>
-                                    <th>Afiliado</th>
+                                    <th>Imagen</th>
                                     <th>Nombre</th>
-                                    <th>Servicios</th>
-                                    <th>Evaluacion</th>
-
-
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+                                    <th>Negocio</th>
+                                    <th>Categoría</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Afiliado</th>
+                                    <th>Imagen</th>
                                     <th>Nombre</th>
-                                    <th>Servicios</th>
-                                    <th>Evaluacion</th>
-
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+                                    <th>Negocio</th>
+                                    <th>Categoría</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for negocio in negocios %}
+                                {% for producto in productos %}
                                     <tr>
-                                        <td>{{ negocio.usuario_negocio.first_name }}</td>
-                                        <td>{{ negocio.nombre }}</td>
+                                        <td><img src="{{ producto.imagen.url }}" style="width: 100px"/></td>
+                                        <td>{{ producto.nombre }}</td>
+                                        <td>{{ producto.descripcion }}</td>
+                                        <td>{{ producto.precio }}</td>
+                                        <td>{{ producto.negocio.nombre }}</td>
+                                        <td>{{ producto.categoria }}</td>
                                         <td>
-                                            {% for servicio in negocio.servicios.all %}
-                                                <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% if negocio.rating == None %}
-                                                No evaluado
-                                            {% else %}
-                                                {{ negocio.rating }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-                                            {#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
-                                            {#                                                <i class="material-icons">edit</i>#}
-                                            {#                                            </a>#}
+                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                               title="Modificar datos de negocio"
+                                               class="btn btn-default waves-effect waves-black">
+                                                <i class="material-icons">edit</i>
+                                            </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-                                               data-href="{% url 'delete_bussiness' negocio.id %}"
-                                               data-id="{{ negocio.id }}"
+                                               data-href="{% url 'delete_bussiness' producto.id %}"
+                                               data-id="{{ producto.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
                                                title="Eliminar Negocio">

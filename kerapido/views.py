@@ -32,9 +32,10 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
 
 
 def principal(request):
-    categorias = Categoria_Negocio.objects.all()
+    macro_categorias = Macro.objects.all()
     bussiness = Negocio.objects.all()[:6]
     ofertas = Oferta_Laboral.objects.all()
+    productos = Producto.objects.all()
     if request.POST:
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -43,7 +44,8 @@ def principal(request):
         send_mail(subject, message, 'habanatrans16@gmail.com', ['pemiro91@gmail.com'], fail_silently=False)
         messages.success(request, 'Su mensaje ha sido enviado satisfactoriamente. Gracias!')
         # return redirect('/')
-    context = {'categories': categorias, 'bussiness': bussiness, 'ofertas': ofertas}
+    context = {'macro_categorias': macro_categorias, 'bussiness': bussiness, 'ofertas': ofertas,
+               'prodductos': productos}
     return render(request, "index.html", context)
 
 
@@ -269,9 +271,9 @@ def terminos_servicio(request):
 def products(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        productos = Producto.objects.all()
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        context = {'business': business, 'products': productos, 'negocio': negocio}
+        productos = Producto.objects.filter(negocio=negocio)
+        context = {'business': business, 'productos': productos, 'negocio': negocio}
         return render(request, "control_panel/pages/listado_producto.html", context)
     return redirect('login')
 

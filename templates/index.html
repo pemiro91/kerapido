@@ -351,13 +351,26 @@
                 <div class="row portfolio-container">
                     {% for negocio in bussiness %}
                         <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categorias }}">
-                            <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt="">
+                            <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt=""
+                                 style="height: 280px;width: auto">
                             <div class="portfolio-info">
                                 <h4>{{ negocio.nombre }}</h4>
                                 <p>{{ negocio.categoria.nombre }}</p>
-                                {#                            <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}" data-gall="portfolioGallery"#}
-                                {#                               class="venobox preview-link" title="El Levant"><i class="bx bx-plus"></i></a>#}
-                                {#                            <i class="bx bxs-shopping-bag"></i>#}
+{#                            {% if prodductos %}#}
+{#                                {% for p in prodductos %}#}
+{#                                    {% ifequal p.negocio negocio%}#}
+{#                                        {%  %}#}
+{#                                    {% endifequal %}#}
+{#                                {% endfor %}#}
+{#                            {% endif %}#}
+
+                                <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}"
+                                   data-gall="portfolioGallery"
+                                   class="venobox preview-link" title="más detalles"><i class="bx bx-plus"></i></a>
+
+                                <i class="bx bxs-purchase-tag">{% for cat in negocio.categorias.all %}
+                                    {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
+                                {% endfor %}   </i>
                             </div>
                         </div>
                     {% endfor %}
@@ -627,7 +640,8 @@
 <script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
 {#<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>#}
 <script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
+<script src="{% static 'site/vendor/venobox/venobo
+x.min.js' %}"></script>
 
 <!-- Template Main JS File -->
 <script src="{% static 'site/js/main.js' %}"></script>
