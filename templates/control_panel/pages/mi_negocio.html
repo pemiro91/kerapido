@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-xs-12 col-sm-8">
+            <div class="col-xs-12 col-sm-9">
                 <div class="card">
                     <div class="body">
 
@@ -20,106 +20,38 @@
                                             <div class="media-left">
                                                 <a href="#">
                                                     <img style="height: 65px;width: 65px"
-                                                         src="{% static 'control_panel/images/negocios/levant.jpg ' %}"/>
+                                                         src="{{ negocio.logo.url }}"/>
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <h4 class="media-heading">
-                                                    <a href="#">Negocio 1</a>
+                                                    <a href="#">{{ negocio.nombre }}</a>
                                                 </h4>
                                                 <i class="material-icons">local_offer</i>
-
-                                                <span class="label bg-red">UI Design</span>
-                                                <span class="label bg-teal">JavaScript</span>
-                                                <span class="label bg-blue">PHP</span>
-                                                <span class="label bg-amber">Node.js</span>
+                                                {% for categoria in negocio.categorias.all %}
+                                                    {% if forloop.last %}
+                                                        <span>{{ categoria }}</span>
+                                                    {% else %}
+                                                        <span>{{ categoria }},</span>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="panel-body">
                                         <div class="post">
                                             <div class="post-heading">
-                                                <p>Slogan:
-                                                    {#                                                        <a href="#">#small</a> bits of <a#}
-                                                    {#                                                            href="#">#information</a>. #}
-                                                    I require little more information
-                                                    to use effectively.
-                                                    I require little more information
-                                                    to use effectively.
-                                                    I require little more information
-                                                    to use effectively.</p>
+                                                <b>Slogan:</b>
+                                                <p style="font-style: oblique">{{ negocio.eslogan }}</p>
                                             </div>
                                             <div class="post-content">
-                                                <img src="{% static 'site/img/portfolio/portfolio-2.jpg' %}"
+                                                <img src="{{ negocio.portada.url }}"
+                                                     style="min-width: 728px;min-height: auto"
                                                      class="img-responsive"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel-footer">
-{#                                        <ul>#}
-{#                                            <li>#}
-{#                                                <a href="#">#}
-{#                                                    <i class="material-icons">smartphone</i>#}
-{#                                                    <span>+53 555555</span>#}
-{#                                                </a>#}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <a href="#">#}
-{#                                                    <i class="material-icons">phone</i>#}
-{#                                                    <span>+53 78678178</span>#}
-{#                                                </a>#}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <a href="#">#}
-{#                                                    <i class="material-icons">email</i>#}
-{#                                                    <span>levant@gmail.com</span>#}
-{#                                                </a>#}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <i class="material-icons">room</i>#}
-{#                                                <span>Aguila  y Salud</span>#}
-{##}
-{#                                            </li>#}
-{##}
-{#                                        </ul>#}
-                                    </div>
-{#                                    <div class="panel-footer">#}
-{#                                        <ul>#}
-{#                                            <li>#}
-{#                                                <i class="material-icons">widgets</i>#}
-{#                                                Servicios#}
-{##}
-{#                                                <span class="label bg-red">UI Design</span>#}
-{#                                                <span class="label bg-teal">JavaScript</span>#}
-{#                                                <span class="label bg-blue">PHP</span>#}
-{#                                                <span class="label bg-amber">Node.js</span>#}
-{##}
-{##}
-{#                                            </li>#}
-{##}
-{#                                        </ul>#}
-{#                                    </div>#}
-{#                                    <div class="panel-footer">#}
-{#                                        <ul>#}
-{##}
-{#                                            <li>#}
-{##}
-{#                                                <a href="#">#}
-{#                                                    <i class="material-icons" style="color: #FEC010;">grade</i>#}
-{#                                                    <span class="label bg-amber">Evaluaciòn 5.5</span>#}
-{#                                                </a>#}
-{##}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <a href="#">#}
-{#                                                    <i class="material-icons" style="color: #212121">comment</i>#}
-{#                                                    <span class="label bg-black">8 Comments</span>#}
-{#                                                </a>#}
-{#                                            </li>#}
-{##}
-{##}
-{#                                        </ul>#}
-{#                                    </div>#}
+
                                 </div>
 
                             </div>
@@ -129,22 +61,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-3">
 
                 <div class="card card-about-me">
                     <div class="header" style="background-color: #FEC010">
-                        <h2>DATOS DE NEGOCIO 1</h2>
+                        <h2>INFORMACIÓN</h2>
                     </div>
                     <div class="body">
                         <ul>
                             <li>
                                 <div class="title">
                                     <i class="material-icons">room</i>
-                                    <span>Aguila esq Salud</span>
+                                    <span>{{ negocio.direccion }}</span>
                                 </div>
                                 <div class="title">
                                     <i class="material-icons">flag</i>
-                                    <span>Centro Habana</span>
+                                    <span>{{ negocio.municipio }}</span>
                                 </div>
 
                             </li>
@@ -154,84 +86,97 @@
                                     Servicios
                                 </div>
                                 <div class="content">
-                                    <span class="label bg-red">UI Design</span>
-                                    <span class="label bg-teal">JavaScript</span>
-                                    <span class="label bg-blue">PHP</span>
-                                    <span class="label bg-amber">Node.js</span>
+                                    {% for servicio in negocio.servicios.all %}
+                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                    {% endfor %}
                                 </div>
                             </li>
                             <li>
                                 <div class="title">
                                     <i class="material-icons">access_time</i>
                                     Horario
-{#                                    <span>11:00am a 11:00 pm</span>#}
+                                    {#                                    <span>11:00am a 11:00 pm</span>#}
                                 </div>
                                 <div class="content">
-                                    <span>11:00am a 23:00 pm</span>
+                                    <span>{{ negocio.horario }}</span>
                                     <br>
-                                    <span>Martes,Miercoles,Jueves</span>
+                                    {% for dias in negocio.frecuencia.all %}
+                                        {% if forloop.last %}
+                                            <span>{{ dias }}</span>
+                                        {% else %}
+                                            <span>{{ dias }},</span>
+                                        {% endif %}
+
+                                    {% endfor %}
                                 </div>
                             </li>
                             <li>
                                 <div class="title">
                                     <i class="material-icons">smartphone</i>
-                                    <span>+53 555555</span>
+                                    <span>{{ negocio.telefono1 }}</span>
                                 </div>
-                                <div class="title">
-                                    <i class="material-icons">phone</i>
-                                    <span>+53 555555</span>
-                                </div>
-                                <div class="title">
-                                    <i class="material-icons">email</i>
-                                    <span>levant@gmail.com</span>
-                                </div>
-{#                                <div class="content">#}
-{#                                    <span class="label bg-red">UI Design</span>#}
-{#                                    <span class="label bg-teal">JavaScript</span>#}
-{#                                    <span class="label bg-blue">PHP</span>#}
-{#                                    <span class="label bg-amber">Node.js</span>#}
+                                {% if negocio.telefono2 %}
+                                    <div class="title">
+                                        <i class="material-icons">phone</i>
+                                        <span>{{ negocio.telefono2 }}</span>
+                                    </div>
+                                {% else %}
+                                {% endif %}
+
+{#                                <div class="title">#}
+{#                                    <i class="material-icons">email</i>#}
+{#                                    <span>levant@gmail.com</span>#}
 {#                                </div>#}
+
+                                {#                                <div class="content">#}
+                                {#                                    <span class="label bg-red">UI Design</span>#}
+                                {#                                    <span class="label bg-teal">JavaScript</span>#}
+                                {#                                    <span class="label bg-blue">PHP</span>#}
+                                {#                                    <span class="label bg-amber">Node.js</span>#}
+                                {#                                </div>#}
                             </li>
-
-
 
 
                         </ul>
                     </div>
                 </div>
-                 <div class="card profile-card">
-{#                    <div class="profile-header">&nbsp;</div>#}
-{#                    <div class="profile-body">#}
-{#                        <div class="image-area">#}
-{#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
-{#                                 alt="AdminBSB - Profile Image"/>#}
-{#                        </div>#}
-{#                        <div class="content-area">#}
-{#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
-{#                            <p>superusuario</p>#}
-{#                            <p>{{ request.user.username }}</p>#}
-{#                        </div>#}
-{#                    </div>#}
+                <div class="card profile-card">
+                    {#                    <div class="profile-header">&nbsp;</div>#}
+                    {#                    <div class="profile-body">#}
+                    {#                        <div class="image-area">#}
+                    {#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
+                    {#                                 alt="AdminBSB - Profile Image"/>#}
+                    {#                        </div>#}
+                    {#                        <div class="content-area">#}
+                    {#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
+                    {#                            <p>superusuario</p>#}
+                    {#                            <p>{{ request.user.username }}</p>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                     <div class="profile-footer">
                         <ul>
                             <li>
                                 <span>Productos</span>
-                                <span>25</span>
+                                <span>{{ productos_negocio.count }}</span>
                             </li>
                             <li>
                                 <span>Ofertas Laborales</span>
-                                <span>1</span>
+                                <span>{{ ofertas_laborales.count }}</span>
                             </li>
                             <li>
                                 <span>Evaluación</span>
-                                <span>7.5</span>
+                                {% if negocio.rating %}
+                                    <span>{{ negocio.rating }}</span>
+                                {% else %}
+                                    <span>0</span>
+                                {% endif %}
                             </li>
                             <li>
                                 <span>Comentarios</span>
-                                <span>5</span>
+                                <span>{{ comentarios_negocio.count }}</span>
                             </li>
                         </ul>
-{#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                        {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
                     </div>
                 </div>
             </div>
