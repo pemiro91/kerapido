@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import Select
 
-from kerapido.models import Negocio, Categoria_Producto
+from kerapido.models import Categoria_Producto, Producto
 
 
 class UpdateProduct(forms.Form):
@@ -9,27 +10,44 @@ class UpdateProduct(forms.Form):
         attrs={'class': 'form-control text',
                'placeholder': 'Escriba el nombre del producto',
                }), required=True)
-    description_product = forms.Textarea(attrs={'class': 'form-control no-resize',
-                                                'placeholder': 'Escriba la descripción del producto',
-                                                })
+    description_product = forms.CharField(label='Descripción del producto', max_length=15, widget=forms.TextInput(
+        attrs={'class': 'form-control text',
+               'placeholder': 'Escriba la descripción del producto',
+               }))
     price_product = forms.CharField(label='Precio*', max_length=15, widget=forms.TextInput(
         attrs={'class': 'form-control text',
                'placeholder': 'Escriba el precio del producto',
                }), required=True)
-    site = forms.IntegerField(
+    categoria = forms.IntegerField(
         widget=forms.Select(
-            choices=Categoria_Producto.objects.all().values_list('id', 'nombre')
+            choices=Categoria_Producto.objects.all().values_list('id', 'nombre'),
+            attrs={'class': 'form-control show-tick',
+                   'data-live-search': 'true'
+                   }
         )
     )
 
 
 class MyForm(forms.ModelForm):
+    categoria = forms.ChoiceField(choices=[(doc.pk, doc.nombre) for doc in Categoria_Producto.objects.all()])
+
     class Meta:
-        model = Negocio
-        fields = ['nombre', 'logo', 'portada', 'eslogan', 'categorias', 'servicios']
-        exclude = ['usuario_negocio']
+        model = Producto
+        fields = ['imagen', 'nombre', 'descripcion', 'precio', 'categoria']
+        exclude = ['negocio']
+        labels = {
+            "nombre": "Nombre*",
+            "descripcion": "Descripción",
+            "precio": "Precio*",
+        }
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre', }),
-            'eslogan': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '', }),
-            'categorias': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '', }),
+            'nombre': forms.TextInput(attrs={'class': 'form-control text', 'placeholder': 'Escriba el nombre del '
+                                                                                          'producto', }),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control text', 'placeholder': 'Escriba la '
+                                                                                               'descripción del '
+                                                                                               'producto', }),
+            'precio': forms.TextInput(
+                attrs={'class': 'form-control text', 'placeholder': 'Escriba el precio del producto', }),
+
+            'categoria': Select(attrs={'class': 'select', 'data-live-search': 'true'}),
         }

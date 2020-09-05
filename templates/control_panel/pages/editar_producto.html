@@ -64,10 +64,10 @@
                         <form id="form-horizontal form-form_validation" enctype="multipart/form-data" method="POST">{% csrf_token %}
                             {% for field in update_form %}
                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
                                         <label for="{{ field.name }}">{{ field.label }}</label>
                                     </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 {{ field }}
