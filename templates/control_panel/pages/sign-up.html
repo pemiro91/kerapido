@@ -47,7 +47,7 @@
 {##}
 {#</head>#}
 
-<head style="height:100vh;">
+<head >
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Registrar | Panel de Control</title>
@@ -73,7 +73,7 @@
     <!-- Custom Css -->
     <link href="{% static 'control_panel/css/themes/all-themes.css' %}" rel="stylesheet">
 </head>
-<body class="signup-page" style="height:100vh;">
+<body class="signup-page">
 <div class="signup-box">
 
     <div class="card">
@@ -168,8 +168,16 @@
                         <a href="{% url 'terminos_condiciones' %}">términos y condiciones de uso</a>.</label>
                 </div>
 
-                <button class="btn btn-block bg-amber waves-effect" type="submit">REGISTRAR</button>
-
+                <div class="row ">
+                    <div class="col-xs-5 ">
+{#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
+                    </div>
+                    <div class="col-xs-7 align-right">
+                        <button class="btn btn-default waves-effect waves-black " type="submit">
+                            <i class="material-icons " style="color: #212121">send</i>
+                            <span>REGISTRAR</span></button>
+                    </div>
+                </div>
 
 {#                <div class="input-group">#}
 {#                        <span class="input-group-addon">#}

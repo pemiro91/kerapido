@@ -37,21 +37,48 @@ urlpatterns = [
     path('user', views.login_admin, name="login"),
     path('logout', views.logout, name="logout"),
     path('profile', views.profile, name="my_profile"),
-    path('register_business', views.register_business, name="register_business"),
+    path('register_afiliado', views.register_afiliado, name="register_afiliado"),
     path('panel', views.admin_panel, name="panel"),
+
     path('services', views.servicios, name="services"),
+    path('add_services', views.add_services, name="add_services"),
+    path('update_service/<int:id_service>', views.update_service, name="update_service"),
+    path('delete_service/<int:id_service>', views.delete_service, name="delete_service"),
     path('reservations', views.reservations, name="reservations"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
+
     path('users', views.users, name="users"),
     path('activate_user/<int:id_user>', views.activate_user, name="activate_user"),
     path('blocked_user/<int:id_user>', views.blocked_user, name="blocked_user"),
+    path('update_user/<int:id_user>', views.update_user, name="update_user"),
     path('delete_user/<int:id_user>', views.delete_user, name="delete_user"),
     path('terminos', views.terminos_servicio, name="terminos_servicio"),
-    path('table', views.menu, name="table"),
-    path('bussiness', views.negocios, name="bussiness"),
-    path('modals', views.modals, name="modals"),
-    path('sliders', views.sliders, name="sliders"),
+
+    path('products/<int:id_bussiness>', views.products, name="products"),
+    path('add_product/<int:id_bussiness>', views.add_product, name="add_product"),
+    path('edit_product/<int:id_bussiness>/<int:id_product>', views.editar_product,
+         name="edit_product"),
+    path('delete_product/<int:id_product>', views.delete_product, name="delete_product"),
+
+    path('category_products/<int:id_bussiness>', views.categoria_productos, name="category_products"),
+    path('add_category_product/<int:id_bussiness>', views.agregar_categoria_productos, name="add_category_product"),
+    path('edit_category_product/<int:id_bussiness>/<int:id_category>', views.editar_categoria_producto,
+         name="edit_category_product"),
+    path('delete_category/<int:id_category>', views.delete_categoria, name="delete_category"),
+
+    path('bussiness', views.businesses, name="bussiness"),
+    path('my_bussiness/<int:id_bussiness>', views.mi_negocio, name="my_bussiness"),
+    path('add_bussiness', views.add_bussiness, name="add_bussiness"),
+    path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
+    path('delete_bussiness/<int:id_bussiness>', views.delete_bussiness, name="delete_bussiness"),
+
+    path('categories', views.categories, name="categories"),
+    path('add_category', views.add_category, name="add_category"),
+    path('update_category/<int:id_category>', views.update_category, name="update_category"),
+    path('delete_category/<int:id_category>', views.delete_category, name="delete_category"),
+
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
+
 
     # ------------- Api -------------#
     path('api/account/register', UserCreate.as_view()),
@@ -63,7 +90,7 @@ urlpatterns = [
     path('api/reservar/', postReservaApi),
     path('api/reservas/<int:pk>/', getReservasApiForID),
     path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
-    path('api/comment/<int:pk>/', postComentarioApi),
+    path('api/comment/<int:id_negocio>/', postComentarioApi),
     path('api/comments/<int:pk>/', getComentarioApi),
 ]
 if settings.DEBUG:

@@ -1,0 +1,193 @@
+{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-9">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                <div class="panel panel-default panel-post">
+                                    <div class="panel-heading">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img style="height: 65px;width: 65px"
+                                                         src="{{ negocio.logo.url }}"/>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">{{ negocio.nombre }}</a>
+                                                </h4>
+                                                <i class="material-icons">local_offer</i>
+                                                {% for categoria in negocio.categorias.all %}
+                                                    {% if forloop.last %}
+                                                        <span>{{ categoria }}</span>
+                                                    {% else %}
+                                                        <span>{{ categoria }},</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="post">
+                                            <div class="post-heading">
+                                                <b>Slogan:</b>
+                                                <p style="font-style: oblique">{{ negocio.eslogan }}</p>
+                                            </div>
+                                            <div class="post-content">
+                                                <img src="{{ negocio.portada.url }}"
+                                                     style="min-width: 728px;min-height: auto"
+                                                     class="img-responsive"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+
+                <div class="card card-about-me">
+                    <div class="header" style="background-color: #FEC010">
+                        <h2>INFORMACIÓN</h2>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">room</i>
+                                    <span>{{ negocio.direccion }}</span>
+                                </div>
+                                <div class="title">
+                                    <i class="material-icons">flag</i>
+                                    <span>{{ negocio.municipio }}</span>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">widgets</i>
+                                    Servicios
+                                </div>
+                                <div class="content">
+                                    {% for servicio in negocio.servicios.all %}
+                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">access_time</i>
+                                    Horario
+                                    {#                                    <span>11:00am a 11:00 pm</span>#}
+                                </div>
+                                <div class="content">
+                                    <span>{{ negocio.horario }}</span>
+                                    <br>
+                                    {% for dias in negocio.frecuencia.all %}
+                                        {% if forloop.last %}
+                                            <span>{{ dias }}</span>
+                                        {% else %}
+                                            <span>{{ dias }},</span>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">smartphone</i>
+                                    <span>{{ negocio.telefono1 }}</span>
+                                </div>
+                                {% if negocio.telefono2 %}
+                                    <div class="title">
+                                        <i class="material-icons">phone</i>
+                                        <span>{{ negocio.telefono2 }}</span>
+                                    </div>
+                                {% else %}
+                                {% endif %}
+
+{#                                <div class="title">#}
+{#                                    <i class="material-icons">email</i>#}
+{#                                    <span>levant@gmail.com</span>#}
+{#                                </div>#}
+
+                                {#                                <div class="content">#}
+                                {#                                    <span class="label bg-red">UI Design</span>#}
+                                {#                                    <span class="label bg-teal">JavaScript</span>#}
+                                {#                                    <span class="label bg-blue">PHP</span>#}
+                                {#                                    <span class="label bg-amber">Node.js</span>#}
+                                {#                                </div>#}
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="card profile-card">
+                    {#                    <div class="profile-header">&nbsp;</div>#}
+                    {#                    <div class="profile-body">#}
+                    {#                        <div class="image-area">#}
+                    {#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
+                    {#                                 alt="AdminBSB - Profile Image"/>#}
+                    {#                        </div>#}
+                    {#                        <div class="content-area">#}
+                    {#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
+                    {#                            <p>superusuario</p>#}
+                    {#                            <p>{{ request.user.username }}</p>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    <div class="profile-footer">
+                        <ul>
+                            <li>
+                                <span>Productos</span>
+                                <span>{{ productos_negocio.count }}</span>
+                            </li>
+                            <li>
+                                <span>Ofertas Laborales</span>
+                                <span>{{ ofertas_laborales.count }}</span>
+                            </li>
+                            <li>
+                                <span>Evaluación</span>
+                                {% if negocio.rating %}
+                                    <span>{{ negocio.rating }}</span>
+                                {% else %}
+                                    <span>0</span>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <span>Comentarios</span>
+                                <span>{{ comentarios_negocio.count }}</span>
+                            </li>
+                        </ul>
+                        {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}

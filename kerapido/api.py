@@ -34,7 +34,7 @@ def login(request):
         return Response({'error': 'Por favor introduzca un usuario o contraseña válido'}, status=HTTP_400_BAD_REQUEST)
     user = authenticate(username=username, password=password)
     if not user:
-        return Response({'error': 'Credenciales inválidas'}, status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Aún no se ha verificado su cuenta'}, status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
     context = {'token': token.key, 'usuario': {'id': user.id, 'username': user.username, 'telefono': user.telefono}}
     return Response(context, status=HTTP_200_OK)
@@ -104,7 +104,7 @@ class Round(Func, ABC):
 
 @csrf_exempt
 @api_view(["POST"])
-def postComentarioApi(request, pk):
+def postComentarioApi(request, id_negocio):
     cliente = request.data.get("cliente")
     is_commet = ComentarioEvaluacion.objects.filter(cliente=cliente)
     if is_commet:
@@ -113,10 +113,12 @@ def postComentarioApi(request, pk):
         serializer = ComentarioEvaluacionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        evaluacion = ComentarioEvaluacion.objects.filter(negocio=pk).aggregate(average=Round(Avg('rating'), 2))
-        comentarios = ComentarioEvaluacion.objects.filter(negocio=pk)
+        evaluacion = ComentarioEvaluacion.objects.filter(negocio=id_negocio)
+        comentarios = ComentarioEvaluacion.objects.filter(negocio=id_negocio)
         serializer_commets = ComentarioEvaluacionSerializer(comentarios, many=True)
-        return Response({'message': 'Comentario enviado satisfactoriamente', 'evaluacion': evaluacion,
+        stars_average = list(evaluacion.aggregate(average=Round(Avg('rating'), 2)).values())[0]
+        Negocio.objects.filter(pk=id_negocio).update(rating=stars_average)
+        return Response({'message': 'Comentario enviado satisfactoriamente', 'evaluacion': stars_average,
                          'list_comments': serializer_commets.data},
                         status=HTTP_201_CREATED)
 
@@ -125,6 +127,6 @@ def postComentarioApi(request, pk):
 @api_view(["GET"])
 def getComentarioApi(request, pk):
     comments = ComentarioEvaluacion.objects.filter(negocio=pk)
-    evaluacion = ComentarioEvaluacion.objects.filter(negocio=pk).aggregate(average=Round(Avg('rating'), 2))
     serializer = ComentarioEvaluacionSerializer(comments, many=True)
-    return Response({'list_comments': serializer.data, 'evaluacion': evaluacion}, status=HTTP_200_OK)
+    stars_average = list(comments.aggregate(average=Round(Avg('rating'), 2)).values())[0]
+    return Response({'list_comments': serializer.data, 'evaluacion': stars_average}, status=HTTP_200_OK)

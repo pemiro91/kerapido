@@ -1,0 +1,329 @@
+{% extends 'control_panel/base.html' %}
+{% load  static %}
+{% block header_style %}
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css' %}"
+          rel="stylesheet"/>
+    <!-- Colorpicker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Dropzone Css -->
+    <link href="{% static 'control_panel/plugins/dropzone/dropzone.css' %}" rel="stylesheet"/>
+    <!-- Multi Select Css -->
+    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
+
+    <!-- noUISlider Css -->
+    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>
+
+    <link href="{% static 'control_panel/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet"/>
+
+    <!-- Wait Me Css -->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
+
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestion de negocios</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="{% url 'bussiness' %}"><i class="material-icons">store</i> Negocios</a></li>
+                        <li class="active"><i class="material-icons">add_circle</i>
+                            Agregar información del Negocio
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>AGREGAR INFORMACIÓN DEL NEGOCIO</h2>
+                    </div>
+
+
+                    <div class="body">
+                        <form id="Form" class="form-horizontal form-form_validation" enctype="multipart/form-data"
+                              role="form" method="post">{% csrf_token %}
+
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="first_name">Nombre del Negocio*</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="name" class="form-control"
+                                                   name="name_bussiness"
+                                                   required
+                                                   placeholder="Nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="last_name">Logotipo</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="file" class="form-control file-field" name="logo_bussiness" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="last_name">Portada</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="file" class="form-control file-field" name="portada_bussiness"  required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="first_name">Eslogan</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="name" class="form-control"
+                                                   name="slogan_bussiness"
+                                                   required
+                                                   placeholder="Nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="category">Categoria</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select id="category" class="form-control show-tick" name="category_bussiness" multiple required>
+                                                {% if macros %}
+                                                    {% for macro in macros %}
+                                                        <optgroup label="{{ macro.nombre }}">
+                                                            {% for category in categorias %}
+                                                                {% ifequal macro category.macro %}
+                                                                    <option value="{{ category.nombre }}">{{ category.nombre }}</option>
+                                                                {% endifequal %}
+                                                            {% endfor %}
+                                                        </optgroup>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="service">Servicios</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select id="service" name="services_bussiness" class="form-control show-tick" multiple required>
+                                                {% if servicios_mostrar %}
+                                                    {% for servicio in servicios_mostrar %}
+                                                        <option value="{{ servicio.nombre }}">{{ servicio.nombre }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+{#                                            <select name="services_bussiness" id="service" class="form-control show-tick" multiple required>#}
+{#                                                <option value="Comida para llevar">Comida para llevar</option>#}
+{#                                                <option value="Mesas y Espacios">Mesas y Espacios</option>#}
+{#                                                <option value="Entrega a domicilio">Entrega a domicilio</option>#}
+{#                                            </select>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Horario</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6">
+                                    <div class="input-daterange input-group" id="">
+                                        <div class="form-line">
+                                            <input type="text" name="hour_init" class="timepicker form-control" placeholder="Inicio..." required>
+                                        </div>
+
+                                        <span class="input-group-addon">-</span>
+
+                                        <div class="form-line">
+                                            <input type="text" name="hour_end" class="timepicker form-control" placeholder="Fin..." required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Frecuencia Semanal</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        {##}
+                                        <div class="demo-checkbox">
+                                            <input type="checkbox" id="md_checkbox_1" name="frecuencia" value="Lunes" class="chk-col-amber"/>
+                                            <label for="md_checkbox_1">Lunes</label>
+
+                                            <input type="checkbox" id="md_checkbox_2" name="frecuencia" value="Martes" class="chk-col-amber"/>
+                                            <label for="md_checkbox_2">Martes</label>
+
+                                            <input type="checkbox" id="md_checkbox_3" name="frecuencia" value="Mi&eacute;rcoles" class="chk-col-amber"/>
+                                            <label for="md_checkbox_3">Mi&eacute;rcoles</label>
+
+                                            <input type="checkbox" id="md_checkbox_4" name="frecuencia" value="Jueves" class="chk-col-amber"/>
+                                            <label for="md_checkbox_4">Jueves</label>
+
+                                            <input type="checkbox" id="md_checkbox_5" name="frecuencia" value="Viernes" class="chk-col-amber"/>
+                                            <label for="md_checkbox_5">Viernes</label>
+
+                                            <input type="checkbox" id="md_checkbox_6" name="frecuencia" value="S&aacute;bado" class="chk-col-amber"/>
+                                            <label for="md_checkbox_6">S&aacute;bado</label>
+
+                                            <input type="checkbox" id="md_checkbox_7" name="frecuencia" value="Domingo" class="chk-col-amber"/>
+                                            <label for="md_checkbox_7">Domingo</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Dirección</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea name="address_bussiness" cols="30" rows="1"
+                                                      class="form-control no-resize"
+                                                      required
+                                                      placeholder="Escriba la direccion completa"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="municipio">Municipio</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <select id="municipio" name="municipio" class="form-control show-tick" data-live-search="true">
+                                        {% if municipios %}
+                                            {% for municipio in municipios %}
+                                                <option value="{{ municipio.nombre }}">{{ municipio.nombre }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone_o">Tel&eacute;fono*</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="tel" id="phone_o" class="form-control"
+                                                   maxlength="8"
+                                                   name="phone_bussiness_o"
+                                                   required
+                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="phone">Tel&eacute;fono</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="tel" id="phone" class="form-control"
+                                                   maxlength="8"
+                                                   name="phone_bussiness"
+                                                   placeholder="Escribe el Tel&eacute;fono de contacto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                    <button class="btn btn-default waves-effect waves-amber" type="submit">
+                                        <i class="material-icons " style="color: #212121">send</i>
+                                        <span>ENVIAR</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
+    <!-- JQuery Steps Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-steps/jquery.steps.js' %}"></script>
+
+    <script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="{% static 'control_panel/plugins/autosize/autosize.js' %}"></script>
+    <!-- Moment Plugin Js -->
+    <script src="{% static 'control_panel/plugins/momentjs/moment.js' %}"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Input Mask Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+    {#    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>#}
+
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
+
+{% endblock %}

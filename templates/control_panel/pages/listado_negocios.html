@@ -11,10 +11,14 @@
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
-            <h2>
-                GESTIÓN DE NEGOCIOS
-                <small>Módulo para la gestión de negocios</small>
-            </h2>
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestion de negocios</small>
+                    </h2>
+                </div>
+            </div>
         </div>
 
         <!-- #END# Basic Examples -->
@@ -28,17 +32,18 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <button type="button" class="btn bg-amber waves-effect">
-                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                <a href="{% url 'add_bussiness' %}" type="button" title="Agregar Datos de Negocio"
+                                   class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
-                                </button>
+                                </a>
 
                             </li>
                         </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
                                 <thead>
                                 <tr>
                                     <th>Afiliado</th>
@@ -61,46 +66,38 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <tr>
-                                    <td>Rolando Garcia</td>
-                                    <td>El Levant</td>
-                                    <td>
-                                        <span class="label bg-blue">Comida para llevar</span>
-                                        <span class="label bg-red">Entrega a domicilio</span></td></td>
-                                    <td>7.8</td>
-
-                                    <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Ernesto lopez</td>
-                                    <td>La Mimosa</td>
-                                    <td><span class="label bg-teal">Mesas</span>
-                                        <span class="label bg-red">Entrega a domicilio</span></td>
-                                    <td>8.9</td>
-
-                                    <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-                                    </td>
-                                </tr>
-
+                                {% for negocio in negocios %}
+                                    <tr>
+                                        <td>{{ negocio.usuario_negocio.first_name }}</td>
+                                        <td>{{ negocio.nombre }}</td>
+                                        <td>
+                                            {% for servicio in negocio.servicios.all %}
+                                                <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% if negocio.rating == None %}
+                                                No evaluado
+                                            {% else %}
+                                                {{ negocio.rating }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+{#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
+{#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
+{#                                                <i class="material-icons">edit</i>#}
+{#                                            </a>#}
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                               data-href="{% url 'delete_bussiness' negocio.id %}"
+                                               data-id="{{ negocio.id }}"
+                                               data-toggle="modal"
+                                               data-target="#confirm-delete"
+                                               title="Eliminar Negocio">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

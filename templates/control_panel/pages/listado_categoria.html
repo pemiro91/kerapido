@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DE SERVICIOS
-                <small>Módulo para la gestión de servicios</small>
+                GESTIÓN DE CATEGORIA
+                <small>Módulo para la gestión de categoria</small>
             </h2>
         </div>
 
@@ -24,25 +24,27 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE SERVICIOS
+                            LISTADO DE CATEGORIAS PARA NEGOCIO
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <button type="button" class="btn bg-amber waves-effect">
-                                    <i class="material-icons " style="color: #fff">add_circle</i>
+                                <a href="{% url 'add_category' %}" type="button" title="Agregar Servicios"
+                                   class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
-                                </button>
+                                </a>
 
                             </li>
                         </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
                                 <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Macro-categoria</th>
 
                                     <th>Acciones</th>
                                 </tr>
@@ -51,44 +53,33 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Macro-categoria</th>
 
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <tr>
-                                    <td>Comida para llevar</td>
-                                    <td>Comida para llevar</td>
-
-                                    <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Comida para llevar</td>
-                                    <td>Comida para llevar</td>
-
-                                    <td>
-{#                                        <a type="button" class="btn btn-default waves-effect waves-amber">#}
-{#                                            <i class="material-icons">accessibility</i>#}
-{#                                        </a>#}
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                        <a type="button" class="btn btn-default waves-effect waves-amber">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-                                    </td>
-                                </tr>
-
+                                {% for category in categories %}
+                                    <tr>
+                                        <td>{{ category.nombre }}</td>
+                                        <td>{{ category.descripcion }}</td>
+                                        <td>{{ category.macro.nombre }}</td>
+                                        <td>
+                                            <a type="button" class="btn btn-default waves-effect waves-amber"
+                                                href="{% url 'update_category' category.id %}">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                               data-href="{% url 'delete_category' category.id %}"
+                                               data-id="{{ user.id }}"
+                                               data-toggle="modal"
+                                               data-target="#confirm-delete"
+                                               title="Eliminar Categoria">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -97,6 +88,21 @@
             </div>
         </div>
         <!-- #END# Exportable Table -->
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el servicio?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block plugin_section %}
@@ -114,6 +120,12 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
 
 {% endblock %}
 

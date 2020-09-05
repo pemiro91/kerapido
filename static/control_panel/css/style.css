@@ -162,7 +162,7 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-    .col-red .navbar .nav > li > a {
+.col-red .navbar .nav > li > a {
     color: #fff;
 }
 
@@ -3713,7 +3713,7 @@ section.content {
 .card .bg-blue-grey,
 .card .bg-black {
     border-bottom: none !important;
-    color: #fff !important;
+    color: #212121 !important;
 }
 
 .card .bg-red h2, .card .bg-red small, .card .bg-red .material-icons,
@@ -8047,7 +8047,7 @@ fieldset[disabled] .form-control {
 }
 
 .pagination li.active a {
-    background-color: #FEC010;
+    background-color: #212121;
 }
 
 .pagination li {
@@ -8300,7 +8300,7 @@ fieldset[disabled] .form-control {
 }
 
 .wizard > .actions a {
-    background: #009688;
+    background: #212121;
     color: #fff;
     display: block;
     padding: 0.5em 1em;
@@ -8312,7 +8312,7 @@ fieldset[disabled] .form-control {
 }
 
 .wizard > .actions a:hover, .wizard > .actions a:active {
-    background: #009688;
+    background: #FEC010;
     color: #fff;
     display: block;
     padding: 0.5em 1em;
@@ -8447,11 +8447,11 @@ fieldset[disabled] .form-control {
 }
 
 .wizard .steps .done a {
-    background-color: rgba(0, 150, 136, 0.6);
+    background-color: rgb(76, 73, 73);
 }
 
 .wizard .steps .done a:hover, .wizard .steps .done a:active, .wizard .steps .done a:focus {
-    background-color: rgba(0, 150, 136, 0.5);
+    background-color: rgb(76, 73, 73);
 }
 
 .wizard .steps .error a {
@@ -8459,11 +8459,11 @@ fieldset[disabled] .form-control {
 }
 
 .wizard .steps .current a {
-    background-color: #009688;
+    background-color: #212121;
 }
 
 .wizard .steps .current a:active, .wizard .steps .current a:focus, .wizard .steps .current a:hover {
-    background-color: #009688;
+    background-color: #212121;
 }
 
 /* Waves ======================================= */
@@ -10284,6 +10284,7 @@ fieldset[disabled] .form-control {
 
 .sidebar .menu .list a:hover, .sidebar .menu .list a:active, .sidebar .menu .list a:focus {
     text-decoration: none !important;
+    color:#FEC010
 }
 
 .sidebar .menu .list a small {
@@ -10472,7 +10473,7 @@ fieldset[disabled] .form-control {
 .signup-page {
 
     /* Ruta relativa o completa a la imagen */
-    background-image: url("../images/fondo.jpg");
+    background-image: url("../../site/img/Ke_rapido1.3.3.2_1080x607.jpg");
     /* Centramos el fondo horizontal y verticalmente */
     background-position: center center;
     /* El fonde no se repite */
@@ -11167,4 +11168,25 @@ html.ie11 .bs-searchbox .form-control {
 .portfolio1 .portfolio1-item:hover .portfolio1-info {
     opacity: 1;
     bottom: 20px;
+}
+
+@-webkit-keyframes autofill {
+    to {
+        color: #666;
+        background: transparent;
+    }
+}
+
+@keyframes autofill {
+    to {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }

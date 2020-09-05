@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'kerapido.apps.KerapidoConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'stdimage',
 ]
 
 MIDDLEWARE = [
@@ -144,9 +145,9 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'hera.hostingdelcaribe.net'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = '465'
-EMAIL_USE_TLS: True
-EMAIL_USE_SSL: False
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'  # hera.hostingdelcaribe.net
+EMAIL_HOST_USER = 'pemiro91@gmail.com'
+EMAIL_HOST_PASSWORD = 'habanatrans 2016*'
+EMAIL_PORT = 587

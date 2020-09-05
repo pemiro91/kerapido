@@ -79,197 +79,51 @@
                     <div class="body">
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                                                                          data-toggle="tab">Negocios</a></li>
-                                <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab"
-                                                           data-toggle="tab">Actualizar Información</a></li>
+
+                                <li role="presentation" class="active"><a href="#profile_settings"
+                                                                          aria-controls="settings" role="tab"
+                                                                          data-toggle="tab">Actualizar Información</a>
+                                </li>
                                 <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
                                                            role="tab" data-toggle="tab">Cambiar contraseña</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                    <div class="panel panel-default panel-post">
-                                        <div class="panel-heading">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a href="#">
-                                                        <img style="height: 45px"
-                                                             src="{% static 'control_panel/images/negocios/levant.jpg ' %}"/>
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">
-                                                        <a href="#">El Levant</a>
-                                                    </h4>
-                                                    Shared publicly - 26 Oct 2018
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="post">
-                                                <div class="post-heading">
-                                                    <p>Slogan:
-                                                        {#                                                        <a href="#">#small</a> bits of <a#}
-                                                        {#                                                            href="#">#information</a>. #}
-                                                        I require little more information
-                                                        to use effectively.
-                                                        I require little more information
-                                                        to use effectively.
-                                                        I require little more information
-                                                        to use effectively.</p>
-                                                </div>
-                                                <div class="post-content">
-                                                    <img src="{% static 'control_panel/images/profile-post-image.jpg' %}"
-                                                         class="img-responsive"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel-footer">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="material-icons">smartphone</i>
-                                                        <span>+53 555555</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="material-icons">phone</i>
-                                                        <span>+53 78678178</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="material-icons">email</i>
-                                                        <span>levant@gmail.com</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <i class="material-icons">room</i>
-                                                    <span>Aguila  y Salud</span>
 
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                        <div class="panel-footer">
-                                            <ul>
-                                                <li>
-                                                    <i class="material-icons">edit</i>
-                                                    Servicios
-
-                                                    <span class="label bg-red">UI Design</span>
-                                                    <span class="label bg-teal">JavaScript</span>
-                                                    <span class="label bg-blue">PHP</span>
-                                                    <span class="label bg-amber" >Node.js</span>
-
-
-                                                </li>
-                                                <li>
-
-                                                    <i class="material-icons">restaurant</i>
-
-                                                    <a href="{% url 'table' %}">Productos Ofertados</a>
-
-
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="panel-footer">
-                                            <ul>
-
-                                                <li>
-
-                                                    <a href="#">
-                                                        <i class="material-icons" style="color: #FEC010;">grade</i>
-                                                        <span class="label bg-amber">Evaluaciòn 5.5</span>
-                                                    </a>
-
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="material-icons" style="color: #212121">comment</i>
-                                                        <span class="label bg-black">8 Comments</span>
-                                                    </a>
-                                                </li>
-
-
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {#                                    <div class="panel panel-default panel-post">#}
-                                    {#                                        <div class="panel-heading">#}
-                                    {#                                            <div class="media">#}
-                                    {#                                                <div class="media-left">#}
-                                    {#                                                    <a href="#">#}
-                                    {#                                                        <i class="material-icons">restaurant</i>#}
-                                    {#                                                        <span>Oferta</span>#}
-                                    {#                                                    </a>#}
-                                    {#                                                </div>#}
-                                    {#                                                <div class="media-body">#}
-                                    {#                                                    <h4 class="media-heading">#}
-                                    {#                                                        <a href="{% url 'table' %}">Productos Ofertados</a>#}
-                                    {#                                                    </h4>#}
-                                    {#                                                    Última actualiazción - 01 Oct 2018#}
-                                    {#                                                </div>#}
-                                    {#                                            </div>#}
-                                    {#                                        </div>#}
-                                    {#                                        <div class="panel-body">#}
-                                    {#                                            <div class="post">#}
-                                    {#                                                <div class="post-heading">#}
-                                    {#                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do#}
-                                    {#                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>#}
-                                    {#                                                </div>#}
-                                    {#                                                <div class="post-content">#}
-                                    {#                                                    <iframe width="100%" height="360"#}
-                                    {#                                                            src="https://www.youtube.com/embed/10r9ozshGVE"#}
-                                    {#                                                            frameborder="0" allowfullscreen=""></iframe>#}
-                                    {##}
-                                    {#                                                </div>#}
-                                    {#                                            </div>#}
-                                    {#                                        </div>#}
-                                    {#                                        <div class="panel-footer">#}
-                                    {#                                            <ul>#}
-                                    {#                                                <li>#}
-                                    {#                                                    <a href="#">#}
-                                    {#                                                        <i class="material-icons" style="color: #FEC010">grade</i>#}
-                                    {#                                                        <span class="label bg-amber">5.5</span>#}
-                                    {#                                                    </a>#}
-                                    {#                                                </li>#}
-                                    {#                                                <li>#}
-                                    {#                                                    <a href="#">#}
-                                    {#                                                        <i class="material-icons" style="color: #212121">comment</i>#}
-                                    {#                                                        <span class="label bg-black">8 Comments</span>#}
-                                    {#                                                    </a>#}
-                                    {#                                                </li>#}
-                                    {#                                                <li>#}
-                                    {#                                                    <a href="#">#}
-                                    {#                                                        <i class="material-icons">share</i>#}
-                                    {#                                                        <span>Share</span>#}
-                                    {#                                                    </a>#}
-                                    {#                                                </li>#}
-                                    {#                                            </ul>#}
-                                    {##}
-                                    {##}
-                                    {#                                        </div>#}
-                                    {#                                    </div>#}
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
+                                <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label for="NameSurname" class="col-sm-2 control-label">Name Surname</label>
+                                            <label for="NameSurname" class="col-sm-2 control-label">Nombre(s)</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="NameSurname"
-                                                           name="NameSurname" placeholder="Name Surname"
+                                                           name="first_name" placeholder="Name Surname"
                                                            value="Marc K. Hammond" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="Email" class="col-sm-2 control-label">Email</label>
+                                            <label for="NameSurname" class="col-sm-2 control-label">Apellidos</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="last_name" placeholder="Name Surname"
+                                                           value="Marc K. Hammond" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-2 control-label">Teléfono</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-line">
+                                                    <input type="tel" maxlength="8" class="form-control" id="Email"
+                                                           name="Email"
+                                                           placeholder="Email" value="52525252" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-2 control-label">Correo</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
                                                     <input type="email" class="form-control" id="Email" name="Email"
@@ -278,39 +132,31 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="InputExperience"
-                                                   class="col-sm-2 control-label">Experience</label>
-
+                                            <label for="NameSurname" class="col-sm-2 control-label">Usuario</label>
                                             <div class="col-sm-10">
                                                 <div class="form-line">
-                                                    <textarea class="form-control" id="InputExperience"
-                                                              name="InputExperience" rows="3"
-                                                              placeholder="Experience"></textarea>
+                                                    <input type="text" class="form-control" id="NameSurname"
+                                                           name="NameSurname" placeholder="Name Surname"
+                                                           value="marc" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="InputSkills" class="col-sm-2 control-label">Skills</label>
 
-                                            <div class="col-sm-10">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="InputSkills"
-                                                           name="InputSkills" placeholder="Skills">
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <input type="checkbox" id="terms_condition_check"
-                                                       class="chk-col-red filled-in"/>
-                                                <label for="terms_condition_check">I agree to the <a href="#">terms and
-                                                    conditions</a></label>
+                                                       class="chk-col-amber filled-in"/>
+                                                <label for="terms_condition_check">He leído y estoy de acuerdo con los
+                                                    <a href="#">términos y condiciones</a></label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                                <button class="btn btn-default waves-effect waves-amber"
+                                                        type="submit">
+                                                    <i class="material-icons " style="color: #212121">send</i>
+                                                    <span>ENVIAR</span></button>
                                             </div>
                                         </div>
                                     </form>
@@ -318,7 +164,8 @@
                                 <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
+                                            <label for="OldPassword" class="col-sm-3 control-label">Contraseña
+                                                anterior</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="OldPassword"
@@ -327,7 +174,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="NewPassword" class="col-sm-3 control-label">New Password</label>
+                                            <label for="NewPassword" class="col-sm-3 control-label">Contraseña
+                                                nueva</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPassword"
@@ -336,8 +184,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">New Password
-                                                (Confirm)</label>
+                                            <label for="NewPasswordConfirm" class="col-sm-3 control-label">Contraseña
+                                                nueva
+                                                (Confirmación)</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPasswordConfirm"
@@ -349,7 +198,9 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-3 col-sm-9">
-                                                <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                                <button class="btn btn-default waves-effect waves-amber" type="submit">
+                                                    <i class="material-icons " style="color: #212121">send</i>
+                                                    <span>ENVIAR</span></button>
                                             </div>
                                         </div>
                                     </form>

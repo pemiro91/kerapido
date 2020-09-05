@@ -1,0 +1,141 @@
+{% extends 'control_panel/base.html' %}
+{% load  static %}
+{% block header_style %}
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css' %}"
+          rel="stylesheet"/>
+    <!-- Colorpicker Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Dropzone Css -->
+    <link href="{% static 'control_panel/plugins/dropzone/dropzone.css' %}" rel="stylesheet"/>
+    <!-- Multi Select Css -->
+    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
+
+    <!-- noUISlider Css -->
+    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>
+
+    <link href="{% static 'control_panel/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet"/>
+
+    <!-- Wait Me Css -->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
+
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="{% url 'category_products' negocio.id %}"><i class="material-icons">widgets</i>
+                            Categorías de Productos</a></li>
+                        <li class="active">Agregar Categorías de Productos
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>AGREGAR CATEGORÍA DE PRODUCTO</h2>
+                    </div>
+                    <div class="body">
+                        <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="name_category">Nombre de la categoria*</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="name_category" type="text" class="form-control text"
+                                                   name="name_category"
+                                                   placeholder="Escriba el nombre de la categoria"
+                                                   required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="description">Descripción</label>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea id="description" name="description_category" cols="30" rows="2"
+                                                      class="form-control no-resize"
+                                                      required
+                                                      placeholder="Escriba la descripción de la categoria"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
+                                    <button class="btn btn-default waves-effect waves-black" type="submit">
+                                        <i class="material-icons " style="color: #212121">send</i>
+                                        <span>ENVIAR</span></button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
+    <!-- JQuery Steps Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-steps/jquery.steps.js' %}"></script>
+
+    <script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="{% static 'control_panel/plugins/autosize/autosize.js' %}"></script>
+    <!-- Moment Plugin Js -->
+    <script src="{% static 'control_panel/plugins/momentjs/moment.js' %}"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Input Mask Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+    {#    <script src="{% static 'control_panel/js/pages/forms/form-wizard.js' %}"></script>#}
+
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
+
+{% endblock %}
