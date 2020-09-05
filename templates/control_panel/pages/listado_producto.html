@@ -72,7 +72,7 @@
                                         <td>{{ producto.descripcion }}</td>
                                         <td>{{ producto.precio }}</td>
                                         <td>{{ producto.negocio.nombre }}</td>
-                                        <td>{{ producto.categoria }}</td>
+                                        <td>{{ producto.categoria.nombre }}</td>
                                         <td>
                                             <a type="button" href="{% url 'edit_product' negocio.id producto.id %}"
                                                title="Modificar datos de negocio"

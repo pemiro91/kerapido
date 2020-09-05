@@ -104,7 +104,7 @@ class Categoria_Producto(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre
+        return self.id
 
 
 class Producto(models.Model):
@@ -113,10 +113,10 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255)
     precio = models.CharField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categoria_Producto, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria_Producto, related_name='categorias_ordered', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre
+        return self.id
 
 
 class Reservacion_Simple(models.Model):

@@ -312,10 +312,9 @@ def editar_product(request, id_bussiness, id_product):
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         producto = get_object_or_404(Producto, pk=id_product)
         if request.method == 'POST':
-            update_form = MyForm(request.POST, request.FILES, instance=producto)
-            if update_form.is_valid():
-                update_form.save()
-                return redirect(reverse('products', args=(id_bussiness,)))
+            update_form = MyForm(request.POST, request.FILES)
+            update_form.save()
+            return redirect(reverse('products', args=(id_bussiness,)))
         else:
             update_form = MyForm(instance=producto)
         context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form}

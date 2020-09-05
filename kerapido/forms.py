@@ -29,12 +29,12 @@ class UpdateProduct(forms.Form):
 
 
 class MyForm(forms.ModelForm):
-    categoria = forms.ChoiceField(choices=[(doc.pk, doc.nombre) for doc in Categoria_Producto.objects.all()])
+    categoria = forms.ChoiceField(choices=[(doc.id, doc.nombre) for doc in Categoria_Producto.objects.all()])
 
     class Meta:
         model = Producto
         fields = ['imagen', 'nombre', 'descripcion', 'precio', 'categoria']
-        exclude = ['negocio']
+
         labels = {
             "nombre": "Nombre*",
             "descripcion": "Descripción",
