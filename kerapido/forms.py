@@ -1,9 +1,9 @@
 from django import forms
 
-from kerapido.models import Negocio
+from kerapido.models import Negocio, Categoria_Producto
 
 
-class RegisterProduct(forms.Form):
+class UpdateProduct(forms.Form):
     imagen = forms.ImageField(label='Imagen')
     name_product = forms.CharField(label='Nombre del producto*', max_length=15, widget=forms.TextInput(
         attrs={'class': 'form-control text',
@@ -16,6 +16,11 @@ class RegisterProduct(forms.Form):
         attrs={'class': 'form-control text',
                'placeholder': 'Escriba el precio del producto',
                }), required=True)
+    site = forms.IntegerField(
+        widget=forms.Select(
+            choices=Categoria_Producto.objects.all().values_list('id', 'nombre')
+        )
+    )
 
 
 class MyForm(forms.ModelForm):

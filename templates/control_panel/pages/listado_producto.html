@@ -74,11 +74,11 @@
                                         <td>{{ producto.negocio.nombre }}</td>
                                         <td>{{ producto.categoria }}</td>
                                         <td>
-{#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-{#                                               title="Modificar datos de negocio"#}
-{#                                               class="btn btn-default waves-effect waves-black">#}
-{#                                                <i class="material-icons">edit</i>#}
-{#                                            </a>#}
+                                            <a type="button" href="{% url 'edit_product' negocio.id producto.id %}"
+                                               title="Modificar datos de negocio"
+                                               class="btn btn-default waves-effect waves-black">
+                                                <i class="material-icons">edit</i>
+                                            </a>
 {#                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"#}
 {#                                               data-href="{% url 'delete_bussiness' producto.id %}"#}
 {#                                               data-id="{{ producto.id }}"#}

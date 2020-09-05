@@ -14,6 +14,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     return render(request, "master/index.html", context)
 from django.urls import reverse
 
+from kerapido.forms import UpdateProduct
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion
 
@@ -308,6 +309,7 @@ def add_product(request, id_bussiness):
 
 def editar_product(request, id_bussiness, id_product):
     if request.user.is_authenticated:
+        update_form = UpdateProduct(request.POST, request.FILES)
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         producto = get_object_or_404(Producto, pk=id_product)
@@ -324,7 +326,8 @@ def editar_product(request, id_bussiness, id_product):
                 categoria_id=category_product
             )
             return redirect(reverse('products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'producto': producto, 'categorias': categorias}
+        context = {'business': business, 'negocio': negocio, 'producto': producto, 'categorias': categorias,
+                   'update_form': update_form}
         return render(request, "control_panel/pages/editar_producto.html", context)
     return redirect('login')
 
