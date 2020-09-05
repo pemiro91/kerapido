@@ -78,6 +78,7 @@ class Frecuencia(models.Model):
 
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    macro = models.ManyToManyField(Macro)
     nombre = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='logo/', null=True, blank=True)
     portada = StdImageField(upload_to='portada/', variations={'thumbnail': (550, 412)}, null=True, blank=True)
