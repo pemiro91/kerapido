@@ -336,8 +336,8 @@
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            {% for category in macro_categorias %}
-                                <li data-filter=".{{ category.pk }}">{{ category.nombre }}</li>
+                            {% for macro in macro_categorias %}
+                                <li data-filter=".{{ macro.pk }}">{{ macro.nombre }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -346,7 +346,7 @@
                 <div class="row portfolio-container">
                     {% for negocio in bussiness %}
 
-                        <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categorias }}">
+                        <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.macro }}">
                             <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt=""
                                  style="height: 280px;width: auto">
                             <div class="portfolio-info">
