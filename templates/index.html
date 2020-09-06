@@ -115,8 +115,10 @@
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2 class="animated fadeInDown">Bienvenido</h2>
-                            <p class="animated fadeInUp">Si desea aumentar las ventas de su negocio, KeRápido lo ayudará</p>
-                            <a href="{% url 'register_business' %}" class="btn-get-started scrollto animated fadeInUp">Regístrese ahora</a>
+                            <p class="animated fadeInUp">Si desea aumentar las ventas de su negocio, KeRápido lo
+                                ayudará</p>
+                            <a href="{% url 'register_afiliado' %}" class="btn-get-started scrollto animated fadeInUp">Regístrese
+                                ahora</a>
                         </div>
                     </div>
                 </div>
@@ -336,13 +338,8 @@
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            {% for category in categories %}
-                                <li data-filter=".{{ category }}">{{ category.nombre }}</li>
-                                {#                            {% for negocio in bussiness %}#}
-                                {#                                {% if negocio.categorias == category %}#}
-                                {#                                    <li data-filter=".{{ category }}">{{ category.nombre }}</li>#}
-                                {#                                {% endif %}#}
-                                {#                            {% endfor %}#}
+                            {% for macro in macro_categorias %}
+                                <li data-filter=".{{ macro.id }}">{{ macro.nombre }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -350,20 +347,13 @@
 
                 <div class="row portfolio-container">
                     {% for negocio in bussiness %}
-                        <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categorias }}">
+
+                        <div class="col-lg-4 col-md-6 portfolio-item {% for m in negocio.macro.all %} {{ m.id }} {% endfor %}">
                             <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt=""
-                                 style="height: 280px;width: auto">
+                                 style="height: 280px;width: 350px">
                             <div class="portfolio-info">
                                 <h4>{{ negocio.nombre }}</h4>
                                 <p>{{ negocio.categoria.nombre }}</p>
-                                {#                            {% if prodductos %}#}
-                                {#                                {% for p in prodductos %}#}
-                                {#                                    {% ifequal p.negocio negocio%}#}
-                                {#                                        {%  %}#}
-                                {#                                    {% endifequal %}#}
-                                {#                                {% endfor %}#}
-                                {#                            {% endif %}#}
-
                                 <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}"
                                    data-gall="portfolioGallery"
                                    class="venobox preview-link" title="más detalles"><i class="bx bx-plus"></i></a>
@@ -373,11 +363,12 @@
                                 {% endfor %}   </i>
                             </div>
                         </div>
+
                     {% endfor %}
                 </div>
-                <div class="col-lg-12 text-center">
-                    <a href="#" class="">Más detalles</a>
-                </div>
+{#                <div class="col-lg-12 text-center">#}
+{#                    <a href="#" class="">Más detalles</a>#}
+{#                </div>#}
             </div>
         </section>
     {% endifnotequal %}
@@ -640,8 +631,7 @@
 <script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
 {#<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>#}
 <script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'site/vendor/venobox/venobo
-x.min.js' %}"></script>
+<script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
 
 <!-- Template Main JS File -->
 <script src="{% static 'site/js/main.js' %}"></script>
