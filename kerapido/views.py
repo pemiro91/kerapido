@@ -368,6 +368,7 @@ def add_bussiness(request):
         servicios_mostrar = Servicio.objects.all()
         categorias = Categoria_Negocio.objects.all()
         macro = Macro.objects.all()
+        macro_negocio = []
         if request.method == 'POST':
             name_bussiness = request.POST.get('name_bussiness')
             logo_bussiness = request.FILES['logo_bussiness']
@@ -400,6 +401,7 @@ def add_bussiness(request):
             for category in category_bussiness:
                 categoria = Categoria_Negocio.objects.get(nombre=category)
                 negocio.categorias.add(categoria)
+                macro_negocio.append(categoria.macro)
 
             for service in services_bussiness:
                 servicio = Servicio.objects.get(nombre=service)
@@ -409,10 +411,16 @@ def add_bussiness(request):
                 frecuen = Frecuencia.objects.create(nombre=frecu)
                 negocio.frecuencia.add(frecuen)
 
+            macro_negocio = list(set(macro_negocio))
+
+            for m in macro_negocio:
+                macro1 = Macro.objects.get(nombre=m)
+                negocio.macro.add(macro1)
+
             return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
         context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
-                   'categorias': categorias, 'macros': macro}
+                   'categorias': categorias, 'macros': macro, 'macro_negocio': macro_negocio}
         return render(request, "control_panel/module_businesses/agregar_negocio.html", context)
     return redirect('login')
 
