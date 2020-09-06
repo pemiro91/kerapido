@@ -15,23 +15,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
                         GESTIÓN DE MIS NEGOCIOS
-                        <small>Módulo para la gestion de los productos "{{ negocio.nombre }}"</small>
+                        <small>Módulo para la gestion de ofertas "{{ negocio.nombre }}"</small>
                     </h2>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                        <li><i class="material-icons">widgets</i>
-                            Mis Negocios
-                        </li>
-                        <li ><i class="material-icons">store</i>
-                            Negocio 1
-                        </li>
-                        <li class="active">
-                            Categorías de Productos
-                        </li>
-                    </ol>
                 </div>
             </div>
         </div>
@@ -43,11 +28,11 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE CATEGORÍAS DE PRODUCTOS
+                            LISTADO DE OFERTAS
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_category_product' negocio.id %}" type="button" title="Agregar Categoría de Producto"
+                                <a href="{% url 'add_offer' negocio.id %}" type="button" title="Agregar Categoría de Producto"
                                    class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
@@ -61,7 +46,6 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
                                 <thead>
                                 <tr>
-                                    <th>Nombre de Categoría</th>
                                     <th>Descripción</th>
 
                                     <th>Acciones</th>
@@ -69,24 +53,22 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nombre de Categoría</th>
                                     <th>Descripción</th>
 
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for categoria in categorias %}
+                                {% for oferta in ofertas %}
                                     <tr>
-                                        <td>{{ categoria.nombre }}</td>
-                                        <td>{{ categoria.descripcion }}</td>
+                                        <td>{{ oferta.descripcion }}</td>
                                         <td>
-                                            <a type="button" href="{% url 'edit_category_product' negocio.id categoria.id %}"
+                                            <a type="button" href="{% url 'update_offer' negocio.id oferta.id %}"
                                                class="btn btn-default waves-effect waves-black">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-                                               data-href="{% url 'delete_category' categoria.id %}"
+                                               data-href="{% url 'delete_offer' oferta.id %}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
                                                title="Eliminar Categoria">

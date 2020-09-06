@@ -41,16 +41,14 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
                         GESTIÓN DE MIS NEGOCIOS
-                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                        <small>Módulo para la gestion de ofertas "{{ negocio.nombre }}"</small>
                     </h2>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'category_products' negocio.id %}"><i class="material-icons">widgets</i>
-                            Categorías de Productos</a></li>
-                        <li class="active">Agregar Categorías de Productos
-                        </li>
+                        <li><a href="{% url 'offers' negocio.id %}"><i class="material-icons">widgets</i>Ofertas</a></li>
+                        <li class="active">Modificar Oferta</li>
                     </ol>
                 </div>
             </div>
@@ -62,25 +60,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>AGREGAR CATEGORÍA DE PRODUCTO</h2>
+                        <h2>MODIFICAR OFERTA</h2>
                     </div>
                     <div class="body">
                         <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="name_category">Nombre de la categoria*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="name_category" type="text" class="form-control text"
-                                                   name="name_category"
-                                                   placeholder="Escriba el nombre de la categoria"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
                                     <label for="description">Descripción</label>
@@ -88,15 +71,14 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="description" name="description_category" cols="30" rows="2"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      placeholder="Escriba la descripción de la categoria"></textarea>
+                                            <input id="description" name="description_offer" class="form-control no-resize"
+                                                   value="{{ offer.descripcion }}"
+                                                   required
+                                                   placeholder="Escriba la descripción de la oferta"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-black" type="submit">

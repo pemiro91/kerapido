@@ -29,7 +29,7 @@ class UpdateProduct(forms.Form):
 
 
 class MyForm(forms.ModelForm):
-    categoria = forms.ChoiceField(choices=[(doc.id, doc.nombre) for doc in Categoria_Producto.objects.all()])
+    categoria = forms.ModelChoiceField(queryset=Categoria_Producto.objects.all())
 
     class Meta:
         model = Producto
@@ -49,5 +49,5 @@ class MyForm(forms.ModelForm):
             'precio': forms.TextInput(
                 attrs={'class': 'form-control text', 'placeholder': 'Escriba el precio del producto', }),
 
-            'categoria': Select(attrs={'class': 'select', 'data-live-search': 'true'}),
+            # 'categoria': Select(attrs={'class': 'select', 'data-live-search': 'true'}),
         }

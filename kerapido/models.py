@@ -104,19 +104,19 @@ class Categoria_Producto(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return self.nombre
 
 
 class Producto(models.Model):
     imagen = models.ImageField(upload_to='imagen_plato/', null=True, blank=True)
     nombre = models.CharField(max_length=255)
-    descripcion = models.CharField(max_length=255)
-    precio = models.CharField(max_length=255)
+    descripcion = models.CharField(max_length=255, null=True, blank=True)
+    precio = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria_Producto, related_name='categorias_ordered', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return self.nombre
 
 
 class Reservacion_Simple(models.Model):

@@ -30,7 +30,7 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
 #     context = {}
 #     return render(request, "control_panel/base.html", context)
 
-
+# ----------UI-----------#
 def principal(request):
     macro_categorias = Macro.objects.all()
     bussiness = Negocio.objects.all()[:6]
@@ -49,60 +49,42 @@ def principal(request):
     return render(request, "index.html", context)
 
 
-def login_admin(request):
-    if request.POST:
-        form = AuthenticationForm(request.POST)
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
-                if tiene_negocio:
-                    return redirect('panel')
-                else:
-                    return redirect('add_bussiness')
-        else:
-            messages.warning(request, 'username or password not correct')
-            return redirect('login')
-    else:
-        form = AuthenticationForm()
-    return render(request, "control_panel/pages/sign-in.html", {'form': form})
+def terminos_servicio(request):
+    context = {}
+    return render(request, "terminos_servicio.html", context)
 
 
-def base(request):
-    if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        services = Servicio.objects.all()
-        context = {'business': business, 'services': services}
-        return render(request, "control_panel/base.html", context)
-    return redirect('login')
+def error404(request):
+    context = {}
+    return render(request, "control_panel/pages/404.html", context)
 
 
-def admin_panel(request):
-    if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        services = Servicio.objects.all()
-        context = {'business': business, 'services': services}
-        return render(request, "control_panel/index.html", context)
-    return redirect('login')
+def terminos_condiciones(request):
+    context = {}
+    return render(request, "control_panel/pages/terminos_condiicones.html", context)
 
 
-def logout(request):
-    do_logout(request)
-    return redirect('login')
+def detalles_oferta(request, id_oferta):
+    oferta = get_object_or_404(Oferta_Laboral, pk=id_oferta)
+    context = {'oferta': oferta}
+    return render(request, "oferta_detalles.html", context)
 
 
-def profile(request):
-    if request.user.is_authenticated:
-        bussiness = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'negocios': bussiness}
-        return render(request, "control_panel/pages/perfil.html", context)
-    return redirect('login')
+def ofertas_laborales(request):
+    ofertas = Oferta_Laboral.objects.all()
+    context = {'ofertas': ofertas}
+    return render(request, "ofertas.html", context)
 
 
-def register_business(request):
+def nuestros_afiliados(request):
+    context = {}
+    return render(request, "nuestros_afiliados.html", context)
+
+
+# --------------Panel de control----------------#
+# ----------------------------------------------#
+
+def register_affiliate(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -138,24 +120,67 @@ def register_business(request):
     return render(request, "control_panel/pages/sign-up.html", context)
 
 
-def detalles_oferta(request, id_oferta):
-    oferta = get_object_or_404(Oferta_Laboral, pk=id_oferta)
-    context = {'oferta': oferta}
-    return render(request, "oferta_detalles.html", context)
-
-
-def ofertas_laborales(request):
-    ofertas = Oferta_Laboral.objects.all()
-    context = {'ofertas': ofertas}
-    return render(request, "ofertas.html", context)
-
-
-def servicios(request):
+def base(request):
     if request.user.is_authenticated:
-        services = Servicio.objects.all()
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'services': services, 'business': business}
-        return render(request, "control_panel/pages/listado_servicios.html", context)
+        services = Servicio.objects.all()
+        context = {'business': business, 'services': services}
+        return render(request, "control_panel/base.html", context)
+    return redirect('login')
+
+
+def admin_panel(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        services = Servicio.objects.all()
+        context = {'business': business, 'services': services}
+        return render(request, "control_panel/index.html", context)
+    return redirect('login')
+
+
+def login_admin(request):
+    if request.POST:
+        form = AuthenticationForm(request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
+                if tiene_negocio:
+                    return redirect('panel')
+                else:
+                    return redirect('add_bussiness')
+        else:
+            messages.warning(request, 'username or password not correct')
+            return redirect('login')
+    else:
+        form = AuthenticationForm()
+    return render(request, "control_panel/pages/sign-in.html", {'form': form})
+
+
+def logout(request):
+    do_logout(request)
+    return redirect('login')
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        bussiness = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'negocios': bussiness}
+        return render(request, "control_panel/pages/perfil.html", context)
+    return redirect('login')
+
+
+# -------------------Módulo Servicios---------------#
+
+def services(request):
+    if request.user.is_authenticated:
+        servicios = Servicio.objects.all()
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'services': servicios, 'business': business}
+        return render(request, "control_panel/module_services/listado_servicios.html", context)
     return redirect('login')
 
 
@@ -169,7 +194,7 @@ def add_services(request):
             Servicio.objects.create(nombre=name_service, descripcion=description_service, color=color_service)
             return redirect('services')
         context = {'business': business}
-        return render(request, "control_panel/pages/agregar_servicios.html", context)
+        return render(request, "control_panel/module_services/agregar_servicios.html", context)
     return redirect('login')
 
 
@@ -189,7 +214,7 @@ def update_service(request, id_service):
                 )
                 return redirect('services')
         context = {'service': service, 'business': business}
-        return render(request, "control_panel/pages/editar_servicios.html", context)
+        return render(request, "control_panel/module_services/editar_servicios.html", context)
     return redirect('login')
 
 
@@ -201,6 +226,8 @@ def delete_service(request, id_service):
     return redirect('login')
 
 
+# -------------------Módulo Reservaciones---------------#
+
 def reservations(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
@@ -209,17 +236,14 @@ def reservations(request):
     return redirect('login')
 
 
-def nuestros_afiliados(request):
-    context = {}
-    return render(request, "nuestros_afiliados.html", context)
-
+# -------------------Módulo Usuarios---------------#
 
 def users(request):
     if request.user.is_authenticated:
         usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
         business = Negocio.objects.filter(usuario_negocio=request.user)
         context = {'usuarios': usuarios, 'business': business}
-        return render(request, "control_panel/pages/listado_usuarios.html", context)
+        return render(request, "control_panel/module_users/listado_usuarios.html", context)
     return redirect('login')
 
 
@@ -258,7 +282,7 @@ def update_user(request, id_user):
                 )
                 return redirect('users')
         context = {'user': user_custom, 'business': business}
-        return render(request, "control_panel/pages/editar_usuario.html", context)
+        return render(request, "control_panel/module_users/editar_usuario.html", context)
     return redirect('login')
 
 
@@ -270,122 +294,70 @@ def delete_user(request, id_user):
     return redirect('login')
 
 
-# ----------UI-----------#
-def terminos_servicio(request):
-    context = {}
-    return render(request, "terminos_servicio.html", context)
+# -------------------Módulo Categoria Negocio---------------#
 
-
-def products(request, id_bussiness):
+def categories(request):
     if request.user.is_authenticated:
+        category = Categoria_Negocio.objects.all()
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        productos = Producto.objects.filter(negocio=negocio)
-        context = {'business': business, 'productos': productos, 'negocio': negocio}
-        return render(request, "control_panel/pages/listado_producto.html", context)
+        context = {'categories': category, 'business': business}
+        return render(request,
+                      "control_panel/module_category_businesses/listado_categoria.html", context)
     return redirect('login')
 
 
-def add_product(request, id_bussiness):
+def add_category(request):
     if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        categorias = Categoria_Producto.objects.filter(negocio=id_bussiness)
-        if request.method == 'POST':
-            image_product = request.FILES['image_product']
-            name_product = request.POST.get('name_product')
-            description_product = request.POST.get('description_product')
-            price_product = request.POST.get('price_product')
-            category_product = request.POST.get('category_product')
-            Producto.objects.create(imagen=image_product,
-                                    nombre=name_product, descripcion=description_product, precio=price_product,
-                                    negocio=negocio, categoria_id=category_product)
-            return redirect(reverse('products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
-        return render(request, "control_panel/pages/agregar_producto.html", context)
-    return redirect('login')
-
-
-def editar_product(request, id_bussiness, id_product):
-    if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        producto = get_object_or_404(Producto, pk=id_product)
-        if request.method == 'POST':
-            update_form = MyForm(request.POST, request.FILES)
-            update_form.save()
-            return redirect(reverse('products', args=(id_bussiness,)))
-        else:
-            update_form = MyForm(instance=producto)
-        context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form}
-        return render(request, "control_panel/pages/editar_producto.html", context)
-    return redirect('login')
-
-
-def delete_product(request, id_product):
-    if request.user.is_authenticated:
-        p = Producto.objects.get(id=id_product)
-        p.delete()
-        return redirect(reverse('products', args=(p.negocio.id,)))
-    return redirect('login')
-
-
-def categoria_productos(request, id_bussiness):
-    if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        categorias = Categoria_Producto.objects.filter(negocio=negocio).order_by('-nombre').reverse()
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
-        return render(request, "control_panel/pages/listado_categoria_productos.html", context)
-    return redirect('login')
-
-
-def agregar_categoria_productos(request, id_bussiness):
-    if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        macro = Macro.objects.all()
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
-            Categoria_Producto.objects.create(nombre=name_category, descripcion=description_category, negocio=negocio)
-            return redirect(reverse('category_products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio}
-        return render(request, "control_panel/pages/agregar_categoria_producto.html", context)
+            macro_field = request.POST.get('macro')
+            Categoria_Negocio.objects.create(nombre=name_category, descripcion=description_category,
+                                             macro_id=macro_field)
+            return redirect('categories')
+        context = {'macros': macro}
+        return render(request,
+                      "control_panel/module_category_businesses/agregar_categoria_negocio.html", context)
     return redirect('login')
 
 
-def editar_categoria_producto(request, id_bussiness, id_category):
+def update_category(request, id_category):
     if request.user.is_authenticated:
-        business = Negocio.objects.filter(usuario_negocio=request.user)
-        negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        categoria = get_object_or_404(Categoria_Producto, pk=id_category)
+        category = Categoria_Negocio.objects.get(id=id_category)
+        macro = Macro.objects.all()
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
-            Categoria_Producto.objects.filter(id=id_category).update(
+            macro_field = request.POST.get('macro')
+            Categoria_Negocio.objects.filter(id=id_category).update(
                 nombre=name_category,
-                descripcion=description_category
+                descripcion=description_category,
+                macro_id=macro_field
             )
-            return redirect(reverse('category_products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categoria': categoria}
-        return render(request, "control_panel/pages/editar_categoria_producto.html", context)
+            return redirect('categories')
+        context = {'category': category}
+        return render(request,
+                      "control_panel/module_category_businesses/editar_categoria.html", context)
     return redirect('login')
 
 
-def delete_categoria(request, id_category):
+def delete_category(request, id_category):
     if request.user.is_authenticated:
-        p = Categoria_Producto.objects.get(id=id_category)
+        p = Categoria_Negocio.objects.get(id=id_category)
         p.delete()
-        return redirect(reverse('category_products', args=(p.negocio.id,)))
+        return redirect('categories')
     return redirect('login')
 
+
+# -------------------Módulo Negocio---------------#
 
 def businesses(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
         context = {'negocios': negocios, 'business': business}
-        return render(request, "control_panel/pages/listado_negocios.html", context)
+        return render(request, "control_panel/module_businesses/listado_negocios.html", context)
     return redirect('login')
 
 
@@ -441,7 +413,7 @@ def add_bussiness(request):
 
         context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
                    'categorias': categorias, 'macros': macro}
-        return render(request, "control_panel/pages/agregar_negocio.html", context)
+        return render(request, "control_panel/module_businesses/agregar_negocio.html", context)
     return redirect('login')
 
 
@@ -542,7 +514,7 @@ def update_bussiness(request, id_bussiness):
                    'servicios_no_marcados': servicios_no_marcados,
                    'categoria_no_marcados': categoria_no_marcados,
                    'categorias_marcadas': categorias_marcadas, 'categorias': categorias, 'macros': macro}
-        return render(request, "control_panel/pages/editar_negocio.html", context)
+        return render(request, "control_panel/module_businesses/editar_negocio.html", context)
     return redirect('login')
 
 
@@ -554,17 +526,7 @@ def delete_bussiness(request, id_bussiness):
     return redirect('login')
 
 
-def error404(request):
-    context = {}
-    return render(request, "control_panel/pages/404.html", context)
-
-
-def terminos_condiciones(request):
-    context = {}
-    return render(request, "control_panel/pages/terminos_condiicones.html", context)
-
-
-def mi_negocio(request, id_bussiness):
+def my_bussiness(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
@@ -576,56 +538,162 @@ def mi_negocio(request, id_bussiness):
                    'productos_negocio': productos,
                    'ofertas_laborales': ofertas_laborales,
                    'comentarios_negocio': comentarios}
-        return render(request, "control_panel/pages/mi_negocio.html", context)
+        return render(request, "control_panel/module_businesses/mi_negocio.html", context)
     return redirect('login')
 
 
-def categories(request):
+# -------------------Módulo Categoria Productos---------------#
+
+def categoria_productos(request, id_bussiness):
     if request.user.is_authenticated:
-        category = Categoria_Negocio.objects.all()
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'categories': category, 'business': business}
-        return render(request, "control_panel/pages/listado_categoria.html", context)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categorias = Categoria_Producto.objects.filter(negocio=negocio).order_by('-nombre').reverse()
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        return render(request,
+                      "control_panel/module_category_products/listado_categoria_productos.html", context)
     return redirect('login')
 
 
-def add_category(request):
+def agregar_categoria_productos(request, id_bussiness):
     if request.user.is_authenticated:
-        macro = Macro.objects.all()
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
-            macro_field = request.POST.get('macro')
-            Categoria_Negocio.objects.create(nombre=name_category, descripcion=description_category,
-                                             macro_id=macro_field)
-            return redirect('categories')
-        context = {'macros': macro}
-        return render(request, "control_panel/pages/agregar_categoria_negocio.html", context)
+            Categoria_Producto.objects.create(nombre=name_category, descripcion=description_category, negocio=negocio)
+            return redirect(reverse('category_products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio}
+        return render(request,
+                      "control_panel/module_category_products/agregar_categoria_producto.html", context)
     return redirect('login')
 
 
-def update_category(request, id_category):
+def editar_categoria_producto(request, id_bussiness, id_category):
     if request.user.is_authenticated:
-        category = Categoria_Negocio.objects.get(id=id_category)
-        macro = Macro.objects.all()
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categoria = get_object_or_404(Categoria_Producto, pk=id_category)
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
-            macro_field = request.POST.get('macro')
-            Categoria_Negocio.objects.filter(id=id_category).update(
+            Categoria_Producto.objects.filter(id=id_category).update(
                 nombre=name_category,
-                descripcion=description_category,
-                macro_id=macro_field
+                descripcion=description_category
             )
-            return redirect('categories')
-        context = {'category': category}
-        return render(request, "control_panel/pages/editar_categoria.html", context)
+            return redirect(reverse('category_products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'categoria': categoria}
+        return render(request,
+                      "control_panel/module_category_products/editar_categoria_producto.html", context)
     return redirect('login')
 
 
-def delete_category(request, id_category):
+def delete_categoria(request, id_category):
     if request.user.is_authenticated:
-        p = Categoria_Negocio.objects.get(id=id_category)
+        p = Categoria_Producto.objects.get(id=id_category)
         p.delete()
-        return redirect('categories')
+        return redirect(reverse('category_products', args=(p.negocio.id,)))
+    return redirect('login')
+
+
+# -------------------Módulo Productos---------------#
+
+def products(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        productos = Producto.objects.filter(negocio=negocio)
+        context = {'business': business, 'productos': productos, 'negocio': negocio}
+        return render(request, "control_panel/module_products/listado_producto.html", context)
+    return redirect('login')
+
+
+def add_product(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        categorias = Categoria_Producto.objects.filter(negocio=id_bussiness)
+        if request.method == 'POST':
+            image_product = request.FILES['image_product']
+            name_product = request.POST.get('name_product')
+            description_product = request.POST.get('description_product')
+            price_product = request.POST.get('price_product')
+            category_product = request.POST.get('category_product')
+            Producto.objects.create(imagen=image_product,
+                                    nombre=name_product, descripcion=description_product, precio=price_product,
+                                    negocio=negocio, categoria_id=category_product)
+            return redirect(reverse('products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        return render(request, "control_panel/module_products/agregar_producto.html", context)
+    return redirect('login')
+
+
+def editar_product(request, id_bussiness, id_product):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        producto = get_object_or_404(Producto, pk=id_product)
+        update_form = MyForm(request.POST or None, request.FILES or None, instance=producto)
+        if update_form.is_valid():
+            edit = update_form.save(commit=False)
+            edit.save()
+            return redirect(reverse('products', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form}
+        return render(request, "control_panel/module_products/editar_producto.html", context)
+    return redirect('login')
+
+
+def delete_product(request, id_product):
+    if request.user.is_authenticated:
+        p = Producto.objects.get(id=id_product)
+        p.delete()
+        return redirect(reverse('products', args=(p.negocio.id,)))
+    return redirect('login')
+
+
+# -------------------Módulo Categoria Productos---------------#
+
+def offers(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        ofertas = Oferta_Laboral.objects.filter(negocio=negocio)
+        context = {'business': business, 'negocio': negocio, 'ofertas': ofertas}
+        return render(request, "control_panel/module_offers/listado_ofertas.html", context)
+    return redirect('login')
+
+
+def add_offer(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        if request.method == 'POST':
+            description_offer = request.POST.get('description_offer')
+            Oferta_Laboral.objects.create(descripcion=description_offer, negocio=negocio)
+            return redirect(reverse('offers', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio}
+        return render(request, "control_panel/module_offers/agregar_oferta.html", context)
+    return redirect('login')
+
+
+def update_offer(request, id_bussiness, id_offer):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        offer = get_object_or_404(Oferta_Laboral, pk=id_offer)
+        if request.method == 'POST':
+            description_offer = request.POST.get('description_offer')
+            Oferta_Laboral.objects.filter(id=id_offer).update(descripcion=description_offer)
+            return redirect(reverse('offers', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'offer': offer}
+        return render(request, "control_panel/module_offers/editar_oferta.html", context)
+    return redirect('login')
+
+
+def delete_offer(request, id_offer):
+    if request.user.is_authenticated:
+        p = Oferta_Laboral.objects.get(id=id_offer)
+        p.delete()
+        return redirect(reverse('offers', args=(p.negocio.id,)))
     return redirect('login')
