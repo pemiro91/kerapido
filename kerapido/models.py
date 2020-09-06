@@ -122,7 +122,7 @@ class Producto(models.Model):
 
 class Reservacion_Simple(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='plato')
-    cantidad_producto = models.IntegerField(name='cantidad_producto')
+    cantidad_producto = models.IntegerField()
 
     def str(self): return str(self.producto)
 

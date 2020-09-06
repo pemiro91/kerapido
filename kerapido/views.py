@@ -7,12 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
-#
-# def principal(request):
-#     context = {}
-#     return render(request, "master/index.html", context)
 from django.urls import reverse
-
 from kerapido.forms import MyForm
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion
