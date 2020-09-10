@@ -256,10 +256,13 @@
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
                                             </li>
                                             <li>
+                                                <a href="{% url 'rates' %}">Tarifas</a>
+                                            </li>
+                                            <li>
                                                 <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
                                             </li>
                                             <li>
-                                                <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                                <a href="{% url 'reservations' %}">Reservaciones</a>
                                             </li>
                                         </ul>
                                     </li>

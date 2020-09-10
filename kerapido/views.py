@@ -700,3 +700,13 @@ def delete_offer(request, id_offer):
         p.delete()
         return redirect(reverse('offers', args=(p.negocio.id,)))
     return redirect('login')
+
+
+# -------------------Módulo Tarifas---------------#
+
+def rates(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        context = {'business': business}
+        return render(request, "control_panel/pages/listado_reservaciones.html", context)
+    return redirect('login')

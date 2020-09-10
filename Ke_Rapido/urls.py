@@ -49,6 +49,7 @@ urlpatterns = [
     path('delete_service/<int:id_service>', views.delete_service, name="delete_service"),
 
     path('reservations', views.reservations, name="reservations"),
+    path('rates', views.rates, name="rates"),
 
     path('users', views.users, name="users"),
     path('activate_user/<int:id_user>', views.activate_user, name="activate_user"),
