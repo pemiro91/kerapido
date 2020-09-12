@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from kerapido.forms import MyForm
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
-    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido
+    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega
 
 
 # Create your views here.
@@ -739,10 +739,11 @@ def delete_offer(request, id_offer):
 
 # -------------------Módulo Tarifas---------------#
 
-def rates(request):
+def rates(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'business': business}
-        return render(request,
-                      "control_panel/pages/../templates/control_panel/module_reservation/listado_reservaciones.html", context)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        tarifas = Tarifa_Entrega.objects.filter(negocio=id_bussiness)
+        context = {'business': business, 'negocio': negocio, 'tarifas': tarifas}
+        return render(request, "control_panel/listado_tarifas.html", context)
     return redirect('login')

@@ -198,7 +198,7 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>
                         </li>
-                        <li><a href="{% url 'logout' %}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -256,7 +256,7 @@
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'rates' %}">Tarifas</a>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
                                             </li>
                                             <li>
                                                 <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
