@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from kerapido.forms import MyForm
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
-    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion
+    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido
 
 
 # Create your views here.
@@ -223,11 +223,44 @@ def delete_service(request, id_service):
 
 # -------------------Módulo Reservaciones---------------#
 
-def reservations(request):
+def reservations(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'business': business}
-        return render(request, "control_panel/pages/listado_reservaciones.html", context)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        pedidos = Pedido.objects.filter(negocio=id_bussiness)
+        context = {'business': business, 'negocio': negocio, 'pedidos': pedidos}
+        return render(request, "control_panel/module_reservation/listado_reservaciones.html", context)
+    return redirect('login')
+
+
+def change_state_reservation(request, id_bussiness, id_reservation):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        if request.method == 'POST':
+            state = request.POST.get('state')
+            Pedido.objects.filter(pk=id_reservation).update(estado=state)
+            return redirect(reverse('reservations', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio}
+        return render(request, "control_panel/module_reservation/listado_reservaciones.html", context)
+    return redirect('login')
+
+
+def factura(request, id_pedido):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        pedido = get_object_or_404(Pedido, pk=id_pedido)
+        context = {'business': business, 'pedido': pedido}
+        return render(request, "control_panel/module_reservation/factura.html", context)
+    return redirect('login')
+
+
+def reservations_admin(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        pedidos = Pedido.objects.all()
+        context = {'business': business, 'pedidos': pedidos}
+        return render(request, "control_panel/module_reservation/listado_reservaciones_admin.html", context)
     return redirect('login')
 
 
@@ -378,6 +411,7 @@ def add_bussiness(request):
             municipio = request.POST.get('municipio')
             phone_bussiness_o = request.POST.get('phone_bussiness_o')
             phone_bussiness = request.POST.get('phone_bussiness')
+            email_bussiness = request.POST.get('email_bussiness')
 
             horario = str(hour_init) + ' - ' + str(hour_end)
 
@@ -391,7 +425,8 @@ def add_bussiness(request):
                 direccion=address_bussiness,
                 municipio=municipio,
                 telefono1=phone_bussiness_o,
-                telefono2=phone_bussiness
+                telefono2=phone_bussiness,
+                email=email_bussiness,
             )
             for category in category_bussiness:
                 categoria = Categoria_Negocio.objects.get(nombre=category)
@@ -708,5 +743,6 @@ def rates(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         context = {'business': business}
-        return render(request, "control_panel/pages/listado_reservaciones.html", context)
+        return render(request,
+                      "control_panel/pages/../templates/control_panel/module_reservation/listado_reservaciones.html", context)
     return redirect('login')

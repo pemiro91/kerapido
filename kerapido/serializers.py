@@ -1,7 +1,7 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from kerapido.models import Reservacion_Generada, Reservacion_Simple, Producto, User, Categoria_Producto, Servicio, \
+from kerapido.models import Pedido, Reservacion_Simple, Producto, User, Categoria_Producto, Servicio, \
     ComentarioEvaluacion, Tarifa_Entrega, Negocio, Categoria_Negocio, Frecuencia
 
 
@@ -47,7 +47,7 @@ class NegocioSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Negocio
         fields = ('usuario_negocio', 'nombre', 'logo', 'portada', 'eslogan', 'categorias',
-                  'servicios', 'horario', 'frecuencia', 'direccion', 'municipio',
+                  'servicios', 'horario', 'frecuencia', 'direccion', 'municipio', 'email',
                   'telefono1', 'telefono2', 'rating')
 
 
@@ -84,9 +84,10 @@ class ReservacionSimpleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ReservacionGeneradaSerializer(WritableNestedModelSerializer):
+class PedidoSerializer(WritableNestedModelSerializer):
     reservaciones = ReservacionSimpleSerializer(many=True)
 
     class Meta:
-        model = Reservacion_Generada
-        fields = ('cliente_auth', 'total', 'cliente_entrega', 'telefono_entrega', 'direccion_entrega', 'reservaciones')
+        model = Pedido
+        fields = ('negocio', 'cliente_auth', 'total_pagar', 'cliente_entrega', 'telefono_entrega', 'porciento_pagar',
+                  'tarifa', 'servicio', 'direccion_entrega', 'total_pagar_user', 'reservaciones')

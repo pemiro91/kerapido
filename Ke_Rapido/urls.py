@@ -48,7 +48,11 @@ urlpatterns = [
     path('update_service/<int:id_service>', views.update_service, name="update_service"),
     path('delete_service/<int:id_service>', views.delete_service, name="delete_service"),
 
-    path('reservations', views.reservations, name="reservations"),
+    path('reservations/<int:id_bussiness>', views.reservations, name="reservations"),
+    path('reservations/change_state_reservation/<int:id_bussiness>/<int:id_reservation>',
+         views.change_state_reservation, name="change_state_reservation"),
+    path('factura/<int:id_pedido>', views.factura, name="factura"),
+    path('reservations_admin', views.reservations_admin, name="reservations_admin"),
     path('rates', views.rates, name="rates"),
 
     path('users', views.users, name="users"),
@@ -89,6 +93,7 @@ urlpatterns = [
     path('api/login', login),
     path('api-auth/', include('rest_framework.urls')),
     path('api/negocios/', getNegociosApi),
+    path('api/negocios/<int:pk>/', getNegocioApi),
     path('api/productos/<int:pk>/', getProductoApi),
     path('api/servicio/<int:pk>/', getServicioApiForID),
     path('api/reservar/', postReservaApi),

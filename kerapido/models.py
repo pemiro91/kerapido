@@ -92,7 +92,7 @@ class Negocio(models.Model):
     municipio = models.CharField(max_length=255, null=True, blank=True)
     telefono1 = models.CharField(max_length=255, null=True, blank=True)
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(max_length=255,null=True, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
 
     def __str__(self):
@@ -120,6 +120,15 @@ class Producto(models.Model):
         return self.nombre
 
 
+class Tarifa_Entrega(models.Model):
+    lugar_destino = models.CharField(max_length=255)
+    precio = models.FloatField(max_length=55)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
+
+    def __str__(self):
+        return self.lugar_destino
+
+
 class Reservacion_Simple(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='plato')
     cantidad_producto = models.IntegerField()
@@ -127,16 +136,21 @@ class Reservacion_Simple(models.Model):
     def str(self): return str(self.producto)
 
 
-class Reservacion_Generada(models.Model):
+class Pedido(models.Model):
     cliente_auth = models.ForeignKey(User, on_delete=models.CASCADE, name='cliente_auth')
     total_pagar = models.FloatField(max_length=255)
-    fecha_reservacion = models.DateField(default=datetime.date.today)
+    fecha_reservacion = models.DateTimeField(auto_now_add=True)
     cliente_entrega = models.CharField(max_length=255)
     telefono_entrega = models.CharField(max_length=255)
     direccion_entrega = models.CharField(max_length=255)
     reservaciones = models.ManyToManyField(Reservacion_Simple)
     estado = models.CharField(max_length=50, default='Pendiente', name='estado')
     fecha_estado = models.DateField(default=datetime.date.today)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    porciento_pagar = models.FloatField(max_length=255)
+    tarifa = models.ForeignKey(Tarifa_Entrega, on_delete=models.CASCADE, name='tarifa', null=True, blank=True)
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True, blank=True)
+    total_pagar_user = models.FloatField(max_length=255, null=True, blank=True)
 
 
 class ComentarioEvaluacion(models.Model):
@@ -157,15 +171,6 @@ class ComentarioEvaluacion(models.Model):
 class Evaluacion(models.Model):
     puntuacion = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
-
-
-class Tarifa_Entrega(models.Model):
-    lugar_destino = models.CharField(max_length=255)
-    precio = models.FloatField(max_length=55)
-    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
-
-    def __str__(self):
-        return self.lugar_destino
 
 
 class Oferta_Laboral(models.Model):

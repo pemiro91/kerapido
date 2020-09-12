@@ -262,7 +262,7 @@
                                                 <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'reservations' %}">Reservaciones</a>
+                                                <a href="{% url 'reservations' negocio.id %}">Reservaciones</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -298,12 +298,12 @@
                         </a>
                     </li>
                 {% endif %}
-                                <li>
-                                    <a href="{% url 'reservations' %}">
-                                        <i class="material-icons">shopping_cart</i>
-                                        <span>Reservaciones</span>
-                                    </a>
-                                </li>
+                <li>
+                    <a href="{% url 'reservations_admin' %}">
+                        <i class="material-icons">shopping_cart</i>
+                        <span>Reservaciones</span>
+                    </a>
+                </li>
 
             </ul>
         </div>
