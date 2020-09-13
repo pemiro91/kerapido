@@ -53,7 +53,6 @@ urlpatterns = [
          views.change_state_reservation, name="change_state_reservation"),
     path('factura/<int:id_pedido>', views.factura, name="factura"),
     path('reservations_admin', views.reservations_admin, name="reservations_admin"),
-    path('rates/<int:id_bussiness>', views.rates, name="rates"),
 
     path('users', views.users, name="users"),
     path('activate_user/<int:id_user>', views.activate_user, name="activate_user"),
@@ -77,11 +76,16 @@ urlpatterns = [
     path('update_offer/<int:id_bussiness>/<int:id_offer>', views.update_offer, name="update_offer"),
     path('delete_offer/<int:id_offer>', views.delete_offer, name="delete_offer"),
 
+    path('rates/<int:id_bussiness>', views.rates, name="rates"),
+    path('add_rate/<int:id_bussiness>', views.add_rate, name="add_rate"),
+    path('update_rate/<int:id_bussiness>/<int:id_rate>', views.update_rate, name="update_rate"),
+    path('delete_rate/<int:id_rate>', views.delete_rate, name="delete_rate"),
+
     path('bussiness', views.businesses, name="bussiness"),
     path('my_bussiness/<int:id_bussiness>', views.my_bussiness, name="my_bussiness"),
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
     path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
-    path('delete_bussiness/<int:id_bussiness>', views.delete_bussiness, name="delete_bussiness"),
+    path('delete_bussiness/<int:id_rate>', views.delete_bussiness, name="delete_bussiness"),
 
     path('categories', views.categories, name="categories"),
     path('add_category', views.add_category, name="add_category"),

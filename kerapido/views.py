@@ -745,5 +745,48 @@ def rates(request, id_bussiness):
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         tarifas = Tarifa_Entrega.objects.filter(negocio=id_bussiness)
         context = {'business': business, 'negocio': negocio, 'tarifas': tarifas}
-        return render(request, "control_panel/listado_tarifas.html", context)
+        return render(request, "control_panel/module_rates/listado_tarifas.html", context)
+    return redirect('login')
+
+
+def add_rate(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        municipios = Municipio.objects.all()
+        if request.method == 'POST':
+            lugar_destino = request.POST.get('lugar_destino')
+            precio = request.POST.get('precio_rate')
+            is_tarifa = Tarifa_Entrega.objects.filter(lugar_destino=lugar_destino)
+            if is_tarifa:
+                messages.error(request, 'Ya se encuentra ese municipio')
+                return redirect(reverse('rates', args=(id_bussiness,)))
+            else:
+                Tarifa_Entrega.objects.create(lugar_destino=lugar_destino, precio=precio, negocio=negocio)
+                return redirect(reverse('rates', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'municipios': municipios}
+        return render(request, "control_panel/module_rates/agregar_tarifa.html", context)
+    return redirect('login')
+
+
+def update_rate(request, id_bussiness, id_rate):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        rate = get_object_or_404(Tarifa_Entrega, pk=id_rate)
+        if request.method == 'POST':
+            lugar_destino = request.POST.get('lugar_destino')
+            precio = request.POST.get('precio_rate')
+            Tarifa_Entrega.objects.filter(id=id_rate).update(lugar_destino=lugar_destino, precio=precio)
+            return redirect(reverse('rates', args=(id_bussiness,)))
+        context = {'business': business, 'negocio': negocio, 'rate': rate}
+        return render(request, "control_panel/module_rates/editar_tarifa.html", context)
+    return redirect('login')
+
+
+def delete_rate(request, id_rate):
+    if request.user.is_authenticated:
+        p = Tarifa_Entrega.objects.get(id=id_rate)
+        p.delete()
+        return redirect(reverse('rates', args=(p.negocio.id,)))
     return redirect('login')
