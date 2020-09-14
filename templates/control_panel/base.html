@@ -198,7 +198,7 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>
                         </li>
-                        <li><a href="{% url 'logout' %}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -256,10 +256,13 @@
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
                                             </li>
                                             <li>
-                                                <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
                                             </li>
                                             <li>
-                                                <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                                <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'reservations' negocio.id %}">Reservaciones</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -284,7 +287,7 @@
                 <li>
                     <a href="{% url 'categories' %}">
                         <i class="material-icons">local_offer</i>
-                        <span>Categorias Negocio</span>
+                        <span>Categorias de Negocio</span>
                     </a>
                 </li>
                 {% if request.user.is_superuser %}
@@ -295,12 +298,12 @@
                         </a>
                     </li>
                 {% endif %}
-                                <li>
-                                    <a href="{% url 'reservations' %}">
-                                        <i class="material-icons">shopping_cart</i>
-                                        <span>Reservaciones</span>
-                                    </a>
-                                </li>
+                <li>
+                    <a href="{% url 'reservations_admin' %}">
+                        <i class="material-icons">shopping_cart</i>
+                        <span>Reservaciones</span>
+                    </a>
+                </li>
 
             </ul>
         </div>

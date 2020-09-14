@@ -6,15 +6,27 @@
     <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
           rel="stylesheet">
 
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DE SERVICIOS
-                <small>Módulo para la gestión de servicios</small>
+                GESTIÓN DE MIS NEGOCIOS
+                <small>Módulo para la gestion de tarifas "{{ negocio.nombre }}"</small>
             </h2>
+{#            <p id="display">Time Left<p>#}
+{#            <button id="start">Start</button>#}
+{#            <div class="col-lg-7 col-md-7 col-sm-4 col-xs-7 form-control-label">#}
+{#                {% if messages %}#}
+{#                    <div class="alert alert-danger center-align">#}
+{#                        <strong>Oh snap!</strong> Ya se encuentra ese municipio.#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            </div>#}
         </div>
 
         <!-- #END# Basic Examples -->
@@ -24,57 +36,55 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE SERVICIOS
+                            LISTADO DE TARIFAS
+
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_services' %}" type="button" title="Agregar Servicios"
+                                <a href="{% url 'add_rate' negocio.id %}" type="button" title="Agregar Servicios"
                                    class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
                                 </a>
-
                             </li>
                         </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example ">
                                 <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Color</th>
-
+                                    <th>No.</th>
+                                    <th>Destino</th>
+                                    <th>Precio</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Color</th>
-
+                                    <th>No.</th>
+                                    <th>Destino</th>
+                                    <th>Precio</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for service in services %}
+                                {% for tarifa in tarifas %}
                                     <tr>
-                                        <td>{{ service.nombre }}</td>
-                                        <td>{{ service.descripcion }}</td>
-                                        <td>{{ service.color }}</td>
+                                        <td>{{ tarifa.id }}</td>
+                                        <td>{{ tarifa.lugar_destino }}</td>
+                                        <td>{{ tarifa.precio }}</td>
                                         <td>
                                             <a type="button" class="btn btn-default waves-effect waves-black"
-                                                href="{% url 'update_service' service.id %}">
+                                                href="{% url 'update_rate' negocio.id tarifa.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-black"
-                                               data-href="{% url 'delete_service' service.id %}"
+                                               data-href="{% url 'delete_rate' tarifa.id %}"
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Servicio">
+                                               title="Eliminar Tarifa">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
@@ -89,13 +99,12 @@
         </div>
         <!-- #END# Exportable Table -->
     </div>
-
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el servicio?</h5>
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar la tarifa?</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -120,6 +129,12 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>
+
+    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>
+
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
     <script>
         $('#confirm-delete').on('show.bs.modal', function (e) {
@@ -127,20 +142,35 @@
         });
     </script>
 
+{#    <script>#}
+{#        window.setTimeout(function () {#}
+{#            location.href = "http://127.0.0.1:8000/reservations_admin";#}
+{#        }, 10000); // refresh/redirect after 5 seconds.#}
+{#    </script>#}
+{#    <script>#}
+{#        var start = document.getElementById("start");#}
+{#        var dis = document.getElementById("display");#}
+{#        var finishTime;#}
+{#        var timerLength = 10;#}
+{#        var timeoutID;#}
+{#        dis.innerHTML = "0: " + timerLength;#}
+{##}
+{#        if(localStorage.getItem('myTime')){#}
+{#            Update();#}
+{#        }#}
+{#        start.onclick = function () {#}
+{#            localStorage.setItem('myTime', ((new Date()).getTime() + timerLength * 1000));#}
+{#            if (timeoutID !== undefined)#}
+{#                window.clearTimeout(timeoutID);#}
+{#            Update();#}
+{#        }#}
+{##}
+{#        function Update() {#}
+{#            finishTime = localStorage.getItem('myTime');#}
+{#            var timeLeft = (finishTime - new Date());#}
+{#            dis.innerHTML = "0: " + Math.max(timeLeft/1000,0);#}
+{#            timeoutID = window.setTimeout(Update, 100);#}
+{#        }#}
+{#    </script>#}
+
 {% endblock %}
-
-{#    <!-- Jquery Core Js -->#}
-{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
-{##}
-{#    <!-- Bootstrap Core Js -->#}
-{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
-{##}
-{#    <!-- Select Plugin Js -->#}
-{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
-{##}
-{#    <!-- Slimscroll Plugin Js -->#}
-{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
-{##}
-{#    <!-- Waves Effect Plugin Js -->#}
-{#    <script src="../../plugins/node-waves/waves.js"></script>#}
-

@@ -40,21 +40,15 @@
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
-                        GESTIÓN DE SERVICIOS
-                        <small>Módulo para la gestion de servicios</small>
+                        GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de ofertas "{{ negocio.nombre }}"</small>
                     </h2>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'panel' %}"><i class="material-icons">home</i> Principal</a></li>
-                        <li><a href="{% url 'services' %}"><i class="material-icons">store</i>
-                            Servicios</a>
-                        </li>
-                        <li class="active"><i class="material-icons">add_circle</i>
-                            Editar Servicio
-                        </li>
-
+                        <li><a href="{% url 'offers' negocio.id %}"><i class="material-icons">widgets</i>Ofertas</a></li>
+                        <li class="active">Modificar Oferta</li>
                     </ol>
                 </div>
             </div>
@@ -66,28 +60,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>MODIFICAR SERVICIO</h2>
-
+                        <h2>MODIFICAR OFERTA</h2>
                     </div>
                     <div class="body">
                         <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
-
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre del Servicio*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" class="form-control text" name="name_service"
-                                                   placeholder="Escriba el nombre del servicio"
-                                                   value="{{ service.nombre }}"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
                                     <label for="description">Descripción</label>
@@ -95,26 +71,10 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="description" name="description_service"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      value="{{ service.descripcion }}"
-                                                      placeholder="Escriba la descripción del servicio"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="color">Color*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="color" type="text" class="form-control text" name="color_service"
-                                                   placeholder="Escriba el color"
-                                                   value="{{ service.color }}"
-                                                   required>
+                                            <input id="description" name="description_offer" class="form-control no-resize"
+                                                   value="{{ offer.descripcion }}"
+                                                   required
+                                                   placeholder="Escriba la descripción de la oferta"/>
                                         </div>
                                     </div>
                                 </div>

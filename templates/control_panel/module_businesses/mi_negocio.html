@@ -35,6 +35,14 @@
                                                         <span>{{ categoria }},</span>
                                                     {% endif %}
                                                 {% endfor %}
+                                            <br>
+                                                {% for macro in negocio.macro.all %}
+                                                    {% if forloop.last %}
+                                                        <span>{{ macro }}</span>
+                                                    {% else %}
+                                                        <span>{{ macro }},</span>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
@@ -123,10 +131,10 @@
                                 {% else %}
                                 {% endif %}
 
-{#                                <div class="title">#}
-{#                                    <i class="material-icons">email</i>#}
-{#                                    <span>levant@gmail.com</span>#}
-{#                                </div>#}
+                                {#                                <div class="title">#}
+                                {#                                    <i class="material-icons">email</i>#}
+                                {#                                    <span>levant@gmail.com</span>#}
+                                {#                                </div>#}
 
                                 {#                                <div class="content">#}
                                 {#                                    <span class="label bg-red">UI Design</span>#}

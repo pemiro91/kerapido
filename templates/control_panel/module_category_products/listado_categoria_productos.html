@@ -14,8 +14,8 @@
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
-                        GESTIÓN DE NEGOCIOS
-                        <small>Módulo para la gestion de negocios</small>
+                        GESTIÓN DE MIS NEGOCIOS
+                        <small>Módulo para la gestion de categorias de productos "{{ negocio.nombre }}"</small>
                     </h2>
                 </div>
             </div>
@@ -23,16 +23,16 @@
 
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
-        <div class="row clearfix">
+        <div class="row clearfix" style="margin-top: 2%">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE NEGOCIOS
+                            LISTADO DE CATEGORÍAS DE PRODUCTOS
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_bussiness' %}" type="button" title="Agregar Datos de Negocio"
+                                <a href="{% url 'add_category_product' negocio.id %}" type="button" title="Agregar Categoría de Producto"
                                    class="btn btn-default waves-effect waves-black">
                                     <i class="material-icons " style="color: #212121">add_circle</i>
                                     <span>AGREGAR</span>
@@ -43,56 +43,38 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
                                 <thead>
                                 <tr>
-                                    <th>Afiliado</th>
-                                    <th>Nombre</th>
-                                    <th>Servicios</th>
-                                    <th>Evaluacion</th>
-
+                                    <th>Nombre de Categoría</th>
+                                    <th>Descripción</th>
 
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Afiliado</th>
-                                    <th>Nombre</th>
-                                    <th>Servicios</th>
-                                    <th>Evaluacion</th>
+                                    <th>Nombre de Categoría</th>
+                                    <th>Descripción</th>
 
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for negocio in negocios %}
+                                {% for categoria in categorias %}
                                     <tr>
-                                        <td>{{ negocio.usuario_negocio.first_name }}</td>
-                                        <td>{{ negocio.nombre }}</td>
+                                        <td>{{ categoria.nombre }}</td>
+                                        <td>{{ categoria.descripcion }}</td>
                                         <td>
-                                            {% for servicio in negocio.servicios.all %}
-                                                <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% if negocio.rating == None %}
-                                                No evaluado
-                                            {% else %}
-                                                {{ negocio.rating }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-{#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-{#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
-{#                                                <i class="material-icons">edit</i>#}
-{#                                            </a>#}
+                                            <a type="button" href="{% url 'edit_category_product' negocio.id categoria.id %}"
+                                               class="btn btn-default waves-effect waves-black">
+                                                <i class="material-icons">edit</i>
+                                            </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-                                               data-href="{% url 'delete_bussiness' negocio.id %}"
-                                               data-id="{{ negocio.id }}"
+                                               data-href="{% url 'delete_category' categoria.id %}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Negocio">
+                                               title="Eliminar Categoria">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
@@ -106,6 +88,20 @@
             </div>
         </div>
         <!-- #END# Exportable Table -->
+    </div>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el servicio?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block plugin_section %}
@@ -124,20 +120,10 @@
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
 
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+
 {% endblock %}
-
-{#    <!-- Jquery Core Js -->#}
-{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
-{##}
-{#    <!-- Bootstrap Core Js -->#}
-{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
-{##}
-{#    <!-- Select Plugin Js -->#}
-{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
-{##}
-{#    <!-- Slimscroll Plugin Js -->#}
-{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
-{##}
-{#    <!-- Waves Effect Plugin Js -->#}
-{#    <script src="../../plugins/node-waves/waves.js"></script>#}
-

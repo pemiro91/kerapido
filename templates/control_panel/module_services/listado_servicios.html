@@ -1,0 +1,146 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>
+                GESTIÓN DE SERVICIOS
+                <small>Módulo para la gestión de servicios</small>
+            </h2>
+        </div>
+
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE SERVICIOS
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="{% url 'add_services' %}" type="button" title="Agregar Servicios"
+                                   class="btn btn-default waves-effect waves-black">
+                                    <i class="material-icons " style="color: #212121">add_circle</i>
+                                    <span>AGREGAR</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Color</th>
+
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Color</th>
+
+                                    <th>Acciones</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for service in services %}
+                                    <tr>
+                                        <td>{{ service.nombre }}</td>
+                                        <td>{{ service.descripcion }}</td>
+                                        <td>{{ service.color }}</td>
+                                        <td>
+                                            <a type="button" class="btn btn-default waves-effect waves-black"
+                                                href="{% url 'update_service' service.id %}">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-black"
+                                               data-href="{% url 'delete_service' service.id %}"
+                                               data-id="{{ user.id }}"
+                                               data-toggle="modal"
+                                               data-target="#confirm-delete"
+                                               title="Eliminar Servicio">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el servicio?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+
+{% endblock %}
+
+{#    <!-- Jquery Core Js -->#}
+{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
+{##}
+{#    <!-- Bootstrap Core Js -->#}
+{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
+{##}
+{#    <!-- Select Plugin Js -->#}
+{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
+{##}
+{#    <!-- Slimscroll Plugin Js -->#}
+{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
+{##}
+{#    <!-- Waves Effect Plugin Js -->#}
+{#    <script src="../../plugins/node-waves/waves.js"></script>#}
+

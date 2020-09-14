@@ -78,6 +78,7 @@ class Frecuencia(models.Model):
 
 class Negocio(models.Model):
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    macro = models.ManyToManyField(Macro)
     nombre = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='logo/', null=True, blank=True)
     portada = StdImageField(upload_to='portada/', variations={'thumbnail': (550, 412)}, null=True, blank=True)
@@ -91,7 +92,7 @@ class Negocio(models.Model):
     municipio = models.CharField(max_length=255, null=True, blank=True)
     telefono1 = models.CharField(max_length=255, null=True, blank=True)
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(max_length=255,null=True, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
 
     def __str__(self):
@@ -110,32 +111,46 @@ class Categoria_Producto(models.Model):
 class Producto(models.Model):
     imagen = models.ImageField(upload_to='imagen_plato/', null=True, blank=True)
     nombre = models.CharField(max_length=255)
-    descripcion = models.CharField(max_length=255)
-    precio = models.CharField(max_length=255)
+    descripcion = models.CharField(max_length=255, null=True, blank=True)
+    precio = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categoria_Producto, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria_Producto, related_name='categorias_ordered', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
 
 
+class Tarifa_Entrega(models.Model):
+    lugar_destino = models.CharField(max_length=255)
+    precio = models.FloatField(max_length=55)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
+
+    def __str__(self):
+        return self.lugar_destino
+
+
 class Reservacion_Simple(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='plato')
-    cantidad_producto = models.IntegerField(name='cantidad_producto')
+    cantidad_producto = models.IntegerField()
 
     def str(self): return str(self.producto)
 
 
-class Reservacion_Generada(models.Model):
+class Pedido(models.Model):
     cliente_auth = models.ForeignKey(User, on_delete=models.CASCADE, name='cliente_auth')
     total_pagar = models.FloatField(max_length=255)
-    fecha_reservacion = models.DateField(default=datetime.date.today)
+    fecha_reservacion = models.DateTimeField(auto_now_add=True)
     cliente_entrega = models.CharField(max_length=255)
     telefono_entrega = models.CharField(max_length=255)
     direccion_entrega = models.CharField(max_length=255)
     reservaciones = models.ManyToManyField(Reservacion_Simple)
     estado = models.CharField(max_length=50, default='Pendiente', name='estado')
     fecha_estado = models.DateField(default=datetime.date.today)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    porciento_pagar = models.FloatField(max_length=255)
+    tarifa = models.ForeignKey(Tarifa_Entrega, on_delete=models.CASCADE, name='tarifa', null=True, blank=True)
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True, blank=True)
+    total_pagar_user = models.FloatField(max_length=255, null=True, blank=True)
 
 
 class ComentarioEvaluacion(models.Model):
@@ -156,15 +171,6 @@ class ComentarioEvaluacion(models.Model):
 class Evaluacion(models.Model):
     puntuacion = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
-
-
-class Tarifa_Entrega(models.Model):
-    lugar_destino = models.CharField(max_length=255)
-    precio = models.FloatField(max_length=55)
-    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
-
-    def __str__(self):
-        return self.lugar_destino
 
 
 class Oferta_Laboral(models.Model):

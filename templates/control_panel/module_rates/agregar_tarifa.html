@@ -41,15 +41,15 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <h2>
                         GESTIÓN DE MIS NEGOCIOS
-                        <small>Módulo para la gestion de los negocios del afiliado</small>
+                        <small>Módulo para la gestion de tarifas "{{ negocio.nombre }}"</small>
                     </h2>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'category_products' negocio.id %}"><i class="material-icons">widgets</i>
-                            Categorías de Productos</a></li>
-                        <li class="active">Agregar Categorías de Productos
+                        <li><a href="{% url 'rates' negocio.id %}"><i class="material-icons">widgets</i>
+                            Tarifas</a></li>
+                        <li class="active">Agregar Tarifa
                         </li>
                     </ol>
                 </div>
@@ -62,36 +62,39 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>AGREGAR CATEGORÍA DE PRODUCTO</h2>
+                        <h2>AGREGAR TARIFA</h2>
                     </div>
                     <div class="body">
                         <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="name_category">Nombre de la categoria*</label>
+                                    <label for="municipio">Municipio</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="name_category" type="text" class="form-control text"
-                                                   name="name_category"
-                                                   placeholder="Escriba el nombre de la categoria"
-                                                   required>
+                                            <select id="municipio" name="lugar_destino" class="form-control show-tick" data-live-search="true">
+                                                {% if municipios %}
+                                                    {% for municipio in municipios %}
+                                                        <option value="{{ municipio.nombre }}">{{ municipio.nombre }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="description">Descripción</label>
+                                    <label for="precio_rate">Precio*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="description" name="description_category" cols="30" rows="2"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      placeholder="Escriba la descripción de la categoria"></textarea>
+                                            <input id="precio_rate" type="number" class="form-control text"
+                                                   name="precio_rate"
+                                                   placeholder="Escriba el precio de la tarifa"
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
