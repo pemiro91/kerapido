@@ -248,7 +248,7 @@
                                     <select id="municipio" name="municipio" class="form-control show-tick" data-live-search="true">
                                         {% if municipios %}
                                             {% for municipio in municipios %}
-                                                <option value="{{ municipio.nombre }}">{{ municipio.nombre }}</option>
+                                                <option value="{{ municipio.pk }}">{{ municipio.nombre }}</option>
                                             {% endfor %}
                                         {% endif %}
                                     </select>

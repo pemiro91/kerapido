@@ -89,7 +89,7 @@ class Negocio(models.Model):
     frecuencia = models.ManyToManyField(Frecuencia)
     direccion = models.CharField(max_length=255, null=True, blank=True)
     # provincia = models.ForeignKey(Provincia, on_delete=models.SET_NULL, null=True)
-    municipio = models.CharField(max_length=255, null=True, blank=True)
+    municipio = models.ForeignKey(Municipio, related_name='municipios_ordered', on_delete=models.CASCADE)
     telefono1 = models.CharField(max_length=255, null=True, blank=True)
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, null=True, blank=True)

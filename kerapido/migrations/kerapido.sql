@@ -95,6 +95,14 @@ INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Comida para 
 INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Entrega a domicilio','', 'blue');
 INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Mesas y Espacios','', 'red');
 
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Lunes');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Martes');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Miércoles');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Jueves');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Viernes');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Sábado');
+INSERT INTO kerapido_frecuencia (nombre) VALUES ('Domingo');
+
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Matanzas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Cárdenas', 5);
 -- INSERT INTO kerapido_municipio (nombre, provincia_id) VALUES ('Colón', 5);
