@@ -64,8 +64,8 @@
 <nav class="navbar">
     <div class="container-fluid">
 
-        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"
-             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>
+        {#        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"#}
+        {#             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>#}
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                data-target="#navbar-collapse" aria-expanded="false"></a>
@@ -188,9 +188,12 @@
                 <!-- #END# Notifications -->
                 <!-- Perfil -->
                 <li class="dropdown">
+
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">person</i>
-                        {#                        <span class="label-count">7</span>#}
+                        <label class="dropdown"
+                               style="position: relative;margin-top:-10px">{{ request.user.username }}</label>
+                        <i class="material-icons">keyboard_arrow_down</i>
+
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="{% url 'my_profile' %}" style="margin-left: 0px"><i
@@ -198,7 +201,8 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>
                         </li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i
+                                class="material-icons">input</i>Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -214,14 +218,14 @@
     <aside id="leftsidebar" class="sidebar">
         <!-- User Info -->
         <div class="user-info">
-            <div class="image">
-                <img src="{% static 'control_panel/images/user.jpg' %}" width="48" height="48" alt="User"/>
+            <div class="">
+                <img src="{% static 'control_panel/images/logo.jpg' %}" width="50" height="50" alt="User"/>
             </div>
-            <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true"
-                     aria-expanded="false">{{ request.user.username }}</div>
-                <div class="email">{{ request.user.email }}</div>
-            </div>
+            {#            <div class="info-container">#}
+            {#                <div class="name" data-toggle="dropdown" aria-haspopup="true"#}
+            {#                     aria-expanded="false">kerapido@gmail.com</div>#}
+            {#                <div class="email">kerapido@gmail.com</div>#}
+            {#            </div>#}
         </div>
         <!-- #User Info -->
         <!-- Menu -->
@@ -231,11 +235,11 @@
                 <li class="active">
                     <a href="{% url 'panel' %}">
                         <i class="material-icons">home</i>
-                        <span>Principal</span>
+                        <span>Inicio</span>
                     </a>
                 </li>
                 {% if business %}
-                    {% if request.user.is_superuser %}
+                    {% if request.user.is_superuser or request.user.is_afiliado %}
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">folder</i>
@@ -271,25 +275,34 @@
                         </li>
                     {% endif %}
                 {% endif %}
+
                 <li>
                     <a href="{% url 'users' %}">
                         <i class="material-icons">group</i>
                         <span>Usuarios</span>
                     </a>
                 </li>
+                {% if request.user.is_administrador or request.user.is_superuser %}
 
-                <li>
-                    <a href="{% url 'bussiness' %}">
-                        <i class="material-icons">store</i>
-                        <span>Negocios</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'categories' %}">
-                        <i class="material-icons">local_offer</i>
-                        <span>Categorias de Negocio</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{% url 'bussiness' %}">
+                            <i class="material-icons">business</i>
+                            <span>Negocios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'categories' %}">
+                            <i class="material-icons">local_offer</i>
+                            <span>Categorias de Negocios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'reservations_admin' %}">
+                            <i class="material-icons">shopping_cart</i>
+                            <span>Todos los Pedidos</span>
+                        </a>
+                    </li>
+                {% endif %}
                 {% if request.user.is_superuser %}
                     <li>
                         <a href="{% url 'services' %}">
@@ -298,12 +311,6 @@
                         </a>
                     </li>
                 {% endif %}
-                <li>
-                    <a href="{% url 'reservations_admin' %}">
-                        <i class="material-icons">shopping_cart</i>
-                        <span>Reservaciones</span>
-                    </a>
-                </li>
 
             </ul>
         </div>

@@ -143,7 +143,7 @@ def login_admin(request):
             if user.is_active:
                 login(request, user)
                 tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
-                if tiene_negocio:
+                if tiene_negocio or user.is_superuser or user.is_administrador:
                     return redirect('panel')
                 else:
                     return redirect('add_bussiness')
