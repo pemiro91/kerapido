@@ -156,16 +156,17 @@ def admin_panel(request):
 
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
-            if fecha == today:
+            if fecha.date() == today:
                 comision_hoy_general += ph.porciento_pagar
-            elif fecha == ayer:
+            if fecha.date() == ayer:
                 comision_ayer_general += ph.porciento_pagar
-            elif fecha == ultima_semana:
+            if fecha.date() == ultima_semana:
                 comision_ultima_semana_general += ph.porciento_pagar
-            elif fecha.month == mes_anterior:
+            if fecha.month == mes_anterior:
                 comision_ultimo_mes_general += ph.porciento_pagar
-            elif fecha.year == anno_anterior:
+            if fecha.year == anno_anterior:
                 comision_anno_general += ph.porciento_pagar
+                print(comision_anno_general)
             else:
                 comision_hoy_general += 0
                 comision_ayer_general += 0
