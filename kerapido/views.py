@@ -141,14 +141,19 @@ def admin_panel(request):
         ultima_semana = today - timedelta(days=7)
         mes_anterior = today.month - 1
         anno_anterior = today.year - 1
-        pedidos_general = Pedido.objects.all()
-        pedidos_afiliados = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
+        pedidos_general = []
         comision_hoy_general = 0
         comision_ayer_general = 0
         comision_ultima_semana_general = 0
         comision_ultimo_mes_general = 0
         comision_anno_general = 0
         comision_general = 0
+
+        if request.user.is_superuser or request.user.is_administraodr:
+            pedidos_general = Pedido.objects.all()
+        else:
+            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
+
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
             if fecha == today:
