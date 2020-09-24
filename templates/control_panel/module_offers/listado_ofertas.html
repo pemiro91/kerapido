@@ -69,8 +69,12 @@
                                 {% for oferta in ofertas %}
                                     <tr>
                                         <td>{{ oferta.id }}</td>
-                                        <td style="max-lines: 15">{{ oferta.descripcion_corta }}</td>
-                                        <td>{{ oferta.descripcion }}</td>
+                                        <td style="overflow: hidden;max-width: 150px;
+                                          white-space: nowrap;
+                                          text-overflow: ellipsis;">{{ oferta.descripcion_corta }}</td>
+                                        <td style="overflow: hidden;max-width: 250px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ oferta.descripcion }}</td>
                                         <td>
                                             {% if oferta.telefono2 %}
                                                 {{ oferta.telefono1 }},<br>
