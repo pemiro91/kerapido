@@ -175,7 +175,11 @@ class Evaluacion(models.Model):
 
 class Oferta_Laboral(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
+    descripcion_corta = models.CharField(max_length=150)
     descripcion = models.CharField(max_length=255)
+    telefono1 = models.IntegerField()
+    telefono2 = models.IntegerField()
+    correo = models.EmailField()
 
     def __str__(self):
-        return self.descripcion
+        return self.descripcion_corta

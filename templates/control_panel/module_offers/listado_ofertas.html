@@ -47,8 +47,11 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example ">
                                 <thead>
                                 <tr>
+                                    <th>Nro.</th>
+                                    <th>Título</th>
                                     <th>Descripción</th>
-
+                                    <th>Telefonos</th>
+                                    <th>Correo</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -66,8 +69,17 @@
                                 {% for oferta in ofertas %}
                                     <tr>
                                         <td>{{ oferta.id }}</td>
+                                        <td style="max-lines: 15">{{ oferta.descripcion_corta }}</td>
                                         <td>{{ oferta.descripcion }}</td>
-                                        <td>{{ oferta.descripcion }}</td>
+                                        <td>
+                                            {% if oferta.telefono2 %}
+                                                {{ oferta.telefono1 }},<br>
+                                                {{ oferta.telefono2 }}
+                                            {% else %}
+                                                {{ oferta.telefono1 }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ oferta.correo }}</td>
                                         <td>
                                             <a type="button" href="{% url 'update_offer' negocio.id oferta.id %}"
                                                class="btn btn-default waves-effect waves-black">
