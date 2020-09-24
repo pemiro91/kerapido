@@ -149,7 +149,7 @@ def admin_panel(request):
         comision_anno_general = 0
         comision_general = 0
 
-        if request.user.is_superuser or request.user.is_administraodr:
+        if request.user.is_superuser or request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
         else:
             pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)

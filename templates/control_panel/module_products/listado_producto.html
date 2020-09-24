@@ -67,7 +67,7 @@
                                 <tbody>
                                 {% for producto in productos %}
                                     <tr>
-                                        <td><img src="{{ producto.imagen.url }}" style="width: 100px"/></td>
+                                        <td><img src="{{ producto.imagen.url }}" style="max-width: 80px;max-height: 80px"/></td>
                                         <td>{{ producto.nombre }}</td>
                                         <td>{{ producto.descripcion }}</td>
                                         <td>{{ producto.precio }}</td>

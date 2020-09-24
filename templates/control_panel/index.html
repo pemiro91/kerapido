@@ -69,7 +69,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
                     <div class="info-box-3 bg-blue-grey hover-zoom-effect">
                         <div class="icon">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons">widgets</i>
                         </div>
                         <div class="content">
                             <div class="text">SERVICIOS</div>
@@ -81,7 +81,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
                     <div class="info-box-3 bg-teal hover-zoom-effect">
                         <div class="icon">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons">supervisor_account</i>
                         </div>
                         <div class="content">
                             <div class="text">PERSONAL ENCARGADO</div>
@@ -93,7 +93,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
                     <div class="info-box-3 bg-indigo hover-zoom-effect">
                         <div class="icon">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons">local_offer</i>
                         </div>
                         <div class="content">
                             <div class="text">CATEGORÍAS DE NEGOCIOS</div>
@@ -125,19 +125,20 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-hover dashboard-task-infos">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Negocio</th>
-                                        <th>Estado</th>
-                                        <th>Cliente</th>
-                                        <th>Comisión a pagar</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if ultimos_pedidos %}
+                            {% if ultimos_pedidos %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover dashboard-task-infos">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Negocio</th>
+                                            <th>Estado</th>
+                                            <th>Cliente</th>
+                                            <th>Comisión a pagar</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
                                         {% for pedido in ultimos_pedidos %}
                                             <tr>
                                                 <td>5</td>
@@ -151,15 +152,14 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="5" align="center">No se han registrado pedidos</td>
 
-                                        </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                No es posible mostrar este listado, porque no se han registrado pedidos
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -186,11 +186,11 @@
                                 </li>
                                 <li>
                                     ÚLTIMO AÑO
-                                    <span class="pull-right"><b>{{ comision_anno_general}}</b> <small>CUP</small></span>
+                                    <span class="pull-right"><b>{{ comision_anno_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     TODO
-                                    <span class="pull-right"><b>{{ comision_general}}</b> <small>CUP</small></span>
+                                    <span class="pull-right"><b>{{ comision_general }}</b> <small>CUP</small></span>
                                 </li>
                             </ul>
                         </div>
@@ -218,64 +218,69 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-hover dashboard-task-infos">
-                                    <thead>
-                                    <tr>
-                                        <th>Negocio</th>
-                                        <th>Categoría</th>
-                                        <th>Servicios</th>
-                                        <th>Municipio</th>
-                                        <th>Evaluacion</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for negocio in business %}
+{#                            {% if business %}#}
+                                <div class="table-responsive">
+                                    <table class="table table-hover dashboard-task-infos">
+                                        <thead>
                                         <tr>
-                                            <td><a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
-                                            </td>
-                                            <td>
-                                                {% for categoria in negocio.categorias.all %}
-                                                    {{ categoria.nombre }},
-                                                {% endfor %}
-                                            </td>
-                                            <td>
-                                                {% for servicio in negocio.servicios.all %}
-                                                    <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                                {% endfor %}
-
-                                            </td>
-                                            <td>{{ negocio.municipio }}</td>
-
-                                            <td>
-                                                {% if negocio.rating == None %}
-                                                    No evaluado
-                                                {% else %}
-                                                    {{ negocio.rating }}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                                   title="Modificar datos de negocio"
-                                                   class="btn btn-default waves-effect waves-black">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a href="#" type="button"
-                                                   class="btn btn-default waves-effect waves-amber"
-                                                   data-href="{% url 'delete_bussiness' negocio.id %}"
-                                                   data-id="{{ negocio.id }}"
-                                                   data-toggle="modal"
-                                                   data-target="#confirm-delete"
-                                                   title="Eliminar Negocio">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </td>
+                                            <th>Negocio</th>
+                                            <th>Categoría</th>
+                                            <th>Servicios</th>
+                                            <th>Municipio</th>
+                                            <th>Evaluacion</th>
+                                            <th>Acciones</th>
                                         </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tbody>
+                                        {% for negocio in business %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
+                                                </td>
+                                                <td>
+                                                    {% for categoria in negocio.categorias.all %}
+                                                        {{ categoria.nombre }},
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for servicio in negocio.servicios.all %}
+                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                    {% endfor %}
+
+                                                </td>
+                                                <td>{{ negocio.municipio }}</td>
+
+                                                <td>
+                                                    {% if negocio.rating == None %}
+                                                        No evaluado
+                                                    {% else %}
+                                                        {{ negocio.rating }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                                       title="Modificar datos de negocio"
+                                                       class="btn btn-default waves-effect waves-black">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a href="#" type="button"
+                                                       class="btn btn-default waves-effect waves-amber"
+                                                       data-href="{% url 'delete_bussiness' negocio.id %}"
+                                                       data-id="{{ negocio.id }}"
+                                                       data-toggle="modal"
+                                                       data-target="#confirm-delete"
+                                                       title="Eliminar Negocio">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+{#                            {% else %}#}
+{#                                No es posible mostrar este listado, porque no tienen negocios registrados#}
+{#                            {% endif %}#}
                         </div>
                     </div>
                 </div>
@@ -304,19 +309,20 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-hover dashboard-task-infos">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Negocio</th>
-                                        <th>Estado</th>
-                                        <th>Cliente</th>
-                                        <th>Comisión a pagar</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if ultimos_pedidos %}
+                            {% if ultimos_pedidos %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover dashboard-task-infos">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Negocio</th>
+                                            <th>Estado</th>
+                                            <th>Cliente</th>
+                                            <th>Comisión a pagar</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
                                         {% for pedido in ultimos_pedidos %}
                                             <tr>
                                                 <td>5</td>
@@ -330,15 +336,14 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="5" align="center">No se han registrado pedidos</td>
 
-                                        </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                No es posible mostrar este listado, porque no se han registrado pedidos
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -365,11 +370,11 @@
                                 </li>
                                 <li>
                                     ÚLTIMO AÑO
-                                    <span class="pull-right"><b>{{ comision_anno_general}}</b> <small>CUP</small></span>
+                                    <span class="pull-right"><b>{{ comision_anno_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     TODO
-                                    <span class="pull-right"><b>{{ comision_general}}</b> <small>CUP</small></span>
+                                    <span class="pull-right"><b>{{ comision_general }}</b> <small>CUP</small></span>
                                 </li>
                             </ul>
                         </div>
