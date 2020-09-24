@@ -1,307 +1,377 @@
 {% extends "control_panel/base.html" %}
 {% load static %}
+{% block header_style %}
+
+
+{% endblock %}
 {% block content %}
     <div class="container-fluid">
         <div class="block-header">
-            <h2>PRINCIPAL</h2>
+            <h2>INICIO</h2>
         </div>
+        {% if request.user.is_administrador or request.user.is_superuser %}
+            <!-- Resumen cantidades para Admin -->
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-amber hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">shopping_cart</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PEDIDOS</div>
+                            <div class="number count-to" data-from="0" data-to="125" data-speed="15"
+                                 data-fresh-interval="20">{{ cantidad_pedidos }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-blue hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">face</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">AFILIADOS</div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="15"
+                                 data-fresh-interval="20">{{ cantidad_afiliados }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">NEGOCIOS</div>
+                            <div class="number count-to" data-from="0" data-to="117" data-speed="15"
+                                 data-fresh-interval="20">{{ cantidad_negocios }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CLIENTES</div>
+                            <div class="number count-to" data-from="0" data-to="1432" data-speed="15"
+                                 data-fresh-interval="20">{{ cantidad_clientes }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                    <div class="info-box-3 bg-blue-grey hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">SERVICIOS</div>
+                            <div class="number">{{ cantidad_servicios }}</div>
+                        </div>
+                    </div>
 
-        <!-- Widgets -->
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-red">
-                    <div class="icon">
-                        <i class="material-icons">shopping_cart</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">RESERVACIONES</div>
-                        <div class="number count-to" data-from="0" data-to="125" data-speed="1000"
-                             data-fresh-interval="20">125
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                    <div class="info-box-3 bg-teal hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PERSONAL ENCARGADO</div>
+                            <div class="number">{{ cantidad_encargados }}</div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-indigo">
-                    <div class="icon">
-                        <i class="material-icons">face</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">AFILIADOS</div>
-                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
-                             data-fresh-interval="20">66
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                    <div class="info-box-3 bg-indigo hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CATEGORÍAS DE NEGOCIOS</div>
+                            <div class="number">{{ cantidad_categ_neg }}</div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-purple">
-                    <div class="icon">
-                        <i class="material-icons">store</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">NEGOCIOS</div>
-                        <div class="number count-to" data-from="0" data-to="117" data-speed="1000"
-                             data-fresh-interval="20">86</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-amber">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">CLIENTES</div>
-                        <div class="number count-to" data-from="0" data-to="1432" data-speed="1500"
-                             data-fresh-interval="20">300</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- #END# Widgets -->
-        {#        <!-- Platos -->#}
-        {#        <div class="row clearfix">#}
-        {#            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
-        {#                <div class="card">#}
-        {#                    <div class="header">#}
-        {#                        <div class="row clearfix">#}
-        {#                            <div class="col-xs-12 col-sm-6">#}
-        {#                                <h2>PLATOS</h2>#}
-        {#                                <p style="margin-top: 1em">Revise el listado de platos que oferta en su negocio</p>#}
-        {#                            </div>#}
-        {#                            <div class="col-xs-12 col-sm-6 align-right">#}
-        {#                                <div class="switch panel-switch-btn">#}
-        {##}
-        {#                                    <a class="btn bg-secondary waves-effect m-b-15" role="button" data-toggle="collapse"#}
-        {#                                       href="#collapseExample" aria-expanded="false"#}
-        {#                                       aria-controls="collapseExample">#}
-        {#                                        <i class="material-icons">more_horiz</i>#}
-        {#                                    </a>#}
-        {#                                </div>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {##}
-        {#                    </div>#}
-        {#                    <div class="body">#}
-        {#                        <div class="collapse" id="collapseExample">#}
-        {##}
-        {#                            <div class="panel panel-default panel-post">#}
-        {##}
-        {#                                <form id="" method="POST" href="{% url 'base' %}">{% csrf_token %}#}
-        {#                                    <div class="row" style="margin: 2em 0 0 0">#}
-        {#                                        <div class="col-md-8 col-sm-10 col-xs-12">#}
-        {##}
-        {#                                        </div>#}
-        {#                                        <div class="col-lg-4 col-sm-10 col-xs-12">#}
-        {#                                            <div class="input-group">#}
-        {#                                        <span class="input-group-addon">#}
-        {#                                        <i class="material-icons">search</i>#}
-        {#                                    </span>#}
-        {#                                                <div class="form-line">#}
-        {#                                                    <input type="search" class="form-control" name="buscar"#}
-        {#                                                           placeholder="Buscar" required>#}
-        {#                                                </div>#}
-        {#                                            </div>#}
-        {#                                        </div>#}
-        {#                                    </div>#}
-        {#                                    <div class="panel-body">#}
-        {#                                        <div class="post">#}
-        {#                                                <div class="post-heading">#}
-        {#                                                    <p>Listado de platos que ofertan</p>#}
-        {#                                                </div>#}
-        {#                                            <div class="post-content">#}
-        {#                                                <div class="container-fluid">#}
-        {#                                                    <div class="block-header">#}
-        {#                                                            <h2>BASIC CARD</h2>#}
-        {#                                                    </div>#}
-        {#                                                    <!-- Basic Card -->#}
-        {#                                                    <div class="row clearfix">#}
-        {##}
-        {##}
-        {#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
-        {#                                                            <div class="card">#}
-        {#                                                                <div class="card-header" style="height: 170px">#}
-        {#                                                                    <img style="width: 100%;height: 100%"#}
-        {#                                                                         src="{% static 'control_panel/images/platos/comida-cubana-portada.jpg' %}" alt="">#}
-        {#                                                                </div>#}
-        {#                                                                     <hr>#}
-        {#                                                                <div class="body" >#}
-        {#                                                                    <div class="row">#}
-        {#                                                                        <div class="col-lg-8">#}
-        {#                                                                            <h4>Masas de Cerdo fritas</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                        <div class="col-lg-4">#}
-        {#                                                                            <h4>$5.00</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                    </div>#}
-        {#                                                                    Masas de cerdo fritas,acompañado de una racion#}
-        {#                                                                    de arroz congris, yuca,platanos fritos y#}
-        {#                                                                    ensalada de aguacate#}
-        {#                                                                </div>#}
-        {#                                                            </div>#}
-        {#                                                        </div>#}
-        {#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
-        {#                                                            <div class="card">#}
-        {#                                                                <div class="card-header" style="height: 170px">#}
-        {#                                                                    <img style="width: 100%;height: 100%"#}
-        {#                                                                         src="{% static 'control_panel/images/platos/441a1881f0856425bd67827a43752d4a--good-food-food-networktrisha.jpg' %}" alt="">#}
-        {#                                                                </div>#}
-        {#                                                                     <hr>#}
-        {#                                                                <div class="body">#}
-        {#                                                                    <div class="row">#}
-        {#                                                                        <div class="col-lg-8">#}
-        {#                                                                            <h4>Ropa vieja</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                        <div class="col-lg-4">#}
-        {#                                                                            <h4>$7.00</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                    </div>#}
-        {#                                                                    Ropa vieja,acompañada de arroz,#}
-        {#                                                                    frijoles,platanos fritos y ensalada de aguacate#}
-        {#                                                                </div>#}
-        {#                                                            </div>#}
-        {#                                                        </div>#}
-        {#                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">#}
-        {#                                                            <div class="card">#}
-        {#                                                                <div class="card-header" style="height: 170px">#}
-        {#                                                                    <img style="width: 100%;height: 100%"#}
-        {#                                                                         src="{% static 'control_panel/images/platos/c29c6f29f549bf68ac10d20e55e38e72.jpg' %}" alt="">#}
-        {#                                                                </div>#}
-        {#                                                                     <hr>#}
-        {#                                                                <div class="body">#}
-        {#                                                                    <div class="row">#}
-        {#                                                                        <div class="col-lg-8">#}
-        {#                                                                            <h4>Carne de Cerdo</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                        <div class="col-lg-4">#}
-        {#                                                                            <h4>$5.00</h4>#}
-        {#                                                                        </div>#}
-        {#                                                                    </div>#}
-        {#                                                                    Carne de cerdo, acompañado de arroz#}
-        {#                                                                    congris,tamal,tostones y ensalada de aguacate.#}
-        {#                                                                </div>#}
-        {#                                                            </div>#}
-        {#                                                        </div>#}
-        {#                                                    </div>#}
-        {##}
-        {#                                                </div>#}
-        {#                                            </div>#}
-        {#                                        </div>#}
-        {#                                    </div>#}
-        {#                                    <div style="margin-left: 68%">#}
-        {#                                        <nav aria-label="Page navigation example" >#}
-        {#                                            <ul class="pagination pg-blue ">#}
-        {#                                                <li class="page-item justify-content-end">#}
-        {#                                                    <a class="page-link" tabindex="-1">Anterior</a>#}
-        {#                                                </li>#}
-        {#                                                <li class="page-item"><a class="page-link">1</a></li>#}
-        {#                                                <li class="page-item active">#}
-        {#                                                    <a class="page-link">2 <span class="sr-only">(current)</span></a>#}
-        {#                                                </li>#}
-        {#                                                <li class="page-item"><a class="page-link">3</a></li>#}
-        {#                                                <li class="page-item ">#}
-        {#                                                    <a class="page-link">Próximo</a>#}
-        {#                                                </li>#}
-        {#                                            </ul>#}
-        {#                                        </nav>#}
-        {#                                    </div>#}
-        {#                                </form>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
-        <!-- #END# CPU Usage -->
-        <div class="row clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>MIS NEGOCIOS</h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a class="btn btn-default waves-effect waves-black m-b-15" role="button"
-                                   href="{% url 'add_bussiness' %}" aria-expanded="false"
-                                   aria-controls="">
-                                    <i class="material-icons " style="color: #212121">add_circle</i>
-                                    <span>AGREGAR</span>
-                                    {#                                <ul class="dropdown-menu pull-right">#}
-                                    {#                                    <li><a href="javascript:void(0);">Action</a></li>#}
-                                    {#                                    <li><a href="javascript:void(0);">Another action</a></li>#}
-                                    {#                                    <li><a href="javascript:void(0);">Something else here</a></li>#}
-                                    {#                                </ul>#}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-hover dashboard-task-infos">
-                                <thead>
-                                <tr>
-                                    <th>Negocio</th>
-                                    <th>Categoría</th>
-                                    <th>Servicios</th>
-                                    <th>Municipio</th>
-                                    <th>Evaluacion</th>
-                                    <th>Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for negocio in business %}
+            <div class="row clearfix">
+                <!-- Task Info -->
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="card">
+                        <div class="header">
+                            <h2>ÚLTIMOS 5 PEDIDOS</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover dashboard-task-infos">
+                                    <thead>
                                     <tr>
-                                        <td><a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a></td>
-                                        <td>
-                                            {% for categoria in negocio.categorias.all %}
-                                                {{ categoria.nombre }},
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% for servicio in negocio.servicios.all %}
-                                                <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                            {% endfor %}
+                                        <th>#</th>
+                                        <th>Negocio</th>
+                                        <th>Estado</th>
+                                        <th>Cliente</th>
+                                        <th>Comisión a pagar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if ultimos_pedidos %}
+                                        {% for pedido in ultimos_pedidos %}
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Task E</td>
+                                                <td>
+                                                    <span class="label bg-red">Suspended</span>
+                                                </td>
+                                                <td>John Doe</td>
+                                                <td>
+                                                    10 cup
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5" align="center">No se han registrado pedidos</td>
 
-                                        </td>
-                                        <td>{{ negocio.municipio }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="body bg-amber">
+                            <div class="font-bold m-b--35">COMISIÓN POR USABILIDAD</div>
+                            <ul class="dashboard-stat-list">
+                                <li>
+                                    HOY
+                                    <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    AYER
+                                    <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMA SEMANA
+                                    <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMO MES
+                                    <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMO AÑO
+                                    <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    TODO
+                                    <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        {% else %}
+
+            <!-- Resumen de mis negocios Afiliados y personal encargado -->
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>MIS NEGOCIOS</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="{% url 'add_bussiness' %}" type="button"
+                                       title="Agregar Categoría de Producto"
+                                       class="btn btn-default waves-effect waves-black">
+                                        <i class="material-icons " style="color: #212121">add_circle</i>
+                                        <span>AGREGAR</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover dashboard-task-infos">
+                                    <thead>
+                                    <tr>
+                                        <th>Negocio</th>
+                                        <th>Categoría</th>
+                                        <th>Servicios</th>
+                                        <th>Municipio</th>
+                                        <th>Evaluacion</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for negocio in business %}
+                                        <tr>
+                                            <td><a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
+                                            </td>
+                                            <td>
+                                                {% for categoria in negocio.categorias.all %}
+                                                    {{ categoria.nombre }},
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for servicio in negocio.servicios.all %}
+                                                    <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                {% endfor %}
+
+                                            </td>
+                                            <td>{{ negocio.municipio }}</td>
+
+                                            <td>
+                                                {% if negocio.rating == None %}
+                                                    No evaluado
+                                                {% else %}
+                                                    {{ negocio.rating }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                                   title="Modificar datos de negocio"
+                                                   class="btn btn-default waves-effect waves-black">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-amber"
+                                                   data-href="{% url 'delete_bussiness' negocio.id %}"
+                                                   data-id="{{ negocio.id }}"
+                                                   data-toggle="modal"
+                                                   data-target="#confirm-delete"
+                                                   title="Eliminar Negocio">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Latest Social Trends -->
+
+
+            </div>
+            <div class="row clearfix">
+                <!-- Task Info -->
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="card">
+                        <div class="header">
+                            <h2>ÚLTIMOS 5 PEDIDOS</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover dashboard-task-infos">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Negocio</th>
+                                        <th>Estado</th>
+                                        <th>Cliente</th>
+                                        <th>Comisión a pagar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {#                            {% if request.user.is_administrador or request.user.is_superuser %}#}
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Task E</td>
                                         <td>
-                                            {% if negocio.rating == None %}
-                                                No evaluado
-                                            {% else %}
-                                                {{ negocio.rating }}
-                                            {% endif %}
+                                            <span class="label bg-red">Suspended</span>
                                         </td>
+                                        <td>John Doe</td>
                                         <td>
-                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                               title="Modificar datos de negocio"
-                                               class="btn btn-default waves-effect waves-black">
-                                                <i class="material-icons">edit</i>
-                                            </a>
-                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-                                               data-href="{% url 'delete_bussiness' negocio.id %}"
-                                               data-id="{{ negocio.id }}"
-                                               data-toggle="modal"
-                                               data-target="#confirm-delete"
-                                               title="Eliminar Negocio">
-                                                <i class="material-icons">delete</i>
-                                            </a>
+                                            10 cup
                                         </td>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    {#                            {% endif %}#}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="body bg-amber">
+                            <div class="font-bold m-b--35">COMISIÓN POR USABILIDAD</div>
+                            <ul class="dashboard-stat-list">
+                                <li>
+                                    HOY
+                                    <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    AYER
+                                    <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMA SEMANA
+                                    <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMO MES
+                                    <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    ÚLTIMO AÑO
+                                    <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>
+                                </li>
+                                <li>
+                                    TODO
+                                    <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Latest Social Trends -->
-
-
-        </div>
-
-
+        {% endif %}
     </div>
+
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -319,7 +389,10 @@
 {% endblock %}
 {% block plugin_section %}
 
+
     <script src="{% static 'control_panel/js/pages/index.js' %}"></script>
+
+
     <script>
         $('li').click(function () {
             $(this).addClass('active').siblings().removeClass('active');
@@ -327,5 +400,10 @@
         $('#confirm-delete').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
+    </script>
+    <script>
+        window.setTimeout(function () {
+            location.href = "http://127.0.0.1:8000/panel";
+        }, 10000); // refresh/redirect after 1 minuto.
     </script>
 {% endblock %}

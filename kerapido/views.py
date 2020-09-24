@@ -128,7 +128,19 @@ def admin_panel(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         services = Servicio.objects.all()
-        context = {'business': business, 'services': services}
+        cant_pedidos = len(Pedido.objects.all())
+        cant_afiliados = len(User.objects.filter(is_afiliado=True))
+        cant_negocios = len(Negocio.objects.all())
+        cant_clientes = len(User.objects.filter(is_cliente=True))
+        cant_servicios = len(services)
+        ultimos_pedidos = Pedido.objects.all().order_by('-fecha_reservacion')[:5]
+        cant_personal_encargado = len(User.objects.filter(is_persona_encargada=True))
+        cant_categ_neg = len(Categoria_Negocio.objects.all())
+        context = {'business': business, 'services': services,
+                   'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
+                   'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
+                   'ultimos_pedidos': ultimos_pedidos, 'cantidad_servicios': cant_servicios,
+                   'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg}
         return render(request, "control_panel/index.html", context)
     return redirect('login')
 

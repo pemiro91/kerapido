@@ -266,7 +266,7 @@
                                                 <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'reservations' negocio.id %}">Reservaciones</a>
+                                                <a href="{% url 'reservations' negocio.id %}">Pedidos</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -318,7 +318,7 @@
         <!-- Footer -->
         <div class="legal">
             <div class="copyright">
-                &copy; 2020 <a href="javascript:void(0);">KeRápido</a>.
+                &copy; 2020 <a href="{% url 'index' %}">KeRápido</a>.
             </div>
             <div class="version">
                 <b>Version: </b> 1.0
