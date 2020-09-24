@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -136,11 +136,67 @@ def admin_panel(request):
         ultimos_pedidos = Pedido.objects.all().order_by('-fecha_reservacion')[:5]
         cant_personal_encargado = len(User.objects.filter(is_persona_encargada=True))
         cant_categ_neg = len(Categoria_Negocio.objects.all())
+        today = date.today()
+        ayer = today - timedelta(days=1)
+        ultima_semana = today - timedelta(days=7)
+        mes_anterior = today.month - 1
+        anno_anterior = today.year - 1
+        pedidos_general = Pedido.objects.all()
+        pedidos_afiliados = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
+        comision_hoy_general = 0
+        comision_ayer_general = 0
+        comision_ultima_semana_general = 0
+        comision_ultimo_mes_general = 0
+        comision_anno_general = 0
+        comision_general = 0
+
+        for ph in pedidos_general:
+            fecha_today = ph.fecha_reservacion.today()
+            if fecha_today == today:
+                comision_hoy_general += ph.porciento_pagar
+            else:
+                comision_hoy_general += 0
+
+        for pay in pedidos_general:
+            fecha_ayer = pay.fecha_reservacion.today() - timedelta(days=1)
+            if fecha_ayer == ayer:
+                comision_ayer_general += pay.porciento_pagar
+            else:
+                comision_ayer_general += 0
+
+        for pu in pedidos_general:
+            fecha_ultima_semana = pu.fecha_reservacion.today() - timedelta(days=7)
+            if fecha_ultima_semana == ultima_semana:
+                comision_ultima_semana_general += pu.porciento_pagar
+            else:
+                comision_ultima_semana_general += 0
+
+        for pum in pedidos_general:
+            fecha_ultima_mes = pum.fecha_reservacion.month
+            if fecha_ultima_mes == mes_anterior:
+                comision_ultimo_mes_general += pum.porciento_pagar
+            else:
+                comision_ultimo_mes_general += 0
+
+        for pa in pedidos_general:
+            fecha_ultima_anno = pa.fecha_reservacion.year
+            if fecha_ultima_anno == anno_anterior:
+                comision_anno_general += pa.porciento_pagar
+            else:
+                comision_anno_general += 0
+        for pe in pedidos_general:
+            comision_general += pe.porciento_pagar
+
         context = {'business': business, 'services': services,
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
                    'ultimos_pedidos': ultimos_pedidos, 'cantidad_servicios': cant_servicios,
-                   'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg}
+                   'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg,
+                   'comision_hoy_general': comision_hoy_general, 'comision_ayer_general': comision_ayer_general,
+                   'comision_ultima_semana_general': comision_ultima_semana_general,
+                   'comision_ultimo_mes_general': comision_ultimo_mes_general,
+                   'comision_anno_general': comision_anno_general,
+                   'comision_general': comision_general}
         return render(request, "control_panel/index.html", context)
     return redirect('login')
 

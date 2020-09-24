@@ -170,27 +170,27 @@
                             <ul class="dashboard-stat-list">
                                 <li>
                                     HOY
-                                    <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_hoy_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     AYER
-                                    <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ayer_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMA SEMANA
-                                    <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ultima_semana_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMO MES
-                                    <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ultimo_mes_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMO AÑO
-                                    <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_anno_general}}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     TODO
-                                    <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_general}}</b> <small>CUP</small></span>
                                 </li>
                             </ul>
                         </div>
@@ -316,19 +316,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {#                            {% if request.user.is_administrador or request.user.is_superuser %}#}
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Task E</td>
-                                        <td>
-                                            <span class="label bg-red">Suspended</span>
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>
-                                            10 cup
-                                        </td>
-                                    </tr>
-                                    {#                            {% endif %}#}
+                                    {% if ultimos_pedidos %}
+                                        {% for pedido in ultimos_pedidos %}
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Task E</td>
+                                                <td>
+                                                    <span class="label bg-red">Suspended</span>
+                                                </td>
+                                                <td>John Doe</td>
+                                                <td>
+                                                    10 cup
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5" align="center">No se han registrado pedidos</td>
+
+                                        </tr>
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -342,27 +349,27 @@
                             <ul class="dashboard-stat-list">
                                 <li>
                                     HOY
-                                    <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_hoy_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     AYER
-                                    <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ayer_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMA SEMANA
-                                    <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ultima_semana_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMO MES
-                                    <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_ultimo_mes_general }}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     ÚLTIMO AÑO
-                                    <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_anno_general}}</b> <small>CUP</small></span>
                                 </li>
                                 <li>
                                     TODO
-                                    <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
+                                    <span class="pull-right"><b>{{ comision_general}}</b> <small>CUP</small></span>
                                 </li>
                             </ul>
                         </div>
@@ -404,6 +411,6 @@
     <script>
         window.setTimeout(function () {
             location.href = "http://127.0.0.1:8000/panel";
-        }, 10000); // refresh/redirect after 1 minuto.
+        }, 100000); // refresh/redirect after 1 minuto.
     </script>
 {% endblock %}
