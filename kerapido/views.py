@@ -157,9 +157,9 @@ def admin_panel(request):
                 comision_ayer_general += ph.porciento_pagar
             elif fecha == ultima_semana:
                 comision_ultima_semana_general += ph.porciento_pagar
-            elif fecha == mes_anterior:
+            elif fecha.month == mes_anterior:
                 comision_ultimo_mes_general += ph.porciento_pagar
-            elif fecha == anno_anterior:
+            elif fecha.year == anno_anterior:
                 comision_anno_general += ph.porciento_pagar
             else:
                 comision_hoy_general += 0
