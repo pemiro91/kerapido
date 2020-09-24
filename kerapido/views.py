@@ -149,41 +149,25 @@ def admin_panel(request):
         comision_ultimo_mes_general = 0
         comision_anno_general = 0
         comision_general = 0
-
         for ph in pedidos_general:
-            fecha_today = ph.fecha_reservacion.today()
-            if fecha_today == today:
+            fecha = ph.fecha_reservacion
+            if fecha == today:
                 comision_hoy_general += ph.porciento_pagar
+            elif fecha == ayer:
+                comision_ayer_general += ph.porciento_pagar
+            elif fecha == ultima_semana:
+                comision_ultima_semana_general += ph.porciento_pagar
+            elif fecha == mes_anterior:
+                comision_ultimo_mes_general += ph.porciento_pagar
+            elif fecha == anno_anterior:
+                comision_anno_general += ph.porciento_pagar
             else:
                 comision_hoy_general += 0
-
-        for pay in pedidos_general:
-            fecha_ayer = pay.fecha_reservacion.today() - timedelta(days=1)
-            if fecha_ayer == ayer:
-                comision_ayer_general += pay.porciento_pagar
-            else:
                 comision_ayer_general += 0
-
-        for pu in pedidos_general:
-            fecha_ultima_semana = pu.fecha_reservacion.today() - timedelta(days=7)
-            if fecha_ultima_semana == ultima_semana:
-                comision_ultima_semana_general += pu.porciento_pagar
-            else:
                 comision_ultima_semana_general += 0
-
-        for pum in pedidos_general:
-            fecha_ultima_mes = pum.fecha_reservacion.month
-            if fecha_ultima_mes == mes_anterior:
-                comision_ultimo_mes_general += pum.porciento_pagar
-            else:
                 comision_ultimo_mes_general += 0
-
-        for pa in pedidos_general:
-            fecha_ultima_anno = pa.fecha_reservacion.year
-            if fecha_ultima_anno == anno_anterior:
-                comision_anno_general += pa.porciento_pagar
-            else:
                 comision_anno_general += 0
+
         for pe in pedidos_general:
             comision_general += pe.porciento_pagar
 
