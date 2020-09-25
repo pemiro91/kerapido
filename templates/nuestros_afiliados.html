@@ -16,7 +16,7 @@
             <div class="section-title">
                 {#                <h2>Quiénes Somos</h2>#}
                 <p>
-                    En esta sección Ke Rápido publica todos sus negocios afiliados.
+                    En esta sección Ke Rápido publica los negocios de sus afiliados.
 
                 </p>
             </div>
@@ -29,38 +29,19 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
-                    <div class="card">
-                        <img src="{% static 'site/img/card-1.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="">El Levant</a></h5>
-                            <p class="card-text text-center">Necesitamos un repartidor que tenga bicicleta eléctrica</p>
-                            <a href="{% url 'detalles_oferta' 1 %}" class="btn">Más detalles</a>
+                {% for negocio in negocios_afiliados %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="card">
+                            <img src="{{ negocio.portada.url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="">{{ negocio.nombre}}</a></h5>
+                                <p class="card-text text-center">Necesitamos un repartidor que tenga bicicleta
+                                    eléctrica</p>
+                                <a href="{% url 'detalles_oferta' 1 %}" class="btn">Más detalles</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
-                    <div class="card">
-                        <img src="{% static 'site/img/card-2.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="">El Gallo de Oro</a></h5>
-                            <p class="card-text text-center">Necesitamos cajera, dependiente y cocinero, preferiblemente
-                                de Arroyo
-                                Naranjo.</p>
-                            <a href="#" class="btn">Más detalles</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
-                    <div class="card">
-                        <img src="{% static 'site/img/card-3.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="">La Mimosa</a></h5>
-                            <p class="card-text text-center">Necesitamos ayudantes de cocina, salario negociable.</p>
-                            <a href="#" class="btn">Más detalles</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
         </div>

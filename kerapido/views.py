@@ -72,7 +72,8 @@ def ofertas_laborales(request):
 
 
 def nuestros_afiliados(request):
-    context = {}
+    negocios_afiliados = Negocio.objects.all()
+    context = {'negocios_afiliados': negocios_afiliados}
     return render(request, "nuestros_afiliados.html", context)
 
 
@@ -189,7 +190,7 @@ def admin_panel(request):
                    'comision_ultimo_mes_general': comision_ultimo_mes_general,
                    'comision_anno_general': comision_anno_general,
                    'comision_general': comision_general,
-                   'pedidos':pedidos_general}
+                   'pedidos': pedidos_general}
         return render(request, "control_panel/index.html", context)
     return redirect('login')
 
