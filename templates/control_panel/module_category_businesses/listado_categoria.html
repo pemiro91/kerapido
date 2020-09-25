@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>
-                GESTIÓN DE CATEGORIA
-                <small>Módulo para la gestión de categoria</small>
+                GESTIÓN DE CATEGORIAS DE NEGOCIOS
+                <small>Módulo para la gestión de categorias de negocios</small>
             </h2>
         </div>
 
@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE CATEGORIAS PARA NEGOCIO
+                            LISTADO DE CATEGORIAS DE NEGOCIOS
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
@@ -39,9 +39,10 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example ">
                                 <thead>
                                 <tr>
+                                    <th>Nro</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Macro-categoria</th>
@@ -51,6 +52,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Nro</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Macro-categoria</th>
@@ -61,12 +63,13 @@
                                 <tbody>
                                 {% for category in categories %}
                                     <tr>
+                                        <td>{{ category.id }}</td>
                                         <td>{{ category.nombre }}</td>
                                         <td>{{ category.descripcion }}</td>
                                         <td>{{ category.macro.nombre }}</td>
                                         <td>
                                             <a type="button" class="btn btn-default waves-effect waves-amber"
-                                                href="{% url 'update_category' category.id %}">
+                                               href="{% url 'update_category' category.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"

@@ -366,9 +366,9 @@
 
                     {% endfor %}
                 </div>
-{#                <div class="col-lg-12 text-center">#}
-{#                    <a href="#" class="">Más detalles</a>#}
-{#                </div>#}
+                {#                <div class="col-lg-12 text-center">#}
+                {#                    <a href="#" class="">Más detalles</a>#}
+                {#                </div>#}
             </div>
         </section>
     {% endifnotequal %}
@@ -550,11 +550,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Nuestro Boletín de Noticias</h4>
-                    <p>Manténgase actualizado con nuestras noticias y actualizaciones.</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscríbete">
-                    </form>
+                    <h4>Nuestras Plataformas de Servicios</h4>
+                    <p>Ke Rápido se encuentra disponible para acceder desde un dispositivo inteligente
+                        con SO Android y por sus afiliados desde una Aplicacion Web,</p>
+                    <div class=" row ">
+                        <div class="col-lg-6 col-md-6 ">
+                            <img src="{% static 'site/img/photo_2020-09-25_15-36-35.jpg' %}" width="60%"/>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 ">
+                            <img src="{% static 'site/img/photo_2020-09-25_15-36-35.jpg' %}" width="60%"/>
+                        </div>
+                    </div>
+
 
                 </div>
 
@@ -562,13 +570,10 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Enlaces de Internos</h4>
                     <ul>
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
                             Afiliados</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
                             Servicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'login' %}">Inicio de Sesión</a></li>
                     </ul>
                 </div>
 
@@ -576,10 +581,7 @@
                     <h4>Sitios de Interés</h4>
                     <ul>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>#}
+
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6">
