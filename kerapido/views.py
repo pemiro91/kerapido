@@ -133,7 +133,7 @@ def admin_panel(request):
         cant_negocios = len(Negocio.objects.all())
         cant_clientes = len(User.objects.filter(is_cliente=True))
         cant_servicios = len(services)
-        ultimos_pedidos = Pedido.objects.all().order_by('-fecha_reservacion')[:5]
+        ultimos_pedidos = []
         cant_personal_encargado = len(User.objects.filter(is_persona_encargada=True))
         cant_categ_neg = len(Categoria_Negocio.objects.all())
         today = date.today()
@@ -151,8 +151,10 @@ def admin_panel(request):
 
         if request.user.is_superuser or request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
         else:
             pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
 
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
@@ -166,7 +168,7 @@ def admin_panel(request):
                 comision_ultimo_mes_general += ph.porciento_pagar
             if fecha.year == anno_anterior:
                 comision_anno_general += ph.porciento_pagar
-                print(comision_anno_general)
+                # print(comision_anno_general)
             else:
                 comision_hoy_general += 0
                 comision_ayer_general += 0
@@ -186,7 +188,8 @@ def admin_panel(request):
                    'comision_ultima_semana_general': comision_ultima_semana_general,
                    'comision_ultimo_mes_general': comision_ultimo_mes_general,
                    'comision_anno_general': comision_anno_general,
-                   'comision_general': comision_general}
+                   'comision_general': comision_general,
+                   'pedidos':pedidos_general}
         return render(request, "control_panel/index.html", context)
     return redirect('login')
 

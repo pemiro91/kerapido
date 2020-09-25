@@ -13,9 +13,9 @@
             <!-- Resumen cantidades para Admin -->
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-amber hover-expand-effect">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">shopping_cart</i>
+                            <i class="material-icons col-black">shopping_cart</i>
                         </div>
                         <div class="content">
                             <div class="text">PEDIDOS</div>
@@ -26,22 +26,9 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-blue hover-expand-effect">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">face</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">AFILIADOS</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="15"
-                                 data-fresh-interval="20">{{ cantidad_afiliados }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-light-green hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">store</i>
+                            <i class="material-icons col-black">store</i>
                         </div>
                         <div class="content">
                             <div class="text">NEGOCIOS</div>
@@ -52,9 +39,22 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-red hover-expand-effect">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons col-black">face</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">AFILIADOS</div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="15"
+                                 data-fresh-interval="20">{{ cantidad_afiliados }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons col-black">person</i>
                         </div>
                         <div class="content">
                             <div class="text">CLIENTES</div>
@@ -66,10 +66,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box-3 bg-blue-grey hover-zoom-effect">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">widgets</i>
+                            <i class="material-icons col-black">widgets</i>
                         </div>
                         <div class="content">
                             <div class="text">SERVICIOS</div>
@@ -78,10 +78,10 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box-3 bg-teal hover-zoom-effect">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">supervisor_account</i>
+                            <i class="material-icons col-black">supervisor_account</i>
                         </div>
                         <div class="content">
                             <div class="text">PERSONAL ENCARGADO</div>
@@ -90,10 +90,10 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box-3 bg-indigo hover-zoom-effect">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="info-box-4">
                         <div class="icon">
-                            <i class="material-icons">local_offer</i>
+                            <i class="material-icons col-black">local_offer</i>
                         </div>
                         <div class="content">
                             <div class="text">CATEGORÍAS DE NEGOCIOS</div>
@@ -132,28 +132,36 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Negocio</th>
-                                            <th>Estado</th>
                                             <th>Cliente</th>
-                                            <th>Comisión a pagar</th>
+                                            <th>Estado</th>
+                                            <th>Total a pagar</th>
+                                            <th>% Ke Rápido</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-
                                         {% for pedido in ultimos_pedidos %}
                                             <tr>
-                                                <td>5</td>
-                                                <td>Task E</td>
+                                                <td>{{ pedido.id }}</td>
+                                                <td>{{ pedido.negocio.nombre }}</td>
+                                                <td>{{ pedido.cliente_auth }}</td>
                                                 <td>
-                                                    <span class="label bg-red">Suspended</span>
+                                                    {% if pedido.estado == 'Pendiente' %}
+                                                        <span class="label btn-warning m-b--35">{{ pedido.estado }}</span>
+                                                    {% elif pedido.estado == 'Entregado' %}
+                                                        <span class="label btn-success">{{ pedido.estado }}</span>
+                                                    {% else %}
+                                                        <span class="label btn-secondary">{{ pedido.estado }}</span>
+                                                    {% endif %}
                                                 </td>
-                                                <td>John Doe</td>
                                                 <td>
-                                                    10 cup
+                                                    {{ pedido.total_pagar_user }}
+                                                </td>
+
+                                                <td>
+                                                    {{ pedido.porciento_pagar }}
                                                 </td>
                                             </tr>
                                         {% endfor %}
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -166,7 +174,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="card">
                         <div class="body bg-amber">
-                            <div class="font-bold m-b--35">COMISIÓN POR USABILIDAD</div>
+                            <div class="font-bold m-b--35">Porcentaje de Ke Rápido</div>
                             <ul class="dashboard-stat-list">
                                 <li>
                                     HOY
@@ -218,69 +226,69 @@
                             </ul>
                         </div>
                         <div class="body">
-{#                            {% if business %}#}
-                                <div class="table-responsive">
-                                    <table class="table table-hover dashboard-task-infos">
-                                        <thead>
+                            {#                            {% if business %}#}
+                            <div class="table-responsive">
+                                <table class="table table-hover dashboard-task-infos">
+                                    <thead>
+                                    <tr>
+                                        <th>Negocio</th>
+                                        <th>Categoría</th>
+                                        <th>Servicios</th>
+                                        <th>Municipio</th>
+                                        <th>Evaluacion</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for negocio in business %}
                                         <tr>
-                                            <th>Negocio</th>
-                                            <th>Categoría</th>
-                                            <th>Servicios</th>
-                                            <th>Municipio</th>
-                                            <th>Evaluacion</th>
-                                            <th>Acciones</th>
+                                            <td>
+                                                <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
+                                            </td>
+                                            <td>
+                                                {% for categoria in negocio.categorias.all %}
+                                                    {{ categoria.nombre }},
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for servicio in negocio.servicios.all %}
+                                                    <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                {% endfor %}
+
+                                            </td>
+                                            <td>{{ negocio.municipio }}</td>
+
+                                            <td>
+                                                {% if negocio.rating == None %}
+                                                    No evaluado
+                                                {% else %}
+                                                    {{ negocio.rating }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                                   title="Modificar datos de negocio"
+                                                   class="btn btn-default waves-effect waves-black">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-amber"
+                                                   data-href="{% url 'delete_bussiness' negocio.id %}"
+                                                   data-id="{{ negocio.id }}"
+                                                   data-toggle="modal"
+                                                   data-target="#confirm-delete"
+                                                   title="Eliminar Negocio">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for negocio in business %}
-                                            <tr>
-                                                <td>
-                                                    <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
-                                                </td>
-                                                <td>
-                                                    {% for categoria in negocio.categorias.all %}
-                                                        {{ categoria.nombre }},
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    {% for servicio in negocio.servicios.all %}
-                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                                    {% endfor %}
-
-                                                </td>
-                                                <td>{{ negocio.municipio }}</td>
-
-                                                <td>
-                                                    {% if negocio.rating == None %}
-                                                        No evaluado
-                                                    {% else %}
-                                                        {{ negocio.rating }}
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                                       title="Modificar datos de negocio"
-                                                       class="btn btn-default waves-effect waves-black">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a href="#" type="button"
-                                                       class="btn btn-default waves-effect waves-amber"
-                                                       data-href="{% url 'delete_bussiness' negocio.id %}"
-                                                       data-id="{{ negocio.id }}"
-                                                       data-toggle="modal"
-                                                       data-target="#confirm-delete"
-                                                       title="Eliminar Negocio">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-{#                            {% else %}#}
-{#                                No es posible mostrar este listado, porque no tienen negocios registrados#}
-{#                            {% endif %}#}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {#                            {% else %}#}
+                            {#                                No es posible mostrar este listado, porque no tienen negocios registrados#}
+                            {#                            {% endif %}#}
                         </div>
                     </div>
                 </div>
@@ -317,27 +325,30 @@
                                             <th>#</th>
                                             <th>Negocio</th>
                                             <th>Estado</th>
-                                            <th>Cliente</th>
+                                            <th>Cliente que realizo el pedido</th>
                                             <th>Comisión a pagar</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-
                                         {% for pedido in ultimos_pedidos %}
                                             <tr>
-                                                <td>5</td>
-                                                <td>Task E</td>
+                                                <td>{{ pedido.id }}</td>
+                                                <td>{{ pedido.negocio.nombre }}</td>
                                                 <td>
-                                                    <span class="label bg-red">Suspended</span>
+                                                    {% if pedido.estado == 'Pendiente' %}
+                                                        <span class="label btn-warning">{{ pedido.estado }}</span>
+                                                    {% elif pedido.estado == 'Entregado' %}
+                                                        <span class="label btn-success">{{ pedido.estado }}</span>
+                                                    {% else %}
+                                                        <span class="label btn-secondary">{{ pedido.estado }}</span>
+                                                    {% endif %}
                                                 </td>
-                                                <td>John Doe</td>
+                                                <td>{{ pedido.cliente_auth }}</td>
                                                 <td>
-                                                    10 cup
+                                                    {{ pedido.porciento_pagar }}
                                                 </td>
                                             </tr>
                                         {% endfor %}
-
-
                                         </tbody>
                                     </table>
                                 </div>
