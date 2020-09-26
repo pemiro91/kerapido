@@ -32,6 +32,7 @@ urlpatterns = [
     path('ofertas', views.ofertas_laborales, name="ofertas"),
     path('ofertas/<int:id_oferta>', views.detalles_oferta, name="detalles_oferta"),
     path('nuestros_afiliados', views.nuestros_afiliados, name="nuestros_afiliados"),
+    path('nuestros_afiliados/<int:id_afiliado>', views.nuestros_afiliados_detalles, name="detalles_afiliado"),
     path('terminos', views.terminos_servicio, name="terminos_servicio"),
     path('terminos_condiciones', views.terminos_condiciones, name="terminos_condiciones"),
 

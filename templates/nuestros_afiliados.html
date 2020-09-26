@@ -29,15 +29,21 @@
         <div class="container">
 
             <div class="row">
-                {% for negocio in negocios_afiliados %}
+                {% for negocio_afiliado in negocios_afiliados %}
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
                         <div class="card">
-                            <img src="{{ negocio.portada.url}}" class="card-img-top" alt="...">
+                            <img src="{{ negocio_afiliado.portada.url }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="">{{ negocio.nombre}}</a></h5>
-                                <p class="card-text text-center">Necesitamos un repartidor que tenga bicicleta
-                                    eléctrica</p>
-                                <a href="{% url 'detalles_oferta' 1 %}" class="btn">Más detalles</a>
+                                <h5 class="card-title"><a href="">{{ negocio_afiliado.nombre }}</a></h5>
+                                <p class="card-text text-center">
+                                    {% for c in negocio_afiliado.categorias.all %}
+                                        {% if forloop.last %}
+                                            {{ c.nombre }}
+                                        {% else %}
+                                            {{ c.nombre }},
+                                        {% endif %}
+                                    {% endfor %}</p>
+                                <a href="{% url 'detalles_afiliado' negocio_afiliado.id %}" class="btn">Más detalles</a>
                             </div>
                         </div>
                     </div>
@@ -46,6 +52,7 @@
 
         </div>
     </section><!-- Fin de Ofertas Laborales de Afiliados -->
+
 
 
 {% endblock %}

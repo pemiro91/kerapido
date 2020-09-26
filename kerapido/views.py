@@ -76,6 +76,10 @@ def nuestros_afiliados(request):
     context = {'negocios_afiliados': negocios_afiliados}
     return render(request, "nuestros_afiliados.html", context)
 
+def nuestros_afiliados_detalles(request, id_afiliado):
+    negocio_afiliado = get_object_or_404(Negocio, pk=id_afiliado)
+    context = {'negocio_afiliado': negocio_afiliado}
+    return render(request, "nuestros_afiliados_detalles.html", context)
 
 # --------------Panel de control----------------#
 # ----------------------------------------------#
