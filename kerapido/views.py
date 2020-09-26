@@ -574,10 +574,13 @@ def update_bussiness(request, id_bussiness):
         servicios = Servicio.objects.all()
         servicios_marcados = list(negocio.servicios.all())
         categorias_marcadas = list(negocio.categorias.all())
+        frecuencias_marcadas = list(negocio.frecuencia.all())
         categorias = Categoria_Negocio.objects.all()
+        frecuencias = Frecuencia.objects.all()
         macro = Macro.objects.all()
         servicios_no_marcados = []
         categoria_no_marcados = []
+        frecuencia_no_marcados = []
         hr_init = negocio.horario.split('-')[0]
         hr_end = negocio.horario.split('-')[1]
         lunes = False
@@ -594,6 +597,10 @@ def update_bussiness(request, id_bussiness):
         for i in categorias:
             if (i not in categoria_no_marcados) and (i not in categorias_marcadas):
                 categoria_no_marcados.append(i)
+
+        for i in frecuencias:
+            if (i not in frecuencia_no_marcados) and (i not in frecuencias_marcadas):
+                frecuencia_no_marcados.append(i)
 
         for neg in negocio.frecuencia.all():
             if neg.nombre == 'Lunes':
@@ -654,6 +661,8 @@ def update_bussiness(request, id_bussiness):
                    'servicios': servicios,
                    'servicios_marcados': servicios_marcados,
                    'servicios_no_marcados': servicios_no_marcados,
+                   'frecuencias_marcadas': frecuencias_marcadas,
+                   'frecuencia_no_marcados': frecuencia_no_marcados,
                    'categoria_no_marcados': categoria_no_marcados,
                    'categorias_marcadas': categorias_marcadas, 'categorias': categorias, 'macros': macro}
         return render(request, "control_panel/module_businesses/editar_negocio.html", context)
