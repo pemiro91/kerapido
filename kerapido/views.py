@@ -13,6 +13,7 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega
 from django.core.paginator import Paginator
 
+
 # Create your views here.
 # def upload_images(request):
 #     if request.POST:
@@ -79,10 +80,12 @@ def nuestros_afiliados(request):
     context = {'negocios_afiliados': page_obj}
     return render(request, "nuestros_afiliados.html", context)
 
+
 def nuestros_afiliados_detalles(request, id_afiliado):
     negocio_afiliado = get_object_or_404(Negocio, pk=id_afiliado)
     context = {'negocio_afiliado': negocio_afiliado}
     return render(request, "nuestros_afiliados_detalles.html", context)
+
 
 # --------------Panel de control----------------#
 # ----------------------------------------------#
@@ -827,8 +830,16 @@ def add_offer(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         if request.method == 'POST':
+            descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
-            Oferta_Laboral.objects.create(descripcion=description_offer, negocio=negocio)
+            correo = request.POST.get('correo')
+            telefono1 = request.POST.get('telefono1')
+            telefono2 = request.POST.get('telefono2')
+            Oferta_Laboral.objects.create(descripcion_corta=descripcion_corta,
+                                          descripcion=description_offer,
+                                          negocio=negocio, correo=correo,
+                                          telefono1=telefono1,
+                                          telefono2=telefono2)
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio}
         return render(request, "control_panel/module_offers/agregar_oferta.html", context)
@@ -841,8 +852,16 @@ def update_offer(request, id_bussiness, id_offer):
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         offer = get_object_or_404(Oferta_Laboral, pk=id_offer)
         if request.method == 'POST':
+            descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
-            Oferta_Laboral.objects.filter(id=id_offer).update(descripcion=description_offer)
+            correo = request.POST.get('correo')
+            telefono1 = request.POST.get('telefono1')
+            telefono2 = request.POST.get('telefono2')
+            Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                              descripcion=description_offer,
+                                                              negocio=negocio, correo=correo,
+                                                              telefono1=telefono1,
+                                                              telefono2=telefono2)
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'offer': offer}
         return render(request, "control_panel/module_offers/editar_oferta.html", context)

@@ -177,9 +177,9 @@ class Oferta_Laboral(models.Model):
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
     descripcion_corta = models.CharField(max_length=150)
     descripcion = models.CharField(max_length=255)
-    # nombre_contacto = models.CharField(max_length=150)
-    telefono1 = models.IntegerField()
-    telefono2 = models.IntegerField()
+    nombre_contacto = models.CharField(max_length=150)
+    telefono1 = models.IntegerField(null=True, blank=True)
+    telefono2 = models.IntegerField(null=True, blank=True)
     correo = models.EmailField()
 
     def __str__(self):

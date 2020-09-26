@@ -122,69 +122,69 @@
                                 </ul>
                             </div>
                             <div class="body">
-                                {#                            {% if business %}#}
-                                <div class="table-responsive">
-                                    <table class="table table-hover dashboard-task-infos">
-                                        <thead>
-                                        <tr>
-                                            <th>Negocio</th>
-                                            <th>Categoría</th>
-                                            <th>Servicios</th>
-                                            <th>Municipio</th>
-                                            <th>Evaluacion</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for negocio in business %}
+                                {% if business %}
+                                    <div class="table-responsive">
+                                        <table class="table table-hover dashboard-task-infos">
+                                            <thead>
                                             <tr>
-                                                <td>
-                                                    <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
-                                                </td>
-                                                <td>
-                                                    {% for categoria in negocio.categorias.all %}
-                                                        {{ categoria.nombre }},
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    {% for servicio in negocio.servicios.all %}
-                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                                    {% endfor %}
-
-                                                </td>
-                                                <td>{{ negocio.municipio }}</td>
-
-                                                <td>
-                                                    {% if negocio.rating == None %}
-                                                        No evaluado
-                                                    {% else %}
-                                                        {{ negocio.rating }}
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                                       title="Modificar datos de negocio"
-                                                       class="btn btn-default waves-effect waves-black">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a href="#" type="button"
-                                                       class="btn btn-default waves-effect waves-amber"
-                                                       data-href="{% url 'delete_bussiness' negocio.id %}"
-                                                       data-id="{{ negocio.id }}"
-                                                       data-toggle="modal"
-                                                       data-target="#confirm-delete"
-                                                       title="Eliminar Negocio">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </td>
+                                                <th>Negocio</th>
+                                                <th>Categoría</th>
+                                                <th>Servicios</th>
+                                                <th>Municipio</th>
+                                                <th>Evaluacion</th>
+                                                <th>Acciones</th>
                                             </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {#                            {% else %}#}
-                                {#                                No es posible mostrar este listado, porque no tienen negocios registrados#}
-                                {#                            {% endif %}#}
+                                            </thead>
+                                            <tbody>
+                                            {% for negocio in business %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
+                                                    </td>
+                                                    <td>
+                                                        {% for categoria in negocio.categorias.all %}
+                                                            {{ categoria.nombre }},
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        {% for servicio in negocio.servicios.all %}
+                                                            <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                        {% endfor %}
+
+                                                    </td>
+                                                    <td>{{ negocio.municipio }}</td>
+
+                                                    <td>
+                                                        {% if negocio.rating == None %}
+                                                            No evaluado
+                                                        {% else %}
+                                                            {{ negocio.rating }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                                           title="Modificar datos de negocio"
+                                                           class="btn btn-default waves-effect waves-black">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                        <a href="#" type="button"
+                                                           class="btn btn-default waves-effect waves-amber"
+                                                           data-href="{% url 'delete_bussiness' negocio.id %}"
+                                                           data-id="{{ negocio.id }}"
+                                                           data-toggle="modal"
+                                                           data-target="#confirm-delete"
+                                                           title="Eliminar Negocio">
+                                                            <i class="material-icons">delete</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    No es posible mostrar este listado, porque usted no tiene negocios registrados.
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -39,9 +39,10 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable ">
                                 <thead>
                                 <tr>
+                                    <th>Nro.</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Color</th>
@@ -51,6 +52,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Nro.</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Color</th>
@@ -61,12 +63,15 @@
                                 <tbody>
                                 {% for service in services %}
                                     <tr>
+                                        <td>{{ service.id }}</td>
                                         <td>{{ service.nombre }}</td>
-                                        <td>{{ service.descripcion }}</td>
+                                        <td style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ service.descripcion }}</td>
                                         <td>{{ service.color }}</td>
                                         <td>
                                             <a type="button" class="btn btn-default waves-effect waves-black"
-                                                href="{% url 'update_service' service.id %}">
+                                               href="{% url 'update_service' service.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-black"
@@ -126,21 +131,35 @@
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                    "iDisplayLength": 5
+            });
+        });
+    </script>
 
 {% endblock %}
-
-{#    <!-- Jquery Core Js -->#}
-{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
-{##}
-{#    <!-- Bootstrap Core Js -->#}
-{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
-{##}
-{#    <!-- Select Plugin Js -->#}
-{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
-{##}
-{#    <!-- Slimscroll Plugin Js -->#}
-{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
-{##}
-{#    <!-- Waves Effect Plugin Js -->#}
-{#    <script src="../../plugins/node-waves/waves.js"></script>#}
-

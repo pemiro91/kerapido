@@ -51,7 +51,7 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example ">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -141,36 +141,35 @@
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
 
-{#    <script>#}
-{#        window.setTimeout(function () {#}
-{#            location.href = "http://127.0.0.1:8000/reservations_admin";#}
-{#        }, 10000); // refresh/redirect after 5 seconds.#}
-{#    </script>#}
-{#    <script>#}
-{#        var start = document.getElementById("start");#}
-{#        var dis = document.getElementById("display");#}
-{#        var finishTime;#}
-{#        var timerLength = 10;#}
-{#        var timeoutID;#}
-{#        dis.innerHTML = "0: " + timerLength;#}
-{##}
-{#        if(localStorage.getItem('myTime')){#}
-{#            Update();#}
-{#        }#}
-{#        start.onclick = function () {#}
-{#            localStorage.setItem('myTime', ((new Date()).getTime() + timerLength * 1000));#}
-{#            if (timeoutID !== undefined)#}
-{#                window.clearTimeout(timeoutID);#}
-{#            Update();#}
-{#        }#}
-{##}
-{#        function Update() {#}
-{#            finishTime = localStorage.getItem('myTime');#}
-{#            var timeLeft = (finishTime - new Date());#}
-{#            dis.innerHTML = "0: " + Math.max(timeLeft/1000,0);#}
-{#            timeoutID = window.setTimeout(Update, 100);#}
-{#        }#}
-{#    </script>#}
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                    "iDisplayLength": 5
+            });
+        });
+    </script>
 
 {% endblock %}

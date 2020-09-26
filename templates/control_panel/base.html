@@ -296,12 +296,17 @@
                                 <span>Negocios</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{% url 'categories' %}">
-                                <i class="material-icons">local_offer</i>
-                                <span>Categorias de Negocios</span>
-                            </a>
-                        </li>
+                    {% endif %}
+                {% endif %}
+
+                <li>
+                    <a href="{% url 'categories' %}">
+                        <i class="material-icons">local_offer</i>
+                        <span>Categorias de Negocios</span>
+                    </a>
+                </li>
+                {% if business %}
+                    {% if request.user.is_administrador or request.user.is_superuser %}
                         <li>
                             <a href="{% url 'reservations_admin' %}">
                                 <i class="material-icons">shopping_cart</i>
@@ -309,6 +314,7 @@
                             </a>
                         </li>
                     {% endif %}
+
                 {% endif %}
                 {% if request.user.is_superuser %}
                     <li>
@@ -352,7 +358,7 @@
 
 <!-- Select Plugin Js -->
 <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
-
+1
 <!-- Slimscroll Plugin Js -->
 <script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
 

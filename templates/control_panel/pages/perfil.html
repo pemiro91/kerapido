@@ -12,10 +12,10 @@
                 <div class="card profile-card">
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
-                        <div class="image-area">
-                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"
-                                 alt="AdminBSB - Profile Image"/>
-                        </div>
+{#                        <div class="image-area">#}
+{#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
+{#                                 alt="AdminBSB - Profile Image"/>#}
+{#                        </div>#}
                         <div class="content-area">
                             <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
                             <p>superusuario</p>
@@ -33,7 +33,7 @@
                                 <span>{{ request.user.telefono }}</span>
                             </li>
                             <li>
-                                <span>Afiliado desde</span>
+                                <span>Activo desde</span>
                                 <span>{{ request.user.fecha_alta|date }}</span>
                             </li>
                         </ul>

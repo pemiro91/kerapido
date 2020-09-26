@@ -52,35 +52,40 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example " >
+                            <table id="example"
+                                   class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
+                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
                                     <th>Teléfono</th>
                                     <th>Correo</th>
                                     <th>Estado usuario</th>
-
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
                                     <th>Teléfono</th>
                                     <th>Correo</th>
                                     <th>Estado usuario</th>
-
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
                                 {% for user in usuarios %}
                                     <tr>
-                                        <td><a>{{ user.first_name }} {{ user.last_name }}</a></td>
+                                        <th>{{ user.id }}</th>
+                                        <td style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;"><a>{{ user.first_name }} {{ user.last_name }}</a>
+                                        </td>
                                         <td>{{ user.username }}</td>
                                         {% if user.is_afiliado %}
                                             <td>Afiliado</td>
@@ -100,13 +105,14 @@
                                         {% endif %}
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
-                                            <td><span class="label bg-green" data-toggle="tooltip" data-placement="top" title="{{ user.fecha_alta }}">Activo</span></td>
+                                            <td><span class="label bg-green" data-toggle="tooltip" data-placement="top"
+                                                      title="{{ user.fecha_alta }}">Activo</span></td>
                                         {% else %}
                                             <td><span class="label bg-red">Bloqueado</span></td>
                                         {% endif %}
 
                                         <td>
-{#                                         <div class="icon-button-demo m-t-25">#}
+                                            {#                                         <div class="icon-button-demo m-t-25">#}
                                             {% if user.is_active %}
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-amber"
@@ -126,7 +132,7 @@
                                                     <i class="material-icons">accessibility</i>
                                                 </a>
                                             {% endif %}
-                                            <a  type="button" href="{% url 'update_user' user.id %}"
+                                            <a type="button" href="{% url 'update_user' user.id %}"
                                                class="btn btn-default waves-effect waves-amber">
                                                 <i class="material-icons">edit</i>
                                             </a>
@@ -138,7 +144,7 @@
                                                title="Eliminar Usuario">
                                                 <i class="material-icons">delete</i>
                                             </a>
-{#                                         </div>#}
+                                            {#                                         </div>#}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -172,8 +178,9 @@
                     <h4 class="modal-title" id="defaultModalLabel">Desea bloquear la cuenta?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark waves-effect waves-black" data-dismiss="modal">Cerrar</button>
-                    <a type="button" class="btn btn-default btn-ok waves-effect waves-black" >Bloquear</a>
+                    <button type="button" class="btn btn-dark waves-effect waves-black" data-dismiss="modal">Cerrar
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok waves-effect waves-black">Bloquear</a>
                 </div>
             </div>
         </div>
@@ -225,21 +232,36 @@
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                    "iDisplayLength": 5
+            });
+        });
+    </script>
+
 
 {% endblock %}
-
-{#    <!-- Jquery Core Js -->#}
-{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
-{##}
-{#    <!-- Bootstrap Core Js -->#}
-{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
-{##}
-{#    <!-- Select Plugin Js -->#}
-{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
-{##}
-{#    <!-- Slimscroll Plugin Js -->#}
-{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
-{##}
-{#    <!-- Waves Effect Plugin Js -->#}
-{#    <script src="../../plugins/node-waves/waves.js"></script>#}
-
