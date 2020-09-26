@@ -26,7 +26,7 @@
 
     <!-- ======= Ofertas Laborales de Afiliados ======= -->
     <section id="cards" class="cards">
-        <div class="container">
+        <div class="container ">
 
             <div class="row">
                 {% for negocio_afiliado in negocios_afiliados %}
@@ -50,7 +50,45 @@
                 {% endfor %}
             </div>
 
+
         </div>
+        <!--Pagination-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if negocios_afiliados.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ negocios_afiliados.previous_page_number }}">Anterior</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                    </li>
+                {% endif %}
+                {% for i in negocios_afiliados.paginator.page_range %}
+                    {% if movies.number == i %}
+                        <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+                <span class="sr-only">(current)</span>
+              </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if movies.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ negocios_afiliados.next_page_number }}">Siguiente</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Siguiente</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <!--end of Pagination-->
+
     </section><!-- Fin de Ofertas Laborales de Afiliados -->
 
 

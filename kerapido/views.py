@@ -11,7 +11,7 @@ from django.urls import reverse
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 # def upload_images(request):
@@ -73,7 +73,10 @@ def ofertas_laborales(request):
 
 def nuestros_afiliados(request):
     negocios_afiliados = Negocio.objects.all()
-    context = {'negocios_afiliados': negocios_afiliados}
+    paginator = Paginator(negocios_afiliados, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'negocios_afiliados': page_obj}
     return render(request, "nuestros_afiliados.html", context)
 
 def nuestros_afiliados_detalles(request, id_afiliado):
