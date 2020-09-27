@@ -51,28 +51,33 @@
                         <h2>AGREGAR NEGOCIO</h2>
                     </div>
 
-
                     <div class="body">
-                        <form id="Form" class="form-horizontal form-form_validation" enctype="multipart/form-data"
+                        <form id="Form" name="formBussiness" class="form-horizontal form-form_validation" enctype="multipart/form-data"
                               role="form" method="post">{% csrf_token %}
                             <div>
                                 <ul class="nav nav-tabs tab-col-black" role="tablist">
-
-                                    <li role="presentation" class="active"><a href="#identidad"
-                                                                              aria-controls="settings" role="tab"
-                                                                              data-toggle="tab">Información de Identidad</a>
+                                    <li role="presentation" class="active">
+                                        <a href="#" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Información de Identidad
+                                        </a>
                                     </li>
-                                    <li role="presentation"><a href="#servicios" aria-controls="settings"
-                                                               role="tab" data-toggle="tab">Servicios y Horiarios</a></li>
-                                    <li role="presentation"><a href="#contacto" aria-controls="settings"
-                                                               role="tab" data-toggle="tab">Información de Contacto</a></li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Servicios y Horiarios
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Información de Contacto
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="identidad">
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="first_name">Nombre del Negocio*</label>
+                                                <label for="name">Nombre del Negocio*</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
@@ -87,7 +92,7 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="last_name">Logotipo</label>
+                                                <label for="last_name">Logotipo*</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
@@ -100,7 +105,7 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="last_name">Portada</label>
+                                                <label for="last_name">Portada*</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
@@ -128,7 +133,7 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="category">Categoria</label>
+                                                <label for="category">Categoria*</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
@@ -154,22 +159,24 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
-                                                <a href="#servicios" aria-controls="settings"
+                                                <a aria-controls="settings"
+                                                   id="enlace_servicio"
+                                                   onclick="return validateFormIdentidad()"
                                                    role="tab" data-toggle="tab"
-                                                   class="btn btn-default waves-effect waves-amber btnNext">
+                                                   class="btn btn-default waves-effect waves-amber btnNext ">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>SIGUIENTE</span></a>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade in" id="servicios">
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="service">Servicios</label>
+                                                <label for="services_bussiness">Servicios</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
-                                                    <select id="service" name="services_bussiness"
+                                                    <select id="services_bussiness" name="services_bussiness"
                                                             class="form-control show-tick" multiple required>
                                                         {% if servicios_mostrar %}
                                                             {% for servicio in servicios_mostrar %}
@@ -182,12 +189,12 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="phone">Horario</label>
+                                                <label for="frecuencia_bussiness">Horario</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                                        <select id="service" name="frecuencia"
+                                                        <select id="frecuencia_bussiness" name="frecuencia_bussiness"
                                                                 class="form-control" multiple required>
                                                             {% for frec in frecuencia %}
                                                             <option value="{{ frec.nombre }}">{{ frec.nombre }}</option>
@@ -203,18 +210,18 @@
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="demo-masked-input">
-                                                    <div class="input-daterange input-group"
-                                                         id="bs_datepicker_range_container">
+                                                    <div class="input-daterange input-group" id="bs_datepicker_range_container">
                                                         <span class="input-group-addon">desde</span>
                                                         <div class="input-group">
                                                                 <span class="input-group-addon">
                                                                     <i class="material-icons">access_time</i>
                                                                 </span>
                                                             <div class="form-line">
-                                                                <input type="text" class="form-control time12"
-                                                                       name="hour_init" placeholder="Ej: 11:00 am">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           name="hour_init_bussiness" placeholder="Ej: 11:00 am">
+                                                                </label>
                                                             </div>
-
                                                         </div>
                                                         <span class="input-group-addon">hasta</span>
                                                         <div class="input-group">
@@ -222,8 +229,10 @@
                                                                     <i class="material-icons">access_time</i>
                                                                 </span>
                                                             <div class="form-line">
-                                                                <input type="text" class="form-control time12"
-                                                                       name="hour_end" placeholder="Ej: 11:30 pm">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           name="hour_end_bussiness" placeholder="Ej: 11:30 pm">
+                                                                </label>
                                                             </div>
 
                                                         </div>
@@ -241,38 +250,39 @@
                                                     <span>ATRAS</span></a>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                                <a href="#contacto" aria-controls="settings"
+                                                <a aria-controls="settings"
+                                                   id="enlace_contacto"
+                                                   onclick="return validateFormServicio()"
                                                    role="tab" data-toggle="tab"
                                                    class="btn btn-default waves-effect waves-amber btnNext">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>SIGUIENTE</span></a>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade in" id="contacto">
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="phone">Dirección</label>
+                                                <label for="address_bussiness">Dirección</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                            <textarea name="address_bussiness" cols="30" rows="1"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      placeholder="Escriba la direccion completa"></textarea>
+                                                        <textarea name="address_bussiness" cols="30" rows="1"
+                                                                  id="address_bussiness"
+                                                                  class="form-control no-resize"
+                                                                  required
+                                                                  placeholder="Escriba la direccion completa"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                                <label for="municipio">Municipio</label>
+                                                <label for="municipio_bussiness">Municipio</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                                <select id="municipio" name="municipio"
-                                                        class="form-control show-tick"
-                                                        data-live-search="true">
+                                                <select id="municipio_bussiness" name="municipio_bussiness" class="form-control show-tick" data-live-search="true">
                                                     {% if municipios %}
                                                         {% for municipio in municipios %}
                                                             <option value="{{ municipio.pk }}">{{ municipio.nombre }}</option>
@@ -322,6 +332,7 @@
                                                         <input type="email" id="email_bussiness"
                                                                class="form-control"
                                                                name="email_bussiness"
+                                                               required
                                                                placeholder="Escribe el correo de contacto">
                                                     </div>
                                                 </div>
@@ -337,8 +348,9 @@
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <button class="btn btn-default waves-effect waves-amber"
+                                                        onclick="return validateFormContacto()"
                                                         type="submit">
-                                                    <i class="material-icons " style="color: #212121">send</i>
+                                                    <i class="material-icons " style="color: #212121">add</i>
                                                     <span>AGREGAR</span></button>
                                             </div>
                                         </div>
@@ -390,15 +402,6 @@
     <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
     <!-- Demo Js -->
     <script src="{% static 'control_panel/js/demo.js' %}"></script>
-
-    <script>
-        $('.btnNext').click(function () {
-          $('.nav-tabs > .active').next('li').find('a').trigger('click');
-        });
-
-        $('.btnPrevious').click(function () {
-          $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-        });
-    </script>
+    <script src="{% static 'control_panel/js/validate_negocio.js' %}"></script>
 
 {% endblock %}
