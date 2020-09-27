@@ -243,8 +243,78 @@
                         <span>Inicio</span>
                     </a>
                 </li>
-                {% if business %}
-                    {% if request.user.is_afiliado or request.user.is_superuser %}
+
+                {% if request.user.is_afiliado or request.user.is_persona_encargada %}
+                    {% if business %}
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">folder</i>
+                                <span>Mis Negocios</span>
+                            </a>
+                            <ul class="ml-menu">
+                                {% for negocio in business %}
+                                    <li>
+                                        <a href="javascript:void(0);" class="menu-toggle">
+                                            <span>{{ negocio.nombre }}</span>
+                                        </a>
+                                        <ul class="ml-menu">
+                                            <li>
+                                                <a href="{% url 'category_products' negocio.id %}">Categoria de
+                                                    Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'products' negocio.id %}">Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'reservations' negocio.id %}">Pedidos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{% url 'users' %}">
+                                <i class="material-icons">group</i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% elif request.user.administrador %}
+                    <li>
+                        <a href="{% url 'users' %}">
+                            <i class="material-icons">group</i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'bussiness' %}">
+                            <i class="material-icons">business</i>
+                            <span>Negocios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'reservations_admin' %}">
+                            <i class="material-icons">shopping_cart</i>
+                            <span>Todos los Pedidos</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'services' %}">
+                            <i class="material-icons">widgets</i>
+                            <span>Servicios</span>
+                        </a>
+                    </li>
+                {% else %}
+                    {% if business %}
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">folder</i>
@@ -279,50 +349,32 @@
                             </ul>
                         </li>
                     {% endif %}
-                {% endif %}
+                    <li>
+                        <a href="{% url 'users' %}">
+                            <i class="material-icons">group</i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'bussiness' %}">
+                            <i class="material-icons">business</i>
+                            <span>Negocios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'reservations_admin' %}">
+                            <i class="material-icons">shopping_cart</i>
+                            <span>Todos los Pedidos</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{% url 'users' %}">
-                        <i class="material-icons">group</i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                {% if business %}
-                    {% if request.user.is_administrador or request.user.is_superuser %}
-
-                        <li>
-                            <a href="{% url 'bussiness' %}">
-                                <i class="material-icons">business</i>
-                                <span>Negocios</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endif %}
-
-                <li>
-                    <a href="{% url 'categories' %}">
-                        <i class="material-icons">local_offer</i>
-                        <span>Categorias de Negocios</span>
-                    </a>
-                </li>
-                {% if business %}
-                    {% if request.user.is_administrador or request.user.is_superuser %}
-                        <li>
-                            <a href="{% url 'reservations_admin' %}">
-                                <i class="material-icons">shopping_cart</i>
-                                <span>Todos los Pedidos</span>
-                            </a>
-                        </li>
-                    {% endif %}
-
-                {% endif %}
-                {% if request.user.is_superuser %}
                     <li>
                         <a href="{% url 'services' %}">
                             <i class="material-icons">widgets</i>
                             <span>Servicios</span>
                         </a>
                     </li>
+
                 {% endif %}
 
             </ul>

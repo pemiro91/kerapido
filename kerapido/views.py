@@ -431,6 +431,53 @@ def delete_user(request, id_user):
     return redirect('login')
 
 
+def add_persom(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            confirm = request.POST.get('confirm')
+
+            if User.objects.filter(username=username).exists():
+                messages.warning(request, 'El nombre de usuario ya existe')
+                return redirect('add_person_of_business')
+            elif password != confirm:
+                messages.warning(request, 'Las contraseñas no coinciden')
+                return redirect('add_person_of_business')
+            else:
+                User.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    telefono=phone,
+                    email=email,
+                    username=username,
+                    password=password,
+                    is_afiliado=False,
+                    is_persona_encargada=True,
+                    is_administrador=False,
+                    is_cliente=False,
+                    is_active=False
+                )
+                messages.success(request,
+                                 'Usted ha agregado satisfactoriamente a una persona encargada')
+            return redirect('users')
+        context = {'business': business}
+        return render(request, "control_panel/module_users/agregar_persona_encargada.html", context)
+    return redirect('login')
+
+
+def rol_admin(request, id_user):
+    if request.user.is_authenticated:
+        User.objects.filter(pk=id_user).update(is_administrador=True, is_afiliado=False)
+        return redirect('users')
+    return redirect('login')
+
+
 # -------------------Módulo Categoria Negocio---------------#
 
 def categories(request):

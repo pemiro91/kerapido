@@ -40,15 +40,17 @@
                         <h2>
                             LISTADO DE USUARIOS
                         </h2>
-                        {#                        <ul class="header-dropdown m-r--5">#}
-                        {#                            <li class="dropdown">#}
-                        {#                                <button type="button" class="btn bg-amber waves-effect">#}
-                        {#                                    <i class="material-icons " style="color: #fff">add_circle</i>#}
-                        {#                                    <span>AGREGAR</span>#}
-                        {#                                </button>#}
-                        {##}
-                        {#                            </li>#}
-                        {#                        </ul>#}
+                        {% if request.user.is_afiliado %}
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="{% url 'add_person_of_business' %}" type="button"
+                                       class="btn btn-default waves-effect waves-black">
+                                        <i class="material-icons " style="color: #212121">add_circle</i>
+                                        <span>AGREGAR</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -84,7 +86,7 @@
                                         <th>{{ user.id }}</th>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
-                                          text-overflow: ellipsis;"><a>{{ user.first_name }} {{ user.last_name }}</a>
+                                          text-overflow: ellipsis;">{{ user.first_name }} {{ user.last_name }}
                                         </td>
                                         <td>{{ user.username }}</td>
                                         {% if user.is_afiliado %}
@@ -115,16 +117,16 @@
                                             {#                                         <div class="icon-button-demo m-t-25">#}
                                             {% if user.is_active %}
                                                 <a href="#" type="button"
-                                                   class="btn btn-default waves-effect waves-amber"
+                                                   class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'blocked_user' user.id %}"
-                                                   title="Bloquear Usuario"
+                                                   title="Desactivar Usuario"
                                                    data-toggle="modal" data-target="#blockedModal"
                                                    data-id="{{ user.id }}">
                                                     <i class="material-icons">accessibility</i>
                                                 </a>
                                             {% else %}
                                                 <a href="#" type="button"
-                                                   class="btn btn-default waves-effect waves-amber"
+                                                   class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'activate_user' user.id %}"
                                                    title="Activar Usuario"
                                                    data-toggle="modal" data-target="#activeModal"
@@ -132,11 +134,22 @@
                                                     <i class="material-icons">accessibility</i>
                                                 </a>
                                             {% endif %}
+                                            {% if request.user.is_superuser %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href="{% url 'rol_admin' user.id %}"
+                                                   title="Asignar Rol de Administrador"
+                                                   data-toggle="modal" data-target="#cambiarRol"
+                                                   data-id="{{ user.id }}">
+                                                    <i class="material-icons">swap_calls </i>
+                                                </a>
+
+                                            {% endif %}
                                             <a type="button" href="{% url 'update_user' user.id %}"
-                                               class="btn btn-default waves-effect waves-amber">
+                                               class="btn btn-default waves-effect waves-black">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-black"
                                                data-href="{% url 'delete_user' user.id %}"
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
@@ -161,12 +174,17 @@
     <div class="modal fade" id="activeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">Desea activar la cuenta?</h4>
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Desbloquear usuario</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente desbloquear a este usuario ?
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a type="button" class="btn btn-success btn-ok">Activar</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> DESBLOQUEAR</a>
                 </div>
             </div>
         </div>
@@ -174,28 +192,53 @@
     <div class="modal fade" id="blockedModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">Desea bloquear la cuenta?</h4>
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Bloquear usuario</h4>
+                </div>
+                <div class="modal-body">
+
+                    ¿Desea realmente bloquear a este usuario ?
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark waves-effect waves-black" data-dismiss="modal">Cerrar
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
                     </button>
-                    <a type="button" class="btn btn-default btn-ok waves-effect waves-black">Bloquear</a>
+                    <a type="button" class="btn btn-default btn-ok"> BLOQUEAR</a>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el usuario?</h5>
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Eliminar usuario</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente eliminar a este usuario?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                    <a type="button" class="btn btn-default btn-ok">ELIMINAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cambiarRol" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Asignar rol de administrador</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente asignar el rol de administrador a este usuario ?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ASIGNAR ROL</a>
                 </div>
             </div>
         </div>
@@ -257,8 +300,8 @@
                         "previous": "Anterior"
                     }
                 },
-                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>
