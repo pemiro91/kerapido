@@ -53,24 +53,27 @@
                 <div class="card">
                     <div class="header">
                         <h2>MODIFICAR INFORMACIÓN DEL NEGOCIO</h2>
-
                     </div>
-
-
                     <div class="body">
-                        <form id="Form" class="form-horizontal form-form_validation" enctype="multipart/form-data"
+                        <form id="Form" name="formBussiness" class="form-horizontal form-form_validation" enctype="multipart/form-data"
                               role="form" method="post">{% csrf_token %}
                             <div>
                                 <ul class="nav nav-tabs tab-col-black" role="tablist">
-
-                                    <li role="presentation" class="active"><a href="#identidad"
-                                                                              aria-controls="settings" role="tab"
-                                                                              data-toggle="tab">Información de Identidad</a>
+                                    <li role="presentation" class="active">
+                                        <a href="#identidad" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Información de Identidad
+                                        </a>
                                     </li>
-                                    <li role="presentation"><a href="#servicios" aria-controls="settings"
-                                                               role="tab" data-toggle="tab">Servicios y Horiarios</a></li>
-                                    <li role="presentation"><a href="#contacto" aria-controls="settings"
-                                                               role="tab" data-toggle="tab">Información de Contacto</a></li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#servicios" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Servicios y Horiarios
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#contacto" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Información de Contacto
+                                        </a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="identidad">
@@ -121,11 +124,13 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
-                                                <a href="#servicios" aria-controls="settings"
+                                                <a aria-controls="settings"
+                                                   id="enlace_servicio"
+                                                   onclick="return validateFormIdentidadEditar()"
                                                    role="tab" data-toggle="tab"
-                                                   class="btn btn-default waves-effect waves-amber btnNext">
+                                                   class="btn btn-default waves-effect waves-amber btnNext ">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>SIGUIENTE</span></a>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +166,7 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                                        <select id="service" name="frecuencia" class="form-control" multiple required>
+                                                        <select id="service" name="frecuencia_bussiness" class="form-control" multiple required>
                                                             {% if frecuencias_marcadas %}
                                                                 {% for fre in frecuencias_marcadas %}
                                                                     <option value="{{ fre.nombre }}" selected>{{ fre.nombre }}</option>
@@ -190,9 +195,11 @@
                                                                     <i class="material-icons">access_time</i>
                                                                 </span>
                                                             <div class="form-line">
-                                                                <input type="text" class="form-control time12"
-                                                                       value="{{ hr_init }}"
-                                                                       name="hour_init" placeholder="Ej: 11:00 am">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           value="{{ hr_init }}"
+                                                                           name="hour_init_bussiness" placeholder="Ej: 11:00 am">
+                                                                </label>
                                                             </div>
                                                         </div>
                                                         <span class="input-group-addon">hasta</span>
@@ -201,9 +208,11 @@
                                                                     <i class="material-icons">access_time</i>
                                                                 </span>
                                                             <div class="form-line">
-                                                                <input type="text" class="form-control time12"
-                                                                       value="{{ hr_end }}"
-                                                                       name="hour_end" placeholder="Ej: 11:30 pm">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           value="{{ hr_end }}"
+                                                                           name="hour_end_bussiness" placeholder="Ej: 11:30 pm">
+                                                                </label>
                                                             </div>
 
                                                         </div>
@@ -220,11 +229,13 @@
                                                     <span>ATRAS</span></a>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                                <a href="#contacto" aria-controls="settings"
+                                                <a aria-controls="settings"
+                                                   id="enlace_contacto"
+                                                   onclick="return validateFormServicio()"
                                                    role="tab" data-toggle="tab"
                                                    class="btn btn-default waves-effect waves-amber btnNext">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>SIGUIENTE</span></a>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -250,7 +261,7 @@
                                                 <label for="municipio">Municipio</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                                <select id="municipio" name="municipio" class="form-control show-tick"
+                                                <select id="municipio" name="municipio_bussiness" class="form-control show-tick"
                                                         data-live-search="true">
                                                     {% ifequal negocio.municipio.nombre 'Diez de Octubre' %}
                                                         <option value="1" selected>Diez de Octubre</option>
@@ -568,6 +579,7 @@
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <button class="btn btn-default waves-effect waves-amber"
+                                                        onclick="return validateFormContacto()"
                                                         type="submit">
                                                     <i class="material-icons " style="color: #212121">edit</i>
                                                     <span>ACTUALIZAR</span></button>
@@ -623,14 +635,6 @@
     <!-- Demo Js -->
     <script src="{% static 'control_panel/js/demo.js' %}"></script>
 
-    <script>
-        $('.btnNext').click(function () {
-          $('.nav-tabs > .active').next('li').find('a').trigger('click');
-        });
-
-        $('.btnPrevious').click(function () {
-          $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-        });
-    </script>
+    <script src="{% static 'control_panel/js/validate_negocio.js' %}"></script>
 
 {% endblock %}
