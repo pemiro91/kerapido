@@ -60,6 +60,9 @@ urlpatterns = [
     path('blocked_user/<int:id_user>', views.blocked_user, name="blocked_user"),
     path('update_user/<int:id_user>', views.update_user, name="update_user"),
     path('delete_user/<int:id_user>', views.delete_user, name="delete_user"),
+    path('add_person/', views.add_person, name="add_person_of_business"),
+    path('update_person/<int:id_user>', views.update_person, name="update_person"),
+    path('rol_admin/<int:id_user>', views.rol_admin, name="rol_admin"),
 
     path('products/<int:id_bussiness>', views.products, name="products"),
     path('add_product/<int:id_bussiness>', views.add_product, name="add_product"),

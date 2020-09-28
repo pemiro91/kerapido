@@ -6,11 +6,13 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.db import transaction
+from django.db.models import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
-    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, Notification
+    Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
+    PerfilAfiliado
 from django.core.paginator import Paginator
 
 
@@ -102,12 +104,12 @@ def register_affiliate(request):
 
         if User.objects.filter(username=username).exists():
             messages.warning(request, 'El nombre de usuario ya existe')
-            return redirect('register_affiliate')
+            return redirect('register_business')
         elif password != confirm:
-            messages.warning(request, 'Las contraseñas no coinciden')
-            return redirect('register_affiliate')
+            messages.warning(request, 'Las contraseñas no existen')
+            return redirect('register_business')
         else:
-            user = User.objects.create_user(
+            User.objects.create_user(
                 first_name=first_name,
                 last_name=last_name,
                 telefono=phone,
@@ -120,11 +122,6 @@ def register_affiliate(request):
                 is_cliente=False,
                 is_active=False
             )
-            mensaje_notificacion = user.first_name + ' se registró como afiliado.'
-            if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion,
-                                            estado='No-Leido', tipo='Usuario')
-                notificacion.save()
             messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al panel')
             return redirect('login')
     context = {}
@@ -134,16 +131,16 @@ def register_affiliate(request):
 def base(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         services = Servicio.objects.all()
-        context = {'business': business, 'services': services}
+        context = {'business': business, 'services': services, 'business_persona': business_persona}
         return render(request, "control_panel/base.html", context)
     return redirect('login')
 
 
 def admin_panel(request):
     if request.user.is_authenticated:
-        notificaciones = Notification.objects.all().order_by('-fecha')[:5]
-        cant_notificaciones = len(notificaciones)
         business = Negocio.objects.filter(usuario_negocio=request.user)
         services = Servicio.objects.all()
         cant_pedidos = len(Pedido.objects.all())
@@ -166,9 +163,19 @@ def admin_panel(request):
         comision_ultimo_mes_general = 0
         comision_anno_general = 0
         comision_general = 0
+        business_persona = QuerySet
+
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+
+
 
         if request.user.is_superuser or request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+        elif request.user.is_persona_encargada:
+            pedidos_general = Pedido.objects.filter(negocio_id=persona_encargada.negocio_pertenece.id)
             ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
         else:
             pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
@@ -198,7 +205,6 @@ def admin_panel(request):
             comision_general += pe.porciento_pagar
 
         context = {'business': business, 'services': services,
-                   'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones,
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
                    'ultimos_pedidos': ultimos_pedidos, 'cantidad_servicios': cant_servicios,
@@ -208,6 +214,7 @@ def admin_panel(request):
                    'comision_ultimo_mes_general': comision_ultimo_mes_general,
                    'comision_anno_general': comision_anno_general,
                    'comision_general': comision_general,
+                   'business_persona': business_persona,
                    'pedidos': pedidos_general}
         return render(request, "control_panel/index.html", context)
     return redirect('login')
@@ -225,6 +232,11 @@ def login_admin(request):
                 tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
                 if tiene_negocio or user.is_superuser or user.is_administrador:
                     return redirect('panel')
+                elif user.is_persona_encargada:
+                    persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
+                    tiene_negocio_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+                    if tiene_negocio_persona:
+                        return redirect('panel')
                 else:
                     return redirect('add_bussiness')
         else:
@@ -243,6 +255,10 @@ def logout(request):
 def profile(request):
     if request.user.is_authenticated:
         bussiness = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == "POST":
             nombre = request.POST.get('first_name')
             apellidos = request.POST.get('last_name')
@@ -257,7 +273,7 @@ def profile(request):
                 username=usuario
             )
             return redirect('login')
-        context = {'business': bussiness}
+        context = {'business': bussiness, 'business_persona': business_persona}
         return render(request, "control_panel/pages/perfil.html", context)
     return redirect('login')
 
@@ -265,6 +281,8 @@ def profile(request):
 def change_password(request):
     if request.user.is_authenticated:
         bussiness = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == "POST":
             old_password = request.POST.get('oldPassword')
             new_password = request.POST.get('newPassword')
@@ -280,7 +298,7 @@ def change_password(request):
             U.save()
             messages.success(request, 'Se cambió la contraseña satisfactoriamente')
             return redirect('login')
-        context = {'business': bussiness}
+        context = {'business': bussiness, 'business_persona': business_persona}
         return render(request, "control_panel/pages/perfil.html", context)
     return redirect('login')
 
@@ -291,7 +309,11 @@ def services(request):
     if request.user.is_authenticated:
         servicios = Servicio.objects.all()
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'services': servicios, 'business': business}
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        context = {'services': servicios, 'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_services/listado_servicios.html", context)
     return redirect('login')
 
@@ -299,13 +321,15 @@ def services(request):
 def add_services(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
             description_service = request.POST.get('description_service')
             color_service = request.POST.get('color_service')
             Servicio.objects.create(nombre=name_service, descripcion=description_service, color=color_service)
             return redirect('services')
-        context = {'business': business}
+        context = {'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_services/agregar_servicios.html", context)
     return redirect('login')
 
@@ -314,6 +338,8 @@ def update_service(request, id_service):
     if request.user.is_authenticated:
         service = Servicio.objects.get(id=id_service)
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
             description_service = request.POST.get('description_service')
@@ -325,7 +351,7 @@ def update_service(request, id_service):
                     color=color_service
                 )
                 return redirect('services')
-        context = {'service': service, 'business': business}
+        context = {'service': service, 'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_services/editar_servicios.html", context)
     return redirect('login')
 
@@ -343,9 +369,11 @@ def delete_service(request, id_service):
 def reservations(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         pedidos = Pedido.objects.filter(negocio=id_bussiness)
-        context = {'business': business, 'negocio': negocio, 'pedidos': pedidos}
+        context = {'business': business, 'negocio': negocio, 'pedidos': pedidos, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/listado_reservaciones.html", context)
     return redirect('login')
 
@@ -354,11 +382,13 @@ def change_state_reservation(request, id_bussiness, id_reservation):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             state = request.POST.get('state')
             Pedido.objects.filter(pk=id_reservation).update(estado=state)
             return redirect(reverse('reservations', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio}
+        context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/listado_reservaciones.html", context)
     return redirect('login')
 
@@ -366,8 +396,10 @@ def change_state_reservation(request, id_bussiness, id_reservation):
 def factura(request, id_pedido):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         pedido = get_object_or_404(Pedido, pk=id_pedido)
-        context = {'business': business, 'pedido': pedido}
+        context = {'business': business, 'pedido': pedido, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/factura.html", context)
     return redirect('login')
 
@@ -375,8 +407,12 @@ def factura(request, id_pedido):
 def reservations_admin(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         pedidos = Pedido.objects.all()
-        context = {'business': business, 'pedidos': pedidos}
+        context = {'business': business, 'pedidos': pedidos, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/listado_reservaciones_admin.html", context)
     return redirect('login')
 
@@ -385,9 +421,18 @@ def reservations_admin(request):
 
 def users(request):
     if request.user.is_authenticated:
+        personas_afiliadas = QuerySet
+        if request.user.is_afiliado:
+            perfilAfiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.pk)
+            personas_afiliadas = PerfilPersonaEncargada.objects.filter(afiliado_pertenece_id=perfilAfiliado.pk)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        context = {'usuarios': usuarios, 'business': business}
+        context = {'usuarios': usuarios, 'business': business, 'personas_afiliadas': personas_afiliadas,
+                   'business_persona': business_persona}
         return render(request, "control_panel/module_users/listado_usuarios.html", context)
     return redirect('login')
 
@@ -410,6 +455,10 @@ def update_user(request, id_user):
     if request.user.is_authenticated:
         user_custom = User.objects.get(id=id_user)
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
@@ -426,7 +475,7 @@ def update_user(request, id_user):
                     email=email
                 )
                 return redirect('users')
-        context = {'user': user_custom, 'business': business}
+        context = {'user': user_custom, 'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_users/editar_usuario.html", context)
     return redirect('login')
 
@@ -435,6 +484,93 @@ def delete_user(request, id_user):
     if request.user.is_authenticated:
         p = User.objects.get(id=id_user)
         p.delete()
+        return redirect('users')
+    return redirect('login')
+
+
+def add_person(request):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            bussiness = request.POST.get('bussiness')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            username = request.POST.get('username')
+            password = request.POST.get('password1')
+            confirm = request.POST.get('confirm')
+
+            if User.objects.filter(username=username).exists():
+                print("User exist")
+                messages.warning(request, 'El nombre de usuario ya existe')
+                return redirect('add_person_of_business')
+            elif password != confirm:
+                print("Error Password")
+                messages.warning(request, 'Las contraseñas no coinciden')
+                return redirect('add_person_of_business')
+            else:
+                with transaction.atomic():
+                    user = User.objects.create_user(
+                        first_name=first_name,
+                        last_name=last_name,
+                        telefono=phone,
+                        email=email,
+                        username=username,
+                        password=password,
+                        is_afiliado=False,
+                        is_persona_encargada=True,
+                        is_administrador=False,
+                        is_cliente=False,
+                        is_active=False
+                    )
+                    PerfilPersonaEncargada.objects.create(
+                        persona_encargada_id=user.pk,
+                        negocio_pertenece_id=bussiness
+                    )
+                    messages.success(request, 'Usted ha agregado satisfactoriamente a una persona encargada')
+                return redirect('users')
+        context = {'business': business, 'business_persona': business_persona}
+        return render(request, "control_panel/module_users/agregar_persona_encargada.html", context)
+    return redirect('login')
+
+
+def update_person(request, id_user):
+    if request.user.is_authenticated:
+        user_custom = User.objects.get(id=id_user)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            bussiness = request.POST.get('bussiness')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            with transaction.atomic():
+                user_custom.set_password(password)
+                user_custom.save()
+                User.objects.filter(pk=id_user).update(
+                    first_name=first_name,
+                    last_name=last_name,
+                    telefono=phone,
+                    email=email
+                )
+                PerfilPersonaEncargada.objects.filter(persona_encargada_id=id_user).update(
+                    negocio_pertenece_id=bussiness
+                )
+                return redirect('users')
+        context = {'user': user_custom, 'business': business}
+        return render(request, "control_panel/module_users/editar_usuario.html", context)
+    return redirect('login')
+
+
+def rol_admin(request, id_user):
+    if request.user.is_authenticated:
+        User.objects.filter(pk=id_user).update(is_administrador=True, is_afiliado=False)
         return redirect('users')
     return redirect('login')
 
@@ -514,7 +650,6 @@ def add_bussiness(request):
         categorias = Categoria_Negocio.objects.all()
         macro = Macro.objects.all()
         macro_negocio = []
-        fecha = datetime.now()
         if request.method == 'POST':
             name_bussiness = request.POST.get('name_bussiness')
             logo_bussiness = request.FILES['logo_bussiness']
@@ -565,16 +700,10 @@ def add_bussiness(request):
                 macro1 = Macro.objects.get(nombre=m)
                 negocio.macro.add(macro1)
 
-            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
-            if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion,
-                                            estado='No-Leido', tipo='Negocio')
-                notificacion.save()
-            messages.success(request, 'El negocio se agregó satisfactoriamente')
             return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
         context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
-                   'categorias': categorias, 'macros': macro, 'macro_negocio': macro_negocio, 'fecha_ahora': fecha}
+                   'categorias': categorias, 'macros': macro, 'macro_negocio': macro_negocio}
         return render(request, "control_panel/module_businesses/agregar_negocio.html", context)
     return redirect('login')
 
@@ -709,11 +838,15 @@ def my_bussiness(request, id_bussiness):
         productos = Producto.objects.filter(negocio=negocio.id)
         ofertas_laborales = Oferta_Laboral.objects.filter(negocio=negocio.id)
         comentarios = ComentarioEvaluacion.objects.filter(negocio=negocio.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
 
         context = {'business': business, 'negocio': negocio,
                    'productos_negocio': productos,
                    'ofertas_laborales': ofertas_laborales,
-                   'comentarios_negocio': comentarios}
+                   'comentarios_negocio': comentarios,'business_persona': business_persona}
         return render(request, "control_panel/module_businesses/mi_negocio.html", context)
     return redirect('login')
 
@@ -725,7 +858,11 @@ def categoria_productos(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         categorias = Categoria_Producto.objects.filter(negocio=negocio).order_by('-nombre').reverse()
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias, 'business_persona': business_persona}
         return render(request,
                       "control_panel/module_category_products/listado_categoria_productos.html", context)
     return redirect('login')
@@ -735,12 +872,16 @@ def agregar_categoria_productos(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
             Categoria_Producto.objects.create(nombre=name_category, descripcion=description_category, negocio=negocio)
             return redirect(reverse('category_products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio}
+        context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request,
                       "control_panel/module_category_products/agregar_categoria_producto.html", context)
     return redirect('login')
@@ -751,6 +892,10 @@ def editar_categoria_producto(request, id_bussiness, id_category):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         categoria = get_object_or_404(Categoria_Producto, pk=id_category)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
@@ -759,7 +904,7 @@ def editar_categoria_producto(request, id_bussiness, id_category):
                 descripcion=description_category
             )
             return redirect(reverse('category_products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categoria': categoria}
+        context = {'business': business, 'negocio': negocio, 'categoria': categoria, 'business_persona': business_persona}
         return render(request,
                       "control_panel/module_category_products/editar_categoria_producto.html", context)
     return redirect('login')
@@ -780,7 +925,11 @@ def products(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         productos = Producto.objects.filter(negocio=negocio)
-        context = {'business': business, 'productos': productos, 'negocio': negocio}
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        context = {'business': business, 'productos': productos, 'negocio': negocio, 'business_persona': business_persona}
         return render(request, "control_panel/module_products/listado_producto.html", context)
     return redirect('login')
 
@@ -790,6 +939,10 @@ def add_product(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         categorias = Categoria_Producto.objects.filter(negocio=id_bussiness)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             image_product = request.FILES['image_product']
             name_product = request.POST.get('name_product')
@@ -800,7 +953,7 @@ def add_product(request, id_bussiness):
                                     nombre=name_product, descripcion=description_product, precio=price_product,
                                     negocio=negocio, categoria_id=category_product)
             return redirect(reverse('products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias}
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias, 'business_persona': business_persona}
         return render(request, "control_panel/module_products/agregar_producto.html", context)
     return redirect('login')
 
@@ -810,12 +963,17 @@ def editar_product(request, id_bussiness, id_product):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         producto = get_object_or_404(Producto, pk=id_product)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         update_form = MyForm(request.POST or None, request.FILES or None, instance=producto)
         if update_form.is_valid():
             edit = update_form.save(commit=False)
             edit.save()
             return redirect(reverse('products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form}
+        context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form,
+                   'business_persona': business_persona}
         return render(request, "control_panel/module_products/editar_producto.html", context)
     return redirect('login')
 
@@ -835,7 +993,11 @@ def offers(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         ofertas = Oferta_Laboral.objects.filter(negocio=negocio)
-        context = {'business': business, 'negocio': negocio, 'ofertas': ofertas}
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        context = {'business': business, 'negocio': negocio, 'ofertas': ofertas, 'business_persona': business_persona}
         return render(request, "control_panel/module_offers/listado_ofertas.html", context)
     return redirect('login')
 
@@ -844,6 +1006,10 @@ def add_offer(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
@@ -856,7 +1022,7 @@ def add_offer(request, id_bussiness):
                                           telefono1=telefono1,
                                           telefono2=telefono2)
             return redirect(reverse('offers', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio}
+        context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request, "control_panel/module_offers/agregar_oferta.html", context)
     return redirect('login')
 
@@ -866,6 +1032,10 @@ def update_offer(request, id_bussiness, id_offer):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         offer = get_object_or_404(Oferta_Laboral, pk=id_offer)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
@@ -878,7 +1048,7 @@ def update_offer(request, id_bussiness, id_offer):
                                                               telefono1=telefono1,
                                                               telefono2=telefono2)
             return redirect(reverse('offers', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'offer': offer}
+        context = {'business': business, 'negocio': negocio, 'offer': offer, 'business_persona': business_persona}
         return render(request, "control_panel/module_offers/editar_oferta.html", context)
     return redirect('login')
 
@@ -898,7 +1068,11 @@ def rates(request, id_bussiness):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         tarifas = Tarifa_Entrega.objects.filter(negocio=id_bussiness)
-        context = {'business': business, 'negocio': negocio, 'tarifas': tarifas}
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        context = {'business': business, 'negocio': negocio, 'tarifas': tarifas, 'business_persona': business_persona}
         return render(request, "control_panel/module_rates/listado_tarifas.html", context)
     return redirect('login')
 
@@ -907,6 +1081,10 @@ def add_rate(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         municipios = Municipio.objects.all()
         if request.method == 'POST':
             lugar_destino = request.POST.get('lugar_destino')
@@ -918,7 +1096,7 @@ def add_rate(request, id_bussiness):
             else:
                 Tarifa_Entrega.objects.create(lugar_destino=lugar_destino, precio=precio, negocio=negocio)
                 return redirect(reverse('rates', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'municipios': municipios}
+        context = {'business': business, 'negocio': negocio, 'municipios': municipios, 'business_persona': business_persona}
         return render(request, "control_panel/module_rates/agregar_tarifa.html", context)
     return redirect('login')
 
@@ -928,12 +1106,16 @@ def update_rate(request, id_bussiness, id_rate):
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         rate = get_object_or_404(Tarifa_Entrega, pk=id_rate)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             lugar_destino = request.POST.get('lugar_destino')
             precio = request.POST.get('precio_rate')
             Tarifa_Entrega.objects.filter(id=id_rate).update(lugar_destino=lugar_destino, precio=precio)
             return redirect(reverse('rates', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'rate': rate}
+        context = {'business': business, 'negocio': negocio, 'rate': rate, 'business_persona': business_persona}
         return render(request, "control_panel/module_rates/editar_tarifa.html", context)
     return redirect('login')
 
@@ -943,26 +1125,4 @@ def delete_rate(request, id_rate):
         p = Tarifa_Entrega.objects.get(id=id_rate)
         p.delete()
         return redirect(reverse('rates', args=(p.negocio.id,)))
-    return redirect('login')
-
-
-# -------------------Notifications---------------#
-
-def messages_center(request):
-    if request.user.is_authenticated:
-        notificaciones = Notification.objects.all().order_by('-fecha')[:3]
-        cant_notificaciones = len(notificaciones)
-        todas_notificaciones = Notification.objects.all()
-
-        context = {'notificaciones': notificaciones, 'todas_notificaciones': todas_notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
-        return render(request, 'control_panel/module_notifications/listado_notificaciones.html', context)
-    return redirect('login')
-
-
-def delete_message(request, id_message):
-    if request.user.is_authenticated:
-        n = Notification.objects.get(id=id_message)
-        n.delete()
-        return redirect('messages_center')
     return redirect('login')
