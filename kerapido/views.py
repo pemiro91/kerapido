@@ -12,7 +12,7 @@ from django.urls import reverse
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
-    PerfilAfiliado
+    PerfilAfiliado, Notification
 from django.core.paginator import Paginator
 
 
@@ -104,12 +104,12 @@ def register_affiliate(request):
 
         if User.objects.filter(username=username).exists():
             messages.warning(request, 'El nombre de usuario ya existe')
-            return redirect('register_business')
+            return redirect('register_affiliate')
         elif password != confirm:
             messages.warning(request, 'Las contraseñas no existen')
-            return redirect('register_business')
+            return redirect('register_affiliate')
         else:
-            User.objects.create_user(
+            user = User.objects.create_user(
                 first_name=first_name,
                 last_name=last_name,
                 telefono=phone,
@@ -122,6 +122,11 @@ def register_affiliate(request):
                 is_cliente=False,
                 is_active=False
             )
+            mensaje_notificacion = user.first_name + ' se registró como afiliado.'
+            if mensaje_notificacion != '':
+                notificacion = Notification(mensaje=mensaje_notificacion,
+                                            estado='No-Leido', tipo='Usuario')
+                notificacion.save()
             messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al panel')
             return redirect('login')
     context = {}
@@ -141,6 +146,8 @@ def base(request):
 
 def admin_panel(request):
     if request.user.is_authenticated:
+        notificaciones = Notification.objects.all().order_by('-fecha')[:5]
+        cant_notificaciones = len(notificaciones)
         business = Negocio.objects.filter(usuario_negocio=request.user)
         services = Servicio.objects.all()
         cant_pedidos = len(Pedido.objects.all())
@@ -205,6 +212,7 @@ def admin_panel(request):
             comision_general += pe.porciento_pagar
 
         context = {'business': business, 'services': services,
+                   'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones,
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
                    'ultimos_pedidos': ultimos_pedidos, 'cantidad_servicios': cant_servicios,
@@ -650,6 +658,7 @@ def add_bussiness(request):
         categorias = Categoria_Negocio.objects.all()
         macro = Macro.objects.all()
         macro_negocio = []
+        fecha = datetime.now()
         if request.method == 'POST':
             name_bussiness = request.POST.get('name_bussiness')
             logo_bussiness = request.FILES['logo_bussiness']
@@ -700,10 +709,17 @@ def add_bussiness(request):
                 macro1 = Macro.objects.get(nombre=m)
                 negocio.macro.add(macro1)
 
+            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
+            if mensaje_notificacion != '':
+                notificacion = Notification(mensaje=mensaje_notificacion,
+                                            estado='No-Leido', tipo='Negocio')
+                notificacion.save()
+            messages.success(request, 'El negocio se agregó satisfactoriamente')
+
             return redirect(reverse('my_bussiness', args=(negocio.id,)))
 
         context = {'municipios': municipios, 'frecuencia': frecuencia, 'servicios_mostrar': servicios_mostrar,
-                   'categorias': categorias, 'macros': macro, 'macro_negocio': macro_negocio}
+                   'categorias': categorias, 'macros': macro, 'macro_negocio': macro_negocio, 'fecha_ahora': fecha}
         return render(request, "control_panel/module_businesses/agregar_negocio.html", context)
     return redirect('login')
 
@@ -1125,4 +1141,26 @@ def delete_rate(request, id_rate):
         p = Tarifa_Entrega.objects.get(id=id_rate)
         p.delete()
         return redirect(reverse('rates', args=(p.negocio.id,)))
+    return redirect('login')
+
+
+# -------------------Notifications---------------#
+
+def messages_center(request):
+    if request.user.is_authenticated:
+        notificaciones = Notification.objects.all().order_by('-fecha')[:3]
+        cant_notificaciones = len(notificaciones)
+        todas_notificaciones = Notification.objects.all()
+
+        context = {'notificaciones': notificaciones, 'todas_notificaciones': todas_notificaciones,
+                   'cant_notificaciones': cant_notificaciones}
+        return render(request, 'control_panel/module_notifications/listado_notificaciones.html', context)
+    return redirect('login')
+
+
+def delete_message(request, id_message):
+    if request.user.is_authenticated:
+        n = Notification.objects.get(id=id_message)
+        n.delete()
+        return redirect('messages_center')
     return redirect('login')

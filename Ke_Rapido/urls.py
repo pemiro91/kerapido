@@ -13,17 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls import include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
-from django.conf import settings
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from kerapido import views
-from django.views.generic import TemplateView
-from django.conf.urls.static import static
-from django.conf.urls import handler404
-
 from kerapido.api import *
 
 urlpatterns = [
