@@ -24,7 +24,35 @@
     <!-- Custom Css -->
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 </head>
+{% block messages %}
+    <div class="row mb-3">
+        <div class="col-xl-8">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                             role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if error %}
+                <div class="col-lg-9">
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
 <body class="login-page">
 
 <div class="login-box">
@@ -86,12 +114,16 @@
 
 <!-- Waves Effect Plugin Js -->
 <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
-
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
 <!-- Validation Plugin Js -->
 <script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
 
+
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/admin.js' %}"></script>
+
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
 <script src="{% static 'control_panel/js/pages/examples/sign-in.js' %}"></script>
 
 </body>

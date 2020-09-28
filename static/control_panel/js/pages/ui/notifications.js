@@ -5,8 +5,9 @@ $(function () {
         var animateEnter = $(this).data('animate-enter');
         var animateExit = $(this).data('animate-exit');
         var colorName = $(this).data('color-name');
+        var text = $(this).data('text');
 
-        showNotification(colorName, null, placementFrom, placementAlign, animateEnter, animateExit);
+        showNotification(colorName, text, placementFrom, placementAlign, animateEnter, animateExit);
     });
 });
 
@@ -18,13 +19,13 @@ function showNotification(colorName, text, placementFrom, placementAlign, animat
     var allowDismiss = true;
 
     $.notify({
-        message: text
+        message: text,
     },
         {
             type: colorName,
             allow_dismiss: allowDismiss,
             newest_on_top: true,
-            timer: 1000,
+            timer: 100000,
             placement: {
                 from: placementFrom,
                 align: placementAlign

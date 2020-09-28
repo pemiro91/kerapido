@@ -13,6 +13,15 @@ ESTADO_ENTREGA = (
     ('Cancelado', 'Cancelado'),
     ('Entregado', 'Entregado')
 )
+ESTADO_NOTIFICATION = (
+    ('No-Leida', 'No Leida'),
+    ('Leida', 'Leida'),
+)
+TIPO_NOTIFICATION = (
+    ('Negocio', 'Negocio'),
+    ('Pedido', 'Pedido'),
+    ('Usuario', 'Usuario'),
+)
 
 
 # Create your models here.
@@ -184,3 +193,11 @@ class Oferta_Laboral(models.Model):
 
     def __str__(self):
         return self.descripcion_corta
+
+
+class Notification(models.Model):
+    # usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    mensaje = models.CharField(max_length=300)
+    estado = models.CharField(max_length=50, choices=ESTADO_NOTIFICATION, name='estado')
+    tipo = models.CharField(max_length=50, choices=TIPO_NOTIFICATION, name='tipo')
+    fecha = models.DateTimeField(auto_now_add=True)

@@ -81,107 +81,68 @@
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         <i class="material-icons">notifications</i>
-                        <span class="label-count">7</span>
+                        <span class="label-count">{{ cant_notificaciones }}</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">NOTIFICACIONES</li>
+                    <ul class="dropdown-menu" >
+                        <li class="header" >NOTIFICACIONES</li>
                         <li class="body">
                             <ul class="menu">
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">person_add</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>12 new members joined</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 14 mins ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-cyan">
-                                            <i class="material-icons">add_shopping_cart</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>4 sales made</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 22 mins ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-red">
-                                            <i class="material-icons">delete_forever</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>Nancy Doe</b> deleted account</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 3 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-orange">
-                                            <i class="material-icons">mode_edit</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>Nancy</b> changed name</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 2 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-blue-grey">
-                                            <i class="material-icons">comment</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>John</b> commented your post</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 4 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">cached</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>John</b> updated status</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 3 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-purple">
-                                            <i class="material-icons">settings</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>Settings updated</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> Yesterday
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
+
+                                {% for notificacion in notificaciones %}
+                                    {% if notificacion.tipo == 'Usuario' %}
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="icon-circle bg-light-green">
+                                                    <i class="material-icons">person_add</i>
+                                                </div>
+                                                <div class="menu-info">
+                                                    <h4 style="overflow: hidden;max-width: 190px;
+                                                      white-space: pre-line;
+                                                      text-overflow: ellipsis;">{{ notificacion.mensaje }}</h4>
+                                                    <p>
+                                                        <i class="material-icons">access_time</i> {{ notificacion.fecha }}
+                                                    </p>
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                    {% elif notificacion.tipo == 'Pedido' %}
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="icon-circle bg-cyan">
+                                                    <i class="material-icons">add_shopping_cart</i>
+                                                </div>
+                                                <div class="menu-info">
+                                                    <h4 style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ notificacion.mensaje }}</h4>
+                                                    <p>
+                                                        <i class="material-icons">access_time</i> {{ notificacion.fecha }}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="icon-circle bg-red">
+                                                    <i class="material-icons">business</i>
+                                                </div>
+                                                <div class="menu-info">
+                                                    <h4><b>Nancy Doe</b> {{ notificacion.mensaje }}</h4>
+                                                    <p>
+                                                        <i class="material-icons">access_time</i> {{ fecha_ahora.hour }}-{{ notificacion.fecha.hour }}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
                             </ul>
                         </li>
                         <li class="footer">
-                            <a href="javascript:void(0);">View All Notifications</a>
+                            <a href="{% url 'notifications_center' %}">Mostrar todas las notificaciones</a>
                         </li>
                     </ul>
                 </li>
@@ -345,6 +306,7 @@
 </section>
 
 <section class="content">
+
     {% block content %}
 
     {% endblock %}
@@ -366,10 +328,13 @@
 <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
 <!-- Sweet Alert Plugin Js -->
 <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
 
 
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/admin.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
 <!-- Demo Js -->
 <script src="{% static 'control_panel/js/demo.js' %}"></script>
 {% block plugin_section %}

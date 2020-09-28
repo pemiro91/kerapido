@@ -1,52 +1,6 @@
 ﻿{% load static %}<!DOCTYPE html>
 <html>
 
-{#<head style="height:100vh;">#}
-{#    <meta charset="UTF-8">#}
-{#    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">#}
-{#    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>#}
-{#    <!-- Favicon-->#}
-{#    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">#}
-{##}
-{#    <!-- Google Fonts -->#}
-{#    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">#}
-{#    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">#}
-{##}
-{#    <!-- Bootstrap Core Css -->#}
-{#    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">#}
-{##}
-{#    <!-- Waves Effect Css -->#}
-{#    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>#}
-{##}
-{#    <!-- Animation Css -->#}
-{#    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>#}
-{##}
-{#    <!-- Colorpicker Css -->#}
-{#    <link href="{% static 'control_panel/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}"#}
-{#          rel="stylesheet"/>#}
-{##}
-{#    <!-- Bootstrap Tagsinput Css -->#}
-{#    <link href="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">#}
-{##}
-{#    <!-- Multi Select Css -->#}
-{#    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">#}
-{##}
-{##}
-{#    <!-- Bootstrap Spinner Css -->#}
-{#    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">#}
-{##}
-{##}
-{#    <!-- Bootstrap Select Css -->#}
-{#    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>#}
-{##}
-{#    <!-- noUISlider Css -->#}
-{#    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>#}
-{##}
-{#    <!-- Custom Css -->#}
-{#    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">#}
-{##}
-{#</head>#}
-
 <head >
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -74,6 +28,33 @@
     <link href="{% static 'control_panel/css/themes/all-themes.css' %}" rel="stylesheet">
 </head>
 <body class="signup-page">
+{% block messages %}
+    <div class="row mb-3">
+        <div class="col-xl-8 align-items-center">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                             role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if error %}
+                <div class="col-lg-9">
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
 <div class="signup-box">
 
     <div class="card">
@@ -98,19 +79,6 @@
                         <input type="text" class="form-control" name="last_name" placeholder="Apellidos" required>
                     </div>
                 </div>
-
-{#                <div class="input-group">#}
-{#                        <span class="input-group-addon">#}
-{#                            <i class="material-icons">home</i>#}
-{#                        </span>#}
-{#                    <div class="form-line fa-">#}
-{#                        <input type="text" class="form-control" name="name_business" placeholder="Nombre de Negocio"#}
-{#                               required#}
-{#                               autofocus>#}
-{#                    </div>#}
-{#                </div>#}
-
-
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">smartphone</i>
@@ -138,8 +106,6 @@
                                required>
                     </div>
                 </div>
-
-
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">lock</i>
@@ -178,53 +144,6 @@
                             <span>REGISTRAR</span></button>
                     </div>
                 </div>
-
-{#                <div class="input-group">#}
-{#                        <span class="input-group-addon">#}
-{#                            <i class="material-icons">place</i>#}
-{#                        </span>#}
-{#                    <div class="form-line">#}
-{#                        <textarea type="text" class="form-control" name="direccion"#}
-{#                                  placeholder="Direccion"#}
-{#                                  required></textarea>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-md-12">#}
-{##}
-{#                    <div class="form-line">#}
-{#                        <p><strong>Provincia</strong></p>#}
-{#                        <select class="form-control show-tick justify-content-center" data-live-search="true">#}
-{#                            <option style="margin-left: 55px">La Habana</option>#}
-{#                            <option style="margin-left: 55px">Matanzas</option>#}
-{#                            <option style="margin-left: 55px">Pinar del Rio</option>#}
-{#                        </select>#}
-{#                    </div>#}
-{##}
-{##}
-{#                </div>#}
-{#                <div class="col-md-12">#}
-{##}
-{#                    <div class="form-line">#}
-{#                        <p><strong>Municipio</strong></p>#}
-{#                        <select class="form-control show-tick justify-content-center" data-live-search="true">#}
-{#                            <option style="margin-left: 55px">Boyeros</option>#}
-{#                            <option style="margin-left: 55px">Arroyo Naranjo</option>#}
-{#                            <option style="margin-left: 55px">Marianao</option>#}
-{#                        </select>#}
-{#                    </div>#}
-{##}
-{##}
-{#                </div>#}
-
-
-
-
-
-
-
-
-
-
             </form>
         </div>
     </div>
@@ -257,30 +176,6 @@
 
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
-
-{#<!-- Bootstrap Colorpicker Js -->#}
-{#<script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>#}
-
-{#<!-- Input Mask Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>#}
-
-{#<!-- Multi Select Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/multi-select/js/jquery.multi-select.js' %}"></script>#}
-
-{#<!-- Jquery Spinner Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}"></script>#}
-
-{#<!-- Bootstrap Tags Input Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>#}
-
-{#<!-- noUISlider Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/nouislider/nouislider.js' %}"></script>#}
-
-{#<script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>#}
-{#<script src="{% static 'control_panel/js/pages/examples/sign-up.js' %}"></script>#}
-
-{#<!-- Validation Plugin Js -->#}
-{#<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>#}
 
 </body>
 

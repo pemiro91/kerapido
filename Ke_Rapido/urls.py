@@ -93,6 +93,11 @@ urlpatterns = [
     path('update_category/<int:id_category>', views.update_category, name="update_category"),
     path('delete_category/<int:id_category>', views.delete_category, name="delete_category"),
 
+    # ------------- Notifications -------------#
+    path('messages_center', views.messages_center, name="notifications_center"),
+    path('delete_message/<int:id_message>', views.delete_message, name="delete_message_notifications"),
+    path('mark_as_read/', views.delete_message, name="mark_as_read"),
+
     # ------------- Api -------------#
     path('api/account/register', UserCreate.as_view()),
     path('api/login', login),
