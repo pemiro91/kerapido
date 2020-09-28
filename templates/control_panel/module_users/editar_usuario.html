@@ -1,6 +1,7 @@
 ﻿{% extends 'control_panel/base.html' %}
 {% load  static %}
 {% block header_style %}
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
 
 {% endblock %}
 {% block content %}
@@ -16,14 +17,8 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">group</i>
-                            Usuarios</a>
-                        </li>
-                        <li class="active"><i class="material-icons">edit</i>
-                            Editar perfil de usuario
-                        </li>
-
+                        <li><a href="{% url 'users' %}"><i class="material-icons">group</i>Usuarios</a></li>
+                        <li class="active"><i class="material-icons">edit</i>Editar perfil de usuario</li>
                     </ol>
                 </div>
             </div>
@@ -70,6 +65,22 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if request.user.is_afiliado %}
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="bussiness">Negocio*</label>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                        <select id="bussiness" name="bussiness" class="form-control show-tick">
+                                            {% if business %}
+                                                {% for negocio in business %}
+                                                    <option value="{{ negocio.pk }}">{{ negocio.nombre }}</option>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
                                     <label for="phone">Tel&eacute;fono</label>
@@ -126,7 +137,7 @@
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-amber" type="submit">
-                                        <i class="material-icons " style="color: #212121">send</i>
+                                        <i class="material-icons " style="color: #212121">edit</i>
                                         <span>ENVIAR</span></button>
                                 </div>
                             </div>

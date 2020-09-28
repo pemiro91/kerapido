@@ -18,8 +18,7 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        {#                        <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>#}
-                        <li><a href="javascript:void(0);"><i class="material-icons">group</i>
+                        <li><a href="{% url 'users' %}"><i class="material-icons">group</i>
                             Usuarios</a>
                         </li>
                         <li class="active"><i class="material-icons">person</i>
@@ -42,7 +41,7 @@
                         <form class="form-horizontal form-form_validation" role="form" method="post">{% csrf_token %}
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="first_name">Nombre</label>
+                                    <label for="first_name">Nombre*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
@@ -56,7 +55,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="last_name">Apellidos</label>
+                                    <label for="last_name">Apellidos*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
@@ -70,10 +69,10 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="municipio">Negocio*</label>
+                                    <label for="bussiness">Negocio*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <select id="municipio" name="municipio"
+                                    <select id="bussiness" name="bussiness"
                                             class="form-control show-tick">
                                         {% if business %}
                                             {% for negocio in business %}

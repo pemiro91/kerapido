@@ -194,6 +194,8 @@
                                style="font-size: 16px">
                             {% if request.user.is_afiliado %}
                                 afiliado:
+                            {% elif request.user.is_persona_encargada %}
+                                persona encargada:
                             {% endif %} {{ request.user.username }}
                         </label>
                         <i class="material-icons">keyboard_arrow_down</i>
@@ -243,8 +245,7 @@
                         <span>Inicio</span>
                     </a>
                 </li>
-
-                {% if request.user.is_afiliado or request.user.is_persona_encargada %}
+                {% if request.user.is_afiliado %}
                     {% if business %}
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
@@ -259,8 +260,7 @@
                                         </a>
                                         <ul class="ml-menu">
                                             <li>
-                                                <a href="{% url 'category_products' negocio.id %}">Categoria de
-                                                    Productos</a>
+                                                <a href="{% url 'category_products' negocio.id %}">Categoria de Productos</a>
                                             </li>
                                             <li>
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
@@ -286,7 +286,7 @@
                             </a>
                         </li>
                     {% endif %}
-                {% elif request.user.administrador %}
+                {% elif request.user.is_administrador %}
                     <li>
                         <a href="{% url 'users' %}">
                             <i class="material-icons">group</i>
@@ -300,6 +300,7 @@
                             <span>Negocios</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="{% url 'reservations_admin' %}">
                             <i class="material-icons">shopping_cart</i>
@@ -313,23 +314,22 @@
                             <span>Servicios</span>
                         </a>
                     </li>
-                {% else %}
-                    {% if business %}
+                {% elif request.user.is_persona_encargada %}
+                    {% if business_persona %}
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">folder</i>
                                 <span>Mis Negocios</span>
                             </a>
                             <ul class="ml-menu">
-                                {% for negocio in business %}
+                                {% for negocio in business_persona %}
                                     <li>
                                         <a href="javascript:void(0);" class="menu-toggle">
                                             <span>{{ negocio.nombre }}</span>
                                         </a>
                                         <ul class="ml-menu">
                                             <li>
-                                                <a href="{% url 'category_products' negocio.id %}">Categoria de
-                                                    Productos</a>
+                                                <a href="{% url 'category_products' negocio.id %}">Categoria de Productos</a>
                                             </li>
                                             <li>
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
@@ -349,6 +349,7 @@
                             </ul>
                         </li>
                     {% endif %}
+                {% else %}
                     <li>
                         <a href="{% url 'users' %}">
                             <i class="material-icons">group</i>
@@ -367,14 +368,12 @@
                             <span>Todos los Pedidos</span>
                         </a>
                     </li>
-
                     <li>
                         <a href="{% url 'services' %}">
                             <i class="material-icons">widgets</i>
                             <span>Servicios</span>
                         </a>
                     </li>
-
                 {% endif %}
 
             </ul>

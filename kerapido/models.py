@@ -99,6 +99,22 @@ class Negocio(models.Model):
         return self.nombre
 
 
+class PerfilAfiliado(models.Model):
+    afiliado = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.afiliado.pk
+
+
+class PerfilPersonaEncargada(models.Model):
+    persona_encargada = models.ForeignKey(User, on_delete=models.CASCADE)
+    negocio_pertenece = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    afiliado_pertenece = models.ForeignKey(PerfilAfiliado, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.persona_encargada.pk
+
+
 class Categoria_Producto(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField(null=True, blank=True)
