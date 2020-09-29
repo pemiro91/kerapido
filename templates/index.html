@@ -447,8 +447,10 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Enlaces Internos</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
+                        {% if bussiness %}
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
                             Afiliados</a></li>
+                        {% endif %}
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
                             Servicio</a></li>
                     </ul>
@@ -457,7 +459,7 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Sitios de Interés</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://www.apklis.cu/">Apklis</a></li>
 
                     </ul>
                 </div>

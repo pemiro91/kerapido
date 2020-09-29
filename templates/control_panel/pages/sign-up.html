@@ -67,7 +67,9 @@
                             <i class="material-icons">person_outline</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="first_name" placeholder="Nombre(s)" required>
+                        <label>
+                            <input type="text" class="form-control" name="first_name" placeholder="Nombre(s)" required>
+                        </label>
                     </div>
                 </div>
 
@@ -76,7 +78,9 @@
                             <i class="material-icons">person_outline</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="last_name" placeholder="Apellidos" required>
+                        <label>
+                            <input type="text" class="form-control" name="last_name" placeholder="Apellidos" required>
+                        </label>
                     </div>
                 </div>
                 <div class="input-group">
@@ -84,7 +88,9 @@
                             <i class="material-icons">smartphone</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="text" class="form-control" name="phone" placeholder="Telefono" required autofocus>
+                        <label>
+                            <input type="tel" maxlength="9" class="form-control" name="phone" placeholder="Tel&eacute;fono" required autofocus>
+                        </label>
                     </div>
                 </div>
 
@@ -93,7 +99,9 @@
                             <i class="material-icons">email</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="text" class="form-control" name="email" placeholder="Correo" required autofocus>
+                        <label>
+                            <input type="email" class="form-control" name="email" placeholder="Correo" required autofocus>
+                        </label>
                     </div>
                 </div>
 
@@ -102,8 +110,9 @@
                             <i class="material-icons">person</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="text" class="form-control" name="username" placeholder="Usuario"
-                               required>
+                        <label>
+                            <input type="text" class="form-control" name="username" placeholder="Usuario" required>
+                        </label>
                     </div>
                 </div>
                 <div class="input-group">
@@ -111,9 +120,10 @@
                             <i class="material-icons">lock</i>
                         </span>
                     <div class="form-line fa">
-                        <input type="password" class="form-control" name="password" minlength="6"
-                               placeholder="Password"
-                               required>
+                        <label>
+                            <input type="password" class="form-control" name="password" minlength="6"
+                                   placeholder="Contrase&ntilde;a" required>
+                        </label>
                     </div>
                 </div>
 
@@ -123,13 +133,15 @@
                             <i class="material-icons">lock</i>
                         </span>
                     <div class="form-line">
-                        <input type="password" class="form-control" name="confirm" minlength="6"
-                               placeholder="Confirm Password" required>
+                        <label>
+                            <input type="password" class="form-control" name="confirm" minlength="6"
+                                   placeholder="Confirmar Contrase&ntilde;a" required>
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" required>
+                    <input type="checkbox" name="terminos" id="terms" class="filled-in chk-col-pink" required>
                     <label for="terms">He leído y estoy de acuerdo con los
                         <a href="{% url 'terminos_condiciones' %}">términos y condiciones de uso</a>.</label>
                 </div>

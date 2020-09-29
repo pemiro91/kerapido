@@ -101,12 +101,25 @@ def register_affiliate(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         confirm = request.POST.get('confirm')
+        terms = request.POST.get('terminos')
 
-        if User.objects.filter(username=username).exists():
+        print(phone)
+        print(terms)
+
+        if User.objects.filter(telefono__icontains=phone).exists():
+            messages.warning(request, 'El teléfono ya existe')
+            return redirect('register_affiliate')
+        elif User.objects.filter(email=email).exists():
+            messages.warning(request, 'El correo ya existe')
+            return redirect('register_affiliate')
+        elif User.objects.filter(username=username).exists():
             messages.warning(request, 'El nombre de usuario ya existe')
             return redirect('register_affiliate')
         elif password != confirm:
             messages.warning(request, 'Las contraseñas no existen')
+            return redirect('register_affiliate')
+        elif terms:
+            messages.warning(request, 'Debe aceptar los términos y condiciones')
             return redirect('register_affiliate')
         else:
             user = User.objects.create_user(
