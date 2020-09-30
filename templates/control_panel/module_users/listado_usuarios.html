@@ -44,6 +44,33 @@
                                 LISTADO DE USUARIOS
                             {% endif %}
                         </h2>
+                        {% block messages %}
+                            <div class="row mb-3">
+                                <div class="col-xl-8">
+                                    {% if messages %}
+                                        <ul class="messages">
+                                            {% for message in messages %}
+                                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                                     role="alert">
+                                                    {{ message }}
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if error %}
+                                        <div class="col-lg-9">
+                                            <div class="alert alert-danger">
+                                                {{ error }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endblock %}
                         {% if request.user.is_afiliado %}
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">

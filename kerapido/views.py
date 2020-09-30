@@ -89,6 +89,14 @@ def nuestros_afiliados_detalles(request, id_afiliado):
     return render(request, "nuestros_afiliados_detalles.html", context)
 
 
+def error_404_view(request, exception):
+    return render(request, 'control_panel/pages/404.html', status=404)
+
+
+def error_500_view(request):
+    return render(request, 'control_panel/pages/500.html', status=500)
+
+
 # --------------Panel de control----------------#
 # ----------------------------------------------#
 
@@ -101,9 +109,8 @@ def register_affiliate(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         confirm = request.POST.get('confirm')
-        terms = request.POST.get('terminos')
+        terms = request.POST.get('terminos', 'off')
 
-        print(phone)
         print(terms)
 
         if User.objects.filter(telefono__icontains=phone).exists():
@@ -118,30 +125,33 @@ def register_affiliate(request):
         elif password != confirm:
             messages.warning(request, 'Las contraseñas no existen')
             return redirect('register_affiliate')
-        elif terms:
+        elif terms == u'off':
             messages.warning(request, 'Debe aceptar los términos y condiciones')
             return redirect('register_affiliate')
         else:
-            user = User.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                telefono=phone,
-                email=email,
-                username=username,
-                password=password,
-                is_afiliado=True,
-                is_persona_encargada=False,
-                is_administrador=False,
-                is_cliente=False,
-                is_active=False
-            )
-            mensaje_notificacion = user.first_name + ' se registró como afiliado.'
-            if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion,
-                                            estado='No-Leido', tipo='Usuario')
-                notificacion.save()
-            messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al panel')
-            return redirect('login')
+            with transaction.atomic():
+                user = User.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    telefono=phone,
+                    email=email,
+                    username=username,
+                    password=password,
+                    is_afiliado=True,
+                    is_persona_encargada=False,
+                    is_administrador=False,
+                    is_cliente=False,
+                    is_active=False
+                )
+                PerfilAfiliado.objects.create(afiliado=user.pk)
+                mensaje_notificacion = user.first_name + ' se registró como afiliado.'
+                if mensaje_notificacion != '':
+                    notificacion = Notification(mensaje=mensaje_notificacion,
+                                                estado='No-Leido', tipo='Usuario')
+                    notificacion.save()
+                messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al '
+                                          'panel')
+                return redirect('login')
     context = {}
     return render(request, "control_panel/pages/sign-up.html", context)
 
@@ -184,12 +194,11 @@ def admin_panel(request):
         comision_anno_general = 0
         comision_general = 0
         business_persona = QuerySet
+        persona_encargada = QuerySet
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-
-
 
         if request.user.is_superuser or request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
@@ -247,6 +256,7 @@ def login_admin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
+
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -261,7 +271,7 @@ def login_admin(request):
                 else:
                     return redirect('add_bussiness')
         else:
-            messages.warning(request, 'username or password not correct')
+            messages.warning(request, 'Error de autenticación')
             return redirect('login')
     else:
         form = AuthenticationForm()
@@ -293,6 +303,7 @@ def profile(request):
                 telefono=telefono,
                 username=usuario
             )
+            messages.success(request, 'Información actualizada correctamente')
             return redirect('login')
         context = {'business': bussiness, 'business_persona': business_persona}
         return render(request, "control_panel/pages/perfil.html", context)
@@ -349,6 +360,7 @@ def add_services(request):
             description_service = request.POST.get('description_service')
             color_service = request.POST.get('color_service')
             Servicio.objects.create(nombre=name_service, descripcion=description_service, color=color_service)
+            messages.success(request, 'Servicio agregado correctamente')
             return redirect('services')
         context = {'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_services/agregar_servicios.html", context)
@@ -371,6 +383,7 @@ def update_service(request, id_service):
                     descripcion=description_service,
                     color=color_service
                 )
+                messages.success(request, 'Servicio actualizado correctamente')
                 return redirect('services')
         context = {'service': service, 'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_services/editar_servicios.html", context)
@@ -381,6 +394,7 @@ def delete_service(request, id_service):
     if request.user.is_authenticated:
         p = Servicio.objects.get(id=id_service)
         p.delete()
+        messages.success(request, 'Servicio eliminado correctamente')
         return redirect('services')
     return redirect('login')
 
@@ -390,8 +404,10 @@ def delete_service(request, id_service):
 def reservations(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         pedidos = Pedido.objects.filter(negocio=id_bussiness)
         context = {'business': business, 'negocio': negocio, 'pedidos': pedidos, 'business_persona': business_persona}
@@ -403,11 +419,14 @@ def change_state_reservation(request, id_bussiness, id_reservation):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             state = request.POST.get('state')
             Pedido.objects.filter(pk=id_reservation).update(estado=state)
+            messages.success(request, 'Estado cambiado correctamente')
             return redirect(reverse('reservations', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/listado_reservaciones.html", context)
@@ -417,8 +436,10 @@ def change_state_reservation(request, id_bussiness, id_reservation):
 def factura(request, id_pedido):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         pedido = get_object_or_404(Pedido, pk=id_pedido)
         context = {'business': business, 'pedido': pedido, 'business_persona': business_persona}
         return render(request, "control_panel/module_reservation/factura.html", context)
@@ -495,6 +516,7 @@ def update_user(request, id_user):
                     telefono=phone,
                     email=email
                 )
+                messages.success(request, 'Usuario modificado correctamente')
                 return redirect('users')
         context = {'user': user_custom, 'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_users/editar_usuario.html", context)
@@ -505,6 +527,7 @@ def delete_user(request, id_user):
     if request.user.is_authenticated:
         p = User.objects.get(id=id_user)
         p.delete()
+        messages.success(request, 'Usuario eliminado correctamente')
         return redirect('users')
     return redirect('login')
 
@@ -553,7 +576,7 @@ def add_person(request):
                         persona_encargada_id=user.pk,
                         negocio_pertenece_id=bussiness
                     )
-                    messages.success(request, 'Usted ha agregado satisfactoriamente a una persona encargada')
+                    messages.success(request, 'Persona encargada agregada correctamente')
                 return redirect('users')
         context = {'business': business, 'business_persona': business_persona}
         return render(request, "control_panel/module_users/agregar_persona_encargada.html", context)
@@ -583,6 +606,7 @@ def update_person(request, id_user):
                 PerfilPersonaEncargada.objects.filter(persona_encargada_id=id_user).update(
                     negocio_pertenece_id=bussiness
                 )
+                messages.success(request, 'Persona encargada modificada correctamente')
                 return redirect('users')
         context = {'user': user_custom, 'business': business}
         return render(request, "control_panel/module_users/editar_usuario.html", context)
@@ -875,7 +899,7 @@ def my_bussiness(request, id_bussiness):
         context = {'business': business, 'negocio': negocio,
                    'productos_negocio': productos,
                    'ofertas_laborales': ofertas_laborales,
-                   'comentarios_negocio': comentarios,'business_persona': business_persona}
+                   'comentarios_negocio': comentarios, 'business_persona': business_persona}
         return render(request, "control_panel/module_businesses/mi_negocio.html", context)
     return redirect('login')
 
@@ -891,7 +915,8 @@ def categoria_productos(request, id_bussiness):
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias, 'business_persona': business_persona}
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias,
+                   'business_persona': business_persona}
         return render(request,
                       "control_panel/module_category_products/listado_categoria_productos.html", context)
     return redirect('login')
@@ -909,6 +934,7 @@ def agregar_categoria_productos(request, id_bussiness):
             name_category = request.POST.get('name_category')
             description_category = request.POST.get('description_category')
             Categoria_Producto.objects.create(nombre=name_category, descripcion=description_category, negocio=negocio)
+            messages.success(request, 'Categoria agregada correctamente')
             return redirect(reverse('category_products', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request,
@@ -932,8 +958,10 @@ def editar_categoria_producto(request, id_bussiness, id_category):
                 nombre=name_category,
                 descripcion=description_category
             )
+            messages.success(request, 'Categoria modificada correctamente')
             return redirect(reverse('category_products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categoria': categoria, 'business_persona': business_persona}
+        context = {'business': business, 'negocio': negocio, 'categoria': categoria,
+                   'business_persona': business_persona}
         return render(request,
                       "control_panel/module_category_products/editar_categoria_producto.html", context)
     return redirect('login')
@@ -943,6 +971,7 @@ def delete_categoria(request, id_category):
     if request.user.is_authenticated:
         p = Categoria_Producto.objects.get(id=id_category)
         p.delete()
+        messages.success(request, 'Categoría eliminada correctamente')
         return redirect(reverse('category_products', args=(p.negocio.id,)))
     return redirect('login')
 
@@ -958,7 +987,8 @@ def products(request, id_bussiness):
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-        context = {'business': business, 'productos': productos, 'negocio': negocio, 'business_persona': business_persona}
+        context = {'business': business, 'productos': productos, 'negocio': negocio,
+                   'business_persona': business_persona}
         return render(request, "control_panel/module_products/listado_producto.html", context)
     return redirect('login')
 
@@ -981,8 +1011,10 @@ def add_product(request, id_bussiness):
             Producto.objects.create(imagen=image_product,
                                     nombre=name_product, descripcion=description_product, precio=price_product,
                                     negocio=negocio, categoria_id=category_product)
+            messages.success(request, 'Producto agregado correctamente')
             return redirect(reverse('products', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'categorias': categorias, 'business_persona': business_persona}
+        context = {'business': business, 'negocio': negocio, 'categorias': categorias,
+                   'business_persona': business_persona}
         return render(request, "control_panel/module_products/agregar_producto.html", context)
     return redirect('login')
 
@@ -1000,6 +1032,7 @@ def editar_product(request, id_bussiness, id_product):
         if update_form.is_valid():
             edit = update_form.save(commit=False)
             edit.save()
+            messages.success(request, 'Producto modificado correctamente')
             return redirect(reverse('products', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form,
                    'business_persona': business_persona}
@@ -1011,11 +1044,12 @@ def delete_product(request, id_product):
     if request.user.is_authenticated:
         p = Producto.objects.get(id=id_product)
         p.delete()
+        messages.success(request, 'Producto eliminado correctamente')
         return redirect(reverse('products', args=(p.negocio.id,)))
     return redirect('login')
 
 
-# -------------------Módulo Categoria Productos---------------#
+# -------------------Módulo Ofertas---------------#
 
 def offers(request, id_bussiness):
     if request.user.is_authenticated:
@@ -1050,6 +1084,7 @@ def add_offer(request, id_bussiness):
                                           negocio=negocio, correo=correo,
                                           telefono1=telefono1,
                                           telefono2=telefono2)
+            messages.success(request, 'Oferta agregada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
         return render(request, "control_panel/module_offers/agregar_oferta.html", context)
@@ -1076,6 +1111,7 @@ def update_offer(request, id_bussiness, id_offer):
                                                               negocio=negocio, correo=correo,
                                                               telefono1=telefono1,
                                                               telefono2=telefono2)
+            messages.success(request, 'Oferta modificada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'offer': offer, 'business_persona': business_persona}
         return render(request, "control_panel/module_offers/editar_oferta.html", context)
@@ -1086,6 +1122,7 @@ def delete_offer(request, id_offer):
     if request.user.is_authenticated:
         p = Oferta_Laboral.objects.get(id=id_offer)
         p.delete()
+        messages.success(request, 'Oferta eliminada correctamente')
         return redirect(reverse('offers', args=(p.negocio.id,)))
     return redirect('login')
 
@@ -1124,8 +1161,10 @@ def add_rate(request, id_bussiness):
                 return redirect(reverse('rates', args=(id_bussiness,)))
             else:
                 Tarifa_Entrega.objects.create(lugar_destino=lugar_destino, precio=precio, negocio=negocio)
+                messages.success(request, 'Tarifa agregada correctamente')
                 return redirect(reverse('rates', args=(id_bussiness,)))
-        context = {'business': business, 'negocio': negocio, 'municipios': municipios, 'business_persona': business_persona}
+        context = {'business': business, 'negocio': negocio, 'municipios': municipios,
+                   'business_persona': business_persona}
         return render(request, "control_panel/module_rates/agregar_tarifa.html", context)
     return redirect('login')
 
@@ -1143,6 +1182,7 @@ def update_rate(request, id_bussiness, id_rate):
             lugar_destino = request.POST.get('lugar_destino')
             precio = request.POST.get('precio_rate')
             Tarifa_Entrega.objects.filter(id=id_rate).update(lugar_destino=lugar_destino, precio=precio)
+            messages.success(request, 'Tarifa modificada correctamente')
             return redirect(reverse('rates', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'rate': rate, 'business_persona': business_persona}
         return render(request, "control_panel/module_rates/editar_tarifa.html", context)
@@ -1153,6 +1193,7 @@ def delete_rate(request, id_rate):
     if request.user.is_authenticated:
         p = Tarifa_Entrega.objects.get(id=id_rate)
         p.delete()
+        messages.success(request, 'Tarifa eliminada correctamente')
         return redirect(reverse('rates', args=(p.negocio.id,)))
     return redirect('login')
 
