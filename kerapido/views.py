@@ -119,9 +119,9 @@ def register_affiliate(request):
         elif password != confirm:
             messages.warning(request, 'Las contraseñas no existen')
             return redirect('register_affiliate')
-        # elif terms:
-        #     messages.warning(request, 'Debe aceptar los términos y condiciones')
-        #     return redirect('register_affiliate')
+        elif terms:
+            messages.warning(request, 'Debe aceptar los términos y condiciones')
+            return redirect('register_affiliate')
         else:
             user = User.objects.create_user(
                 first_name=first_name,
