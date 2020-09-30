@@ -94,9 +94,10 @@ urlpatterns = [
     path('delete_category/<int:id_category>', views.delete_category, name="delete_category"),
 
     # ------------- Notifications -------------#
-    path('messages_center', views.messages_center, name="notifications_center"),
-    path('delete_message/<int:id_message>', views.delete_message, name="delete_message_notifications"),
-    path('mark_as_read/', views.delete_message, name="mark_as_read"),
+    path('notifications_center', views.messages_center, name="notifications_center"),
+    path('delete_notification/<int:id_message>', views.delete_message, name="delete_notification"),
+    path('mark_read/<int:id_message>', views.mask_as_read, name="mark_as_read"),
+    path('mark_no_read/<int:id_message>', views.mask_as_no_read, name="mark_as_no_ead"),
 
     # ------------- Api -------------#
     path('api/account/register', UserCreate.as_view()),

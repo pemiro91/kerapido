@@ -212,7 +212,10 @@ class Oferta_Laboral(models.Model):
 
 
 class Notification(models.Model):
-    # usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #para cdo se gestionen usuarios, saber quien fue
+    usuario = models.ForeignKey(User, null=True, on_delete=models.CASCADE, name='usuario')
+    # para cdo se gestionen pedidos y negocios, mostrarselo a los usuarios pertinentes
+    negocio = models.ForeignKey(Negocio, null=True, on_delete=models.CASCADE, name='negocio')
     mensaje = models.CharField(max_length=300)
     estado = models.CharField(max_length=50, choices=ESTADO_NOTIFICATION, name='estado')
     tipo = models.CharField(max_length=50, choices=TIPO_NOTIFICATION, name='tipo')

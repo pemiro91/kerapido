@@ -26,16 +26,16 @@
                         <h2>
                             LISTADO DE NOTIFICACIONES
                         </h2>
-{#                        <ul class="header-dropdown m-r--5">#}
-{#                            <li class="dropdown">#}
-{#                                <a href="{% url 'add_category' %}" type="button" title="Agregar Servicios"#}
-{#                                   class="btn btn-default waves-effect waves-black">#}
-{#                                    <i class="material-icons " style="color: #212121">add_circle</i>#}
-{#                                    <span>AGREGAR</span>#}
-{#                                </a>#}
-{##}
-{#                            </li>#}
-{#                        </ul>#}
+                        {#                        <ul class="header-dropdown m-r--5">#}
+                        {#                            <li class="dropdown">#}
+                        {#                                <a href="{% url 'add_category' %}" type="button" title="Agregar Servicios"#}
+                        {#                                   class="btn btn-default waves-effect waves-black">#}
+                        {#                                    <i class="material-icons " style="color: #212121">add_circle</i>#}
+                        {#                                    <span>AGREGAR</span>#}
+                        {#                                </a>#}
+                        {##}
+                        {#                            </li>#}
+                        {#                        </ul>#}
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -64,25 +64,38 @@
                                 {% for notificacion in todas_notificaciones %}
                                     <tr>
                                         <td>{{ notificacion.id }}</td>
-                                        <td >{{ notificacion.tipo }}</td>
+                                        <td>{{ notificacion.tipo }}</td>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
                                           text-overflow: ellipsis;">{{ notificacion.mensaje }}</td>
-                                        <td >{{ notificacion.fecha }}</td>
+                                        <td>{{ notificacion.fecha }}</td>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
                                           text-overflow: ellipsis;">{{ notificacion.estado }}</td>
 
-
                                         <td>
-                                            <a type="button" class="btn btn-default waves-effect waves-amber"
-{#                                               href="{% url 'update_category' category.id %}"#}
-                                            >
-                                                <i class="material-icons">traffic</i>
-                                            </a>
+                                            {% if notificacion.estado == 'No-Leida' %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href="{% url 'mark_as_read' notificacion.id %}"
+                                                   title="Marcar Notificación como leída"
+                                                   data-toggle="modal" data-target="#ReadModal"
+                                                   data-id="{{ notificacion.id }}">
+                                                    <i class="material-icons">traffic</i>
+                                                </a>
+                                            {% else %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href="{% url 'mark_as_no_ead' notificacion.id %}"
+                                                   title="Marcar Notificación como No leída"
+                                                   data-toggle="modal" data-target="#NoReadModal"
+                                                   data-id="{{ notificacion.id }}">
+                                                    <i class="material-icons">traffic</i>
+                                                </a>
+                                            {% endif %}
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
-{#                                               data-href="{% url 'delete_category' category.id %}"#}
-                                               data-id="{{ user.id }}"
+                                               data-href="{% url 'delete_notification' notificacion.id %}"
+                                               data-id="{{ notificacion.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
                                                title="Eliminar Categoria">
@@ -100,7 +113,44 @@
         </div>
         <!-- #END# Exportable Table -->
     </div>
+    <div class="modal fade" id="ReadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Marcar como Leída</h4>
+                </div>
+                <div class="modal-body">
 
+                    ¿Desea realmente marcar esta notificación como leída?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> MARCAR COMO LEÍDA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="NoReadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Marcar como No leída</h4>
+                </div>
+                <div class="modal-body">
+
+                    ¿Desea realmente marcar esta notificación como No leída?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> MARCAR COMO NO LEÍDA</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,6 +183,12 @@
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
 
     <script>
+        $('#ReadModal').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+        $('#NoReadModal').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
         $('#confirm-delete').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
@@ -162,8 +218,8 @@
                         "previous": "Anterior"
                     }
                 },
-                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>
