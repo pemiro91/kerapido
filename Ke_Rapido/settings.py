@@ -26,7 +26,7 @@ SECRET_KEY = '88du$e5#+ya^q0vf*0i^m1k@&w(f8g-5*@hkxidw-@7ad0#x(d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -153,3 +153,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # hera.hostingdelcaribe.net
 EMAIL_HOST_USER = 'pemiro91@gmail.com'
 EMAIL_HOST_PASSWORD = 'habanatrans 2016*'
 EMAIL_PORT = 587
+
+TEMPLATE_CONTEXT_PROCESSORS = {
+    'django.core.context_processors.request'
+}

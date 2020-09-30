@@ -21,7 +21,9 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from kerapido import views
+from kerapido import views as myapp_views
 from kerapido.api import *
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     # ------------- Landing Page -------------#
@@ -113,6 +115,10 @@ urlpatterns = [
     path('api/comment/<int:id_negocio>/', postComentarioApi),
     path('api/comments/<int:pk>/', getComentarioApi),
 ]
+
+handler404 = myapp_views.error_404_view
+handler500 = myapp_views.error_500_view
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
