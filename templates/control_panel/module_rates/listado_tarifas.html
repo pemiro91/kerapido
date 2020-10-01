@@ -18,16 +18,35 @@
                 GESTIÓN DE MIS NEGOCIOS
                 <small>Módulo para la gestion de tarifas "{{ negocio.nombre }}"</small>
             </h2>
-{#            <p id="display">Time Left<p>#}
-{#            <button id="start">Start</button>#}
-{#            <div class="col-lg-7 col-md-7 col-sm-4 col-xs-7 form-control-label">#}
-{#                {% if messages %}#}
-{#                    <div class="alert alert-danger center-align">#}
-{#                        <strong>Oh snap!</strong> Ya se encuentra ese municipio.#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#            </div>#}
         </div>
+
+        {% block messages %}
+            <div class="row mb-3">
+                <div class="col-xl-8">
+                    {% if messages %}
+                        <ul class="messages align-content-center">
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                     role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if error %}
+                        <div class="col-lg-9">
+                            <div class="alert alert-danger">
+                                {{ error }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
 
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
@@ -38,33 +57,6 @@
                         <h2>
                             LISTADO DE TARIFAS
                         </h2>
-                        {% block messages %}
-                            <div class="row mb-3">
-                                <div class="col-xl-8">
-                                    {% if messages %}
-                                        <ul class="messages">
-                                            {% for message in messages %}
-                                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
-                                                     role="alert">
-                                                    {{ message }}
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if error %}
-                                        <div class="col-lg-9">
-                                            <div class="alert alert-danger">
-                                                {{ error }}
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endblock %}
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="{% url 'add_rate' negocio.id %}" type="button" title="Agregar Servicios"
@@ -102,7 +94,7 @@
                                         <td>{{ tarifa.precio }}</td>
                                         <td>
                                             <a type="button" class="btn btn-default waves-effect waves-black"
-                                                href="{% url 'update_rate' negocio.id tarifa.id %}">
+                                               href="{% url 'update_rate' negocio.id tarifa.id %}">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-black"
@@ -155,12 +147,12 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
-{#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
-{##}
-{#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
-{##}
-{#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
-{#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
+    {##}
+    {#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
+    {##}
+    {#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
 
     <script>
         $('#confirm-delete').on('show.bs.modal', function (e) {
@@ -192,8 +184,8 @@
                         "previous": "Anterior"
                     }
                 },
-                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>

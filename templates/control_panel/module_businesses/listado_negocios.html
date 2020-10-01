@@ -21,6 +21,35 @@
             </div>
         </div>
 
+        {% block messages %}
+            <div class="row mb-3">
+                <div class="col-xl-8">
+                    {% if messages %}
+                        <ul class="messages align-content-center">
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                     role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if error %}
+                        <div class="col-lg-9">
+                            <div class="alert alert-danger">
+                                {{ error }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+
+
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix">
@@ -43,7 +72,7 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-striped table-hover dataTable  " >
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable  ">
                                 <thead>
                                 <tr>
                                     <th>Afiliado</th>
@@ -83,10 +112,10 @@
                                             {% endif %}
                                         </td>
                                         <td>
-{#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-{#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
-{#                                                <i class="material-icons">edit</i>#}
-{#                                            </a>#}
+                                            {#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
+                                            {#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
+                                            {#                                                <i class="material-icons">edit</i>#}
+                                            {#                                            </a>#}
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
                                                data-href="{% url 'delete_bussiness' negocio.id %}"
                                                data-id="{{ negocio.id }}"
@@ -148,8 +177,8 @@
                         "previous": "Anterior"
                     }
                 },
-                    "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>

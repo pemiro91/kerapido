@@ -21,6 +21,33 @@
             </div>
         </div>
 
+        {% block messages %}
+            <div class="row mb-3">
+                <div class="col-xl-8">
+                    {% if messages %}
+                        <ul class="messages align-content-center">
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                     role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if error %}
+                        <div class="col-lg-9">
+                            <div class="alert alert-danger">
+                                {{ error }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix" style="margin-top: 2%">
@@ -30,32 +57,6 @@
                         <h2>
                             LISTADO DE OFERTAS
                         </h2>
-                        {% block messages %}
-                            <div class="row mb-3">
-                                <div class="col-xl-8">
-                                    {% if messages %}
-                                        <ul class="messages">
-                                            {% for message in messages %}
-                                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
-                                                     role="alert">
-                                                    {{ message }}
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if error %}
-                                        <div class="col-lg-9">
-                                            <div class="alert alert-danger">
-                                                {{ error }}
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endblock %}
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="{% url 'add_offer' negocio.id %}" type="button"
@@ -195,8 +196,8 @@
                         "previous": "Anterior"
                     }
                 },
-                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>
