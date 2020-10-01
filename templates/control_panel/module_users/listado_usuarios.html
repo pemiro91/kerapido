@@ -236,10 +236,10 @@
                                         {% endif %}
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
-                                            <td><span class="label bg-green" data-toggle="tooltip" data-placement="top"
+                                            <td style="width: 5%"><span class="label bg-green" data-toggle="tooltip" data-placement="top"
                                                       title="{{ user.fecha_alta }}">Activo</span></td>
                                         {% else %}
-                                            <td><span class="label bg-red">Bloqueado</span></td>
+                                            <td style="width: 5%"><span class="label bg-red">Bloqueado</span></td>
                                         {% endif %}
                                         <td>
                                             {% if user.is_active %}

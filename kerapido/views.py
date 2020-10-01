@@ -14,6 +14,7 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
     PerfilAfiliado, Notification
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 # Create your views here.
@@ -263,7 +264,7 @@ def admin_panel(request):
                    'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones,
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
-                   'ultimos_pedidos': ultimos_pedidos, 'cantidad_servicios': cant_servicios,
+                    'cantidad_servicios': cant_servicios,
                    'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg,
                    'comision_hoy_general': comision_hoy_general, 'comision_ayer_general': comision_ayer_general,
                    'comision_ultima_semana_general': comision_ultima_semana_general,
