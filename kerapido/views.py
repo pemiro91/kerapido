@@ -490,8 +490,10 @@ def services(request):
 def add_services(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -547,8 +549,10 @@ def update_service(request, id_service):
     if request.user.is_authenticated:
         service = Servicio.objects.get(id=id_service)
         business = Negocio.objects.filter(usuario_negocio=request.user)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1036,6 +1040,10 @@ def update_person(request, id_user):
     if request.user.is_authenticated:
         user_custom = User.objects.get(id=id_user)
         business = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1096,7 +1104,7 @@ def update_person(request, id_user):
                 messages.success(request, 'Persona encargada modificada correctamente')
                 return redirect('users')
         context = {'user': user_custom, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
+                   'cant_notificaciones': cant_notificaciones,'business_persona': business_persona}
         return render(request, "control_panel/module_users/editar_usuario.html", context)
     return redirect('login')
 
