@@ -1,0 +1,154 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>
+                GESTIÓN DE RESERVACIONES
+                <small>Módulo para la gestion de reservaciones de la administraci&oacute;n</small>
+            </h2>
+{#            <p id="display">Time Left<p>#}
+{#            <button id="start">Start</button>#}
+        </div>
+
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE RESERVACIONES GENERAL
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable js-basic-example ">
+                                <thead>
+                                <tr>
+                                    <th>Nro.</th>
+                                    <th>Cliente</th>
+                                    <th>Detalles</th>
+                                    <th>Fecha de Reservación</th>
+                                    <th>Estado</th>
+                                    <th>Negocio</th>
+                                    <th>Afiliado</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nro.</th>
+                                    <th>Cliente</th>
+                                    <th>Detalles</th>
+                                    <th>Fecha de Reservación</th>
+                                    <th>Estado</th>
+                                    <th>Negocio</th>
+                                    <th>Afiliado</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for pedido in pedidos %}
+                                    <tr>
+                                        <td>{{ pedido.id }}</td>
+                                        <td><a data-toggle="tooltip" data-placement="bottom"
+                                               title="Tel: {{ pedido.cliente_auth.telefono }}">
+                                            {{ pedido.cliente_auth.first_name }} {{ pedido.cliente_auth.last_name }}</a>
+                                        </td>
+                                        <td>
+                                            <a type="button"
+                                               class="btn btn-default waves-effect m-r-20 open-defaultModal"
+                                               href="{% url 'factura' pedido.id %}">
+                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar }} CUP
+                                            </a>
+                                        </td>
+                                        <td>{{ pedido.fecha_reservacion }}</td>
+                                        {% if pedido.estado == 'Pendiente' %}
+                                            <td><span class="badge btn-warning">{{ pedido.estado }}</span></td>
+                                        {% elif pedido.estado == 'Cancelado' %}
+                                            <td><span class="badge btn-danger">{{ pedido.estado }}</span></td>
+                                        {% else %}
+                                            <td><span class="badge btn-success">{{ pedido.estado }}</span></td>
+                                        {% endif %}
+                                        <td><b>{{ pedido.negocio.nombre }}</b></td>
+                                        <td><b>{{ pedido.negocio.usuario_negocio.first_name }}</b></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>
+
+    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>
+
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <script>
+        window.setTimeout(function () {
+            location.href = "http://127.0.0.1:8000/reservations_admin";
+        }, 10000); // refresh/redirect after 5 seconds.
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                    "iDisplayLength": 5
+            });
+        });
+    </script>
+{% endblock %}

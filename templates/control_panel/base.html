@@ -64,8 +64,8 @@
 <nav class="navbar">
     <div class="container-fluid">
 
-        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"
-             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>
+        {#        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"#}
+        {#             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>#}
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                data-target="#navbar-collapse" aria-expanded="false"></a>
@@ -77,128 +77,108 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <!-- #END# Call Search -->
-                <!-- Notifications -->
-                <li class="dropdown">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">notifications</i>
-                        <span class="label-count">7</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">NOTIFICACIONES</li>
-                        <li class="body">
-                            <ul class="menu">
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">person_add</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>12 new members joined</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 14 mins ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-cyan">
-                                            <i class="material-icons">add_shopping_cart</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>4 sales made</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 22 mins ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-red">
-                                            <i class="material-icons">delete_forever</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>Nancy Doe</b> deleted account</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 3 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-orange">
-                                            <i class="material-icons">mode_edit</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>Nancy</b> changed name</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 2 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-blue-grey">
-                                            <i class="material-icons">comment</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>John</b> commented your post</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 4 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">cached</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4><b>John</b> updated status</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> 3 hours ago
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <div class="icon-circle bg-purple">
-                                            <i class="material-icons">settings</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>Settings updated</h4>
-                                            <p>
-                                                <i class="material-icons">access_time</i> Yesterday
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="javascript:void(0);">View All Notifications</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- #END# Notifications -->
+                {% if notificaciones %}
+                    <!-- Notifications -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">notifications</i>
+                            <span class="label-count">{{ cant_notificaciones }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">NOTIFICACIONES</li>
+                            <li class="body">
+                                <ul class="menu">
+
+                                    {% for notificacion in notificaciones %}
+                                        {% if notificacion.tipo == 'Usuario' %}
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <div class="icon-circle bg-light-green">
+                                                        <i class="material-icons">person_add</i>
+                                                    </div>
+                                                    <div class="menu-info">
+                                                        <h4 style="overflow: hidden;max-width: 190px;
+                                                      white-space: pre-line;
+                                                      text-overflow: ellipsis;">{{ notificacion.mensaje }}</h4>
+                                                        <p>
+                                                            <i class="material-icons">access_time</i> {{ notificacion.fecha }}
+                                                        </p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                        {% elif notificacion.tipo == 'Pedido' %}
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <div class="icon-circle bg-cyan">
+                                                        <i class="material-icons">add_shopping_cart</i>
+                                                    </div>
+                                                    <div class="menu-info">
+                                                        <h4 style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ notificacion.mensaje }}</h4>
+                                                        <p>
+                                                            <i class="material-icons">access_time</i> {{ notificacion.fecha }}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <div class="icon-circle bg-red">
+                                                        <i class="material-icons">business</i>
+                                                    </div>
+                                                    <div class="menu-info">
+                                                        <h4><b>Nancy Doe</b> {{ notificacion.mensaje }}</h4>
+                                                        <p>
+                                                            <i class="material-icons">access_time</i> {{ fecha_ahora.hour }}-{{ notificacion.fecha.hour }}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="{% url 'notifications_center' %}">Mostrar todas las notificaciones</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Notifications -->
+                {% else %}
+
+                {% endif %}
                 <!-- Perfil -->
                 <li class="dropdown">
+
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">person</i>
-                        {#                        <span class="label-count">7</span>#}
+                        <label class="dropdown"
+                               style="font-size: 16px">
+                            {% if request.user.is_afiliado %}
+                                afiliado:
+                            {% elif request.user.is_persona_encargada %}
+                                persona encargada:
+                            {% elif request.user.is_administrador %}
+                                administrador:
+                            {% else %}
+                                super-usuario:
+                            {% endif %} {{ request.user.username }}
+                        </label>
+                        <i class="material-icons">keyboard_arrow_down</i>
+
+
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="{% url 'my_profile' %}" style="margin-left: 0px"><i
                                 class="material-icons">person</i>Mi Perfil</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>
-                        </li>
-                        <li><a href="{% url 'logout' %}" style="margin-left: 0px"><i class="material-icons">input</i>Salir</a>
+{#                        <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>#}
+{#                        </li>#}
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i
+                                class="material-icons">input</i>Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -214,14 +194,14 @@
     <aside id="leftsidebar" class="sidebar">
         <!-- User Info -->
         <div class="user-info">
-            <div class="image">
-                <img src="{% static 'control_panel/images/user.jpg' %}" width="48" height="48" alt="User"/>
+            <div class="">
+                <img src="{% static 'control_panel/images/logo.jpg' %}" width="50" height="50" alt="User"/>
             </div>
-            <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true"
-                     aria-expanded="false">{{ request.user.username }}</div>
-                <div class="email">{{ request.user.email }}</div>
-            </div>
+            {#            <div class="info-container">#}
+            {#                <div class="name" data-toggle="dropdown" aria-haspopup="true"#}
+            {#                     aria-expanded="false">kerapido@gmail.com</div>#}
+            {#                <div class="email">kerapido@gmail.com</div>#}
+            {#            </div>#}
         </div>
         <!-- #User Info -->
         <!-- Menu -->
@@ -231,11 +211,11 @@
                 <li class="active">
                     <a href="{% url 'panel' %}">
                         <i class="material-icons">home</i>
-                        <span>Principal</span>
+                        <span>Inicio</span>
                     </a>
                 </li>
-                {% if business %}
-                    {% if request.user.is_superuser %}
+                {% if request.user.is_afiliado %}
+                    {% if business %}
                         <li>
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons">folder</i>
@@ -256,10 +236,83 @@
                                                 <a href="{% url 'products' negocio.id %}">Productos</a>
                                             </li>
                                             <li>
-                                                <a href="../../pages/widgets/cards/colored.html">Ofertas Laborales</a>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
                                             </li>
                                             <li>
-                                                <a href="../../pages/widgets/cards/no-header.html">Reservaciones</a>
+                                                <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'reservations' negocio.id %}">Pedidos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{% url 'users' %}">
+                                <i class="material-icons">group</i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% elif request.user.is_administrador %}
+                    <li>
+                        <a href="{% url 'users' %}">
+                            <i class="material-icons">group</i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'bussiness' %}">
+                            <i class="material-icons">business</i>
+                            <span>Negocios</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'reservations_admin' %}">
+                            <i class="material-icons">shopping_cart</i>
+                            <span>Todos los Pedidos</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'services' %}">
+                            <i class="material-icons">widgets</i>
+                            <span>Servicios</span>
+                        </a>
+                    </li>
+                {% elif request.user.is_persona_encargada %}
+                    {% if business_persona %}
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">folder</i>
+                                <span>Mis Negocios</span>
+                            </a>
+                            <ul class="ml-menu">
+                                {% for negocio in business_persona %}
+                                    <li>
+                                        <a href="javascript:void(0);" class="menu-toggle">
+                                            <span>{{ negocio.nombre }}</span>
+                                        </a>
+                                        <ul class="ml-menu">
+                                            <li>
+                                                <a href="{% url 'category_products' negocio.id %}">Categoria de
+                                                    Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'products' negocio.id %}">Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'reservations' negocio.id %}">Pedidos</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -267,27 +320,25 @@
                             </ul>
                         </li>
                     {% endif %}
-                {% endif %}
-                <li>
-                    <a href="{% url 'users' %}">
-                        <i class="material-icons">group</i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'bussiness' %}">
-                        <i class="material-icons">store</i>
-                        <span>Negocios</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'categories' %}">
-                        <i class="material-icons">local_offer</i>
-                        <span>Categorias Negocio</span>
-                    </a>
-                </li>
-                {% if request.user.is_superuser %}
+                {% else %}
+                    <li>
+                        <a href="{% url 'users' %}">
+                            <i class="material-icons">group</i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'bussiness' %}">
+                            <i class="material-icons">business</i>
+                            <span>Negocios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'reservations_admin' %}">
+                            <i class="material-icons">shopping_cart</i>
+                            <span>Todos los Pedidos</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{% url 'services' %}">
                             <i class="material-icons">widgets</i>
@@ -295,12 +346,6 @@
                         </a>
                     </li>
                 {% endif %}
-                                <li>
-                                    <a href="{% url 'reservations' %}">
-                                        <i class="material-icons">shopping_cart</i>
-                                        <span>Reservaciones</span>
-                                    </a>
-                                </li>
 
             </ul>
         </div>
@@ -308,7 +353,7 @@
         <!-- Footer -->
         <div class="legal">
             <div class="copyright">
-                &copy; 2020 <a href="javascript:void(0);">KeRápido</a>.
+                &copy; 2020 <a href="{% url 'index' %}">KeRápido</a>.
             </div>
             <div class="version">
                 <b>Version: </b> 1.0
@@ -322,6 +367,7 @@
 </section>
 
 <section class="content">
+
     {% block content %}
 
     {% endblock %}
@@ -335,7 +381,7 @@
 
 <!-- Select Plugin Js -->
 <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
-
+1
 <!-- Slimscroll Plugin Js -->
 <script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
 
@@ -343,10 +389,13 @@
 <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
 <!-- Sweet Alert Plugin Js -->
 <script src="{% static 'control_panel/plugins/sweetalert/sweetalert.min.js' %}"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
 
 
 <!-- Custom Js -->
 <script src="{% static 'control_panel/js/admin.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
 <!-- Demo Js -->
 <script src="{% static 'control_panel/js/demo.js' %}"></script>
 {% block plugin_section %}

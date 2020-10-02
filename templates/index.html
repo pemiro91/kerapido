@@ -115,8 +115,10 @@
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2 class="animated fadeInDown">Bienvenido</h2>
-                            <p class="animated fadeInUp">Si desea aumentar las ventas de su negocio, KeRápido lo ayudará</p>
-                            <a href="{% url 'register_business' %}" class="btn-get-started scrollto animated fadeInUp">Regístrese ahora</a>
+                            <p class="animated fadeInUp">Si desea aumentar las ventas de su negocio, KeRápido lo
+                                ayudará</p>
+                            <a href="{% url 'register_affiliate' %}" class="btn-get-started scrollto animated fadeInUp">Regístrese
+                                ahora</a>
                         </div>
                     </div>
                 </div>
@@ -201,46 +203,6 @@
         </div>
     </section><!-- End About Section -->
 
-    {#    <!-- ======= Cards Section ======= -->#}
-    {#    <section id="cards" class="cards">#}
-    {#      <div class="container">#}
-    {##}
-    {#        <div class="row">#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-1.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Autem sunt earum</a></h5>#}
-    {#                <p class="card-text">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-2.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Nobis et tempore</a></h5>#}
-    {#                <p class="card-text">Ut quas omnis est. Non et aut tempora dignissimos similique in dignissimos. Sit incidunt et odit iusto</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">#}
-    {#            <div class="card">#}
-    {#              <img src="assets/img/card-3.jpg" class="card-img-top" alt="...">#}
-    {#              <div class="card-body">#}
-    {#                <h5 class="card-title"><a href="">Facere quia quae dolores</a></h5>#}
-    {#                <p class="card-text">Modi ut et delectus. Modi nobis saepe voluptates nostrum. Sed quod consequatur quia provident dera</p>#}
-    {#                <a href="#" class="btn">Explore more</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {#        </div>#}
-    {##}
-    {#      </div>#}
-    {#    </section><!-- End Cards Section -->#}
-
     <!-- ======= Services Section ======= -->
     <section id="services" class="services section-bg">
         <div class="container">
@@ -288,20 +250,6 @@
                             los afiliados.</p>
                     </div>
                 </div>
-                {#          <div class="col-md-6 mt-4 mt-md-0">#}
-                {#            <div class="icon-box">#}
-                {#              <i class="icofont-earth"></i>#}
-                {#              <h4><a href="#">Magni Dolore</a></h4>#}
-                {#              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>#}
-                {#            </div>#}
-                {#          </div>#}
-                {#          <div class="col-md-6 mt-4 mt-md-0">#}
-                {#            <div class="icon-box">#}
-                {#              <i class="icofont-tasks-alt"></i>#}
-                {#              <h4><a href="#">Eiusmod Tempor</a></h4>#}
-                {#              <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>#}
-                {#            </div>#}
-                {#          </div>#}
             </div>
 
         </div>
@@ -336,13 +284,8 @@
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            {% for category in categories %}
-                                <li data-filter=".{{ category }}">{{ category.nombre }}</li>
-                                {#                            {% for negocio in bussiness %}#}
-                                {#                                {% if negocio.categorias == category %}#}
-                                {#                                    <li data-filter=".{{ category }}">{{ category.nombre }}</li>#}
-                                {#                                {% endif %}#}
-                                {#                            {% endfor %}#}
+                            {% for macro in macro_categorias %}
+                                <li data-filter=".{{ macro.id }}">{{ macro.nombre }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -350,108 +293,31 @@
 
                 <div class="row portfolio-container">
                     {% for negocio in bussiness %}
-                        <div class="col-lg-4 col-md-6 portfolio-item {{ negocio.categorias }}">
+
+                        <div class="col-lg-4 col-md-6 portfolio-item {% for m in negocio.macro.all %} {{ m.id }} {% endfor %}">
                             <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt=""
-                                 style="height: 280px;width: auto">
+                                 style="height: 280px;width: 350px">
                             <div class="portfolio-info">
                                 <h4>{{ negocio.nombre }}</h4>
                                 <p>{{ negocio.categoria.nombre }}</p>
-                                {#                            {% if prodductos %}#}
-                                {#                                {% for p in prodductos %}#}
-                                {#                                    {% ifequal p.negocio negocio%}#}
-                                {#                                        {%  %}#}
-                                {#                                    {% endifequal %}#}
-                                {#                                {% endfor %}#}
-                                {#                            {% endif %}#}
-
-                                <a href="{% static 'control_panel/images/negocios/el-levant.jpg' %}"
-                                   data-gall="portfolioGallery"
-                                   class="venobox preview-link" title="más detalles"><i class="bx bx-plus"></i></a>
+                                <a href="{% url 'detalles_afiliado' negocio.id %}"
+                                   class=" preview-link" title="más detalles"><i class="bx bx-plus"></i></a>
 
                                 <i class="bx bxs-purchase-tag">{% for cat in negocio.categorias.all %}
                                     {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
                                 {% endfor %}   </i>
                             </div>
                         </div>
+
                     {% endfor %}
                 </div>
-                <div class="col-lg-12 text-center">
-                    <a href="#" class="">Más detalles</a>
-                </div>
+                {#                <div class="col-lg-12 text-center">#}
+                {#                    <a href="#" class="">Más detalles</a>#}
+                {#                </div>#}
             </div>
         </section>
     {% endifnotequal %}
     <!-- ======= End Afiliados Section ======= -->
-
-
-    <!-- ======= Pricing Section ======= -->
-    {#    <section id="pricing" class="pricing section-bg">#}
-    {#      <div class="container">#}
-    {##}
-    {#        <div class="section-title">#}
-    {#          <h2>Descargas</h2>#}
-    {#          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>#}
-    {#        </div>#}
-    {##}
-    {#        <div class="row">#}
-    {##}
-    {#          <div class="col-lg-6 col-md-2">#}
-    {#            <div class="box">#}
-    {#              <h3>Apklis</h3>#}
-    {#              <h4><sup>$</sup>0<span> / month</span></h4>#}
-    {#              <ul>#}
-    {#                <li>Aida dere</li>#}
-    {#                <li>Nec feugiat nisl</li>#}
-    {#                <li>Nulla at volutpat dola</li>#}
-    {#                <li class="na">Pharetra massa</li>#}
-    {#                <li class="na">Massa ultricies mi</li>#}
-    {#              </ul>#}
-    {#                <img style="height: 150px" src="{% static 'site/img/icon_apklis_dark.png' %}" alt="">#}
-    {#              <div class="btn-wrap">#}
-    {#                <a href="#" class="btn-buy">Buy Now</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {##}
-    {#          <div class="col-lg-6 col-md-8 mt-4 mt-md-0">#}
-    {#            <div class="box featured">#}
-    {#              <h3>Business</h3>#}
-    {#              <h4><sup>$</sup>19<span> / month</span></h4>#}
-    {#              <ul>#}
-    {#                <li>Aida dere</li>#}
-    {#                <li>Nec feugiat nisl</li>#}
-    {#                <li>Nulla at volutpat dola</li>#}
-    {#                <li>Pharetra massa</li>#}
-    {#                <li class="na">Massa ultricies mi</li>#}
-    {#              </ul>#}
-    {#              <div class="btn-wrap">#}
-    {#                <a href="#" class="btn-buy">Buy Now</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {##}
-    {#          <div class="col-lg-6 col-md-8 mt-4 mt-md-0">#}
-    {#            <div class="box">#}
-    {#              <h3>Developer</h3>#}
-    {#              <h4><sup>$</sup>29<span> / month</span></h4>#}
-    {#              <ul>#}
-    {#                <li>Aida dere</li>#}
-    {#                <li>Nec feugiat nisl</li>#}
-    {#                <li>Nulla at volutpat dola</li>#}
-    {#                <li>Pharetra massa</li>#}
-    {#                <li>Massa ultricies mi</li>#}
-    {#              </ul>#}
-    {#              <div class="btn-wrap">#}
-    {#                <a href="#" class="btn-buy">Buy Now</a>#}
-    {#              </div>#}
-    {#            </div>#}
-    {#          </div>#}
-    {##}
-    {#        </div>#}
-    {##}
-    {#      </div>#}
-    {#    </section><!-- End Pricing Section -->#}
-
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact section-bg">
@@ -464,38 +330,11 @@
             </div>
 
             <div class="row">
-                {#          <div class="col-lg-6">#}
-                {#            <div class="info-box mb-4">#}
-                {#              <i class="bx bx-map"></i>#}
-                {#              <h3>Our Address</h3>#}
-                {#              <p>A108 Adam Street, New York, NY 535022</p>#}
-                {#            </div>#}
-                {#          </div>#}
-
-                {#          <div class="col-lg-3 col-md-6">#}
-                {#            <div class="info-box  mb-4">#}
-                {#              <i class="bx bx-envelope"></i>#}
-                {#              <h3>Email Us</h3>#}
-                {#              <p>contact@example.com</p>#}
-                {#            </div>#}
-                {#          </div>#}
-                {##}
-                {#          <div class="col-lg-3 col-md-6">#}
-                {#            <div class="info-box  mb-4">#}
-                {#              <i class="bx bx-phone-call"></i>#}
-                {#              <h3>Call Us</h3>#}
-                {#              <p>+1 5589 55488 55</p>#}
-                {#            </div>#}
-                {#          </div>#}
-
-            </div>
-
-            <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="info-box  mb-4">
                         <i class="bx bx-envelope"></i>
                         <h3>Correo Electrónico</h3>
-                        <p>contact@example.com</p>
+                        <p>contact@kerapido.com</p>
                     </div>
                 </div>
 
@@ -503,7 +342,7 @@
                     <div class="info-box  mb-4">
                         <i class="bx bx-phone-call"></i>
                         <h3>Teléfono</h3>
-                        <p>+1 5589 55488 55</p>
+                        <p>+53 5 6228190</p>
                     </div>
                 </div>
 
@@ -511,8 +350,8 @@
                     <form method="post" role="form" class="php-email-form">{% csrf_token %}
                         <div class="form-row">
                             <div class="col form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Nombre"
-                                       data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+                                <label for="name">.</label><input type="text" name="name" class="form-control" id="name" placeholder="Nombre"
+                                                                 data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="col form-group">
@@ -559,56 +398,57 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Nuestro Boletín de Noticias</h4>
-                    <p>Manténgase actualizado con nuestras noticias y actualizaciones.</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscríbete">
-                    </form>
+                    <h4>Nuestras Plataformas de Servicios</h4>
+                    <p>Ke Rápido ofrece, una aplicación para dispositivos con Sistema Operativo
+                        Android, sólo para sus clientes.</p>
+                    <p>Ke Rápido, dispone sólo para sus afiliados, un sistema web para el control de sus negocios</p>
+                    <div class="row ">
+{#                        <div class="col-lg-6 col-md-6 ">#}
+                            <img style="margin-right: 15%" src="{% static 'site/img/160138.png' %}" width="25%"/>
+{#                        </div>#}
+
+{#                        <div class="col-lg-6 col-md-6 ">#}
+                            <img src="{% static 'site/img/web-app.png' %}" width="30%"/>
+{#                        </div>#}
+                    </div>
+
 
                 </div>
 
 
                 <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Enlaces de Internos</h4>
+                    <h4>Enlaces Internos</h4>
                     <ul>
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Quiénes Somos</a></li>#}
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
+                        {% if bussiness %}
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
                             Afiliados</a></li>
+                        {% endif %}
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
                             Servicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'login' %}">Inicio de Sesión</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Sitios de Interés</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>#}
-                        {#                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>#}
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://www.apklis.cu/">Apklis</a></li>
+
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-info">
-                        <h3>Ke Rápido</h3>
-                        <p class="pb-3"><em>Le propone a sus afiliados, emplear una herramienta, que le permite
-                            gestionar sus negocios y a los clientes, realizar reservaciones de productos
-                            y/o servicios en linea.</em></p>
+                        <h3 style="color:#FEC010">Ke Rápido</h3>
+                        <p class="pb-3"><em>Les ofrece a sus clientes, una plataforma que permite realizar
+                            pedidos en linea, y otra plataforma a sus afiliados, que permite apoyar en la gestión de sus
+                            negocios.</em></p>
                         <p>
-                            {#                            A108 Adam Street <br>#}
-                            {#                            NY 535022, USA<br><br>#}
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
+                            <strong>Phone:</strong> +53 5 6228190<br>
+                            <strong>Email:</strong> contact@kerapido.com<br>
                         </p>
                         <div class="social-links mt-3">
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
                             <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -619,16 +459,9 @@
     </div>
 
     <div class="container">
-        <div class="copyright">
+        <div class="copyright">2020
             &copy; Copyright <strong><span style="color:#FEC010">Ke Rápido.</span></strong>Todos los Derechos Reservados
         </div>
-        {#        <div class="credits">#}
-        {#            <!-- All the links in the footer should remain intact. -->#}
-        {#            <!-- You can delete the links only if you purchased the pro version. -->#}
-        {#            <!-- Licensing information: https://bootstrapmade.com/license/ -->#}
-        {#            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/ -->#}
-        {#            Desarrollado por <a href="https://habanatrans.com/">Equipo HabanaTrans</a>#}
-        {#        </div>#}
     </div>
 </footer><!-- End Footer -->
 
@@ -640,8 +473,7 @@
 <script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
 {#<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>#}
 <script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'site/vendor/venobox/venobo
-x.min.js' %}"></script>
+<script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
 
 <!-- Template Main JS File -->
 <script src="{% static 'site/js/main.js' %}"></script>

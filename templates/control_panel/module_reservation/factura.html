@@ -1,0 +1,122 @@
+﻿{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="align-content-center">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#factura"
+                                                                          aria-controls="settings" role="tab"
+                                                                          data-toggle="tab">FACTURA</a>
+                                </li>
+                                <li role="presentation"><a href="#datos_entrega" aria-controls="settings"
+                                                           role="tab" data-toggle="tab">DATOS PARA ENTREGA</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="factura">
+                                <div class="align-content-center">
+                                    <img style="max-width: 30%" src="{{ pedido.negocio.logo.url }}" class="img-circle"/>
+                                </div>
+                                    <b>Servicio: {{ pedido.servicio.nombre }}</b>
+                                    <br>
+                                    <br>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="4" style="text-align: center">Reservación #{{ pedido.id }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion|date:"d/m/yy" }}</label></td>
+                                            <td><label>Hora: {{ pedido.fecha_reservacion|time }}</label></td>
+                                        </tr>
+                                        {% for p in pedido.reservaciones.all %}
+                                             <tr>
+                                                <th scope="row">{{ p.cantidad_producto }}</th>
+                                                <td colspan="2">{{ p.plato.nombre }}</td>
+                                                <td>{{ p.plato.precio }} cup</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <th scope="row">{{ pedido.reservaciones.count }}</th>
+                                            <td>Productos</td>
+                                            <td style="text-align: right">Total:</td>
+                                            <td id="pTotalPagar">{{ pedido.total_pagar }} cup</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td>Servicio de {{ pedido.servicio.nombre }}</td>
+                                            <td style="text-align: right">Total:</td>
+                                            <td>{{ pedido.tarifa.precio }} cup</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td>+ 4%</td>
+                                            <td style="text-align: right">Total:</td>
+                                            <td>{{ pedido.porciento_pagar }} cup</td>
+                                        </tr>
+                                        </tbody>
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="text-align: right">Total a pagar:</th>
+                                            <th>{{ pedido.total_pagar_user }} cup</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="datos_entrega">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2" style="text-align: center"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">Cliente</th>
+                                            <td id="pClienteEntrega">{{ pedido.cliente_entrega }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Teléfono</th>
+                                            <td id="pTelefonoEntrega">{{ pedido.telefono_entrega }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Dirección</th>
+                                            <td id="pDireccionEntrega" colspan="2">{{ pedido.direccion_entrega }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Municipio</th>
+                                            <td id="pMunicipio" colspan="2">{{ pedido.tarifa.lugar_destino }}</td>
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}

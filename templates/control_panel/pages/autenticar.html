@@ -1,0 +1,131 @@
+﻿{% load static %}<!DOCTYPE html>
+<html>
+
+<head style="height:100vh;">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Inicio de sessión | Panel de Control</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+
+    <!-- Animation Css -->
+    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
+
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="login-page">
+
+    <div style="margin-left: -10%" >
+        <div class="col-xl-8">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                             role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if error %}
+                <div class="col-lg-9">
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+<div class="login-box">
+    <div class="logo" style="height: 30px">
+
+    </div>
+    <div class="card">
+        <div class="body">
+            <form id="sign_in" method="POST">{% csrf_token %}
+                <div class="msg">Inicio de sessión</div>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" name="username" placeholder="Username" required
+                               autofocus>
+                    </div>
+                </div>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-5 ">
+{#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
+                    </div>
+                    <div class="col-xs-7 align-right">
+                        <button class="btn btn-default waves-effect waves-black " type="submit">
+                            <i class="material-icons " style="color: #212121">send</i>
+                            <span>INICIAR</span></button>
+                    </div>
+                </div>
+                <div class="row m-t-20 m-b--10">
+                    <div class="col-xs-5">
+                        <a href="{% url 'register_affiliate' %}"><b>Regístrese aquí!</b></a>
+                    </div>
+                    <div class="col-xs-7 align-right">
+                        <a href="{% url 'index' %}"><b>Ir al Sitio Web Oficial</b></a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Jquery Core Js -->
+<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+<!-- Validation Plugin Js -->
+<script src="{% static 'control_panel/plugins/jquery-validation/jquery.validate.js' %}"></script>
+
+
+<!-- Custom Js -->
+<script src="{% static 'control_panel/js/admin.js' %}"></script>
+
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
+<script src="{% static 'control_panel/js/pages/examples/sign-in.js' %}"></script>
+
+</body>
+
+
+</html>
