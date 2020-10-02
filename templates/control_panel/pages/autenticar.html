@@ -24,8 +24,10 @@
     <!-- Custom Css -->
     <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
 </head>
-{% block messages %}
-    <div class="row mb-3">
+
+<body class="login-page">
+
+    <div style="margin-left: -10%" >
         <div class="col-xl-8">
             {% if messages %}
                 <ul class="messages">
@@ -51,9 +53,6 @@
         </div>
     </div>
 
-
-{% endblock %}
-<body class="login-page">
 
 <div class="login-box">
     <div class="logo" style="height: 30px">
