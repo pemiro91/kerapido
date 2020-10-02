@@ -394,6 +394,12 @@
     <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>
 
     <script>
+        window.setTimeout(function () {
+            location.href = "https://pemiro91.pythonanywhere.com/users";
+        }, 10000); // refresh/redirect after 5 seconds.
+    </script>
+
+    <script>
         $('#activeModal').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
