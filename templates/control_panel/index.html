@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box-4">
                         <div class="icon">
                             <i class="material-icons col-black">widgets</i>
@@ -78,7 +78,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box-4">
                         <div class="icon">
                             <i class="material-icons col-black">supervisor_account</i>
@@ -90,7 +90,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box-4">
                         <div class="icon">
                             <i class="material-icons col-black">local_offer</i>
@@ -98,6 +98,18 @@
                         <div class="content">
                             <div class="text">CATEGORÍAS DE NEGOCIOS</div>
                             <div class="number">{{ cantidad_categ_neg }}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box-4 bg-grey">
+                        <div class="icon">
+                            <i class="material-icons col-black">widgets</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">NEGOCIO + PEDIDOS</div>
+                            <div class="number">{{ cantidad_servicios }}</div>
                         </div>
                     </div>
 
@@ -194,86 +206,6 @@
 
                 </div>
             {% endif %}
-{#            {% if  request.user.is_superuser or request.user.is_administrador %}#}
-{#                <div class="row clearfix">#}
-{#                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
-{#                        <div class="card">#}
-{#                            <div class="header">#}
-{#                                <h2>NEGOCIOS CON MÁS PEDIDOS</h2>#}
-{#                            </div>#}
-{#                            <div class="body">#}
-{#                                {% if business %}#}
-{#                                    <div class="table-responsive">#}
-{#                                        <table class="table table-hover dashboard-task-infos">#}
-{#                                            <thead>#}
-{#                                            <tr>#}
-{#                                                <th>Negocio</th>#}
-{#                                                <th>Categoría</th>#}
-{#                                                <th>Servicios</th>#}
-{#                                                <th>Municipio</th>#}
-{#                                                <th>Evaluacion</th>#}
-{#                                                <th>Acciones</th>#}
-{#                                            </tr>#}
-{#                                            </thead>#}
-{#                                            <tbody>#}
-{#                                            {% for negocio in business %}#}
-{#                                                <tr>#}
-{#                                                    <td>#}
-{#                                                        <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>#}
-{#                                                    </td>#}
-{#                                                    <td>#}
-{#                                                        {% for categoria in negocio.categorias.all %}#}
-{#                                                            {{ categoria.nombre }},#}
-{#                                                        {% endfor %}#}
-{#                                                    </td>#}
-{#                                                    <td>#}
-{#                                                        {% for servicio in negocio.servicios.all %}#}
-{#                                                            <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>#}
-{#                                                        {% endfor %}#}
-{##}
-{#                                                    </td>#}
-{#                                                    <td>{{ negocio.municipio }}</td>#}
-{##}
-{#                                                    <td>#}
-{#                                                        {% if negocio.rating == None %}#}
-{#                                                            No evaluado#}
-{#                                                        {% else %}#}
-{#                                                            {{ negocio.rating }}#}
-{#                                                        {% endif %}#}
-{#                                                    </td>#}
-{#                                                    <td>#}
-{#                                                        <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-{#                                                           title="Modificar datos de negocio"#}
-{#                                                           class="btn btn-default waves-effect waves-black">#}
-{#                                                            <i class="material-icons">edit</i>#}
-{#                                                        </a>#}
-{#                                                        <a href="#" type="button"#}
-{#                                                           class="btn btn-default waves-effect waves-amber"#}
-{#                                                           data-href="{% url 'delete_bussiness' negocio.id %}"#}
-{#                                                           data-id="{{ negocio.id }}"#}
-{#                                                           data-toggle="modal"#}
-{#                                                           data-target="#confirm-delete"#}
-{#                                                           title="Eliminar Negocio">#}
-{#                                                            <i class="material-icons">delete</i>#}
-{#                                                        </a>#}
-{#                                                    </td>#}
-{#                                                </tr>#}
-{#                                            {% endfor %}#}
-{#                                            </tbody>#}
-{#                                        </table>#}
-{#                                    </div>#}
-{##}
-{#                                {% else %}#}
-{#                                    No es posible mostrar este listado, porque usted no tiene negocios registrados.#}
-{#                                {% endif %}#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <!-- #END# Latest Social Trends -->#}
-{##}
-{##}
-{#                </div>#}
-{#            {% endif %}#}
             <div class="row clearfix">
                 <!-- Task Info -->
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -382,7 +314,7 @@
 
             <!-- Resumen de mis negocios Afiliados y personal encargado -->
             <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                     <div class="card">
                         <div class="header">
                             <h2>MIS NEGOCIOS</h2>
@@ -426,7 +358,7 @@
                                                 </td>
                                                 <td>
                                                     {% for servicio in negocio.servicios.all %}
-                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span><br>
                                                     {% endfor %}
 
                                                 </td>
@@ -499,6 +431,31 @@
                     </div>
                 </div>
                 <!-- #END# Latest Social Trends -->
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="card">
+                        <div class="body bg-grey">
+                            <div class="font-bold m-b--35">PRODUCTOS + RESERVADOS</div>
+                            <ul class="dashboard-stat-list">
+                                <li>
+                                    Producto 8
+                                    <span class="pull-right"><b>200</b> <small>prod</small></span>
+                                </li>
+                                <li>
+                                    Producto 2
+                                    <span class="pull-right"><b>110</b> <small>prod</small></span>
+                                </li>
+                                <li>
+                                    Producto 5
+                                    <span class="pull-right"><b>80</b> <small>prod</small></span>
+                                </li>
+                                <li>
+                                    Producto 1
+                                    <span class="pull-right"><b>60</b> <small>prod</small></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row clearfix">
                 <!-- Task Info -->

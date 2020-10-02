@@ -92,8 +92,8 @@ INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('
 INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id) VALUES ('Bicicleta','', 3);
 
 INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Comida para llevar', '', 'amber');
-INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Entrega a domicilio','', 'blue');
-INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Mesas y Espacios','', 'red');
+INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Entrega a domicilio','', 'green');
+INSERT INTO kerapido_servicio (nombre, descripcion, color) VALUES ('Mesas y Espacios','', 'grey');
 
 INSERT INTO kerapido_frecuencia (nombre) VALUES ('Lunes');
 INSERT INTO kerapido_frecuencia (nombre) VALUES ('Martes');

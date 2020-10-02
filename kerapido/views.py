@@ -154,7 +154,7 @@ def register_affiliate(request):
                                           'panel')
                 return redirect('login')
     context = {}
-    return render(request, "control_panel/pages/sign-up.html", context)
+    return render(request, "control_panel/pages/registrar.html", context)
 
 
 def base(request):
@@ -264,7 +264,7 @@ def admin_panel(request):
                    'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones,
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
-                    'cantidad_servicios': cant_servicios,
+                   'cantidad_servicios': cant_servicios,
                    'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg,
                    'comision_hoy_general': comision_hoy_general, 'comision_ayer_general': comision_ayer_general,
                    'comision_ultima_semana_general': comision_ultima_semana_general,
@@ -302,7 +302,7 @@ def login_admin(request):
             return redirect('login')
     else:
         form = AuthenticationForm()
-    return render(request, "control_panel/pages/sign-in.html", {'form': form})
+    return render(request, "control_panel/pages/autenticar.html", {'form': form})
 
 
 def logout(request):
@@ -339,17 +339,21 @@ def profile(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         business_persona = QuerySet
         if request.user.is_persona_encargada:
@@ -466,17 +470,21 @@ def services(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -520,17 +528,21 @@ def add_services(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
@@ -579,17 +591,21 @@ def update_service(request, id_service):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             name_service = request.POST.get('name_service')
@@ -649,17 +665,21 @@ def reservations(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         business_persona = QuerySet
         if request.user.is_persona_encargada:
@@ -721,17 +741,21 @@ def factura(request, id_pedido):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -772,17 +796,21 @@ def reservations_admin(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         business_persona = QuerySet
         if request.user.is_persona_encargada:
@@ -826,17 +854,21 @@ def users(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_afiliado:
             perfilAfiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.pk)
@@ -898,17 +930,21 @@ def update_user(request, id_user):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         business_persona = QuerySet
         if request.user.is_persona_encargada:
@@ -975,17 +1011,21 @@ def add_person(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         business_persona = QuerySet
         if request.user.is_persona_encargada:
@@ -1031,7 +1071,7 @@ def add_person(request):
                     messages.success(request, 'Persona encargada agregada correctamente')
                 return redirect('users')
         context = {'business': business, 'business_persona': business_persona, 'notificaciones': notificaciones,
-                           'cant_notificaciones': cant_notificaciones}
+                   'cant_notificaciones': cant_notificaciones}
         return render(request, "control_panel/module_users/agregar_persona_encargada.html", context)
     return redirect('login')
 
@@ -1070,17 +1110,21 @@ def update_person(request, id_user):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             first_name = request.POST.get('first_name')
@@ -1104,7 +1148,7 @@ def update_person(request, id_user):
                 messages.success(request, 'Persona encargada modificada correctamente')
                 return redirect('users')
         context = {'user': user_custom, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones,'business_persona': business_persona}
+                   'cant_notificaciones': cant_notificaciones, 'business_persona': business_persona}
         return render(request, "control_panel/module_users/editar_usuario.html", context)
     return redirect('login')
 
@@ -1155,17 +1199,21 @@ def categories(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         context = {'categories': category, 'business': business, 'notificaciones': notificaciones,
                    'cant_notificaciones': cant_notificaciones}
@@ -1203,17 +1251,21 @@ def add_category(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
@@ -1258,17 +1310,21 @@ def update_category(request, id_category):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             name_category = request.POST.get('name_category')
@@ -1326,17 +1382,21 @@ def businesses(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
                    'cant_notificaciones': cant_notificaciones}
@@ -1379,17 +1439,21 @@ def add_bussiness(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == 'POST':
             name_bussiness = request.POST.get('name_bussiness')
@@ -1488,18 +1552,21 @@ def editar_negocio(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if update_form.is_valid():
             edit = update_form.save(commit=False)
@@ -1559,17 +1626,21 @@ def update_bussiness(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         for i in servicios:
             if (i not in servicios_no_marcados) and (i not in servicios_marcados):
@@ -1693,17 +1764,21 @@ def my_bussiness(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -1752,17 +1827,21 @@ def categoria_productos(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -1806,18 +1885,21 @@ def agregar_categoria_productos(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -1867,17 +1949,21 @@ def editar_categoria_producto(request, id_bussiness, id_category):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -1942,23 +2028,27 @@ def products(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         context = {'business': business, 'productos': productos, 'negocio': negocio,
-                   'business_persona': business_persona,'notificaciones': notificaciones,
+                   'business_persona': business_persona, 'notificaciones': notificaciones,
                    'cant:notificaciones': cant_notificaciones}
         return render(request, "control_panel/module_products/listado_producto.html", context)
     return redirect('login')
@@ -1996,17 +2086,21 @@ def add_product(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
@@ -2060,17 +2154,21 @@ def editar_product(request, id_bussiness, id_product):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -2082,7 +2180,7 @@ def editar_product(request, id_bussiness, id_product):
             messages.success(request, 'Producto modificado correctamente')
             return redirect(reverse('products', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'producto': producto, 'update_form': update_form,
-                   'business_persona': business_persona,'cant_notificaciones': cant_notificaciones,
+                   'business_persona': business_persona, 'cant_notificaciones': cant_notificaciones,
                    'notificaciones': notificaciones}
         return render(request, "control_panel/module_products/editar_producto.html", context)
     return redirect('login')
@@ -2131,17 +2229,21 @@ def offers(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -2183,17 +2285,21 @@ def add_offer(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
@@ -2248,17 +2354,21 @@ def update_offer(request, id_bussiness, id_offer):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -2325,18 +2435,21 @@ def rates(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
@@ -2377,18 +2490,21 @@ def add_rate(request, id_bussiness):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
@@ -2443,18 +2559,21 @@ def update_rate(request, id_bussiness, id_rate):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
@@ -2516,17 +2635,21 @@ def messages_center(request):
             notificaciones = notificaciones.order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
-                negocio = Negocio.objects.get(usuario_negocio_id=afiliado.afiliado.id)
-                if negocio:
-                    qset1 = (
-                            Q(tipo='Pedido') |
-                            Q(negocio=negocio.id) |
-                            Q(estado='No-Leida')
-                    )
-                    notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-                    cant_notificaciones = len(list(notificaciones))
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         context = {'notificaciones': notificaciones, 'todas_notificaciones': todas_notificaciones,
                    'cant_notificaciones': cant_notificaciones}
