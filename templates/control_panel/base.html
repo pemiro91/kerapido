@@ -284,6 +284,12 @@
                             <span>Servicios</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{% url 'services' %}">
+                            <i class="material-icons">widgets</i>
+                            <span>Contratación</span>
+                        </a>
+                    </li>
                 {% elif request.user.is_persona_encargada %}
                     {% if business_persona %}
                         <li>
@@ -343,6 +349,12 @@
                         <a href="{% url 'services' %}">
                             <i class="material-icons">widgets</i>
                             <span>Servicios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'services' %}">
+                            <i class="material-icons">description</i>
+                            <span>Contratación</span>
                         </a>
                     </li>
                 {% endif %}
