@@ -70,7 +70,7 @@
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="base.html">Panel de Control</a>
+            <a class="navbar-brand" href="{% url 'panel' %}">Panel de Control</a>
         </div>
 
 
@@ -165,7 +165,8 @@
                                 administrador:
                             {% else %}
                                 super-usuario:
-                            {% endif %} {{ request.user.username }}
+                            {% endif %}
+                            {{ request.user.username }}
                         </label>
                         <i class="material-icons">keyboard_arrow_down</i>
 
@@ -352,7 +353,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'services' %}">
+                        <a href="">
                             <i class="material-icons">description</i>
                             <span>Contratación</span>
                         </a>

@@ -52,7 +52,8 @@
                     </div>
 
                     <div class="body">
-                        <form id="Form" name="formBussiness" class="form-horizontal form-form_validation" enctype="multipart/form-data"
+                        <form id="Form" name="formBussiness" class="form-horizontal form-form_validation"
+                              enctype="multipart/form-data"
                               role="form" method="post">{% csrf_token %}
                             <div>
                                 <ul class="nav nav-tabs tab-col-black" role="tablist">
@@ -165,7 +166,7 @@
                                                    role="tab" data-toggle="tab"
                                                    class="btn btn-default waves-effect waves-amber btnNext ">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>GUARDAR Y CONTINUAR</span></a>
+                                                    <span>CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -197,7 +198,7 @@
                                                         <select id="frecuencia_bussiness" name="frecuencia_bussiness"
                                                                 class="form-control" multiple required>
                                                             {% for frec in frecuencia %}
-                                                            <option value="{{ frec.nombre }}">{{ frec.nombre }}</option>
+                                                                <option value="{{ frec.nombre }}">{{ frec.nombre }}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -210,36 +211,70 @@
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="demo-masked-input">
-                                                    <div class="input-daterange input-group" id="bs_datepicker_range_container">
-                                                        <span class="input-group-addon">desde</span>
-                                                        <div class="input-group">
-                                                                <span class="input-group-addon">
-                                                                    <i class="material-icons">access_time</i>
-                                                                </span>
-                                                            <div class="form-line">
-                                                                <label>
-                                                                    <input type="text" class="form-control time12"
-                                                                           name="hour_init_bussiness" placeholder="Ej: 11:00 am">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <span class="input-group-addon">hasta</span>
-                                                        <div class="input-group">
-                                                                <span class="input-group-addon">
-                                                                    <i class="material-icons">access_time</i>
-                                                                </span>
-                                                            <div class="form-line">
-                                                                <label>
-                                                                    <input type="text" class="form-control time12"
-                                                                           name="hour_end_bussiness" placeholder="Ej: 11:30 pm">
-                                                                </label>
-                                                            </div>
-
+                                                    <b>Desde</b>
+                                                    <div class="input-group">
+                                                        {#                                                        <span class="input-group-addon">#}
+                                                        {#                                                            <i class="material-icons">access_time</i>#}
+                                                        {#                                                        </span>#}
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control time12"
+                                                                   name="hour_init_bussiness"
+                                                                   placeholder="Ej: 11:00 am">
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="phone"></label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="demo-masked-input">
+                                                    <b>Hasta</b>
+                                                    <div class="input-group">
+                                                        {#                                                        <span class="input-group-addon">#}
+                                                        {#                                                            <i class="material-icons">access_time</i>#}
+                                                        {#                                                        </span>#}
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control time12"
+                                                                   name="hour_end_bussiness" placeholder="Ej: 11:30 pm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {#                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">#}
+                                            {#                                                <div class="demo-masked-input">#}
+                                            {#                                                    <div class="input-daterange input-group" id="bs_datepicker_range_container">#}
+                                            {#                                                        <span class="input-group-addon">desde</span>#}
+                                            {#                                                        <div class="input-group">#}
+                                            {#                                                                <span class="input-group-addon">#}
+                                            {#                                                                    <i class="material-icons">access_time</i>#}
+                                            {#                                                                </span>#}
+                                            {#                                                            <div class="form-line">#}
+                                            {#                                                                <label>#}
+                                            {#                                                                    <input type="text" class="form-control time12"#}
+                                            {#                                                                           name="hour_init_bussiness" placeholder="Ej: 11:00 am">#}
+                                            {#                                                                </label>#}
+                                            {#                                                            </div>#}
+                                            {#                                                        </div>#}
+                                            {#                                                        <span class="input-group-addon">hasta</span>#}
+                                            {#                                                        <div class="input-group">#}
+                                            {#                                                                <span class="input-group-addon">#}
+                                            {#                                                                    <i class="material-icons">access_time</i>#}
+                                            {#                                                                </span>#}
+                                            {#                                                            <div class="form-line">#}
+                                            {#                                                                <label>#}
+                                            {#                                                                    <input type="text" class="form-control time12"#}
+                                            {#                                                                           name="hour_end_bussiness" placeholder="Ej: 11:30 pm">#}
+                                            {#                                                                </label>#}
+                                            {#                                                            </div>#}
+                                            {##}
+                                            {#                                                        </div>#}
+                                            {#                                                    </div>#}
+                                            {#                                                </div>#}
+                                            {##}
+                                            {#                                            </div>#}
                                         </div>
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
@@ -256,7 +291,7 @@
                                                    role="tab" data-toggle="tab"
                                                    class="btn btn-default waves-effect waves-amber btnNext">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
-                                                    <span>GUARDAR Y CONTINUAR</span></a>
+                                                    <span>CONTINUAR</span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +317,8 @@
                                                 <label for="municipio_bussiness">Municipio</label>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                                <select id="municipio_bussiness" name="municipio_bussiness" class="form-control show-tick" data-live-search="true">
+                                                <select id="municipio_bussiness" name="municipio_bussiness"
+                                                        class="form-control show-tick" data-live-search="true">
                                                     {% if municipios %}
                                                         {% for municipio in municipios %}
                                                             <option value="{{ municipio.pk }}">{{ municipio.nombre }}</option>
@@ -350,7 +386,7 @@
                                                 <button class="btn btn-default waves-effect waves-amber"
                                                         onclick="return validateFormContacto()"
                                                         type="submit">
-                                                    <i class="material-icons " style="color: #212121">add</i>
+                                                    <i class="material-icons " style="color: #212121">add_circle</i>
                                                     <span>AGREGAR</span></button>
                                             </div>
                                         </div>

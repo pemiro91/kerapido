@@ -3056,7 +3056,8 @@
     }
 
     .navbar .dropdown-menu {
-        margin-left: -50px;
+        /*margin-left: -50px;*/
+        margin-left: 0;
     }
 
     .navbar .js-right-sidebar {
