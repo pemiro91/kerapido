@@ -12,96 +12,109 @@
         {% if request.user.is_administrador or request.user.is_superuser %}
             <!-- Resumen cantidades para Admin -->
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">shopping_cart</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">PEDIDOS</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15"
-                                 data-fresh-interval="20">{{ cantidad_pedidos }}
+                <a href="{% url 'reservations_admin' %}" title="Pedidos">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">shopping_cart</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">PEDIDOS</div>
+                                <div class="number count-to" data-from="0" data-to="125" data-speed="15"
+                                     data-fresh-interval="20">{{ cantidad_pedidos }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">store</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NEGOCIOS</div>
-                            <div class="number count-to" data-from="0" data-to="117" data-speed="15"
-                                 data-fresh-interval="20">{{ cantidad_negocios }}
+                </a>
+                <a href="{% url 'bussiness' %}" title="Negocios">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">store</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">NEGOCIOS</div>
+                                <div class="number count-to" data-from="0" data-to="117" data-speed="15"
+                                     data-fresh-interval="20">{{ cantidad_negocios }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">face</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">AFILIADOS</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="15"
-                                 data-fresh-interval="20">{{ cantidad_afiliados }}
+                </a>
+                <a href="{% url 'users_rol' 1 %}" title="Afiliados">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">face</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">AFILIADOS</div>
+                                <div class="number count-to" data-from="0" data-to="257" data-speed="15"
+                                     data-fresh-interval="20">{{ cantidad_afiliados }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">person</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">CLIENTES</div>
-                            <div class="number count-to" data-from="0" data-to="1432" data-speed="15"
-                                 data-fresh-interval="20">{{ cantidad_clientes }}
+                </a>
+                <a href="{% url 'users_rol' 2 %}" title="Clientes">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">person</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">CLIENTES</div>
+                                <div class="number count-to" data-from="0" data-to="1432" data-speed="15"
+                                     data-fresh-interval="20">{{ cantidad_clientes }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">widgets</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">SERVICIOS</div>
-                            <div class="number">{{ cantidad_servicios }}</div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">supervisor_account</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">PERSONAL ENCARGADO</div>
-                            <div class="number">{{ cantidad_encargados }}</div>
+                <a href="{% url 'services' %}" title="Servicios">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">widgets</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">SERVICIOS</div>
+                                <div class="number">{{ cantidad_servicios }}</div>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box-4">
-                        <div class="icon">
-                            <i class="material-icons col-black">local_offer</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">CATEGORÍAS DE NEGOCIOS</div>
-                            <div class="number">{{ cantidad_categ_neg }}</div>
+                </a>
+                <a href="{% url 'users_rol' 3 %}" title="Persona Encargada">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">supervisor_account</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">PERSONAL ENCARGADO</div>
+                                <div class="number">{{ cantidad_encargados }}</div>
+                            </div>
                         </div>
                     </div>
+                </a>
+                <a href="{% url 'categories' %}" title="Categocia de Negocio">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box-4">
+                            <div class="icon">
+                                <i class="material-icons col-black">local_offer</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">CATEGORÍAS DE NEGOCIOS</div>
+                                <div class="number">{{ cantidad_categ_neg }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
 
-                </div>
+
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box-4 bg-grey">
                         <div class="icon">

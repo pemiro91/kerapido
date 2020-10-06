@@ -43,17 +43,6 @@
                     </div>
                     </div>
                 {% endblock %}
-
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <ol class="breadcrumb breadcrumb-col-amber text-right">
-                <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>
-                <li class="active"><i class="material-icons">group</i>
-                    Usuarios
-                </li>
-
-            </ol>
-        </div>
-    </div>
     </div>
 
     <!-- #END# Basic Examples -->
@@ -66,7 +55,7 @@
                         {% if request.user.is_afiliado %}
                             LISTADO DE PERSONAS ENCARGADAS POR NEGOCIO
                         {% else %}
-                            LISTADO DE USUARIOS
+                            {{ titulo_table }}
                         {% endif %}
                     </h2>
                     {% if request.user.is_afiliado %}
@@ -88,7 +77,6 @@
                                    class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Negocio</th>
@@ -100,7 +88,6 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Negocio</th>
@@ -189,7 +176,6 @@
                                    class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
@@ -201,7 +187,6 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
@@ -214,7 +199,6 @@
                                 <tbody>
                                 {% for user in usuarios %}
                                     <tr>
-                                        <th>{{ user.id }}</th>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
                                           text-overflow: ellipsis;">{{ user.first_name }} {{ user.last_name }}
@@ -238,12 +222,12 @@
                                         {% endif %}
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
-                                            <td style="width: 5%"><span class="label bg-green" data-toggle="tooltip"
+                                            <td><span class="label bg-green" data-toggle="tooltip"
                                                                         data-placement="top"
                                                                         title="{{ user.fecha_alta }}">Activo</span>
                                             </td>
                                         {% else %}
-                                            <td style="width: 5%"><span class="label bg-red">Bloqueado</span></td>
+                                            <td><span class="label bg-red">Bloqueado</span></td>
                                         {% endif %}
                                         <td>
                                             {% if user.is_active %}
@@ -301,7 +285,6 @@
         </div>
     </div>
     <!-- #END# Exportable Table -->
-    </div>
     <!-- Default Size -->
     <div class="modal fade" id="activeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
