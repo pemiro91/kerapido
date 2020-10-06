@@ -21,10 +21,32 @@
 {#            <p id="display">Time Left<p>#}
 {#            <button id="start">Start</button>#}
         </div>
-
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix">
+        <diV  style="width: 50%;margin-left: 23%">
+                {% if messages %}
+                    <ul class="messages align-content-center" >
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <div class="col-lg-9">
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                {% endif %}
+            </diV>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
