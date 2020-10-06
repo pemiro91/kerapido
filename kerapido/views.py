@@ -280,25 +280,40 @@ def admin_panel(request):
 def login_admin(request):
     if request.POST:
         form = AuthenticationForm(request.POST)
-        username = request.POST.get('username')
+        nombreuser = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
-                if tiene_negocio or user.is_superuser or user.is_administrador:
-                    return redirect('panel')
-                elif user.is_persona_encargada:
-                    persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
-                    tiene_negocio_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-                    if tiene_negocio_persona:
-                        return redirect('panel')
+        if User.objects.filter(username=nombreuser):
+            user_exists = User.objects.get(username=nombreuser)
+            if user_exists:
+                if not user_exists.is_cliente:
+                    if user_exists.is_active:
+                        user = authenticate(username=nombreuser, password=password)
+                        if user is not None:
+                            login(request, user)
+                            tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
+                            if tiene_negocio or user.is_superuser or user.is_administrador:
+                                return redirect('panel')
+                            elif user.is_persona_encargada:
+                                persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
+                                tiene_negocio_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+                                if tiene_negocio_persona:
+                                    return redirect('panel')
+                            else:
+                                return redirect('add_bussiness')
+                        else:
+                            messages.warning(request, 'Error de autenticación')
+                            return redirect('login')
+                    else:
+                        messages.warning(request, 'Usted no tiene acceso al sistema')
+                        return redirect('login')
                 else:
-                    return redirect('add_bussiness')
+                    messages.warning(request, 'Usted no tiene acceso al sistema')
+                    return redirect('login')
+            else:
+                messages.warning(request, 'El usuario no exixte')
+                return redirect('login')
         else:
-            messages.warning(request, 'Error de autenticación')
+            messages.warning(request, 'El usuario no exixte')
             return redirect('login')
     else:
         form = AuthenticationForm()
@@ -878,10 +893,11 @@ def users(request):
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
+        titulo_table = "LISTADO DE USUARIOS"
         business = Negocio.objects.filter(usuario_negocio=request.user)
         context = {'usuarios': usuarios, 'business': business, 'personas_afiliadas': personas_afiliadas,
                    'business_persona': business_persona, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
+                   'cant_notificaciones': cant_notificaciones, 'titulo_table': titulo_table}
         return render(request, "control_panel/module_users/listado_usuarios.html", context)
     return redirect('login')
 
@@ -1164,6 +1180,82 @@ def rol_admin(request, id_user):
             notificacion.save()
         messages.success(request, 'El rol de administrador fue asignado satisfactoriamente al usuario seleccioando')
         return redirect('users')
+    return redirect('login')
+
+
+def users_rol(request, id_rol):
+    if request.user.is_authenticated:
+        personas_afiliadas = QuerySet
+        # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
+        if request.user.is_superuser:
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            cant_notificaciones = len(notificaciones)
+        elif request.user.is_administrador:
+            qset = (
+                    Q(tipo='Usuario') |
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset).exclude(
+                mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        elif request.user.is_persona_encargada:
+            persona = get_object_or_404(PerfilPersonaEncargada, pk=request.user.id)
+            negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
+            qset1 = (
+                    Q(tipo='Pedido') |
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        else:
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                print(afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+
+        if request.user.is_afiliado:
+            perfilAfiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.pk)
+            personas_afiliadas = PerfilPersonaEncargada.objects.filter(afiliado_pertenece_id=perfilAfiliado.pk)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+
+        if id_rol == 1:
+            titulo_table = "LISTADO DE AFILIADOS"
+            users_for_rol = User.objects.filter(is_afiliado=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        elif id_rol == 2:
+            titulo_table = "LISTADO DE CLIENTES"
+            users_for_rol = User.objects.filter(is_cliente=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        elif id_rol == 3:
+            titulo_table = "LISTADO DE PERSONAS ENCARGADAS"
+            users_for_rol = User.objects.filter(is_persona_encargada=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        else:
+            titulo_table = "LISTADO DE USUARIOS"
+            users_for_rol = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
+        context = {'usuarios': users_for_rol, 'business': business, 'personas_afiliadas': personas_afiliadas,
+                   'business_persona': business_persona, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones, 'id_rol': id_rol, 'titulo_table': titulo_table}
+        return render(request, "control_panel/module_users/listado_usuarios.html", context)
     return redirect('login')
 
 
@@ -1683,7 +1775,7 @@ def update_bussiness(request, id_bussiness):
                 hour_end = request.POST.get('hour_end')
                 post_frecuencia = request.POST.getlist('frecuencia')
                 address_bussiness = request.POST.get('address_bussiness')
-                municipio = request.POST.get('municipio')
+                municipio = request.POST.get('municipio_bussiness')
                 phone_bussiness_o = request.POST.get('phone_bussiness_o')
                 phone_bussiness = request.POST.get('phone_bussiness')
 

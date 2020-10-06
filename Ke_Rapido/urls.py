@@ -62,6 +62,7 @@ urlpatterns = [
     path('add_person/', views.add_person, name="add_person_of_business"),
     path('update_person/<int:id_user>', views.update_person, name="update_person"),
     path('rol_admin/<int:id_user>', views.rol_admin, name="rol_admin"),
+    path('users_rol/<int:id_rol>', views.users_rol, name="users_rol"),
 
     path('products/<int:id_bussiness>', views.products, name="products"),
     path('add_product/<int:id_bussiness>', views.add_product, name="add_product"),
