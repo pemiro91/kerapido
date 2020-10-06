@@ -1775,7 +1775,7 @@ def update_bussiness(request, id_bussiness):
                 hour_end = request.POST.get('hour_end')
                 post_frecuencia = request.POST.getlist('frecuencia')
                 address_bussiness = request.POST.get('address_bussiness')
-                municipio = request.POST.get('municipio')
+                municipio = request.POST.get('municipio_bussiness')
                 phone_bussiness_o = request.POST.get('phone_bussiness_o')
                 phone_bussiness = request.POST.get('phone_bussiness')
 
