@@ -23,9 +23,9 @@
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix">
-        <diV  style="width: 50%;margin-left: 23%">
+            <diV style="width: 50%;margin-left: 23%">
                 {% if messages %}
-                    <ul class="messages align-content-center" >
+                    <ul class="messages align-content-center">
                         {% for message in messages %}
                             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
                                  role="alert">
@@ -54,12 +54,13 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_bussiness' %}" type="button" title="Agregar Datos de Negocio"
-                                   class="btn btn-default waves-effect waves-black">
-                                    <i class="material-icons " style="color: #212121">add_circle</i>
-                                    <span>AGREGAR</span>
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
                                 </a>
-
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="{% url 'add_bussiness' %}"><i class="material-icons" style="color: #212121">add_circle</i>Agregar</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -72,8 +73,6 @@
                                     <th>Nombre</th>
                                     <th>Servicios</th>
                                     <th>Evaluacion</th>
-
-
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -91,7 +90,7 @@
                                 {% for negocio in negocios %}
                                     <tr>
                                         <td>{{ negocio.usuario_negocio.first_name }}</td>
-                                        <td>{{ negocio.nombre }}</td>
+                                        <td><a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a></td>
                                         <td>
                                             {% for servicio in negocio.servicios.all %}
                                                 <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
