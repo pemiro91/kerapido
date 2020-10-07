@@ -51,12 +51,12 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE PEDIDOS GENERAL
+                            LISTADO DE TODOS LOS PEDIDOS
                         </h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-striped table-hover dataTable js-basic-example ">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
                                     <th>Nro.</th>
@@ -131,12 +131,12 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
-    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>
-
-    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>
-
-    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+{#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
+{##}
+{#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
+{##}
+{#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
+{#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
 
     <script>
         window.setTimeout(function () {
@@ -168,8 +168,8 @@
                         "previous": "Anterior"
                     }
                 },
-                     "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
-                    "iDisplayLength": 5
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
             });
         });
     </script>

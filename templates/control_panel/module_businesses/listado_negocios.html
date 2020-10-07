@@ -104,10 +104,26 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            {#                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"#}
-                                            {#                                               title="Modificar datos de negocio" class="btn btn-default waves-effect waves-black">#}
-                                            {#                                                <i class="material-icons">edit</i>#}
-                                            {#                                            </a>#}
+
+                                            {% if not request.user.is_administrador %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href=""
+                                                   title="Desactivar Usuario"
+                                                   data-toggle="modal" data-target="#blockedModal"
+                                                   data-id="">
+                                                    <i class="material-icons">visibility</i>
+                                                </a>
+                                            {% else %}
+{#                                                <a href="#" type="button"#}
+{#                                                   class="btn btn-default waves-effect waves-black"#}
+{#                                                   data-href=""#}
+{#                                                   title="Activar Usuario"#}
+{#                                                   data-toggle="modal" data-target="#activeModal"#}
+{#                                                   data-id="{{ user.persona_encargada.id }}">#}
+{#                                                    <i class="material-icons">accessibility</i>#}
+{#                                                </a>#}
+                                            {% endif %}
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
                                                data-href="{% url 'delete_bussiness' negocio.id %}"
                                                data-id="{{ negocio.id }}"
@@ -117,6 +133,8 @@
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
+
+
                                     </tr>
                                 {% endfor %}
                                 </tbody>
