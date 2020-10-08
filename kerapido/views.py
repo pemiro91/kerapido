@@ -1448,6 +1448,7 @@ def businesses(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
+        pedidos = Pedido.objects.all()
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1491,7 +1492,7 @@ def businesses(request):
                         cant_notificaciones = len(list(notificaciones))
 
         context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
+                   'cant_notificaciones': cant_notificaciones,'pedidos': pedidos}
         return render(request, "control_panel/module_businesses/listado_negocios.html", context)
     return redirect('login')
 
