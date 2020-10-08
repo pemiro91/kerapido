@@ -140,6 +140,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     precio = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    cantidad_producto = models.IntegerField()
     categoria = models.ForeignKey(Categoria_Producto, related_name='categorias_ordered', on_delete=models.CASCADE)
 
     def __str__(self):

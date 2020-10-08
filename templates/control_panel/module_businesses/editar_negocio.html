@@ -33,8 +33,7 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">store</i>
+                        <li><a href="{{ request.META.HTTP_REFERER }}" onClick="history.go(-1);"><i class="material-icons">store</i>
                             Negocios</a>
                         </li>
                         <li class="active"><i class="material-icons">add_circle</i>
@@ -597,7 +596,7 @@
 {% endblock %}
 {% block plugin_section %}
 
-    <!-- Select Plugin Js -->
+<!-- Select Plugin Js -->
     <script src="{% static 'control_panel/./plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
     <!-- Slimscroll Plugin Js -->
@@ -631,10 +630,8 @@
     <script src="{% static 'control_panel/js/admin.js' %}"></script>
     <script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
     <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
     <!-- Demo Js -->
     <script src="{% static 'control_panel/js/demo.js' %}"></script>
-
     <script src="{% static 'control_panel/js/validate_negocio.js' %}"></script>
 
 {% endblock %}
