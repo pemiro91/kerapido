@@ -78,8 +78,12 @@ def getCategoriaApi(request, pk):
 @api_view(["POST"])
 def postReservaApi(request):
     serializer = PedidoSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
+    reservaciones = request.data.get("reservaciones")
+    for reser in reservaciones:
+        print(reser)
+    # Producto.objects.filter(id=id_producto)
+    # serializer.is_valid(raise_exception=True)
+    # serializer.save()
     return Response({'message': 'Reserva realizada satisfactoriamente'}, status=HTTP_201_CREATED)
 
 
