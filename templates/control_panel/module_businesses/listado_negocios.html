@@ -81,6 +81,7 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
+                                    <th>Nombre</th>
                                     <th>Afiliado</th>
                                     <th>Servicios</th>
                                     <th>Comentarios</th>
@@ -128,9 +129,14 @@
                                                     <i class="material-icons">visibility_off</i>
                                                 </a>
                                             {% endif %}
-                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                               title="Modificar datos de negocio"
-                                               class="btn btn-default waves-effect waves-black">
+                                            <a type="button"
+                                               class="btn btn-default waves-effect waves-black"
+                                               data-role="{{ negocios }}"
+                                               data-href=""
+                                               data-id="{{ negocio.id }}"
+                                               data-toggle="modal"
+                                               data-target="#invoiceModal"
+                                               title="Eliminar Negocio">
                                                 <i class="material-icons">assignment</i>
                                             </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
@@ -154,6 +160,122 @@
             </div>
         </div>
         <!-- #END# Exportable Table -->
+    </div>
+    <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Enviar Factura al
+                        Negocio</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <div class="align-content-center">
+                            <img style="max-width: 30%" {% static 'control_panel/images/logo.jpg' %} class="img-circle"/>
+                        </div>
+                        <b>Factura: {{ pedido.servicio.nombre }}</b>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th colspan="4" style="text-align: center">Reservación #{{ pedido.id }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion|date:"d/m/yy" }}</label></td>
+                                <td><label>Hora: {{ pedido.fecha_reservacion|time }}</label></td>
+                            </tr>
+                            {% for p in negocios %}
+                                <tr>
+                                    <th scope="row">{{ p.horario }}</th>
+                                    <td colspan="2">{{ p.municipio }}</td>
+                                    <td>{{ p.direccion }} cup</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="row">{{ pedido.reservaciones.count }}</th>
+                                <td>Productos</td>
+                                <td style="text-align: right">Total:</td>
+                                <td id="pTotalPagar">{{ pedido.total_pagar }} cup</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Servicio de {{ pedido.servicio.nombre }}</td>
+                                <td style="text-align: right">Total:</td>
+                                <td>{{ pedido.tarifa.precio }} cup</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>+ 4%</td>
+                                <td style="text-align: right">Total:</td>
+                                <td>{{ pedido.porciento_pagar }} cup</td>
+                            </tr>
+                            </tbody>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th style="text-align: right">Total a pagar:</th>
+                                <th>{{ pedido.total_pagar_user }} cup</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <thead>
+                        <tr>
+                            <th colspan="4" style="text-align: center">pedidos #{{ pedidos.count }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {#                    <tr>#}
+                        {#                        <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion|date:"d/m/yy" }}</label></td>#}
+                        {#                        <td><label>Hora: {{ pedido.fecha_reservacion|time }}</label></td>#}
+                        {#                    </tr>#}
+                        {% for p in pedidos.all %}
+                            <tr>
+                                <th scope="row">{{ p.id }}</th>
+                                {#                            <td colspan="2">{{ p.plato.nombre }}</td>#}
+                                {#                            <td>{{ p.plato.precio }} cup</td>#}
+                            </tr>
+                        {% endfor %}
+                        {#                    <tr>#}
+                        {#                        <th scope="row">{{ pedido.reservaciones.count }}</th>#}
+                        {#                        <td>Productos</td>#}
+                        {#                        <td style="text-align: right">Total:</td>#}
+                        {#                        <td id="pTotalPagar">{{ pedido.total_pagar }} cup</td>#}
+                        {#                    </tr>#}
+                        {#                    <tr>#}
+                        {#                        <th scope="row"></th>#}
+                        {#                        <td>Servicio de {{ pedido.servicio.nombre }}</td>#}
+                        {#                        <td style="text-align: right">Total:</td>#}
+                        {#                        <td>{{ pedido.tarifa.precio }} cup</td>#}
+                        {#                    </tr>#}
+                        {#                    <tr>#}
+                        {#                        <th scope="row"></th>#}
+                        {#                        <td>+ 4%</td>#}
+                        {#                        <td style="text-align: right">Total:</td>#}
+                        {#                        <td>{{ pedido.porciento_pagar }} cup</td>#}
+                        {#                    </tr>#}
+                        </tbody>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th style="text-align: right">Total a pagar:</th>
+                            <th>{{ pedido.total_pagar_user }} cup</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ENVIAR</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade" id="closedModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
