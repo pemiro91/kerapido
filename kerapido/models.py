@@ -86,6 +86,7 @@ class Frecuencia(models.Model):
 
 
 class Negocio(models.Model):
+    is_closed = models.BooleanField(default=False)
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     macro = models.ManyToManyField(Macro)
     nombre = models.CharField(max_length=255)

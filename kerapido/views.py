@@ -1566,6 +1566,7 @@ def add_bussiness(request):
             horario = str(hour_init) + ' - ' + str(hour_end)
 
             negocio = Negocio.objects.create(
+                is_closed=False,
                 usuario_negocio=request.user,
                 nombre=name_bussiness,
                 logo=logo_bussiness,

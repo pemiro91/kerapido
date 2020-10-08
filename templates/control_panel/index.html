@@ -136,14 +136,19 @@
                             <div class="header">
                                 <h2>MIS NEGOCIOS</h2>
                                 <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown">
-                                        <a href="{% url 'add_bussiness' %}" type="button"
-                                           title="Agregar Categoría de Producto"
-                                           class="btn btn-default waves-effect waves-black">
-                                            <i class="material-icons " style="color: #212121">add_circle</i>
-                                            <span>AGREGAR</span>
-                                        </a>
-                                    </li>
+                                    <ul class="header-dropdown m-r--5">
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                               role="button" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a href="{% url 'add_bussiness' %}">Agregar<i class="material-icons"
+                                                                                                  style="color: #212121">add_circle</i></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </ul>
                             </div>
                             <div class="body">
@@ -225,14 +230,22 @@
                     <div class="card">
                         <div class="header">
                             <h2>ÚLTIMOS 5 PEDIDOS</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                       role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                </li>
-                            </ul>
+                            {% if ultimos_pedidos %}
+                                <ul class="header-dropdown m-r--5">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                           role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="{% url 'reservations_admin' %}"><i class="material-icons"
+                                                                                            style="color: #212121">add_circle</i>Mostrar
+                                                todos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            {% endif %}
                         </div>
                         <div class="body">
                             {% if ultimos_pedidos %}
@@ -326,15 +339,18 @@
                     <div class="card">
                         <div class="header">
                             <h2>MIS NEGOCIOS</h2>
-                            {% if  request.user.is_afiliado %}
+                            {% if  request.user.is_afiliado or request.user.is_persona_encargada %}
                                 <ul class="header-dropdown m-r--5">
                                     <li class="dropdown">
-                                        <a href="{% url 'add_bussiness' %}" type="button"
-                                           title="Agregar Categoría de Producto"
-                                           class="btn btn-default waves-effect waves-black">
-                                            <i class="material-icons " style="color: #212121">add_circle</i>
-                                            <span>AGREGAR</span>
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                           role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">more_vert</i>
                                         </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="{% url 'add_bussiness' %}">Agregar<i class="material-icons"
+                                                                                              style="color: #212121">add_circle</i></a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             {% endif %}
@@ -353,7 +369,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% if request.user.is_afiliado %}
+                                    {% if request.user.is_afiliado or request.user.is_persona_encargada %}
                                         {% for negocio in business %}
                                             <tr>
                                                 <td>
@@ -366,7 +382,8 @@
                                                 </td>
                                                 <td>
                                                     {% for servicio in negocio.servicios.all %}
-                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span><br>
+                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                        <br>
                                                     {% endfor %}
 
                                                 </td>
@@ -379,6 +396,26 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>
+
+                                                    {% if negocio.is_closed %}
+                                                        <a href="#" type="button"
+                                                           class="btn btn-default waves-effect waves-black"
+                                                           data-href=""
+                                                           title="Aperturar Negocio"
+                                                           data-toggle="modal" data-target="#openModal"
+                                                           data-id="">
+                                                            <i class="material-icons">visibility</i>
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="#" type="button"
+                                                           class="btn btn-default waves-effect waves-black"
+                                                           data-href=""
+                                                           title="Cerrar Negocio"
+                                                           data-toggle="modal" data-target="#closedModal"
+                                                           data-id="">
+                                                            <i class="material-icons">visibility_off</i>
+                                                        </a>
+                                                    {% endif %}
                                                     <a type="button" href="{% url 'update_bussiness' negocio.id %}"
                                                        title="Modificar datos de negocio"
                                                        class="btn btn-default waves-effect waves-black">
@@ -399,37 +436,37 @@
                                     {% else %}
                                         {% for negocio in business_persona %}
                                             <tr>
-                                            <td>
-                                                <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
-                                            </td>
-                                            <td>
-                                                {% for categoria in negocio.categorias.all %}
-                                                    {{ categoria.nombre }},
-                                                {% endfor %}
-                                            </td>
-                                            <td>
-                                                {% for servicio in negocio.servicios.all %}
-                                                    <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
-                                                {% endfor %}
+                                                <td>
+                                                    <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
+                                                </td>
+                                                <td>
+                                                    {% for categoria in negocio.categorias.all %}
+                                                        {{ categoria.nombre }},
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for servicio in negocio.servicios.all %}
+                                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                    {% endfor %}
 
-                                            </td>
-                                            <td>{{ negocio.municipio }}</td>
+                                                </td>
+                                                <td>{{ negocio.municipio }}</td>
 
-                                            <td>
-                                                {% if negocio.rating == None %}
-                                                    No evaluado
-                                                {% else %}
-                                                    {{ negocio.rating }}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                <a type="button" href="{% url 'update_bussiness' negocio.id %}"
-                                                   title="Modificar datos de negocio"
-                                                   class="btn btn-default waves-effect waves-black">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                <td>
+                                                    {% if negocio.rating == None %}
+                                                        No evaluado
+                                                    {% else %}
+                                                        {{ negocio.rating }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                                       title="Modificar datos de negocio"
+                                                       class="btn btn-default waves-effect waves-black">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         {% endfor %}
                                     {% endif %}
                                     </tbody>
@@ -439,7 +476,7 @@
                     </div>
                 </div>
                 <!-- #END# Latest Social Trends -->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <div class="card">
                         <div class="body bg-grey">
                             <div class="font-bold m-b--35">PRODUCTOS + RESERVADOS</div>

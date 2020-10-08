@@ -59,7 +59,9 @@
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="{% url 'add_bussiness' %}"><i class="material-icons" style="color: #212121">add_circle</i>Agregar</a></li>
+                                    <li><a href="{% url 'add_bussiness' %}"><i class="material-icons"
+                                                                               style="color: #212121">add_circle</i>Agregar</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -69,9 +71,10 @@
                             <table id="example" class="table table-bordered table-striped table-hover dataTable  ">
                                 <thead>
                                 <tr>
-                                    <th>Afiliado</th>
                                     <th>Nombre</th>
+                                    <th>Afiliado</th>
                                     <th>Servicios</th>
+                                    <th>Comentarios</th>
                                     <th>Evaluacion</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -79,23 +82,25 @@
                                 <tfoot>
                                 <tr>
                                     <th>Afiliado</th>
-                                    <th>Nombre</th>
                                     <th>Servicios</th>
+                                    <th>Comentarios</th>
                                     <th>Evaluacion</th>
-
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
                                 {% for negocio in negocios %}
                                     <tr>
-                                        <td>{{ negocio.usuario_negocio.first_name }}</td>
                                         <td><a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a></td>
+                                        <td>{{ negocio.usuario_negocio.first_name }} {{ negocio.usuario_negocio.last_name }}</td>
+
                                         <td>
                                             {% for servicio in negocio.servicios.all %}
                                                 <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                                <br>
                                             {% endfor %}
                                         </td>
+                                        <td><a>13</a></td>
                                         <td>
                                             {% if negocio.rating == None %}
                                                 No evaluado
@@ -104,26 +109,30 @@
                                             {% endif %}
                                         </td>
                                         <td>
-
-                                            {% if not request.user.is_administrador %}
+                                            {% if negocio.is_closed %}
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
                                                    data-href=""
-                                                   title="Desactivar Usuario"
-                                                   data-toggle="modal" data-target="#blockedModal"
+                                                   title="Aperturar Negocio"
+                                                   data-toggle="modal" data-target="#openModal"
                                                    data-id="">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
                                             {% else %}
-{#                                                <a href="#" type="button"#}
-{#                                                   class="btn btn-default waves-effect waves-black"#}
-{#                                                   data-href=""#}
-{#                                                   title="Activar Usuario"#}
-{#                                                   data-toggle="modal" data-target="#activeModal"#}
-{#                                                   data-id="{{ user.persona_encargada.id }}">#}
-{#                                                    <i class="material-icons">accessibility</i>#}
-{#                                                </a>#}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href=""
+                                                   title="Cerrar Negocio"
+                                                   data-toggle="modal" data-target="#closedModal"
+                                                   data-id="">
+                                                    <i class="material-icons">visibility_off</i>
+                                                </a>
                                             {% endif %}
+                                            <a type="button" href="{% url 'update_bussiness' negocio.id %}"
+                                               title="Modificar datos de negocio"
+                                               class="btn btn-default waves-effect waves-black">
+                                                <i class="material-icons">assignment</i>
+                                            </a>
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
                                                data-href="{% url 'delete_bussiness' negocio.id %}"
                                                data-id="{{ negocio.id }}"
@@ -145,6 +154,46 @@
             </div>
         </div>
         <!-- #END# Exportable Table -->
+    </div>
+    <div class="modal fade" id="closedModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Suspender visibilidad del
+                        negocio</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente suspender la visibilidad de este negocio?
+                    Recuerde que si suspende la visibilidad los clientes no podrán realizar pedidos.
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> SUSPENDER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="openModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Activar visibilidad al
+                        Negocio</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente activar la visibilidad de este negocio?
+                    Recuerde que si activa la visibilidad, los clientes podrán realizar sus pedidos.
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ACTIVAR</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block plugin_section %}

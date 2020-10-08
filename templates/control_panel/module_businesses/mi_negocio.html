@@ -58,7 +58,7 @@
                                                         <span>{{ categoria }},</span>
                                                     {% endif %}
                                                 {% endfor %}
-                                            <br>
+                                                <br>
                                                 {% for macro in negocio.macro.all %}
                                                     {% if forloop.last %}
                                                         <span>{{ macro }}</span>
@@ -103,10 +103,19 @@
                             <li>
                                 <div class="title">
                                     <i class="material-icons">room</i>
+                                    Dirección
+                                </div>
+                                <div class="content">
                                     <span>{{ negocio.direccion }}</span>
                                 </div>
+                            </li>
+                            <li>
                                 <div class="title">
                                     <i class="material-icons">flag</i>
+                                    Municipio
+                                </div>
+
+                                <div class="content">
                                     <span>{{ negocio.municipio }}</span>
                                 </div>
 
@@ -125,7 +134,7 @@
                             <li>
                                 <div class="title">
                                     <i class="material-icons">access_time</i>
-                                    Horario
+                                    Horario y Frecuencia
                                     {#                                    <span>11:00am a 11:00 pm</span>#}
                                 </div>
                                 <div class="content">
@@ -153,18 +162,6 @@
                                     </div>
                                 {% else %}
                                 {% endif %}
-
-                                {#                                <div class="title">#}
-                                {#                                    <i class="material-icons">email</i>#}
-                                {#                                    <span>levant@gmail.com</span>#}
-                                {#                                </div>#}
-
-                                {#                                <div class="content">#}
-                                {#                                    <span class="label bg-red">UI Design</span>#}
-                                {#                                    <span class="label bg-teal">JavaScript</span>#}
-                                {#                                    <span class="label bg-blue">PHP</span>#}
-                                {#                                    <span class="label bg-amber">Node.js</span>#}
-                                {#                                </div>#}
                             </li>
 
 
@@ -172,18 +169,7 @@
                     </div>
                 </div>
                 <div class="card profile-card">
-                    {#                    <div class="profile-header">&nbsp;</div>#}
-                    {#                    <div class="profile-body">#}
-                    {#                        <div class="image-area">#}
-                    {#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
-                    {#                                 alt="AdminBSB - Profile Image"/>#}
-                    {#                        </div>#}
-                    {#                        <div class="content-area">#}
-                    {#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
-                    {#                            <p>superusuario</p>#}
-                    {#                            <p>{{ request.user.username }}</p>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
+
                     <div class="profile-footer">
                         <ul>
                             <li>
