@@ -295,7 +295,8 @@ def login_admin(request):
                                 return redirect('panel')
                             elif user.is_persona_encargada:
                                 persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
-                                tiene_negocio_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+                                tiene_negocio_persona = Negocio.objects.filter(
+                                    pk=persona_encargada.negocio_pertenece.id)
                                 if tiene_negocio_persona:
                                     return redirect('panel')
                             else:
@@ -1763,17 +1764,14 @@ def update_bussiness(request, id_bussiness):
                 domingo = True
 
         update_form = UpdateBusiness(request.POST or None, request.FILES or None, instance=negocio)
-        with transaction.atomic():
-            if update_form.is_valid():
-                edit = update_form.save(commit=False)
-                edit.save()
 
-            if request.method == 'POST':
+        if request.method == 'POST':
+            with transaction.atomic():
                 category_bussiness = request.POST.getlist('category_bussiness')
                 services_bussiness = request.POST.getlist('services_bussiness')
                 hour_init = request.POST.get('hour_init_bussiness')
-                hour_end = request.POST.get('hour_end')
-                post_frecuencia = request.POST.getlist('frecuencia')
+                hour_end = request.POST.get('hour_end_bussiness')
+                post_frecuencia = request.POST.getlist('frecuencia_bussiness')
                 address_bussiness = request.POST.get('address_bussiness')
                 municipio = request.POST.get('municipio_bussiness')
                 phone_bussiness_o = request.POST.get('phone_bussiness_o')
@@ -1781,20 +1779,23 @@ def update_bussiness(request, id_bussiness):
 
                 horario = str(hour_init) + ' - ' + str(hour_end)
 
-                with transaction.atomic():
-                    Negocio.objects.filter(pk=id_bussiness).update(
-                        usuario_negocio=request.user,
-                        horario=horario,
-                        direccion=address_bussiness,
-                        municipio_id=municipio,
-                        telefono1=phone_bussiness_o,
-                        telefono2=phone_bussiness
-                    )
-                    negocio.categorias.set(Categoria_Negocio.objects.filter(nombre__in=category_bussiness))
-                    negocio.servicios.set(Servicio.objects.filter(nombre__in=services_bussiness))
-                    negocio.frecuencia.set(Frecuencia.objects.filter(nombre__in=post_frecuencia))
+                Negocio.objects.filter(pk=id_bussiness).update(
+                    usuario_negocio=request.user,
+                    horario=horario,
+                    direccion=address_bussiness,
+                    municipio_id=municipio,
+                    telefono1=phone_bussiness_o,
+                    telefono2=phone_bussiness
+                )
+                negocio.categorias.set(Categoria_Negocio.objects.filter(nombre__in=category_bussiness))
+                negocio.servicios.set(Servicio.objects.filter(nombre__in=services_bussiness))
+                negocio.frecuencia.set(Frecuencia.objects.filter(nombre__in=post_frecuencia))
 
-                    return redirect('panel')
+                if update_form.is_valid():
+                    edit = update_form.save(commit=False)
+                    edit.save()
+
+                return redirect('panel')
 
         context = {'negocio': negocio,
                    'lunes': lunes, 'martes': martes, 'miercoles': miercoles,
