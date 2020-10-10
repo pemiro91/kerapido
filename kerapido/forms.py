@@ -27,12 +27,12 @@ class MyForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['imagen', 'nombre', 'descripcion', 'cantidad_producto', 'precio', 'categoria']
+        fields = ['imagen', 'nombre', 'cantidad_producto', 'descripcion', 'cantidad_producto', 'precio', 'categoria']
 
         labels = {
             "nombre": "Nombre*",
             "descripcion": "Descripción",
-            "cantidad_producto": "Cantidad de productos*",
+            "cantidad_producto": "Cantidad*",
             "precio": "Precio*",
         }
         widgets = {

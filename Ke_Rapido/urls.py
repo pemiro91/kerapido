@@ -90,6 +90,9 @@ urlpatterns = [
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
     path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
     path('delete_bussiness/<int:id_rate>', views.delete_bussiness, name="delete_bussiness"),
+    path('factura_bussiness/<int:id_bussiness>', views.my_bussiness, name="my_bussiness"),
+    path('activate_business/<int:id_bussiness>', views.activate_business, name="activate_business"),
+    path('blocked_business/<int:id_bussiness>', views.blocked_business, name="blocked_business"),
 
     path('categories', views.categories, name="categories"),
     path('add_category', views.add_category, name="add_category"),

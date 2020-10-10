@@ -104,6 +104,7 @@ class Negocio(models.Model):
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
+    fecha_alta = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return self.nombre
@@ -157,7 +158,7 @@ class Tarifa_Entrega(models.Model):
 
 
 class Reservacion_Simple(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='plato')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='producto')
     cantidad_producto = models.IntegerField()
 
     def str(self): return str(self.producto)

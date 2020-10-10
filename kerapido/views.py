@@ -76,7 +76,7 @@ def ofertas_laborales(request):
 
 
 def nuestros_afiliados(request):
-    negocios_afiliados = Negocio.objects.all()
+    negocios_afiliados = Negocio.objects.filter(is_closed=False)
     paginator = Paginator(negocios_afiliados, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -228,7 +228,7 @@ def admin_panel(request):
         else:
             pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
             afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
-            negocio = Negocio.objects.get(usuario_negocio=afiliado.id)
+            negocio = Negocio.objects.get(usuario_negocio=afiliado.afiliado.id)
             qset1 = (
                     Q(tipo='Pedido') |
                     Q(negocio=negocio.id) |
@@ -358,7 +358,6 @@ def profile(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -402,13 +401,16 @@ def change_password(request):
         persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
         business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
         if request.user.is_superuser:
-            notificaciones = Notification.objects.all().order_by('-fecha')[:5]
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
             cant_notificaciones = len(notificaciones)
         elif request.user.is_administrador:
             qset = (
                     Q(tipo='Usuario') |
-                    Q(tipo='Negocio')
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
             )
             notificaciones = Notification.objects.filter(qset).exclude(
                 mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
@@ -418,19 +420,26 @@ def change_password(request):
             negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
             qset1 = (
                     Q(tipo='Pedido') |
-                    Q(negocio=negocio.id)
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
             )
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = get_object_or_404(PerfilAfiliado, pk=request.user.id)
-            negocio = Negocio.objects.get(usuario_negocio=afiliado.id)
-            qset1 = (
-                    Q(tipo='Pedido') |
-                    Q(negocio=negocio.id)
-            )
-            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-            cant_notificaciones = len(list(notificaciones))
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == "POST":
             old_password = request.POST.get('oldPassword')
@@ -489,7 +498,6 @@ def services(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -547,7 +555,6 @@ def add_services(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -610,7 +617,6 @@ def update_service(request, id_service):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -684,7 +690,6 @@ def reservations(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -719,7 +724,7 @@ def change_state_reservation(request, id_bussiness, id_reservation):
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             state = request.POST.get('state')
-            Pedido.objects.filter(pk=id_reservation).update(estado=state)
+            Pedido.objects.filter(pk=id_reservation).update(estado=state,fecha_estado=date.today())
             messages.success(request, 'Estado cambiado correctamente')
             return redirect(reverse('reservations', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
@@ -760,7 +765,6 @@ def factura(request, id_pedido):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -815,7 +819,6 @@ def reservations_admin(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -873,7 +876,6 @@ def users(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -950,7 +952,6 @@ def update_user(request, id_user):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1031,7 +1032,6 @@ def add_person(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1130,7 +1130,6 @@ def update_person(request, id_user):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1216,7 +1215,6 @@ def users_rol(request, id_rol):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1295,7 +1293,6 @@ def categories(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1347,7 +1344,6 @@ def add_category(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1406,7 +1402,6 @@ def update_category(request, id_category):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1444,11 +1439,29 @@ def delete_category(request, id_category):
 
 
 # -------------------Módulo Negocio---------------#
+def get_next_weekday(startdate, weekday):
+    """
+    @startdate: given date, in format '2013-05-25'
+    @weekday: week day as a integer, between 0 (Monday) to 6 (Sunday)
+    """
+    d = datetime.strptime(startdate, '%Y-%m-%d')
+    t = timedelta((7 + weekday - d.weekday()) % 7)
+    return (d + t).strftime('%Y-%m-%d')
+
 
 def businesses(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
+
+        today = date.today()
+        offset = (today.weekday() - 5) % 7
+        last_saturday = today - timedelta(days=offset)
+        print(last_saturday)
+        print(get_next_weekday(str(today), 5))
+        print(today.isoweekday())
+        Pedido.objects.filter()
+
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1478,7 +1491,6 @@ def businesses(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1535,7 +1547,6 @@ def add_bussiness(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1649,7 +1660,6 @@ def editar_negocio(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1723,7 +1733,6 @@ def update_bussiness(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1861,7 +1870,6 @@ def my_bussiness(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1884,6 +1892,20 @@ def my_bussiness(request, id_bussiness):
                    'comentarios_negocio': comentarios, 'business_persona': business_persona,
                    'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones}
         return render(request, "control_panel/module_businesses/mi_negocio.html", context)
+    return redirect('login')
+
+
+def activate_business(request, id_bussiness):
+    if request.user.is_authenticated:
+        Negocio.objects.filter(id=id_bussiness).update(is_closed=False, fecha_alta=date.today())
+        return redirect('panel')
+    return redirect('login')
+
+
+def blocked_business(request, id_bussiness):
+    if request.user.is_authenticated:
+        Negocio.objects.filter(id=id_bussiness).update(is_closed=True, fecha_alta=date.today())
+        return redirect('panel')
     return redirect('login')
 
 
@@ -1924,7 +1946,6 @@ def categoria_productos(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1982,7 +2003,6 @@ def agregar_categoria_productos(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2046,7 +2066,6 @@ def editar_categoria_producto(request, id_bussiness, id_category):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2125,7 +2144,6 @@ def products(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2183,7 +2201,6 @@ def add_product(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2201,11 +2218,13 @@ def add_product(request, id_bussiness):
         if request.method == 'POST':
             image_product = request.FILES['image_product']
             name_product = request.POST.get('name_product')
+            count_product = request.POST.get('count_product')
             description_product = request.POST.get('description_product')
             price_product = request.POST.get('price_product')
             category_product = request.POST.get('category_product')
             Producto.objects.create(imagen=image_product,
-                                    nombre=name_product, descripcion=description_product, precio=price_product,
+                                    nombre=name_product, cantidad_producto=count_product,
+                                    descripcion=description_product, precio=price_product,
                                     negocio=negocio, categoria_id=category_product)
             messages.success(request, 'Producto agregado correctamente')
             return redirect(reverse('products', args=(id_bussiness,)))
@@ -2251,7 +2270,6 @@ def editar_product(request, id_bussiness, id_product):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2326,7 +2344,6 @@ def offers(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2382,7 +2399,6 @@ def add_offer(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2451,7 +2467,6 @@ def update_offer(request, id_bussiness, id_offer):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2532,7 +2547,6 @@ def rates(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2587,7 +2601,6 @@ def add_rate(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2656,7 +2669,6 @@ def update_rate(request, id_bussiness, id_rate):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2732,7 +2744,6 @@ def messages_center(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (

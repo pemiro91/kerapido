@@ -195,19 +195,19 @@
                                                         {% if negocio.is_closed %}
                                                             <a href="#" type="button"
                                                                class="btn btn-default waves-effect waves-black"
-                                                               data-href=""
+                                                               data-href="{% url 'activate_business' negocio.id %}"
                                                                title="Aperturar Negocio"
-                                                               data-toggle="modal" data-target="#openModal"
-                                                               data-id="">
+                                                               data-toggle="modal" data-target="#openbusinessModal"
+                                                               data-id="{{ negocio.id }}">
                                                                 <i class="material-icons">visibility</i>
                                                             </a>
                                                         {% else %}
                                                             <a href="#" type="button"
                                                                class="btn btn-default waves-effect waves-black"
-                                                               data-href=""
+                                                               data-href="{% url 'blocked_business' negocio.id %}"
                                                                title="Cerrar Negocio"
-                                                               data-toggle="modal" data-target="#closedModal"
-                                                               data-id="">
+                                                               data-toggle="modal" data-target="#closebusinessModal"
+                                                               data-id="{{ negocio.id }}">
                                                                 <i class="material-icons">visibility_off</i>
                                                             </a>
                                                         {% endif %}
@@ -418,20 +418,20 @@
                                                     {% if negocio.is_closed %}
                                                         <a href="#" type="button"
                                                            class="btn btn-default waves-effect waves-black"
-                                                           data-href=""
+                                                           data-href="{% url 'activate_business' negocio.id %}"
                                                            title="Aperturar Negocio"
-                                                           data-toggle="modal" data-target="#openModal"
-                                                           data-id="">
-                                                            <i class="material-icons">visibility</i>
+                                                           data-toggle="modal" data-target="#openbusinessModal"
+                                                           data-id="{{ negocio.id }}">
+                                                            <i class="material-icons">visibility_off</i>
                                                         </a>
                                                     {% else %}
                                                         <a href="#" type="button"
                                                            class="btn btn-default waves-effect waves-black"
-                                                           data-href=""
+                                                           data-href="{% url 'blocked_business' negocio.id %}"
                                                            title="Cerrar Negocio"
-                                                           data-toggle="modal" data-target="#closedModal"
-                                                           data-id="">
-                                                            <i class="material-icons">visibility_off</i>
+                                                           data-toggle="modal" data-target="#closebusinessModal"
+                                                           data-id="{{ negocio.id }}">
+                                                            <i class="material-icons">visibility</i>
                                                         </a>
                                                     {% endif %}
                                                     <a type="button" href="{% url 'update_bussiness' negocio.id %}"
@@ -625,6 +625,40 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="openbusinessModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Bloquear usuario</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea activar el negocio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ACTIVAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="closebusinessModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Bloquear usuario</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea bloquear el negocio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> BLOQUEAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block plugin_section %}
 
@@ -637,6 +671,12 @@
             $(this).addClass('active').siblings().removeClass('active');
         });
         $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+        $('#openbusinessModal').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+        $('#closebusinessModal').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
