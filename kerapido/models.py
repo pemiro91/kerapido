@@ -223,3 +223,16 @@ class Notification(models.Model):
     estado = models.CharField(max_length=50, choices=ESTADO_NOTIFICATION, name='estado')
     tipo = models.CharField(max_length=50, choices=TIPO_NOTIFICATION, name='tipo')
     fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.mensaje
+
+class Factura_KeRapido(models.Model):
+    total_porciento_pagar = models.FloatField(max_length=255)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
+    nota = models.CharField(max_length=300)
+    fecha_emision = models.DateTimeField(auto_now_add=True)
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.total_porciento_pagar

@@ -1912,7 +1912,7 @@ def factura_bussiness(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
-
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
         today = date.today()
         offset = (today.weekday() - 5) % 7
         last_saturday = today - timedelta(days=offset)
@@ -1961,12 +1961,12 @@ def factura_bussiness(request, id_bussiness):
                         notificaciones = list(notificaciones)
                         notificaciones += notificaciones
                         cant_notificaciones = len(list(notificaciones))
-        mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
-        if mensaje_notificacion != '':
-            notificacion = Notification(mensaje=mensaje_notificacion,
-                                        estado='No-Leido', tipo='Negocio')
-            notificacion.save()
-        messages.success(request, 'El negocio se agregó satisfactoriamente')
+        # mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
+        # if mensaje_notificacion != '':
+        #     notificacion = Notification(mensaje=mensaje_notificacion,
+        #                                 estado='No-Leido', tipo='Negocio')
+        #     notificacion.save()
+        # messages.success(request, 'El negocio se agregó satisfactoriamente')
 
         # return redirect(reverse('bussiness', args=(negocio.id,)))
         context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,

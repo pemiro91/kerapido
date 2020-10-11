@@ -123,11 +123,27 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                        {% else %}
+                                        {% elif notificacion.tipo == 'Negocio' %}
                                             <li>
                                                 <a href="javascript:void(0);">
                                                     <div class="icon-circle bg-red">
                                                         <i class="material-icons">business</i>
+                                                    </div>
+                                                    <div class="menu-info">
+                                                        <h4 style="overflow: hidden;max-width: 190px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ notificacion.mensaje }}</h4>
+                                                        <p>
+                                                            <i class="material-icons">access_time</i> {{ notificacion.fecha }}
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="javascript:void(0);">
+                                                    <div class="icon-circle bg-grey">
+                                                        <i class="material-icons">assignment</i>
                                                     </div>
                                                     <div class="menu-info">
                                                         <h4 style="overflow: hidden;max-width: 190px;
@@ -177,8 +193,8 @@
                         <li><a href="{% url 'my_profile' %}" style="margin-left: 0px"><i
                                 class="material-icons">person</i>Mi Perfil</a></li>
                         <li role="separator" class="divider"></li>
-{#                        <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>#}
-{#                        </li>#}
+                        {#                        <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>#}
+                        {#                        </li>#}
                         <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i
                                 class="material-icons">input</i>Salir</a>
                         </li>

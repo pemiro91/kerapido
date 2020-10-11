@@ -1,10 +1,207 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
 
-</body>
-</html>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestión de negocios</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="{% url 'categories' %}"><i class="material-icons">business</i>
+                            Negocios</a>
+                        </li>
+                        <li class="active"><i class="material-icons">add_circle</i>
+                            Enviar Factura a Negocio
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>ENVIAR FACTURA A NEGOCIO</h2>
+
+                    </div>
+                    <div class="body">
+                        <div class="align-content-center">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#factura"
+                                                                          aria-controls="settings" role="tab"
+                                                                          data-toggle="tab">FACTURA DE KeRÁPIDO</a>
+                                </li>
+                                <li role="presentation"><a href="#notas" aria-controls="settings"
+                                                           role="tab" data-toggle="tab">NOTAS</a></li>
+                            </ul>
+                            <form id="form-horizontal form-form_validation" method="POST">{% csrf_token %}
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="factura">
+                                        <div class="align-content-center">
+                                            <img style="max-width: 20%;margin-left: 40%;text-align: center"
+                                                 src="{% static 'control_panel/images/logo.jpg' %}"/>
+                                        </div>
+                                        <br>
+                                        <br>
+
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th colspan="4" style="text-align: left">A negocio: EL levant</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" style="text-align: left">Factura: #123</th>
+                                                <th colspan="2" style="text-align: right">Fecha de Emisión: 11/10/2020
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" style="text-align: center">Desgloce de Porcentaje a
+                                                    Cobrar por
+                                                    pedidos
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="3" style="text-align: left">Fecha de pedidos</th>
+                                                <th style="text-align: right">% a Cobrar</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="3"><label>3/10/10</label></td>
+                                                <td style="text-align: right"><label>105 CUP</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><label>5/10/10</label></td>
+                                                <td style="text-align: right"><label>200 CUP</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><label>6/10/10</label></td>
+                                                <td style="text-align: right"><label>500 CUP</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><label>7/10/10</label></td>
+                                                <td style="text-align: right"><label>80 CUP</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><label>8/10/10</label></td>
+                                                <td style="text-align: right"><label>1000 CUP</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><label>10/10/10</label></td>
+                                                <td style="text-align: right"><label>50 CUP</label></td>
+                                            </tr>
+                                            </tbody>
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th colspan="4" style="text-align: right">Total a pagar: 1935 CUP</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+
+                                        <div class="row clearfix">
+                                            <div class="" style=";margin-left: 40%">
+                                                <a class="btn btn-default waves-effect waves-black" type="submit">
+                                                    <i class="material-icons " style="color: #212121">arrow_forward</i>
+                                                    <span>CONTINUAR</span></a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="notas">
+                                        <br>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="first_name">Notas para el Negocio</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <textarea type="text" class="form-control text" rows="10"
+                                                                  name="note_factura_negocio" >
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="" style=";margin-left: 40%">
+                                                <a class="btn btn-default waves-effect waves-black btnNext"
+                                                onclick="return validateFormServicio()" href="#"
+                                                   role="tab" data-toggle="tab">
+                                                    <i class="material-icons " style="color: #212121">arrow_forward</i>
+                                                    <span>ENVIAR FACTURA</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="card profile-card">
+                    <div class="profile-header">&nbsp;</div>
+                    <div class="profile-body">
+                        <div class="image-area">
+                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/logo.jpg' %}"
+                                 alt="KeRápido"/>
+                        </div>
+                        <div class="content-area">
+                            <h3>Datos de Contacto</h3>
+                            {#                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>#}
+                            {#                            {% if request.user.is_administrador %}#}
+                            {#                                <p>Administrador</p>#}
+                            {#                            {% else %}#}
+                            {#                                <p>Super-usuario</p>#}
+                            {#                            {% endif %}#}
+                            {#                            <p>{{ request.user.username }}</p>#}
+                        </div>
+                    </div>
+                    <div class="profile-footer">
+                        <ul>
+                            <li>
+                                <span>Teléfono</span>
+                                <span>telfono de kerapido</span>
+                            </li>
+                            <li>
+                                <span>Correo</span>
+                                <span>correo de kerapido</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}
