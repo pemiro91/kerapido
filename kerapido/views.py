@@ -1915,14 +1915,15 @@ def factura_bussiness(request, id_bussiness):
         negocios = Negocio.objects.all()
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         today = date.today()
-        ayer = today - timedelta(days=1)
         ultima_semana = today - timedelta(days=7)
-        offset = (today.weekday() - 5) % 7
-        last_saturday = today - timedelta(days=offset)
-        print(last_saturday)
-        print(get_next_weekday(str(today), 5))
-        print(today.isoweekday())
-        Pedido.objects.filter()
+        offset = (today.weekday() - 6) % 7
+        last_sunday = today - timedelta(days=offset)
+        print(last_sunday)
+
+        next_saturday = get_next_weekday(str(today), 5)
+        pedidos_for_date = Pedido.objects.filter(fecha_reservacion__range=[last_sunday, next_saturday])
+        print(pedidos_for_date)
+
         pedidos_aux = Pedido.objects.all()
         pedidos = []
         porciento_total_pagar = 0
@@ -1930,7 +1931,7 @@ def factura_bussiness(request, id_bussiness):
             if p.negocio == negocio.id & p.fecha_reservacion >= ultima_semana & p.fecha_reservacion < ultima_semana:
                 pedido = get_object_or_404(Pedido, pk=p.id)
                 porciento_total_pagar += pedido.porciento_pagar
-                pedidos.append([pedido,porciento_total_pagar ])
+                pedidos.append([pedido, porciento_total_pagar])
             else:
                 pedido = get_object_or_404(Pedido, pk=p.id)
                 porciento_total_pagar += 0
@@ -1978,7 +1979,8 @@ def factura_bussiness(request, id_bussiness):
         fecha_emision = datetime.now()
         # return redirect(reverse('bussiness', args=(negocio.id,)))
         context = {'negocios': negocios, 'negocio': negocio, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision, 'pedidos': pedidos}
+                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision, 'pedidos': pedidos,
+                   'pedidos_for_date': pedidos_for_date}
         return render(request, "control_panel/module_businesses/factura_negocio.html", context)
     return redirect('login')
 
