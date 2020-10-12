@@ -724,7 +724,7 @@ def change_state_reservation(request, id_bussiness, id_reservation):
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             state = request.POST.get('state')
-            Pedido.objects.filter(pk=id_reservation).update(estado=state,fecha_estado=date.today())
+            Pedido.objects.filter(pk=id_reservation).update(estado=state, fecha_estado=date.today())
             messages.success(request, 'Estado cambiado correctamente')
             return redirect(reverse('reservations', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
@@ -1908,18 +1908,32 @@ def blocked_business(request, id_bussiness):
         return redirect('panel')
     return redirect('login')
 
+
 def factura_bussiness(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         today = date.today()
+        ayer = today - timedelta(days=1)
+        ultima_semana = today - timedelta(days=7)
         offset = (today.weekday() - 5) % 7
         last_saturday = today - timedelta(days=offset)
         print(last_saturday)
         print(get_next_weekday(str(today), 5))
         print(today.isoweekday())
         Pedido.objects.filter()
+        pedidos_aux = Pedido.objects.all()
+        pedidos = []
+        porciento_total_pagar = 0
+        for p in pedidos_aux:
+            if p.negocio == negocio.id & p.fecha_reservacion >= ultima_semana & p.fecha_reservacion < ultima_semana:
+                pedido = get_object_or_404(Pedido, pk=p.id)
+                porciento_total_pagar += pedido.porciento_pagar
+                pedidos.append([pedido,porciento_total_pagar ])
+            else:
+                pedido = get_object_or_404(Pedido, pk=p.id)
+                porciento_total_pagar += 0
 
         # Notificaciones------------------------------------
         notificaciones = []
@@ -1961,18 +1975,13 @@ def factura_bussiness(request, id_bussiness):
                         notificaciones = list(notificaciones)
                         notificaciones += notificaciones
                         cant_notificaciones = len(list(notificaciones))
-        # mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
-        # if mensaje_notificacion != '':
-        #     notificacion = Notification(mensaje=mensaje_notificacion,
-        #                                 estado='No-Leido', tipo='Negocio')
-        #     notificacion.save()
-        # messages.success(request, 'El negocio se agregó satisfactoriamente')
-
+        fecha_emision = datetime.now()
         # return redirect(reverse('bussiness', args=(negocio.id,)))
-        context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
+        context = {'negocios': negocios, 'negocio': negocio, 'business': business, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision, 'pedidos': pedidos}
         return render(request, "control_panel/module_businesses/factura_negocio.html", context)
     return redirect('login')
+
 
 # -------------------Módulo Categoria Productos---------------#
 

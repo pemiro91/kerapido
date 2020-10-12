@@ -62,12 +62,12 @@
 
                                         <table class="table">
                                             <thead>
+{#                                            <tr>#}
+{#                                                <th colspan="4" style="text-align: left">A negocio: {{ negocio.nombre }}</th>#}
+{#                                            </tr>#}
                                             <tr>
-                                                <th colspan="4" style="text-align: left">A negocio: EL levant</th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2" style="text-align: left">Factura: #123</th>
-                                                <th colspan="2" style="text-align: right">Fecha de Emisión: 11/10/2020
+                                                <th colspan="2" style="text-align: left">A negocio: {{ negocio.nombre }}</th>
+                                                <th colspan="2" style="text-align: right">Fecha de Emisión: {{ fecha_emision.date }}
                                                 </th>
                                             </tr>
                                             <tr>
@@ -82,44 +82,28 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            {% for p in pedidos %}
                                             <tr>
-                                                <td colspan="3"><label>3/10/10</label></td>
-                                                <td style="text-align: right"><label>105 CUP</label></td>
+                                                <td colspan="3"><label>{{ p.0.fecha_reservacion }}</label></td>
+                                                <td style="text-align: right"><label>{{ p.0.porciento_pagar }} CUP</label></td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="3"><label>5/10/10</label></td>
-                                                <td style="text-align: right"><label>200 CUP</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><label>6/10/10</label></td>
-                                                <td style="text-align: right"><label>500 CUP</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><label>7/10/10</label></td>
-                                                <td style="text-align: right"><label>80 CUP</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><label>8/10/10</label></td>
-                                                <td style="text-align: right"><label>1000 CUP</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><label>10/10/10</label></td>
-                                                <td style="text-align: right"><label>50 CUP</label></td>
-                                            </tr>
+                                            {% endfor %}
+
                                             </tbody>
                                             <thead>
                                             <tr>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="4" style="text-align: right">Total a pagar: 1935 CUP</th>
+                                                <th colspan="4" style="text-align: right">Total a pagar: {{ p.1 }} CUP</th>
                                             </tr>
                                             </thead>
                                         </table>
 
                                         <div class="row clearfix">
                                             <div class="" style=";margin-left: 40%">
-                                                <a class="btn btn-default waves-effect waves-black" type="submit">
+                                                <a class="btn btn-default waves-effect waves-black" href="#notas"
+                                                   role="tab" data-toggle="tab" type="submit">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
                                                     <span>CONTINUAR</span></a>
                                             </div>
@@ -145,9 +129,8 @@
                                         </div>
                                         <div class="row clearfix">
                                             <div class="" style=";margin-left: 40%">
-                                                <a class="btn btn-default waves-effect waves-black btnNext"
-                                                onclick="return validateFormServicio()" href="#"
-                                                   role="tab" data-toggle="tab">
+                                                <a class="btn btn-default waves-effect waves-black" href=""
+                                                   role="tab" data-toggle="tab" aria-controls="settings">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
                                                     <span>ENVIAR FACTURA</span></a>
                                             </div>
