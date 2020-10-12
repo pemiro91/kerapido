@@ -1924,11 +1924,12 @@ def factura_bussiness(request, id_bussiness):
         if request.method == 'POST':
             note_factura_negocio = request.POST.get('note_factura_negocio')
             Factura_KeRapido.objects.create(
-                total_porciento_pagar=total_pagar,
+                total_porciento_pagar=total_pagar['porciento_pagar__sum'],
                 negocio=negocio,
                 nota=note_factura_negocio
             )
             messages.success(request, 'Factura enviada satisfactoriamente')
+            return redirect('bussiness')
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0

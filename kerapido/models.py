@@ -231,7 +231,7 @@ class Notification(models.Model):
 class Factura_KeRapido(models.Model):
     total_porciento_pagar = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
-    nota = models.CharField(max_length=300)
+    nota = models.CharField(max_length=300, null=True, blank=True)
     fecha_emision = models.DateTimeField(auto_now_add=True)
     fecha_envio = models.DateTimeField(auto_now_add=True)
 
