@@ -215,7 +215,7 @@ class Oferta_Laboral(models.Model):
 
 
 class Notification(models.Model):
-    #para cdo se gestionen usuarios, saber quien fue
+    # para cdo se gestionen usuarios, saber quien fue
     usuario = models.ForeignKey(User, null=True, on_delete=models.CASCADE, name='usuario')
     # para cdo se gestionen pedidos y negocios, mostrarselo a los usuarios pertinentes
     negocio = models.ForeignKey(Negocio, null=True, on_delete=models.CASCADE, name='negocio')
@@ -226,6 +226,7 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.mensaje
+
 
 class Factura_KeRapido(models.Model):
     total_porciento_pagar = models.FloatField(max_length=255)

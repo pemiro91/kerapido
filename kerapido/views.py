@@ -12,7 +12,7 @@ from django.urls import reverse
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
-    PerfilAfiliado, Notification
+    PerfilAfiliado, Notification, Factura_KeRapido
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils import timezone
@@ -1920,6 +1920,15 @@ def factura_bussiness(request, id_bussiness):
                                                                                                    next_saturday.date()])
         from django.db.models import Sum
         total_pagar = pedidos_for_date.aggregate(Sum('porciento_pagar'))
+
+        if request.method == 'POST':
+            note_factura_negocio = request.POST.get('note_factura_negocio')
+            Factura_KeRapido.objects.create(
+                total_porciento_pagar=total_pagar,
+                negocio=negocio,
+                nota=note_factura_negocio
+            )
+            messages.success(request, 'Factura enviada satisfactoriamente')
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
