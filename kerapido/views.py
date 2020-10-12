@@ -15,6 +15,8 @@ from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Mu
     PerfilAfiliado, Notification
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.utils import timezone
+import pytz
 
 
 # Create your views here.
@@ -239,11 +241,11 @@ def admin_panel(request):
 
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
-            if fecha.date() == today:
+            if fecha == today:
                 comision_hoy_general += ph.porciento_pagar
-            if fecha.date() == ayer:
+            if fecha == ayer:
                 comision_ayer_general += ph.porciento_pagar
-            if fecha.date() == ultima_semana:
+            if fecha == ultima_semana:
                 comision_ultima_semana_general += ph.porciento_pagar
             if fecha.month == mes_anterior:
                 comision_ultimo_mes_general += ph.porciento_pagar
@@ -1439,27 +1441,11 @@ def delete_category(request, id_category):
 
 
 # -------------------Módulo Negocio---------------#
-def get_next_weekday(startdate, weekday):
-    """
-    @startdate: given date, in format '2013-05-25'
-    @weekday: week day as a integer, between 0 (Monday) to 6 (Sunday)
-    """
-    d = datetime.strptime(startdate, '%Y-%m-%d')
-    t = timedelta((7 + weekday - d.weekday()) % 7)
-    return (d + t).strftime('%Y-%m-%d')
-
 
 def businesses(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
-
-        today = date.today()
-        offset = (today.weekday() - 5) % 7
-        last_saturday = today - timedelta(days=offset)
-        print(last_saturday)
-        print(get_next_weekday(str(today), 5))
-        print(today.isoweekday())
         Pedido.objects.filter()
 
         # Notificaciones------------------------------------
@@ -1909,33 +1895,31 @@ def blocked_business(request, id_bussiness):
     return redirect('login')
 
 
+def get_next_weekday(startdate, weekday):
+    """
+    @startdate: given date, in format '2013-05-25'
+    @weekday: week day as a integer, between 0 (Monday) to 6 (Sunday)
+    """
+    d = datetime.strptime(startdate, '%Y-%m-%d')
+    t = timedelta((7 + weekday - d.weekday()) % 7)
+    return d + t
+
+
 def factura_bussiness(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
         negocio = get_object_or_404(Negocio, pk=id_bussiness)
         today = date.today()
-        ultima_semana = today - timedelta(days=7)
         offset = (today.weekday() - 6) % 7
         last_sunday = today - timedelta(days=offset)
-        print(last_sunday)
-
         next_saturday = get_next_weekday(str(today), 5)
-        pedidos_for_date = Pedido.objects.filter(fecha_reservacion__range=[last_sunday, next_saturday])
-        print(pedidos_for_date)
-
-        pedidos_aux = Pedido.objects.all()
-        pedidos = []
-        porciento_total_pagar = 0
-        for p in pedidos_aux:
-            if p.negocio == negocio.id & p.fecha_reservacion >= ultima_semana & p.fecha_reservacion < ultima_semana:
-                pedido = get_object_or_404(Pedido, pk=p.id)
-                porciento_total_pagar += pedido.porciento_pagar
-                pedidos.append([pedido, porciento_total_pagar])
-            else:
-                pedido = get_object_or_404(Pedido, pk=p.id)
-                porciento_total_pagar += 0
-
+        print(last_sunday)
+        print(next_saturday.date())
+        pedidos_for_date = Pedido.objects.filter(negocio=negocio).filter(fecha_reservacion__range=[last_sunday,
+                                                                                                   next_saturday.date()])
+        from django.db.models import Sum
+        total_pagar = pedidos_for_date.aggregate(Sum('porciento_pagar'))
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1979,8 +1963,8 @@ def factura_bussiness(request, id_bussiness):
         fecha_emision = datetime.now()
         # return redirect(reverse('bussiness', args=(negocio.id,)))
         context = {'negocios': negocios, 'negocio': negocio, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision, 'pedidos': pedidos,
-                   'pedidos_for_date': pedidos_for_date}
+                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision,
+                   'pedidos_for_date': pedidos_for_date, 'total_pagar': total_pagar}
         return render(request, "control_panel/module_businesses/factura_negocio.html", context)
     return redirect('login')
 

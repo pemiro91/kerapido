@@ -62,9 +62,6 @@
 
                                         <table class="table">
                                             <thead>
-{#                                            <tr>#}
-{#                                                <th colspan="4" style="text-align: left">A negocio: {{ negocio.nombre }}</th>#}
-{#                                            </tr>#}
                                             <tr>
                                                 <th colspan="2" style="text-align: left">A negocio: {{ negocio.nombre }}</th>
                                                 <th colspan="2" style="text-align: right">Fecha de Emisión: {{ fecha_emision.date }}
@@ -82,11 +79,11 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for p in pedidos %}
-                                            <tr>
-                                                <td colspan="3"><label>{{ p.0.fecha_reservacion }}</label></td>
-                                                <td style="text-align: right"><label>{{ p.0.porciento_pagar }} CUP</label></td>
-                                            </tr>
+                                            {% for p in pedidos_for_date %}
+                                                <tr>
+                                                    <td colspan="3"><label>{{ p.fecha_reservacion }}</label></td>
+                                                    <td style="text-align: right"><label>{{ p.porciento_pagar }} CUP</label></td>
+                                                </tr>
                                             {% endfor %}
 
                                             </tbody>
@@ -95,15 +92,17 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th colspan="4" style="text-align: right">Total a pagar: {{ p.1 }} CUP</th>
+                                                <th colspan="4" style="text-align: right">Total a pagar: {{ total_pagar.porciento_pagar__sum }} CUP</th>
                                             </tr>
                                             </thead>
                                         </table>
 
                                         <div class="row clearfix">
                                             <div class="" style=";margin-left: 40%">
-                                                <a class="btn btn-default waves-effect waves-black" href="#notas"
-                                                   role="tab" data-toggle="tab" type="submit">
+                                                <a class="btn btn-default waves-effect waves-black"
+                                                   id="enlace_nota"
+                                                   onclick="return changeTab()"
+                                                   role="tab" data-toggle="tab">
                                                     <i class="material-icons " style="color: #212121">arrow_forward</i>
                                                     <span>CONTINUAR</span></a>
                                             </div>
@@ -167,11 +166,11 @@
                         <ul>
                             <li>
                                 <span>Teléfono</span>
-                                <span>telfono de kerapido</span>
+                                <span>{{ negocio.telefono1 }}</span>
                             </li>
                             <li>
                                 <span>Correo</span>
-                                <span>correo de kerapido</span>
+                                <span>{{ negocio.email }}</span>
                             </li>
                         </ul>
                     </div>
@@ -186,5 +185,15 @@
     <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
 
     <script src="{% static 'site/js/main.js' %}"></script>
+
+    <script>
+        function changeTab() {
+            var $active = $('.body .nav-tabs li.active');
+                var a = document.getElementById('enlace_nota'); //or grab it by tagname etc
+                a.href = "notas"
+                $active.next().removeClass('disabled');
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        }
+    </script>
 
 {% endblock %}

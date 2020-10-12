@@ -167,7 +167,7 @@ class Reservacion_Simple(models.Model):
 class Pedido(models.Model):
     cliente_auth = models.ForeignKey(User, on_delete=models.CASCADE, name='cliente_auth')
     total_pagar = models.FloatField(max_length=255)
-    fecha_reservacion = models.DateTimeField(auto_now_add=True)
+    fecha_reservacion = models.DateField(default=datetime.date.today)
     cliente_entrega = models.CharField(max_length=255)
     telefono_entrega = models.CharField(max_length=255)
     direccion_entrega = models.CharField(max_length=255)
