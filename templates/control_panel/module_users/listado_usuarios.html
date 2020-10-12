@@ -61,11 +61,15 @@
                     {% if request.user.is_afiliado %}
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_person_of_business' %}" type="button"
-                                   class="btn btn-default waves-effect waves-black">
-                                    <i class="material-icons " style="color: #212121">add_circle</i>
-                                    <span>AGREGAR</span>
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
                                 </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="{% url 'add_person_of_business' %}">Agregar<i class="material-icons"
+                                                                                      style="color: #212121">add_circle</i></a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     {% endif %}
@@ -223,8 +227,8 @@
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
                                             <td><span class="label bg-green" data-toggle="tooltip"
-                                                                        data-placement="top"
-                                                                        title="{{ user.fecha_alta }}">Activo</span>
+                                                      data-placement="top"
+                                                      title="{{ user.fecha_alta }}">Activo</span>
                                             </td>
                                         {% else %}
                                             <td><span class="label bg-red">Bloqueado</span></td>
