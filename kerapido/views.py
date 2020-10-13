@@ -1599,7 +1599,7 @@ def add_bussiness(request):
 
             mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre: ' + negocio.nombre
             if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion,
+                notificacion = Notification(mensaje=mensaje_notificacion, negocio=negocio.id,
                                             estado='No-Leida', tipo='Negocio')
                 notificacion.save()
             messages.success(request, 'El negocio se agregó satisfactoriamente')
@@ -1895,7 +1895,8 @@ def blocked_business(request, id_bussiness):
         return redirect('panel')
     return redirect('login')
 
-def comments(request,id_bussiness):
+
+def comments(request, id_bussiness):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
@@ -1944,9 +1945,10 @@ def comments(request,id_bussiness):
                         cant_notificaciones = len(list(notificaciones))
 
         context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones,'comentarios': comentarios}
+                   'cant_notificaciones': cant_notificaciones, 'comentarios': comentarios}
         return render(request, "control_panel/module_businesses/comentarios.html", context)
     return redirect('login')
+
 
 def get_next_weekday(startdate, weekday):
     """
@@ -1981,6 +1983,11 @@ def factura_bussiness(request, id_bussiness):
                 negocio=negocio,
                 nota=note_factura_negocio
             )
+            mensaje_notificacion = ' KeRápido envió la factura de esta semana al negocio: ' + negocio.nombre
+            if mensaje_notificacion != '':
+                notificacion = Notification(mensaje=mensaje_notificacion, usuario=request.user, negocio=negocio.id,
+                                            estado='No-Leida', tipo='Factura')
+                notificacion.save()
             messages.success(request, 'Factura enviada satisfactoriamente')
             return redirect('bussiness')
         # Notificaciones------------------------------------
