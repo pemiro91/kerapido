@@ -12,9 +12,11 @@ from django.urls import reverse
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
-    PerfilAfiliado, Notification
+    PerfilAfiliado, Notification, Factura_KeRapido
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.utils import timezone
+import pytz
 
 
 # Create your views here.
@@ -76,7 +78,7 @@ def ofertas_laborales(request):
 
 
 def nuestros_afiliados(request):
-    negocios_afiliados = Negocio.objects.all()
+    negocios_afiliados = Negocio.objects.filter(is_closed=False)
     paginator = Paginator(negocios_afiliados, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -145,10 +147,10 @@ def register_affiliate(request):
                     is_active=False
                 )
                 PerfilAfiliado.objects.create(afiliado_id=user.pk)
-                mensaje_notificacion = user.first_name + ' se registró como afiliado.'
+                mensaje_notificacion = user.first_name + ' se registró como AFILIADO.'
                 if mensaje_notificacion != '':
                     notificacion = Notification(mensaje=mensaje_notificacion,
-                                                estado='No-Leido', tipo='Usuario')
+                                                estado='No-Leida', tipo='Usuario')
                     notificacion.save()
                 messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al '
                                           'panel')
@@ -195,6 +197,7 @@ def admin_panel(request):
         comision_general = 0
         business_persona = QuerySet
         persona_encargada = QuerySet
+        ultimos_pedidos = []
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -203,6 +206,7 @@ def admin_panel(request):
         if request.user.is_superuser:
             pedidos_general = Pedido.objects.all()
             notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            notificaciones = list(notificaciones)
             cant_notificaciones = len(notificaciones)
         elif request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
@@ -226,24 +230,39 @@ def admin_panel(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
-            negocio = Negocio.objects.get(usuario_negocio=afiliado.id)
-            qset1 = (
-                    Q(tipo='Pedido') |
-                    Q(negocio=negocio.id) |
-                    Q(estado='No-Leida')
-            )
-            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-            cant_notificaciones = len(list(notificaciones))
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+
+
+        if request.user.is_superuser or request.user.is_administrador:
+            pedidos_general = Pedido.objects.all()
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+        elif request.user.is_persona_encargada:
+            pedidos_general = Pedido.objects.filter(negocio_id=persona_encargada.negocio_pertenece.id)
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+        else:
+            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user.id)
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
 
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
-            if fecha.date() == today:
+            if fecha == today:
                 comision_hoy_general += ph.porciento_pagar
-            if fecha.date() == ayer:
+            if fecha == ayer:
                 comision_ayer_general += ph.porciento_pagar
-            if fecha.date() == ultima_semana:
+            if fecha == ultima_semana:
                 comision_ultima_semana_general += ph.porciento_pagar
             if fecha.month == mes_anterior:
                 comision_ultimo_mes_general += ph.porciento_pagar
@@ -265,6 +284,7 @@ def admin_panel(request):
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
                    'cantidad_servicios': cant_servicios,
+                   'ultimos_pedidos': ultimos_pedidos,
                    'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg,
                    'comision_hoy_general': comision_hoy_general, 'comision_ayer_general': comision_ayer_general,
                    'comision_ultima_semana_general': comision_ultima_semana_general,
@@ -280,25 +300,41 @@ def admin_panel(request):
 def login_admin(request):
     if request.POST:
         form = AuthenticationForm(request.POST)
-        username = request.POST.get('username')
+        nombreuser = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
-                if tiene_negocio or user.is_superuser or user.is_administrador:
-                    return redirect('panel')
-                elif user.is_persona_encargada:
-                    persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
-                    tiene_negocio_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-                    if tiene_negocio_persona:
-                        return redirect('panel')
+        if User.objects.filter(username=nombreuser):
+            user_exists = User.objects.get(username=nombreuser)
+            if user_exists:
+                if not user_exists.is_cliente:
+                    if user_exists.is_active:
+                        user = authenticate(username=nombreuser, password=password)
+                        if user is not None:
+                            login(request, user)
+                            tiene_negocio = Negocio.objects.filter(usuario_negocio=user)
+                            if tiene_negocio or user.is_superuser or user.is_administrador:
+                                return redirect('panel')
+                            elif user.is_persona_encargada:
+                                persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=user)
+                                tiene_negocio_persona = Negocio.objects.filter(
+                                    pk=persona_encargada.negocio_pertenece.id)
+                                if tiene_negocio_persona:
+                                    return redirect('panel')
+                            else:
+                                return redirect('add_bussiness')
+                        else:
+                            messages.warning(request, 'Error de autenticación')
+                            return redirect('login')
+                    else:
+                        messages.warning(request, 'Usted no tiene acceso al sistema')
+                        return redirect('login')
                 else:
-                    return redirect('add_bussiness')
+                    messages.warning(request, 'Usted no tiene acceso al sistema')
+                    return redirect('login')
+            else:
+                messages.warning(request, 'El usuario no exixte')
+                return redirect('login')
         else:
-            messages.warning(request, 'Error de autenticación')
+            messages.warning(request, 'El usuario no exixte')
             return redirect('login')
     else:
         form = AuthenticationForm()
@@ -342,7 +378,6 @@ def profile(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -386,13 +421,16 @@ def change_password(request):
         persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
         business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
         if request.user.is_superuser:
-            notificaciones = Notification.objects.all().order_by('-fecha')[:5]
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
             cant_notificaciones = len(notificaciones)
         elif request.user.is_administrador:
             qset = (
                     Q(tipo='Usuario') |
-                    Q(tipo='Negocio')
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
             )
             notificaciones = Notification.objects.filter(qset).exclude(
                 mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
@@ -402,19 +440,26 @@ def change_password(request):
             negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
             qset1 = (
                     Q(tipo='Pedido') |
-                    Q(negocio=negocio.id)
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
             )
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            afiliado = get_object_or_404(PerfilAfiliado, pk=request.user.id)
-            negocio = Negocio.objects.get(usuario_negocio=afiliado.id)
-            qset1 = (
-                    Q(tipo='Pedido') |
-                    Q(negocio=negocio.id)
-            )
-            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-            cant_notificaciones = len(list(notificaciones))
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         if request.method == "POST":
             old_password = request.POST.get('oldPassword')
@@ -473,7 +518,6 @@ def services(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -531,7 +575,6 @@ def add_services(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -594,7 +637,6 @@ def update_service(request, id_service):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -668,7 +710,6 @@ def reservations(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -703,7 +744,7 @@ def change_state_reservation(request, id_bussiness, id_reservation):
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
             state = request.POST.get('state')
-            Pedido.objects.filter(pk=id_reservation).update(estado=state)
+            Pedido.objects.filter(pk=id_reservation).update(estado=state, fecha_estado=date.today())
             messages.success(request, 'Estado cambiado correctamente')
             return redirect(reverse('reservations', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona}
@@ -744,7 +785,6 @@ def factura(request, id_pedido):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -799,7 +839,6 @@ def reservations_admin(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -857,7 +896,6 @@ def users(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -878,10 +916,11 @@ def users(request):
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         usuarios = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
+        titulo_table = "LISTADO DE USUARIOS"
         business = Negocio.objects.filter(usuario_negocio=request.user)
         context = {'usuarios': usuarios, 'business': business, 'personas_afiliadas': personas_afiliadas,
                    'business_persona': business_persona, 'notificaciones': notificaciones,
-                   'cant_notificaciones': cant_notificaciones}
+                   'cant_notificaciones': cant_notificaciones, 'titulo_table': titulo_table}
         return render(request, "control_panel/module_users/listado_usuarios.html", context)
     return redirect('login')
 
@@ -933,7 +972,6 @@ def update_user(request, id_user):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1014,7 +1052,6 @@ def add_person(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1113,7 +1150,6 @@ def update_person(request, id_user):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1167,6 +1203,81 @@ def rol_admin(request, id_user):
     return redirect('login')
 
 
+def users_rol(request, id_rol):
+    if request.user.is_authenticated:
+        personas_afiliadas = QuerySet
+        # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
+        if request.user.is_superuser:
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            cant_notificaciones = len(notificaciones)
+        elif request.user.is_administrador:
+            qset = (
+                    Q(tipo='Usuario') |
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset).exclude(
+                mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        elif request.user.is_persona_encargada:
+            persona = get_object_or_404(PerfilPersonaEncargada, pk=request.user.id)
+            negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
+            qset1 = (
+                    Q(tipo='Pedido') |
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        else:
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+
+        if request.user.is_afiliado:
+            perfilAfiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.pk)
+            personas_afiliadas = PerfilPersonaEncargada.objects.filter(afiliado_pertenece_id=perfilAfiliado.pk)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+
+        if id_rol == 1:
+            titulo_table = "LISTADO DE AFILIADOS"
+            users_for_rol = User.objects.filter(is_afiliado=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        elif id_rol == 2:
+            titulo_table = "LISTADO DE CLIENTES"
+            users_for_rol = User.objects.filter(is_cliente=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        elif id_rol == 3:
+            titulo_table = "LISTADO DE PERSONAS ENCARGADAS"
+            users_for_rol = User.objects.filter(is_persona_encargada=True).exclude(is_superuser=True).exclude(
+                username=request.user.username)
+        else:
+            titulo_table = "LISTADO DE USUARIOS"
+            users_for_rol = User.objects.all().exclude(is_superuser=True).exclude(username=request.user.username)
+        context = {'usuarios': users_for_rol, 'business': business, 'personas_afiliadas': personas_afiliadas,
+                   'business_persona': business_persona, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones, 'id_rol': id_rol, 'titulo_table': titulo_table}
+        return render(request, "control_panel/module_users/listado_usuarios.html", context)
+    return redirect('login')
+
+
 # -------------------Módulo Categoria Negocio---------------#
 
 def categories(request):
@@ -1202,7 +1313,6 @@ def categories(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1254,7 +1364,6 @@ def add_category(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1313,7 +1422,6 @@ def update_category(request, id_category):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1356,6 +1464,8 @@ def businesses(request):
     if request.user.is_authenticated:
         business = Negocio.objects.filter(usuario_negocio=request.user)
         negocios = Negocio.objects.all()
+        Pedido.objects.filter()
+
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -1385,7 +1495,6 @@ def businesses(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1442,7 +1551,6 @@ def add_bussiness(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1474,6 +1582,7 @@ def add_bussiness(request):
             horario = str(hour_init) + ' - ' + str(hour_end)
 
             negocio = Negocio.objects.create(
+                is_closed=False,
                 usuario_negocio=request.user,
                 nombre=name_bussiness,
                 logo=logo_bussiness,
@@ -1505,10 +1614,10 @@ def add_bussiness(request):
                 macro1 = Macro.objects.get(nombre=m)
                 negocio.macro.add(macro1)
 
-            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
+            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre: ' + negocio.nombre
             if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion,
-                                            estado='No-Leido', tipo='Negocio')
+                notificacion = Notification(mensaje=mensaje_notificacion, negocio=negocio,
+                                            estado='No-Leida', tipo='Negocio')
                 notificacion.save()
             messages.success(request, 'El negocio se agregó satisfactoriamente')
 
@@ -1555,7 +1664,6 @@ def editar_negocio(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1629,7 +1737,6 @@ def update_bussiness(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1671,38 +1778,38 @@ def update_bussiness(request, id_bussiness):
                 domingo = True
 
         update_form = UpdateBusiness(request.POST or None, request.FILES or None, instance=negocio)
-        with transaction.atomic():
-            if update_form.is_valid():
-                edit = update_form.save(commit=False)
-                edit.save()
 
-            if request.method == 'POST':
+        if request.method == 'POST':
+            with transaction.atomic():
                 category_bussiness = request.POST.getlist('category_bussiness')
                 services_bussiness = request.POST.getlist('services_bussiness')
                 hour_init = request.POST.get('hour_init_bussiness')
-                hour_end = request.POST.get('hour_end')
-                post_frecuencia = request.POST.getlist('frecuencia')
+                hour_end = request.POST.get('hour_end_bussiness')
+                post_frecuencia = request.POST.getlist('frecuencia_bussiness')
                 address_bussiness = request.POST.get('address_bussiness')
-                municipio = request.POST.get('municipio')
+                municipio = request.POST.get('municipio_bussiness')
                 phone_bussiness_o = request.POST.get('phone_bussiness_o')
                 phone_bussiness = request.POST.get('phone_bussiness')
 
                 horario = str(hour_init) + ' - ' + str(hour_end)
 
-                with transaction.atomic():
-                    Negocio.objects.filter(pk=id_bussiness).update(
-                        usuario_negocio=request.user,
-                        horario=horario,
-                        direccion=address_bussiness,
-                        municipio_id=municipio,
-                        telefono1=phone_bussiness_o,
-                        telefono2=phone_bussiness
-                    )
-                    negocio.categorias.set(Categoria_Negocio.objects.filter(nombre__in=category_bussiness))
-                    negocio.servicios.set(Servicio.objects.filter(nombre__in=services_bussiness))
-                    negocio.frecuencia.set(Frecuencia.objects.filter(nombre__in=post_frecuencia))
+                Negocio.objects.filter(pk=id_bussiness).update(
+                    usuario_negocio=request.user,
+                    horario=horario,
+                    direccion=address_bussiness,
+                    municipio_id=municipio,
+                    telefono1=phone_bussiness_o,
+                    telefono2=phone_bussiness
+                )
+                negocio.categorias.set(Categoria_Negocio.objects.filter(nombre__in=category_bussiness))
+                negocio.servicios.set(Servicio.objects.filter(nombre__in=services_bussiness))
+                negocio.frecuencia.set(Frecuencia.objects.filter(nombre__in=post_frecuencia))
 
-                    return redirect('panel')
+                if update_form.is_valid():
+                    edit = update_form.save(commit=False)
+                    edit.save()
+
+                return redirect('panel')
 
         context = {'negocio': negocio,
                    'lunes': lunes, 'martes': martes, 'miercoles': miercoles,
@@ -1767,7 +1874,6 @@ def my_bussiness(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1790,6 +1896,163 @@ def my_bussiness(request, id_bussiness):
                    'comentarios_negocio': comentarios, 'business_persona': business_persona,
                    'notificaciones': notificaciones, 'cant_notificaciones': cant_notificaciones}
         return render(request, "control_panel/module_businesses/mi_negocio.html", context)
+    return redirect('login')
+
+
+def activate_business(request, id_bussiness):
+    if request.user.is_authenticated:
+        Negocio.objects.filter(id=id_bussiness).update(is_closed=False, fecha_alta=date.today())
+        return redirect('panel')
+    return redirect('login')
+
+
+def blocked_business(request, id_bussiness):
+    if request.user.is_authenticated:
+        Negocio.objects.filter(id=id_bussiness).update(is_closed=True, fecha_alta=date.today())
+        return redirect('panel')
+    return redirect('login')
+
+
+def comments(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocios = Negocio.objects.all()
+        Pedido.objects.filter()
+        comentarios = ComentarioEvaluacion.objects.filter(negocio__id=id_bussiness)
+
+        # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
+        if request.user.is_superuser:
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            cant_notificaciones = len(notificaciones)
+        elif request.user.is_administrador:
+            qset = (
+                    Q(tipo='Usuario') |
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset).exclude(
+                mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        elif request.user.is_persona_encargada:
+            persona = get_object_or_404(PerfilPersonaEncargada, pk=request.user.id)
+            negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
+            qset1 = (
+                    Q(tipo='Pedido') |
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        else:
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+
+        context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones, 'comentarios': comentarios}
+        return render(request, "control_panel/module_businesses/comentarios.html", context)
+    return redirect('login')
+
+
+def get_next_weekday(startdate, weekday):
+    """
+    @startdate: given date, in format '2013-05-25'
+    @weekday: week day as a integer, between 0 (Monday) to 6 (Sunday)
+    """
+    d = datetime.strptime(startdate, '%Y-%m-%d')
+    t = timedelta((7 + weekday - d.weekday()) % 7)
+    return d + t
+
+
+def factura_bussiness(request, id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocios = Negocio.objects.all()
+        negocio = get_object_or_404(Negocio, pk=id_bussiness)
+        today = date.today()
+        offset = (today.weekday() - 6) % 7
+        last_sunday = today - timedelta(days=offset)
+        next_saturday = get_next_weekday(str(today), 5)
+        print(last_sunday)
+        print(next_saturday.date())
+        pedidos_for_date = Pedido.objects.filter(negocio=negocio).filter(fecha_reservacion__range=[last_sunday,
+                                                                                                   next_saturday.date()])
+        from django.db.models import Sum
+        total_pagar = pedidos_for_date.aggregate(Sum('porciento_pagar'))
+
+        if request.method == 'POST':
+            note_factura_negocio = request.POST.get('note_factura_negocio')
+            Factura_KeRapido.objects.create(
+                total_porciento_pagar=total_pagar['porciento_pagar__sum'],
+                negocio=negocio,
+                nota=note_factura_negocio
+            )
+            mensaje_notificacion = ' KeRápido envió la factura de esta semana al negocio: ' + negocio.nombre
+            if mensaje_notificacion != '':
+                notificacion = Notification(mensaje=mensaje_notificacion, usuario=request.user, negocio=negocio,
+                                            estado='No-Leida', tipo='Factura')
+                notificacion.save()
+            messages.success(request, 'Factura enviada satisfactoriamente')
+            return redirect('bussiness')
+        # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
+        if request.user.is_superuser:
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            cant_notificaciones = len(notificaciones)
+        elif request.user.is_administrador:
+            qset = (
+                    Q(tipo='Usuario') |
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset).exclude(
+                mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        elif request.user.is_persona_encargada:
+            persona = get_object_or_404(PerfilPersonaEncargada, pk=request.user.id)
+            negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
+            qset1 = (
+                    Q(tipo='Pedido') |
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        else:
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+        fecha_emision = datetime.now()
+        # return redirect(reverse('bussiness', args=(negocio.id,)))
+        context = {'negocios': negocios, 'negocio': negocio, 'business': business, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones, 'fecha_emision': fecha_emision,
+                   'pedidos_for_date': pedidos_for_date, 'total_pagar': total_pagar}
+        return render(request, "control_panel/module_businesses/factura_negocio.html", context)
     return redirect('login')
 
 
@@ -1830,7 +2093,6 @@ def categoria_productos(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1888,7 +2150,6 @@ def agregar_categoria_productos(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -1952,7 +2213,6 @@ def editar_categoria_producto(request, id_bussiness, id_category):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2031,7 +2291,6 @@ def products(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2089,7 +2348,6 @@ def add_product(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2107,11 +2365,13 @@ def add_product(request, id_bussiness):
         if request.method == 'POST':
             image_product = request.FILES['image_product']
             name_product = request.POST.get('name_product')
+            count_product = request.POST.get('count_product')
             description_product = request.POST.get('description_product')
             price_product = request.POST.get('price_product')
             category_product = request.POST.get('category_product')
             Producto.objects.create(imagen=image_product,
-                                    nombre=name_product, descripcion=description_product, precio=price_product,
+                                    nombre=name_product, cantidad_producto=count_product,
+                                    descripcion=description_product, precio=price_product,
                                     negocio=negocio, categoria_id=category_product)
             messages.success(request, 'Producto agregado correctamente')
             return redirect(reverse('products', args=(id_bussiness,)))
@@ -2157,7 +2417,6 @@ def editar_product(request, id_bussiness, id_product):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2232,7 +2491,6 @@ def offers(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2288,7 +2546,6 @@ def add_offer(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2357,7 +2614,6 @@ def update_offer(request, id_bussiness, id_offer):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2438,7 +2694,6 @@ def rates(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2493,7 +2748,6 @@ def add_rate(request, id_bussiness):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2562,7 +2816,6 @@ def update_rate(request, id_bussiness, id_rate):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (
@@ -2638,7 +2891,6 @@ def messages_center(request):
             afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
             if Negocio.objects.all().count() != 0:
                 negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
-                print(afiliado.afiliado.id)
                 for negocio in negocios:
                     if negocio:
                         qset1 = (

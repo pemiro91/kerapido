@@ -44,7 +44,7 @@ def login(request):
 @csrf_exempt
 @api_view(["GET"])
 def getNegociosApi(request):
-    negocio = Negocio.objects.all()
+    negocio = Negocio.objects.filter(is_closed=False)
     serializer = NegocioSerializer(negocio, many=True)
     return Response({'list_business': serializer.data}, status=HTTP_200_OK)
 
@@ -78,9 +78,23 @@ def getCategoriaApi(request, pk):
 @api_view(["POST"])
 def postReservaApi(request):
     serializer = PedidoSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response({'message': 'Reserva realizada satisfactoriamente'}, status=HTTP_201_CREATED)
+    reservaciones = request.data.get("reservaciones")
+    list_product = []
+    for reser in reservaciones:
+        producto = Producto.objects.get(id=reser['producto'])
+        if reser['cantidad_producto'] > producto.cantidad_producto:
+            list_product.append(producto.nombre)
+    if len(list_product) != 0:
+        return Response({'error_reserva': list_product}, status=HTTP_404_NOT_FOUND)
+    else:
+        for reser in reservaciones:
+            producto = Producto.objects.get(id=reser['producto'])
+            count_final = producto.cantidad_producto - reser['cantidad_producto']
+            print(count_final)
+            Producto.objects.filter(id=reser['producto']).update(cantidad_producto=count_final)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response({'message': 'Reserva realizada satisfactoriamente'}, status=HTTP_201_CREATED)
 
 
 @csrf_exempt

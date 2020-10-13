@@ -43,17 +43,6 @@
                     </div>
                     </div>
                 {% endblock %}
-
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <ol class="breadcrumb breadcrumb-col-amber text-right">
-                <li><a href="javascript:void(0);"><i class="material-icons">home</i> Principal</a></li>
-                <li class="active"><i class="material-icons">group</i>
-                    Usuarios
-                </li>
-
-            </ol>
-        </div>
-    </div>
     </div>
 
     <!-- #END# Basic Examples -->
@@ -66,17 +55,21 @@
                         {% if request.user.is_afiliado %}
                             LISTADO DE PERSONAS ENCARGADAS POR NEGOCIO
                         {% else %}
-                            LISTADO DE USUARIOS
+                            {{ titulo_table }}
                         {% endif %}
                     </h2>
                     {% if request.user.is_afiliado %}
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="{% url 'add_person_of_business' %}" type="button"
-                                   class="btn btn-default waves-effect waves-black">
-                                    <i class="material-icons " style="color: #212121">add_circle</i>
-                                    <span>AGREGAR</span>
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
                                 </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="{% url 'add_person_of_business' %}">Agregar<i class="material-icons"
+                                                                                      style="color: #212121">add_circle</i></a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     {% endif %}
@@ -88,7 +81,6 @@
                                    class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Negocio</th>
@@ -100,7 +92,6 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Negocio</th>
@@ -139,7 +130,7 @@
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'blocked_user' user.persona_encargada.id %}"
-                                                   title="Desactivar Usuario"
+                                                   title="Desactivar usuario"
                                                    data-toggle="modal" data-target="#blockedModal"
                                                    data-id="{{ user.persona_encargada.id }}">
                                                     <i class="material-icons">accessibility</i>
@@ -148,7 +139,7 @@
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'activate_user' user.persona_encargada.id %}"
-                                                   title="Activar Usuario"
+                                                   title="Activar usuario"
                                                    data-toggle="modal" data-target="#activeModal"
                                                    data-id="{{ user.persona_encargada.id }}">
                                                     <i class="material-icons">accessibility</i>
@@ -166,7 +157,7 @@
                                             {% endif %}
                                             <a type="button"
                                                href="{% url 'update_person' user.persona_encargada.id %}"
-                                               class="btn btn-default waves-effect waves-black">
+                                               class="btn btn-default waves-effect waves-black" title="Editar usuario">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button"
@@ -175,7 +166,7 @@
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Usuario">
+                                               title="Eliminar usuario">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                             {#                                         </div>#}
@@ -189,7 +180,6 @@
                                    class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
@@ -201,7 +191,6 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nro</th>
                                     <th>Nombre y Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Tipo</th>
@@ -214,7 +203,6 @@
                                 <tbody>
                                 {% for user in usuarios %}
                                     <tr>
-                                        <th>{{ user.id }}</th>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
                                           text-overflow: ellipsis;">{{ user.first_name }} {{ user.last_name }}
@@ -238,12 +226,12 @@
                                         {% endif %}
                                         <td>{{ user.email }}</td>
                                         {% if user.is_active %}
-                                            <td style="width: 5%"><span class="label bg-green" data-toggle="tooltip"
-                                                                        data-placement="top"
-                                                                        title="{{ user.fecha_alta }}">Activo</span>
+                                            <td><span class="label bg-green" data-toggle="tooltip"
+                                                      data-placement="top"
+                                                      title="{{ user.fecha_alta }}">Activo</span>
                                             </td>
                                         {% else %}
-                                            <td style="width: 5%"><span class="label bg-red">Bloqueado</span></td>
+                                            <td><span class="label bg-red">Bloqueado</span></td>
                                         {% endif %}
                                         <td>
                                             {% if user.is_active %}
@@ -301,22 +289,21 @@
         </div>
     </div>
     <!-- #END# Exportable Table -->
-    </div>
     <!-- Default Size -->
     <div class="modal fade" id="activeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #212121">
-                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Desbloquear usuario</h4>
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Activar usuario</h4>
                 </div>
                 <div class="modal-body">
-                    ¿Desea realmente desbloquear a este usuario ?
+                    ¿Desea realmente activar a este usuario ?
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
                     </button>
-                    <a type="button" class="btn btn-default btn-ok"> DESBLOQUEAR</a>
+                    <a type="button" class="btn btn-default btn-ok"> ACTIVAR</a>
                 </div>
             </div>
         </div>
@@ -325,17 +312,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #212121">
-                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Bloquear usuario</h4>
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Desactivar usuario</h4>
                 </div>
                 <div class="modal-body">
 
-                    ¿Desea realmente bloquear a este usuario ?
+                    ¿Desea realmente desactivar a este usuario ?
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
                     </button>
-                    <a type="button" class="btn btn-default btn-ok"> BLOQUEAR</a>
+                    <a type="button" class="btn btn-default btn-ok"> DESACTIVAR</a>
                 </div>
             </div>
         </div>

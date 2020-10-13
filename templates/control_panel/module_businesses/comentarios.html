@@ -1,0 +1,357 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestión de negocios</small>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <diV style="width: 50%;margin-left: 23%">
+                {% if messages %}
+                    <ul class="messages align-content-center">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <div class="col-lg-9">
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                {% endif %}
+            </diV>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE COMENTARIOS
+                        </h2>
+{#                        <ul class="header-dropdown m-r--5">#}
+{#                            <li class="dropdown">#}
+{#                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"#}
+{#                                   role="button" aria-haspopup="true" aria-expanded="false">#}
+{#                                    <i class="material-icons">more_vert</i>#}
+{#                                </a>#}
+{#                                <ul class="dropdown-menu pull-right">#}
+{#                                    <li><a href="{% url 'add_bussiness' %}"><i class="material-icons"#}
+{#                                                                               style="color: #212121">add_circle</i>Agregar</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
+{#                        </ul>#}
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable  ">
+                                <thead>
+                                <tr>
+                                    <th>Comentario</th>
+                                    <th>Evaluacion</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+{#                                    <th>Evaluacion</th>#}
+{#                                    <th>Acciones</th>#}
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Comentario</th>
+                                    <th>Evaluacion</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+{#                                    <th>Evaluacion</th>#}
+{#                                    <th>Acciones</th>#}
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for comentario in comentarios %}
+                                    <tr>
+                                        <td>{{ comentario.comentario }}</td>
+                                        <td>{{ comentario.rating }} </td>
+
+                                        <td>
+                                            {{ comentario.usuario_negocio.first_name }} {{ comentario.usuario_negocio.last_name }}
+                                        </td>
+                                        <td>{{comentario.fecha_comentario}}</td>
+{#                                        <td>#}
+{#                                            {% if comentario.is_closed %}#}
+{#                                                <a href="#" type="button"#}
+{#                                                   class="btn btn-default waves-effect waves-black"#}
+{#                                                   data-href=""#}
+{#                                                   title="Aperturar Negocio"#}
+{#                                                   data-toggle="modal" data-target="#openModal"#}
+{#                                                   data-id="">#}
+{#                                                    <i class="material-icons">visibility</i>#}
+{#                                                </a>#}
+{#                                            {% else %}#}
+{#                                                <a href="#" type="button"#}
+{#                                                   class="btn btn-default waves-effect waves-black"#}
+{#                                                   data-href=""#}
+{#                                                   title="Cerrar Negocio"#}
+{#                                                   data-toggle="modal" data-target="#closedModal"#}
+{#                                                   data-id="">#}
+{#                                                    <i class="material-icons">visibility_off</i>#}
+{#                                                </a>#}
+{#                                            {% endif %}#}
+{#                                            <a type="button" href="{% url 'factura_bussiness' comentario.id%}"#}
+{#                                               class="btn btn-default waves-effect waves-black"#}
+{#                                               data-role="{{ negocios }}"#}
+{#                                               data-href=""#}
+{#                                               data-id="{{ comentario.id }}"#}
+{#                                               data-toggle="modal"#}
+{#                                               data-target="#invoiceModal"#}
+{#                                               title="Eliminar Negocio">#}
+{#                                                <i class="material-icons">assignment</i>#}
+{#                                            </a>#}
+{#                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"#}
+{#                                               data-href="{% url 'delete_bussiness' comentario.id %}"#}
+{#                                               data-id="{{ comentario.id }}"#}
+{#                                               data-toggle="modal"#}
+{#                                               data-target="#confirm-delete"#}
+{#                                               title="Eliminar Negocio">#}
+{#                                                <i class="material-icons">delete</i>#}
+{#                                            </a>#}
+{#                                        </td>#}
+
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+    <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Enviar Factura al
+                        Negocio</h4>
+                </div>
+                <div class="modal-body">
+{#                    <table class="table">#}
+{#                        <div class="justify-content-center">#}
+{#                            <img style="max-width: 30%;margin-left: 33%;text-align: center" src="{% static 'control_panel/images/logo.jpg' %}" />#}
+{#                        </div>#}
+{#                        <br>#}
+{#                        <br>#}
+{#                        <table class="table">#}
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th colspan="4" style="text-align: left">A negocio: EL levant</th>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <th colspan="2" style="text-align: left">Factura: #123</th>#}
+{#                                <th colspan="2" style="text-align: right">Fecha de Emisión: 11/10/2020</th>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <th colspan="4" style="text-align: center">Desgloce de Porcentaje a Cobrar por pedidos</th>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <th colspan="3" style="text-align: left">Fecha de pedidos</th>#}
+{#                                <th style="text-align: right">% a Cobrar</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                            <tbody>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>3/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>105 CUP</label></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>5/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>200 CUP</label></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>6/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>500 CUP</label></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>7/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>80 CUP</label></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>8/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>1000 CUP</label></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td colspan="3"><label>10/10/10</label></td>#}
+{#                                <td style="text-align: right" ><label>50 CUP</label></td>#}
+{#                            </tr>#}
+{#                            </tbody>#}
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th></th>#}
+{#                                <th></th>#}
+{#                                <th ></th>#}
+{#                                <th colspan="4" style="text-align: right" >Total a pagar: 1935 CUP</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                        </table>#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th colspan="4" style="text-align: center">pedidos #{{ pedidos.count }}</th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{##}
+{#                        {% for p in pedidos.all %}#}
+{#                            <tr>#}
+{#                                <th scope="row">{{ p.id }}</th>#}
+                                {#                            <td colspan="2">{{ p.plato.nombre }}</td>#}
+                                {#                            <td>{{ p.plato.precio }} cup</td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{##}
+{#                        </tbody>#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th></th>#}
+{#                            <th></th>#}
+{#                            <th style="text-align: right">Total a pagar:</th>#}
+{#                            <th>{{ pedido.total_pagar_user }} cup</th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                    </table>#}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ENVIAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="closedModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Suspender visibilidad del
+                        negocio</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente suspender la visibilidad de este negocio?
+                    Recuerde que si suspende la visibilidad los clientes no podrán realizar pedidos.
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> SUSPENDER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="openModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Activar visibilidad al
+                        Negocio</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Desea realmente activar la visibilidad de este negocio?
+                    Recuerde que si activa la visibilidad, los clientes podrán realizar sus pedidos.
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> ACTIVAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
+            });
+        });
+    </script>
+{% endblock %}
+
+{#    <!-- Jquery Core Js -->#}
+{#    <script src="../../plugins/jquery/jquery.min.js"></script>#}
+{##}
+{#    <!-- Bootstrap Core Js -->#}
+{#    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>#}
+{##}
+{#    <!-- Select Plugin Js -->#}
+{#    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>#}
+{##}
+{#    <!-- Slimscroll Plugin Js -->#}
+{#    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>#}
+{##}
+{#    <!-- Waves Effect Plugin Js -->#}
+{#    <script src="../../plugins/node-waves/waves.js"></script>#}
+

@@ -62,6 +62,7 @@ urlpatterns = [
     path('add_person/', views.add_person, name="add_person_of_business"),
     path('update_person/<int:id_user>', views.update_person, name="update_person"),
     path('rol_admin/<int:id_user>', views.rol_admin, name="rol_admin"),
+    path('users_rol/<int:id_rol>', views.users_rol, name="users_rol"),
 
     path('products/<int:id_bussiness>', views.products, name="products"),
     path('add_product/<int:id_bussiness>', views.add_product, name="add_product"),
@@ -89,6 +90,10 @@ urlpatterns = [
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
     path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
     path('delete_bussiness/<int:id_rate>', views.delete_bussiness, name="delete_bussiness"),
+    path('factura_bussiness/<int:id_bussiness>', views.factura_bussiness, name="factura_bussiness"),
+    path('activate_business/<int:id_bussiness>', views.activate_business, name="activate_business"),
+    path('blocked_business/<int:id_bussiness>', views.blocked_business, name="blocked_business"),
+    path('comments/<int:id_bussiness>', views.comments, name="comments"),
 
     path('categories', views.categories, name="categories"),
     path('add_category', views.add_category, name="add_category"),

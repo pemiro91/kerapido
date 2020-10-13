@@ -27,22 +27,12 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            LISTADO DE RESERVACIONES
+                            LISTADO DE PEDIDOS
                         </h2>
-                        {#                        <ul class="header-dropdown m-r--5">#}
-                        {#                            <li class="dropdown">#}
-                        {#                                <a type="button" href="{% url 'panel' %}"#}
-                        {#                                   class="btn btn-default waves-effect waves-black">#}
-                        {#                                    <i class="material-icons " style="color: #212121">add_circle</i>#}
-                        {#                                    <span>AGREGAR</span>#}
-                        {#                                </a>#}
-                        {##}
-                        {#                            </li>#}
-                        {#                        </ul>#}
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example ">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -75,7 +65,7 @@
                                             <a type="button"
                                                class="btn btn-default waves-effect m-r-20 open-defaultModal"
                                                href="{% url 'factura' pedido.id %}">
-                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar }} CUP
+                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar_user }} CUP
                                             </a>
                                         </td>
                                         <td>{{ pedido.fecha_reservacion }}</td>
@@ -148,12 +138,12 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
-    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>
-
-    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>
-
-    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
-    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+{#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
+{##}
+{#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
+{##}
+{#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
+{#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
 
     <script>
         $(document).on('click','.waves-black',function(){
@@ -180,6 +170,36 @@
         window.setTimeout(function () {
             location.href = "https://pemiro91.pythonanywhere.com/reservations/{{ negocio.id }}";
         }, 100000); // refresh/redirect after 5 seconds.
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
+            });
+        });
     </script>
 
 {% endblock %}

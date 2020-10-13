@@ -16,37 +16,32 @@
                 <small>Módulo para la gestión de servicios</small>
             </h2>
         </div>
-        {% block messages %}
-            <div class="row ">
-                <div class="col-xl-8">
-                    {% if messages %}
-                        <ul class="messages align-content-center">
-                            {% for message in messages %}
-                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
-                                     role="alert">
-                                    {{ message }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    {% if error %}
-                        <div class="col-lg-9">
-                            <div class="alert alert-danger">
-                                {{ error }}
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        {% endblock %}
-
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix">
+        <diV  style="width: 50%;margin-left: 23%">
+                {% if messages %}
+                    <ul class="messages align-content-center" >
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <div class="col-lg-9">
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                {% endif %}
+            </diV>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
@@ -55,14 +50,16 @@
                         </h2>
                         {% if request.user.is_superuser %}
                             <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="{% url 'add_services' %}" type="button" title="Agregar Servicios"
-                                       class="btn btn-default waves-effect waves-black">
-                                        <i class="material-icons " style="color: #212121">add_circle</i>
-                                        <span>AGREGAR</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="{% url 'add_services' %}"><i class="material-icons" style="color: #212121">add_circle</i>Agregar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         {% endif %}
                     </div>
                     <div class="body">

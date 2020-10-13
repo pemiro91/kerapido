@@ -17,7 +17,7 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'users' %}"><i class="material-icons">group</i>Usuarios</a></li>
+                        <li><a href="{{ request.META.HTTP_REFERER }}" onClick="history.go(-1);"><i class="material-icons">group</i>Usuarios</a></li>
                         <li class="active"><i class="material-icons">edit</i>Editar perfil de usuario</li>
                     </ol>
                 </div>
@@ -122,18 +122,12 @@
                                         <div class="form-line">
                                             <input type="password" id="password_2" class="form-control"
                                                    name="password"
-                                                   required
                                                    placeholder="Escribe su contrase&ntilde;a">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {#                            <div class="row clearfix">#}
-                            {#                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">#}
-                            {#                                    <input type="checkbox" id="remember_me_3" class="filled-in">#}
-                            {#                                    <label for="remember_me_3">Remember Me</label>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
+
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-amber" type="submit">

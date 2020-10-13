@@ -27,11 +27,12 @@ class MyForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['imagen', 'nombre', 'descripcion', 'precio', 'categoria']
+        fields = ['imagen', 'nombre', 'cantidad_producto', 'descripcion', 'cantidad_producto', 'precio', 'categoria']
 
         labels = {
             "nombre": "Nombre*",
             "descripcion": "Descripción",
+            "cantidad_producto": "Cantidad*",
             "precio": "Precio*",
         }
         widgets = {
@@ -40,6 +41,8 @@ class MyForm(forms.ModelForm):
             'descripcion': forms.TextInput(attrs={'class': 'form-control text', 'placeholder': 'Escriba la '
                                                                                                'descripción del '
                                                                                                'producto', }),
+            'cantidad_producto': forms.TextInput(
+                attrs={'class': 'form-control text', 'placeholder': 'Escriba la cantidad de productos', }),
             'precio': forms.TextInput(
                 attrs={'class': 'form-control text', 'placeholder': 'Escriba el precio del producto', }),
 

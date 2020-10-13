@@ -86,6 +86,7 @@ class Frecuencia(models.Model):
 
 
 class Negocio(models.Model):
+    is_closed = models.BooleanField(default=False)
     usuario_negocio = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     macro = models.ManyToManyField(Macro)
     nombre = models.CharField(max_length=255)
@@ -103,6 +104,7 @@ class Negocio(models.Model):
     telefono2 = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
+    fecha_alta = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return self.nombre
@@ -139,6 +141,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     precio = models.FloatField(max_length=255)
     negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+    cantidad_producto = models.IntegerField()
     categoria = models.ForeignKey(Categoria_Producto, related_name='categorias_ordered', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -155,7 +158,7 @@ class Tarifa_Entrega(models.Model):
 
 
 class Reservacion_Simple(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='plato')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, name='producto')
     cantidad_producto = models.IntegerField()
 
     def str(self): return str(self.producto)
@@ -164,7 +167,7 @@ class Reservacion_Simple(models.Model):
 class Pedido(models.Model):
     cliente_auth = models.ForeignKey(User, on_delete=models.CASCADE, name='cliente_auth')
     total_pagar = models.FloatField(max_length=255)
-    fecha_reservacion = models.DateTimeField(auto_now_add=True)
+    fecha_reservacion = models.DateField(default=datetime.date.today)
     cliente_entrega = models.CharField(max_length=255)
     telefono_entrega = models.CharField(max_length=255)
     direccion_entrega = models.CharField(max_length=255)
@@ -176,6 +179,7 @@ class Pedido(models.Model):
     tarifa = models.ForeignKey(Tarifa_Entrega, on_delete=models.CASCADE, name='tarifa', null=True, blank=True)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True, blank=True)
     total_pagar_user = models.FloatField(max_length=255, null=True, blank=True)
+    fecha_reservacion_factura = models.DateTimeField(auto_now_add=True)
 
 
 class ComentarioEvaluacion(models.Model):
@@ -212,7 +216,7 @@ class Oferta_Laboral(models.Model):
 
 
 class Notification(models.Model):
-    #para cdo se gestionen usuarios, saber quien fue
+    # para cdo se gestionen usuarios, saber quien fue
     usuario = models.ForeignKey(User, null=True, on_delete=models.CASCADE, name='usuario')
     # para cdo se gestionen pedidos y negocios, mostrarselo a los usuarios pertinentes
     negocio = models.ForeignKey(Negocio, null=True, on_delete=models.CASCADE, name='negocio')
@@ -220,3 +224,17 @@ class Notification(models.Model):
     estado = models.CharField(max_length=50, choices=ESTADO_NOTIFICATION, name='estado')
     tipo = models.CharField(max_length=50, choices=TIPO_NOTIFICATION, name='tipo')
     fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.mensaje
+
+
+class Factura_KeRapido(models.Model):
+    total_porciento_pagar = models.FloatField(max_length=255)
+    negocio = models.ForeignKey(Negocio, on_delete=models.CASCADE, name='negocio')
+    nota = models.CharField(max_length=300, null=True, blank=True)
+    fecha_emision = models.DateTimeField(auto_now_add=True)
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.total_porciento_pagar
