@@ -74,8 +74,9 @@
                                     <th>Nombre</th>
                                     <th>Afiliado</th>
                                     <th>Servicios</th>
-                                    <th>Comentarios</th>
+                                    <th>Municipio</th>
                                     <th>Evaluacion</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -84,8 +85,9 @@
                                     <th>Nombre</th>
                                     <th>Afiliado</th>
                                     <th>Servicios</th>
-                                    <th>Comentarios</th>
+                                    <th>Municipio</th>
                                     <th>Evaluacion</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
@@ -101,7 +103,9 @@
                                                 <br>
                                             {% endfor %}
                                         </td>
-                                        <td><a>13</a></td>
+                                        <td>
+                                            {{ negocio.municipio }}
+                                        </td>
                                         <td>
                                             {% if negocio.rating == None %}
                                                 No evaluado
@@ -110,6 +114,18 @@
                                             {% endif %}
                                         </td>
                                         <td>
+                                            {% if negocio.is_closed %}
+                                                NO DISPONIBLE
+                                            {% else %}
+                                                DISPONIBLE
+                                            {% endif %}
+                                        </td>
+                                        <td>
+
+                                            <a type="button" class="btn btn-default waves-effect waves-black"
+                                               href="{% url 'comments' negocio.id %}"><i
+                                                    class="material-icons">message</i></a>
+
                                             {% if negocio.is_closed %}
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
@@ -129,13 +145,13 @@
                                                     <i class="material-icons">visibility_off</i>
                                                 </a>
                                             {% endif %}
-                                            <a type="button" href="{% url 'factura_bussiness' negocio.id%}"
+                                            <a type="button" href="{% url 'factura_bussiness' negocio.id %}"
                                                class="btn btn-default waves-effect waves-black"
                                                data-role="{{ negocios }}"
                                                data-href=""
                                                data-id="{{ negocio.id }}"
-{#                                               data-toggle="modal"#}
-{#                                               data-target="#invoiceModal"#}
+                                                    {#                                               data-toggle="modal"#}
+                                                    {#                                               data-target="#invoiceModal"#}
                                                title="Eliminar Negocio">
                                                 <i class="material-icons">assignment</i>
                                             </a>
@@ -169,89 +185,89 @@
                         Negocio</h4>
                 </div>
                 <div class="modal-body">
-{#                    <table class="table">#}
-{#                        <div class="justify-content-center">#}
-{#                            <img style="max-width: 30%;margin-left: 33%;text-align: center" src="{% static 'control_panel/images/logo.jpg' %}" />#}
-{#                        </div>#}
-{#                        <br>#}
-{#                        <br>#}
-{#                        <table class="table">#}
-{#                            <thead>#}
-{#                            <tr>#}
-{#                                <th colspan="4" style="text-align: left">A negocio: EL levant</th>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <th colspan="2" style="text-align: left">Factura: #123</th>#}
-{#                                <th colspan="2" style="text-align: right">Fecha de Emisión: 11/10/2020</th>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <th colspan="4" style="text-align: center">Desgloce de Porcentaje a Cobrar por pedidos</th>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <th colspan="3" style="text-align: left">Fecha de pedidos</th>#}
-{#                                <th style="text-align: right">% a Cobrar</th>#}
-{#                            </tr>#}
-{#                            </thead>#}
-{#                            <tbody>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>3/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>105 CUP</label></td>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>5/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>200 CUP</label></td>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>6/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>500 CUP</label></td>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>7/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>80 CUP</label></td>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>8/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>1000 CUP</label></td>#}
-{#                            </tr>#}
-{#                            <tr>#}
-{#                                <td colspan="3"><label>10/10/10</label></td>#}
-{#                                <td style="text-align: right" ><label>50 CUP</label></td>#}
-{#                            </tr>#}
-{#                            </tbody>#}
-{#                            <thead>#}
-{#                            <tr>#}
-{#                                <th></th>#}
-{#                                <th></th>#}
-{#                                <th ></th>#}
-{#                                <th colspan="4" style="text-align: right" >Total a pagar: 1935 CUP</th>#}
-{#                            </tr>#}
-{#                            </thead>#}
-{#                        </table>#}
-{#                        <thead>#}
-{#                        <tr>#}
-{#                            <th colspan="4" style="text-align: center">pedidos #{{ pedidos.count }}</th>#}
-{#                        </tr>#}
-{#                        </thead>#}
-{#                        <tbody>#}
-{##}
-{#                        {% for p in pedidos.all %}#}
-{#                            <tr>#}
-{#                                <th scope="row">{{ p.id }}</th>#}
-                                {#                            <td colspan="2">{{ p.plato.nombre }}</td>#}
-                                {#                            <td>{{ p.plato.precio }} cup</td>#}
-{#                            </tr>#}
-{#                        {% endfor %}#}
-{##}
-{#                        </tbody>#}
-{#                        <thead>#}
-{#                        <tr>#}
-{#                            <th></th>#}
-{#                            <th></th>#}
-{#                            <th style="text-align: right">Total a pagar:</th>#}
-{#                            <th>{{ pedido.total_pagar_user }} cup</th>#}
-{#                        </tr>#}
-{#                        </thead>#}
-{#                    </table>#}
+                    {#                    <table class="table">#}
+                    {#                        <div class="justify-content-center">#}
+                    {#                            <img style="max-width: 30%;margin-left: 33%;text-align: center" src="{% static 'control_panel/images/logo.jpg' %}" />#}
+                    {#                        </div>#}
+                    {#                        <br>#}
+                    {#                        <br>#}
+                    {#                        <table class="table">#}
+                    {#                            <thead>#}
+                    {#                            <tr>#}
+                    {#                                <th colspan="4" style="text-align: left">A negocio: EL levant</th>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <th colspan="2" style="text-align: left">Factura: #123</th>#}
+                    {#                                <th colspan="2" style="text-align: right">Fecha de Emisión: 11/10/2020</th>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <th colspan="4" style="text-align: center">Desgloce de Porcentaje a Cobrar por pedidos</th>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <th colspan="3" style="text-align: left">Fecha de pedidos</th>#}
+                    {#                                <th style="text-align: right">% a Cobrar</th>#}
+                    {#                            </tr>#}
+                    {#                            </thead>#}
+                    {#                            <tbody>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>3/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>105 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>5/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>200 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>6/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>500 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>7/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>80 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>8/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>1000 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            <tr>#}
+                    {#                                <td colspan="3"><label>10/10/10</label></td>#}
+                    {#                                <td style="text-align: right" ><label>50 CUP</label></td>#}
+                    {#                            </tr>#}
+                    {#                            </tbody>#}
+                    {#                            <thead>#}
+                    {#                            <tr>#}
+                    {#                                <th></th>#}
+                    {#                                <th></th>#}
+                    {#                                <th ></th>#}
+                    {#                                <th colspan="4" style="text-align: right" >Total a pagar: 1935 CUP</th>#}
+                    {#                            </tr>#}
+                    {#                            </thead>#}
+                    {#                        </table>#}
+                    {#                        <thead>#}
+                    {#                        <tr>#}
+                    {#                            <th colspan="4" style="text-align: center">pedidos #{{ pedidos.count }}</th>#}
+                    {#                        </tr>#}
+                    {#                        </thead>#}
+                    {#                        <tbody>#}
+                    {##}
+                    {#                        {% for p in pedidos.all %}#}
+                    {#                            <tr>#}
+                    {#                                <th scope="row">{{ p.id }}</th>#}
+                    {#                            <td colspan="2">{{ p.plato.nombre }}</td>#}
+                    {#                            <td>{{ p.plato.precio }} cup</td>#}
+                    {#                            </tr>#}
+                    {#                        {% endfor %}#}
+                    {##}
+                    {#                        </tbody>#}
+                    {#                        <thead>#}
+                    {#                        <tr>#}
+                    {#                            <th></th>#}
+                    {#                            <th></th>#}
+                    {#                            <th style="text-align: right">Total a pagar:</th>#}
+                    {#                            <th>{{ pedido.total_pagar_user }} cup</th>#}
+                    {#                        </tr>#}
+                    {#                        </thead>#}
+                    {#                    </table>#}
 
                 </div>
                 <div class="modal-footer">

@@ -130,7 +130,7 @@
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'blocked_user' user.persona_encargada.id %}"
-                                                   title="Desactivar Usuario"
+                                                   title="Desactivar usuario"
                                                    data-toggle="modal" data-target="#blockedModal"
                                                    data-id="{{ user.persona_encargada.id }}">
                                                     <i class="material-icons">accessibility</i>
@@ -139,7 +139,7 @@
                                                 <a href="#" type="button"
                                                    class="btn btn-default waves-effect waves-black"
                                                    data-href="{% url 'activate_user' user.persona_encargada.id %}"
-                                                   title="Activar Usuario"
+                                                   title="Activar usuario"
                                                    data-toggle="modal" data-target="#activeModal"
                                                    data-id="{{ user.persona_encargada.id }}">
                                                     <i class="material-icons">accessibility</i>
@@ -157,7 +157,7 @@
                                             {% endif %}
                                             <a type="button"
                                                href="{% url 'update_person' user.persona_encargada.id %}"
-                                               class="btn btn-default waves-effect waves-black">
+                                               class="btn btn-default waves-effect waves-black" title="Editar usuario">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <a href="#" type="button"
@@ -166,7 +166,7 @@
                                                data-id="{{ user.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Usuario">
+                                               title="Eliminar usuario">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                             {#                                         </div>#}
@@ -294,16 +294,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #212121">
-                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Desbloquear usuario</h4>
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Activar usuario</h4>
                 </div>
                 <div class="modal-body">
-                    ¿Desea realmente desbloquear a este usuario ?
+                    ¿Desea realmente activar a este usuario ?
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
                     </button>
-                    <a type="button" class="btn btn-default btn-ok"> DESBLOQUEAR</a>
+                    <a type="button" class="btn btn-default btn-ok"> ACTIVAR</a>
                 </div>
             </div>
         </div>
@@ -312,17 +312,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #212121">
-                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Bloquear usuario</h4>
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Desactivar usuario</h4>
                 </div>
                 <div class="modal-body">
 
-                    ¿Desea realmente bloquear a este usuario ?
+                    ¿Desea realmente desactivar a este usuario ?
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
                     </button>
-                    <a type="button" class="btn btn-default btn-ok"> BLOQUEAR</a>
+                    <a type="button" class="btn btn-default btn-ok"> DESACTIVAR</a>
                 </div>
             </div>
         </div>

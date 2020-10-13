@@ -147,10 +147,10 @@ def register_affiliate(request):
                     is_active=False
                 )
                 PerfilAfiliado.objects.create(afiliado_id=user.pk)
-                mensaje_notificacion = user.first_name + ' se registró como afiliado.'
+                mensaje_notificacion = user.first_name + ' se registró como AFILIADO.'
                 if mensaje_notificacion != '':
                     notificacion = Notification(mensaje=mensaje_notificacion,
-                                                estado='No-Leido', tipo='Usuario')
+                                                estado='No-Leida', tipo='Usuario')
                     notificacion.save()
                 messages.success(request, 'Gracias por registrarse en KeRápido,en menos de 72 horas podra acceder al '
                                           'panel')
@@ -205,6 +205,7 @@ def admin_panel(request):
         if request.user.is_superuser:
             pedidos_general = Pedido.objects.all()
             notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            notificaciones = list(notificaciones)
             cant_notificaciones = len(notificaciones)
         elif request.user.is_administrador:
             pedidos_general = Pedido.objects.all()
@@ -1596,10 +1597,10 @@ def add_bussiness(request):
                 macro1 = Macro.objects.get(nombre=m)
                 negocio.macro.add(macro1)
 
-            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre ' + negocio.nombre
+            mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre: ' + negocio.nombre
             if mensaje_notificacion != '':
                 notificacion = Notification(mensaje=mensaje_notificacion,
-                                            estado='No-Leido', tipo='Negocio')
+                                            estado='No-Leida', tipo='Negocio')
                 notificacion.save()
             messages.success(request, 'El negocio se agregó satisfactoriamente')
 
@@ -1894,6 +1895,58 @@ def blocked_business(request, id_bussiness):
         return redirect('panel')
     return redirect('login')
 
+def comments(request,id_bussiness):
+    if request.user.is_authenticated:
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        negocios = Negocio.objects.all()
+        Pedido.objects.filter()
+        comentarios = ComentarioEvaluacion.objects.filter(negocio__id=id_bussiness)
+
+        # Notificaciones------------------------------------
+        notificaciones = []
+        cant_notificaciones = 0
+        if request.user.is_superuser:
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
+            cant_notificaciones = len(notificaciones)
+        elif request.user.is_administrador:
+            qset = (
+                    Q(tipo='Usuario') |
+                    Q(tipo='Negocio') |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset).exclude(
+                mensaje__icontains=request.user.username).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        elif request.user.is_persona_encargada:
+            persona = get_object_or_404(PerfilPersonaEncargada, pk=request.user.id)
+            negocio = get_object_or_404(Negocio, pk=persona.negocio_pertenece.id)
+            qset1 = (
+                    Q(tipo='Pedido') |
+                    Q(negocio=negocio.id) |
+                    Q(estado='No-Leida')
+            )
+            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+            cant_notificaciones = len(list(notificaciones))
+        else:
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
+
+        context = {'negocios': negocios, 'business': business, 'notificaciones': notificaciones,
+                   'cant_notificaciones': cant_notificaciones,'comentarios': comentarios}
+        return render(request, "control_panel/module_businesses/comentarios.html", context)
+    return redirect('login')
 
 def get_next_weekday(startdate, weekday):
     """

@@ -93,6 +93,7 @@ urlpatterns = [
     path('factura_bussiness/<int:id_bussiness>', views.factura_bussiness, name="factura_bussiness"),
     path('activate_business/<int:id_bussiness>', views.activate_business, name="activate_business"),
     path('blocked_business/<int:id_bussiness>', views.blocked_business, name="blocked_business"),
+    path('comments/<int:id_bussiness>', views.comments, name="comments"),
 
     path('categories', views.categories, name="categories"),
     path('add_category', views.add_category, name="add_category"),
