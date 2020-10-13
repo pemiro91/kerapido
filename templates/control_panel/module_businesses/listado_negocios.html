@@ -145,18 +145,18 @@
                                                     <i class="material-icons">visibility_off</i>
                                                 </a>
                                             {% endif %}
-                                        {% if not negocio.usuario_negocio.id == request.user.id %}
-                                            <a type="button" href="{% url 'factura_bussiness' negocio.id %}"
-                                               class="btn btn-default waves-effect waves-black" title="ENviar Factura de KeRápido"
-                                               data-role="{{ negocios }}"
-                                               data-href=""
-                                               data-id="{{ negocio.id }}"
-                                                    {#                                               data-toggle="modal"#}
-                                                    {#                                               data-target="#invoiceModal"#}
-                                               title="Eliminar Negocio">
-                                                <i class="material-icons">assignment</i>
-                                            </a>
-                                        {% endif %}
+                                            {% if request.user.is_administrador or request.user.is_superuser %}
+                                                <a type="button" href="{% url 'factura_bussiness' negocio.id %}"
+                                                   class="btn btn-default waves-effect waves-black" title="ENviar Factura de KeRápido"
+                                                   data-role="{{ negocios }}"
+                                                   data-href=""
+                                                   data-id="{{ negocio.id }}"
+                                                        {#                                               data-toggle="modal"#}
+                                                        {#                                               data-target="#invoiceModal"#}
+                                                   title="Eliminar Negocio">
+                                                    <i class="material-icons">assignment</i>
+                                                </a>
+                                            {% endif %}
                                             <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
                                                data-href="{% url 'delete_bussiness' negocio.id %}"
                                                data-id="{{ negocio.id }}"

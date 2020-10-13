@@ -229,16 +229,20 @@ def admin_panel(request):
             notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
             cant_notificaciones = len(list(notificaciones))
         else:
-            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user)
-            afiliado = PerfilAfiliado.objects.get(afiliado_id=request.user.id)
-            negocio = Negocio.objects.get(usuario_negocio=afiliado.afiliado.id)
-            qset1 = (
-                    Q(tipo='Pedido') |
-                    Q(negocio=negocio.id) |
-                    Q(estado='No-Leida')
-            )
-            notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
-            cant_notificaciones = len(list(notificaciones))
+            afiliado = get_object_or_404(PerfilAfiliado, afiliado_id=request.user.id)
+            if Negocio.objects.all().count() != 0:
+                negocios = Negocio.objects.filter(usuario_negocio_id=afiliado.afiliado.id)
+                for negocio in negocios:
+                    if negocio:
+                        qset1 = (
+                                Q(tipo='Pedido') |
+                                Q(negocio=negocio.id) |
+                                Q(estado='No-Leida')
+                        )
+                        notificaciones = Notification.objects.filter(qset1).distinct().order_by('-fecha')[:5]
+                        notificaciones = list(notificaciones)
+                        notificaciones += notificaciones
+                        cant_notificaciones = len(list(notificaciones))
 
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
@@ -1599,7 +1603,7 @@ def add_bussiness(request):
 
             mensaje_notificacion = 'Se agregó un nuevo negocio con el nombre: ' + negocio.nombre
             if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion, negocio=negocio.id,
+                notificacion = Notification(mensaje=mensaje_notificacion, negocio=negocio,
                                             estado='No-Leida', tipo='Negocio')
                 notificacion.save()
             messages.success(request, 'El negocio se agregó satisfactoriamente')
@@ -1985,7 +1989,7 @@ def factura_bussiness(request, id_bussiness):
             )
             mensaje_notificacion = ' KeRápido envió la factura de esta semana al negocio: ' + negocio.nombre
             if mensaje_notificacion != '':
-                notificacion = Notification(mensaje=mensaje_notificacion, usuario=request.user, negocio=negocio.id,
+                notificacion = Notification(mensaje=mensaje_notificacion, usuario=request.user, negocio=negocio,
                                             estado='No-Leida', tipo='Factura')
                 notificacion.save()
             messages.success(request, 'Factura enviada satisfactoriamente')
