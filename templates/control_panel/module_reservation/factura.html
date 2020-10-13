@@ -37,14 +37,14 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion|date:"d/m/yy" }}</label></td>
-                                            <td><label>Hora: {{ pedido.fecha_reservacion|time }}</label></td>
+                                            <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion_factura|date:"d/m/yy" }}</label></td>
+                                            <td><label>Hora: {{ pedido.fecha_reservacion_factura|time }}</label></td>
                                         </tr>
                                         {% for p in pedido.reservaciones.all %}
                                              <tr>
                                                 <th scope="row">{{ p.cantidad_producto }}</th>
-                                                <td colspan="2">{{ p.plato.nombre }}</td>
-                                                <td>{{ p.plato.precio }} cup</td>
+                                                <td colspan="2">{{ p.producto.nombre }}</td>
+                                                <td>{{ p.producto.precio }} cup</td>
                                             </tr>
                                         {% endfor %}
                                         <tr>

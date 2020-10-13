@@ -179,6 +179,7 @@ class Pedido(models.Model):
     tarifa = models.ForeignKey(Tarifa_Entrega, on_delete=models.CASCADE, name='tarifa', null=True, blank=True)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True, blank=True)
     total_pagar_user = models.FloatField(max_length=255, null=True, blank=True)
+    fecha_reservacion_factura = models.DateTimeField(auto_now_add=True)
 
 
 class ComentarioEvaluacion(models.Model):

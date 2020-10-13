@@ -65,7 +65,7 @@
                                             <a type="button"
                                                class="btn btn-default waves-effect m-r-20 open-defaultModal"
                                                href="{% url 'factura' pedido.id %}">
-                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar }} CUP
+                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar_user }} CUP
                                             </a>
                                         </td>
                                         <td>{{ pedido.fecha_reservacion }}</td>

@@ -197,6 +197,7 @@ def admin_panel(request):
         comision_general = 0
         business_persona = QuerySet
         persona_encargada = QuerySet
+        ultimos_pedidos = []
 
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
@@ -244,6 +245,17 @@ def admin_panel(request):
                         notificaciones += notificaciones
                         cant_notificaciones = len(list(notificaciones))
 
+
+        if request.user.is_superuser or request.user.is_administrador:
+            pedidos_general = Pedido.objects.all()
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+        elif request.user.is_persona_encargada:
+            pedidos_general = Pedido.objects.filter(negocio_id=persona_encargada.negocio_pertenece.id)
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+        else:
+            pedidos_general = Pedido.objects.filter(negocio__usuario_negocio_id=request.user.id)
+            ultimos_pedidos = pedidos_general.order_by('-fecha_reservacion')[:5]
+
         for ph in pedidos_general:
             fecha = ph.fecha_reservacion
             if fecha == today:
@@ -272,6 +284,7 @@ def admin_panel(request):
                    'cantidad_pedidos': cant_pedidos, 'cantidad_afiliados': cant_afiliados,
                    'cantidad_negocios': cant_negocios, 'cantidad_clientes': cant_clientes,
                    'cantidad_servicios': cant_servicios,
+                   'ultimos_pedidos': ultimos_pedidos,
                    'cantidad_encargados': cant_personal_encargado, 'cantidad_categ_neg': cant_categ_neg,
                    'comision_hoy_general': comision_hoy_general, 'comision_ayer_general': comision_ayer_general,
                    'comision_ultima_semana_general': comision_ultima_semana_general,
