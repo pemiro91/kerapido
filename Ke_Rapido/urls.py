@@ -40,6 +40,7 @@ urlpatterns = [
     path('user', views.login_admin, name="login"),
     path('logout', views.logout, name="logout"),
     path('profile', views.profile, name="my_profile"),
+    path('change_password', views.change_password, name="change_password"),
     path('register_affiliate', views.register_affiliate, name="register_affiliate"),
     path('panel', views.admin_panel, name="panel"),
 
