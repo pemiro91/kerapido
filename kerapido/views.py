@@ -417,9 +417,11 @@ def profile(request):
 
 def change_password(request):
     if request.user.is_authenticated:
-        bussiness = Negocio.objects.filter(usuario_negocio=request.user)
-        persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
-        business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
+        business = Negocio.objects.filter(usuario_negocio=request.user)
+        business_persona = QuerySet
+        if request.user.is_persona_encargada:
+            persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
+            business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         # Notificaciones------------------------------------
         notificaciones = []
         cant_notificaciones = 0
@@ -2563,11 +2565,13 @@ def add_offer(request, id_bussiness):
         if request.method == 'POST':
             descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
+            nombre_contacto = request.POST.get('nombre_contacto')
             correo = request.POST.get('correo')
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
             Oferta_Laboral.objects.create(descripcion_corta=descripcion_corta,
                                           descripcion=description_offer,
+                                          nombre_contacto=nombre_contacto,
                                           negocio=negocio, correo=correo,
                                           telefono1=telefono1,
                                           telefono2=telefono2)
@@ -2632,11 +2636,13 @@ def update_offer(request, id_bussiness, id_offer):
         if request.method == 'POST':
             descripcion_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
+            nombre_contacto = request.POST.get('nombre_contacto')
             correo = request.POST.get('correo')
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
             Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
                                                               descripcion=description_offer,
+                                                              nombre_contacto=nombre_contacto,
                                                               negocio=negocio, correo=correo,
                                                               telefono1=telefono1,
                                                               telefono2=telefono2)
