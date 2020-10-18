@@ -301,7 +301,7 @@
                                 <h4>{{ negocio.nombre }}</h4>
                                 <p>{{ negocio.categoria.nombre }}</p>
                                 <a href="{% url 'detalles_afiliado' negocio.id %}"
-                                   class=" preview-link" title="más detalles"><i class="bx bx-plus"></i></a>
+                                   class=" preview-link" title="más detalles"><i class="bx bx-show"></i></a>
 
                                 <i class="bx bxs-purchase-tag">{% for cat in negocio.categorias.all %}
                                     {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
@@ -449,6 +449,7 @@
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
                             <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>

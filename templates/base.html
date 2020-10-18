@@ -110,13 +110,13 @@
                         Android, sólo para sus clientes.</p>
                     <p>Ke Rápido, dispone sólo para sus afiliados, un sistema web para el control de sus negocios</p>
                     <div class="row ">
-                        <div class="col-lg-6 col-md-6 ">
-                            <img src="{% static 'site/img/160138.png' %}" width="35%"/>
-                        </div>
+{#                        <div class="col-lg-6 col-md-6 ">#}
+                            <img style="margin-right: 15%" src="{% static 'site/img/160138.png' %}" width="25%"/>
+{#                        </div>#}
 
-                        <div class="col-lg-6 col-md-6 ">
-                            <img src="{% static 'site/img/web-app.png' %}" width="43%"/>
-                        </div>
+{#                        <div class="col-lg-6 col-md-6 ">#}
+                            <img src="{% static 'site/img/web-app.png' %}" width="30%"/>
+{#                        </div>#}
                     </div>
 
 
@@ -126,8 +126,10 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Enlaces Internos</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
+                        {% if bussiness %}
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
                             Afiliados</a></li>
+                        {% endif %}
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
                             Servicio</a></li>
                     </ul>
@@ -136,7 +138,7 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>Sitios de Interés</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Apklis</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://www.apklis.cu/">Apklis</a></li>
 
                     </ul>
                 </div>
@@ -147,13 +149,14 @@
                             pedidos en linea, y otra plataforma a sus afiliados, que permite apoyar en la gestión de sus
                             negocios.</em></p>
                         <p>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
+                            <strong>Phone:</strong> +53 5 6228190<br>
+                            <strong>Email:</strong> info@kerapido.com<br>
                         </p>
                         <div class="social-links mt-3">
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
                             <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
