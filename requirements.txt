@@ -22,6 +22,7 @@ idna==2.10
 ldif3==3.1.1
 Pillow==7.2.0
 progressbar2==3.51.4
+psycopg2==2.8.6
 py-vapid==1.7.1
 pycparser==2.20
 PyJWT==1.7.1
