@@ -155,10 +155,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST = 'smtp.gmail.com'  # hera.hostingdelcaribe.net
-EMAIL_HOST_USER = 'pemiro91@gmail.com'
-EMAIL_HOST_PASSWORD = 'habanatrans 2016*'
-EMAIL_PORT = 587
+EMAIL_HOST = 'mail.kerapido.net'  # hera.hostingdelcaribe.net
+EMAIL_HOST_USER = 'info@kerapido.net'
+EMAIL_HOST_PASSWORD = 'kerapido2020'
+EMAIL_PORT = 465
 
 TEMPLATE_CONTEXT_PROCESSORS = {
     'django.core.context_processors.request'
