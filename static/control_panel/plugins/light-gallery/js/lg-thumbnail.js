@@ -1,7 +1,7 @@
 /*! lightgallery - v1.2.21 - 2016-06-28
 * http://sachinchoolur.github.io/lightGallery/
 * Copyright (c) 2016 Sachin N; Licensed Apache 2.0 */
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     'use strict';
 
@@ -33,7 +33,7 @@
         loadDailymotionThumbnail: true
     };
 
-    var Thumbnail = function(element) {
+    var Thumbnail = function (element) {
 
         // get lightGallery core plugin data
         this.core = $(element).data('lightGallery');
@@ -55,11 +55,11 @@
         return this;
     };
 
-    Thumbnail.prototype.init = function() {
+    Thumbnail.prototype.init = function () {
         var _this = this;
         if (this.core.s.thumbnail && this.core.$items.length > 1) {
             if (this.core.s.showThumbByDefault) {
-                setTimeout(function(){
+                setTimeout(function () {
                     _this.core.$outer.addClass('lg-thumb-open');
                 }, 700);
             }
@@ -88,7 +88,7 @@
         }
     };
 
-    Thumbnail.prototype.build = function() {
+    Thumbnail.prototype.build = function () {
         var _this = this;
         var thumbList = '';
         var vimeoErrorThumbSize = '';
@@ -166,7 +166,7 @@
                 getThumb(_this.core.s.dynamicEl[i].src, _this.core.s.dynamicEl[i].thumb, i);
             }
         } else {
-            _this.core.$items.each(function(i) {
+            _this.core.$items.each(function (i) {
 
                 if (!_this.core.s.exThumbImage) {
                     getThumb($(this).attr('href') || $(this).attr('data-src'), $(this).find('img').attr('src'), i);
@@ -182,14 +182,14 @@
         $thumb = _this.core.$outer.find('.lg-thumb-item');
 
         // Load vimeo thumbnails
-        $thumb.each(function() {
+        $thumb.each(function () {
             var $this = $(this);
             var vimeoVideoId = $this.attr('data-vimeo-id');
 
             if (vimeoVideoId) {
                 $.getJSON('//www.vimeo.com/api/v2/video/' + vimeoVideoId + '.json?callback=?', {
                     format: 'json'
-                }, function(data) {
+                }, function (data) {
                     $this.find('img').attr('src', data[0][_this.core.s.vimeoThumbSize]);
                 });
             }
@@ -197,14 +197,14 @@
 
         // manage active class for thumbnail
         $thumb.eq(_this.core.index).addClass('active');
-        _this.core.$el.on('onBeforeSlide.lg.tm', function() {
+        _this.core.$el.on('onBeforeSlide.lg.tm', function () {
             $thumb.removeClass('active');
             $thumb.eq(_this.core.index).addClass('active');
         });
 
-        $thumb.on('click.lg touchend.lg', function() {
+        $thumb.on('click.lg touchend.lg', function () {
             var _$this = $(this);
-            setTimeout(function() {
+            setTimeout(function () {
 
                 // In IE9 and bellow touch does not support
                 // Go to slide if browser does not support css transitions
@@ -215,12 +215,12 @@
             }, 50);
         });
 
-        _this.core.$el.on('onBeforeSlide.lg.tm', function() {
+        _this.core.$el.on('onBeforeSlide.lg.tm', function () {
             _this.animateThumb(_this.core.index);
         });
 
-        $(window).on('resize.lg.thumb orientationchange.lg.thumb', function() {
-            setTimeout(function() {
+        $(window).on('resize.lg.thumb orientationchange.lg.thumb', function () {
+            setTimeout(function () {
                 _this.animateThumb(_this.core.index);
                 _this.thumbOuterWidth = _this.$thumbOuter.width();
             }, 200);
@@ -228,14 +228,14 @@
 
     };
 
-    Thumbnail.prototype.setTranslate = function(value) {
+    Thumbnail.prototype.setTranslate = function (value) {
         // jQuery supports Automatic CSS prefixing since jQuery 1.8.0
         this.core.$outer.find('.lg-thumb').css({
             transform: 'translate3d(-' + (value) + 'px, 0px, 0px)'
         });
     };
 
-    Thumbnail.prototype.animateThumb = function(index) {
+    Thumbnail.prototype.animateThumb = function (index) {
         var $thumb = this.core.$outer.find('.lg-thumb');
         if (this.core.s.animateThumb) {
             var position;
@@ -280,7 +280,7 @@
     };
 
     // Enable thumbnail dragging and swiping
-    Thumbnail.prototype.enableThumbDrag = function() {
+    Thumbnail.prototype.enableThumbDrag = function () {
 
         var _this = this;
         var startCoords = 0;
@@ -291,7 +291,7 @@
 
         _this.$thumbOuter.addClass('lg-grab');
 
-        _this.core.$outer.find('.lg-thumb').on('mousedown.lg.thumb', function(e) {
+        _this.core.$outer.find('.lg-thumb').on('mousedown.lg.thumb', function (e) {
             if (_this.thumbTotalWidth > _this.thumbOuterWidth) {
                 // execute only on .lg-object
                 e.preventDefault();
@@ -308,7 +308,7 @@
             }
         });
 
-        $(window).on('mousemove.lg.thumb', function(e) {
+        $(window).on('mousemove.lg.thumb', function (e) {
             if (isDraging) {
                 tempLeft = _this.left;
                 isMoved = true;
@@ -332,7 +332,7 @@
             }
         });
 
-        $(window).on('mouseup.lg.thumb', function() {
+        $(window).on('mouseup.lg.thumb', function () {
             if (isMoved) {
                 isMoved = false;
                 _this.$thumbOuter.removeClass('lg-dragging');
@@ -355,14 +355,14 @@
 
     };
 
-    Thumbnail.prototype.enableThumbSwipe = function() {
+    Thumbnail.prototype.enableThumbSwipe = function () {
         var _this = this;
         var startCoords = 0;
         var endCoords = 0;
         var isMoved = false;
         var tempLeft = 0;
 
-        _this.core.$outer.find('.lg-thumb').on('touchstart.lg', function(e) {
+        _this.core.$outer.find('.lg-thumb').on('touchstart.lg', function (e) {
             if (_this.thumbTotalWidth > _this.thumbOuterWidth) {
                 e.preventDefault();
                 startCoords = e.originalEvent.targetTouches[0].pageX;
@@ -370,7 +370,7 @@
             }
         });
 
-        _this.core.$outer.find('.lg-thumb').on('touchmove.lg', function(e) {
+        _this.core.$outer.find('.lg-thumb').on('touchmove.lg', function (e) {
             if (_this.thumbTotalWidth > _this.thumbOuterWidth) {
                 e.preventDefault();
                 endCoords = e.originalEvent.targetTouches[0].pageX;
@@ -396,7 +396,7 @@
             }
         });
 
-        _this.core.$outer.find('.lg-thumb').on('touchend.lg', function() {
+        _this.core.$outer.find('.lg-thumb').on('touchend.lg', function () {
             if (_this.thumbTotalWidth > _this.thumbOuterWidth) {
 
                 if (isMoved) {
@@ -417,20 +417,20 @@
 
     };
 
-    Thumbnail.prototype.toogle = function() {
+    Thumbnail.prototype.toogle = function () {
         var _this = this;
         if (_this.core.s.toogleThumb) {
             _this.core.$outer.addClass('lg-can-toggle');
             _this.$thumbOuter.append('<span class="lg-toogle-thumb lg-icon"></span>');
-            _this.core.$outer.find('.lg-toogle-thumb').on('click.lg', function() {
+            _this.core.$outer.find('.lg-toogle-thumb').on('click.lg', function () {
                 _this.core.$outer.toggleClass('lg-thumb-open');
             });
         }
     };
 
-    Thumbnail.prototype.thumbkeyPress = function() {
+    Thumbnail.prototype.thumbkeyPress = function () {
         var _this = this;
-        $(window).on('keydown.lg.thumb', function(e) {
+        $(window).on('keydown.lg.thumb', function (e) {
             if (e.keyCode === 38) {
                 e.preventDefault();
                 _this.core.$outer.addClass('lg-thumb-open');
@@ -441,7 +441,7 @@
         });
     };
 
-    Thumbnail.prototype.destroy = function() {
+    Thumbnail.prototype.destroy = function () {
         if (this.core.s.thumbnail && this.core.$items.length > 1) {
             $(window).off('resize.lg.thumb orientationchange.lg.thumb keydown.lg.thumb');
             this.$thumbOuter.remove();

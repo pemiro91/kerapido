@@ -10285,7 +10285,7 @@ fieldset[disabled] .form-control {
 
 .sidebar .menu .list a:hover, .sidebar .menu .list a:active, .sidebar .menu .list a:focus {
     text-decoration: none !important;
-    color:#FEC010
+    color: #FEC010
 }
 
 .sidebar .menu .list a small {

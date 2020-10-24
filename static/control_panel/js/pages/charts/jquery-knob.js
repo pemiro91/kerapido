@@ -14,14 +14,14 @@ $(function () {
                 this.g.lineWidth = this.lineWidth;
 
                 this.o.cursor
-                    && (sat = eat - 0.3)
-                    && (eat = eat + 0.3);
+                && (sat = eat - 0.3)
+                && (eat = eat + 0.3);
 
                 if (this.o.displayPrevious) {
                     ea = this.startAngle + this.angle(this.value);
                     this.o.cursor
-                        && (sa = ea - 0.3)
-                        && (ea = ea + 0.3);
+                    && (sa = ea - 0.3)
+                    && (ea = ea + 0.3);
                     this.g.beginPath();
                     this.g.strokeStyle = this.previousColor;
                     this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);

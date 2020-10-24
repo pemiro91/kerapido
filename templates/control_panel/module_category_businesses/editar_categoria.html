@@ -96,10 +96,10 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input id="description" name="description_category"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      value="{{ category.descripcion }}"
-                                                      placeholder="Escriba la descripción de la categoria"/>
+                                                   class="form-control no-resize"
+                                                   required
+                                                   value="{{ category.descripcion }}"
+                                                   placeholder="Escriba la descripción de la categoria"/>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,8 @@
                                     <label for="macro">Macro categoria</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <select id="macro" name="macro" class="form-control show-tick" data-live-search="true">
+                                    <select id="macro" name="macro" class="form-control show-tick"
+                                            data-live-search="true">
                                         {% ifequal category.macro.nombre 'Comercio y Gastronomía' %}
                                             <option value="1" selected>Comercio y Gastronomía</option>
                                             <option value="Mercado">Mercado</option>

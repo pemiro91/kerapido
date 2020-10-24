@@ -30,7 +30,9 @@ $(function () {
             setButtonWavesEffect(event);
         },
         onStepChanging: function (event, currentIndex, newIndex) {
-            if (currentIndex > newIndex) { return true; }
+            if (currentIndex > newIndex) {
+                return true;
+            }
 
             if (currentIndex < newIndex) {
                 form.find('.body:eq(' + newIndex + ') label.error').remove();

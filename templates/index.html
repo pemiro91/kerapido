@@ -351,7 +351,7 @@
                         <div class="form-row">
                             <div class="col form-group">
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Nombre"
-                                                                 data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+                                       data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="col form-group">
@@ -403,13 +403,13 @@
                         Android, sólo para sus clientes.</p>
                     <p>Ke Rápido, dispone sólo para sus afiliados, un sistema web para el control de sus negocios</p>
                     <div class="row ">
-{#                        <div class="col-lg-6 col-md-6 ">#}
-                            <img style="margin-right: 15%" src="{% static 'site/img/160138.png' %}" width="25%"/>
-{#                        </div>#}
+                        {#                        <div class="col-lg-6 col-md-6 ">#}
+                        <img style="margin-right: 15%" src="{% static 'site/img/160138.png' %}" width="25%"/>
+                        {#                        </div>#}
 
-{#                        <div class="col-lg-6 col-md-6 ">#}
-                            <img src="{% static 'site/img/web-app.png' %}" width="30%"/>
-{#                        </div>#}
+                        {#                        <div class="col-lg-6 col-md-6 ">#}
+                        <img src="{% static 'site/img/web-app.png' %}" width="30%"/>
+                        {#                        </div>#}
                     </div>
 
 
@@ -421,7 +421,7 @@
                     <ul>
                         {% if bussiness %}
                             <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
-                            Afiliados</a></li>
+                                Afiliados</a></li>
                         {% endif %}
                         <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
                             Servicio</a></li>

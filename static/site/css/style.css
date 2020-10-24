@@ -27,11 +27,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ofert {
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 1; /* number of lines to show */
-   -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 /*--------------------------------------------------------------
@@ -1259,6 +1259,7 @@ section {
         margin: -20px 0 30px 0;
     }
 }
+
 ol {
     display: block;
     list-style-type: decimal;
@@ -1268,6 +1269,7 @@ ol {
     margin-inline-end: 0px;
     padding-inline-start: 40px;
 }
+
 .breadcrumbs {
     padding: 15px 0;
     background: #F2F2F2;
@@ -1288,6 +1290,7 @@ ol {
 .breadcrumbs ol li + li {
     padding-left: 10px;
 }
+
 .breadcrumbs ol li + li::before {
     display: inline-block;
     padding-right: 10px;

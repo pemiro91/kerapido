@@ -27,31 +27,31 @@
 
 <body class="login-page">
 
-    <div style="margin-left: -10%" >
-        <div class="col-xl-8">
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
-                             role="alert">
-                            {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% if error %}
-                <div class="col-lg-9">
-                    <div class="alert alert-danger">
-                        {{ error }}
+<div style="margin-left: -10%">
+    <div class="col-xl-8">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                         role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if error %}
+            <div class="col-lg-9">
+                <div class="alert alert-danger">
+                    {{ error }}
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
+</div>
 
 
 <div class="login-box">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="row ">
                     <div class="col-xs-5 ">
-{#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
+                        {#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
                     </div>
                     <div class="col-xs-7 align-right">
                         <button class="btn btn-default waves-effect waves-black " type="submit">

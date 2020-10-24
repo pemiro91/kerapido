@@ -5,18 +5,17 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.db import transaction
+from django.db.models import Q
 from django.db.models import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+
 from kerapido.forms import MyForm, UpdateBusiness
 from kerapido.models import User, Negocio, Oferta_Laboral, Categoria_Negocio, Municipio, Frecuencia, \
     Servicio, Macro, Categoria_Producto, Producto, ComentarioEvaluacion, Pedido, Tarifa_Entrega, PerfilPersonaEncargada, \
     PerfilAfiliado, Notification, Factura_KeRapido
-from django.core.paginator import Paginator
-from django.db.models import Q
-from django.utils import timezone
-import pytz
 
 
 # Create your views here.
@@ -244,7 +243,6 @@ def admin_panel(request):
                         notificaciones = list(notificaciones)
                         notificaciones += notificaciones
                         cant_notificaciones = len(list(notificaciones))
-
 
         if request.user.is_superuser or request.user.is_administrador:
             pedidos_general = Pedido.objects.all()

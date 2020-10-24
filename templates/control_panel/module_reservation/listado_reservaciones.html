@@ -65,7 +65,8 @@
                                             <a type="button"
                                                class="btn btn-default waves-effect m-r-20 open-defaultModal"
                                                href="{% url 'factura' pedido.id %}">
-                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar_user }} CUP
+                                                {{ pedido.reservaciones.count }} prod - {{ pedido.total_pagar_user }}
+                                                CUP
                                             </a>
                                         </td>
                                         <td>{{ pedido.fecha_reservacion }}</td>
@@ -107,11 +108,11 @@
                         <h5 class="modal-title" id="defaultModalLabel">Cambiar estado de la reservación</h5>
                     </div>
                     <div class="modal-body">
-                        <input name="state" type="radio" id="radio_1" value="Pendiente" class="radio-col-orange" />
+                        <input name="state" type="radio" id="radio_1" value="Pendiente" class="radio-col-orange"/>
                         <label for="radio_1">Pendiente</label>
-                        <input name="state" type="radio" id="radio_2" value="Cancelado" class="radio-col-red" />
+                        <input name="state" type="radio" id="radio_2" value="Cancelado" class="radio-col-red"/>
                         <label for="radio_2">Cancelado</label>
-                        <input name="state" type="radio" id="radio_3" value="Entregado" class="radio-col-green" />
+                        <input name="state" type="radio" id="radio_3" value="Entregado" class="radio-col-green"/>
                         <label for="radio_3">Entregado</label>
                     </div>
                     <div class="modal-footer">
@@ -138,15 +139,15 @@
     <!-- Custom Js -->
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
-{#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
-{##}
-{#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
-{##}
-{#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
-{#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/js/pages/ui/modals.js' %}"></script>#}
+    {##}
+    {#    <script src="{% static 'control_panel/js/pages/ui/tooltips-popovers.js' %}"></script>#}
+    {##}
+    {#    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>#}
+    {#    <script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>#}
 
     <script>
-        $(document).on('click','.waves-black',function(){
+        $(document).on('click', '.waves-black', function () {
             var estado = $(this).data('estado');
             var radioId = '';
 
@@ -156,14 +157,14 @@
                 radioId = 'radio_3';
             else
                 radioId = 'radio_1';
-            document.forms["state_change"][radioId].checked=true;
+            document.forms["state_change"][radioId].checked = true;
         });
     </script>
     <script>
-        $(document).on('click','.waves-black',function(){
+        $(document).on('click', '.waves-black', function () {
             var id = $(this).data('id');
             console.log(id)
-            $("#state_change").attr("action", "change_state_reservation/" + {{ negocio.id }} + "/" + id);
+            $("#state_change").attr("action", "change_state_reservation/" + {{ negocio.id }} +"/" + id);
         });
     </script>
     <script>

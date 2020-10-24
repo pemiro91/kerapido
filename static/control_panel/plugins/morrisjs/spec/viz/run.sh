@@ -9,12 +9,10 @@ rm -f diff/*
 
 # generate diffs
 PASS=1
-for i in exemplary/*.png
-do
-  FN=`basename $i`
+for i in exemplary/*.png; do
+  FN=$(basename $i)
   perceptualdiff $i output/$FN -output diff/$FN
-  if [ $? -eq 0 ]
-  then
+  if [ $? -eq 0 ]; then
     echo "OK:   $FN"
   else
     echo "FAIL: $FN"
@@ -23,8 +21,7 @@ do
 done
 
 # pass / fail
-if [ $PASS -eq 1 ]
-then
+if [ $PASS -eq 1 ]; then
   echo "Success."
 else
   echo "Failed."

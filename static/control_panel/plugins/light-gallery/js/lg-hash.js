@@ -1,7 +1,7 @@
 /*! lightgallery - v1.2.21 - 2016-06-28
 * http://sachinchoolur.github.io/lightGallery/
 * Copyright (c) 2016 Sachin N; Licensed Apache 2.0 */
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     'use strict';
 
@@ -9,7 +9,7 @@
         hash: true
     };
 
-    var Hash = function(element) {
+    var Hash = function (element) {
 
         this.core = $(element).data('lightGallery');
 
@@ -23,17 +23,17 @@
         return this;
     };
 
-    Hash.prototype.init = function() {
+    Hash.prototype.init = function () {
         var _this = this;
         var _hash;
 
         // Change hash value on after each slide transition
-        _this.core.$el.on('onAfterSlide.lg.tm', function(event, prevIndex, index) {
+        _this.core.$el.on('onAfterSlide.lg.tm', function (event, prevIndex, index) {
             window.location.hash = 'lg=' + _this.core.s.galleryId + '&slide=' + index;
         });
 
         // Listen hash change and change the slide according to slide value
-        $(window).on('hashchange.lg.hash', function() {
+        $(window).on('hashchange.lg.hash', function () {
             _hash = window.location.hash;
             var _idx = parseInt(_hash.split('&slide=')[1], 10);
 
@@ -47,7 +47,7 @@
         });
     };
 
-    Hash.prototype.destroy = function() {
+    Hash.prototype.destroy = function () {
 
         if (!this.core.s.hash) {
             return;

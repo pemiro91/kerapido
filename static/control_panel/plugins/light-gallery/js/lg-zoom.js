@@ -1,7 +1,7 @@
 /*! lightgallery - v1.2.21 - 2016-06-28
 * http://sachinchoolur.github.io/lightGallery/
 * Copyright (c) 2016 Sachin N; Licensed Apache 2.0 */
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     'use strict';
 
@@ -12,7 +12,7 @@
         enableZoomAfter: 300
     };
 
-    var Zoom = function(element) {
+    var Zoom = function (element) {
 
         this.core = $(element).data('lightGallery');
 
@@ -32,7 +32,7 @@
         return this;
     };
 
-    Zoom.prototype.init = function() {
+    Zoom.prototype.init = function () {
 
         var _this = this;
         var zoomIcons = '<span id="lg-zoom-in" class="lg-icon"></span><span id="lg-zoom-out" class="lg-icon"></span>';
@@ -44,7 +44,7 @@
         this.core.$outer.find('.lg-toolbar').append(zoomIcons);
 
         // Add zoomable class
-        _this.core.$el.on('onSlideItemLoad.lg.tm.zoom', function(event, index, delay) {
+        _this.core.$el.on('onSlideItemLoad.lg.tm.zoom', function (event, index, delay) {
 
             // delay will be 0 except first time
             var _speed = _this.core.s.enableZoomAfter + delay;
@@ -60,7 +60,7 @@
                 $('body').removeClass('lg-from-hash');
             }
 
-            _this.zoomabletimeout = setTimeout(function() {
+            _this.zoomabletimeout = setTimeout(function () {
                 _this.core.$slide.eq(index).addClass('lg-zoomable');
             }, _speed + 30);
         });
@@ -72,7 +72,7 @@
          *
          * @param {String} scaleVal - Zoom decrement/increment value
          */
-        var zoom = function(scaleVal) {
+        var zoom = function (scaleVal) {
 
             var $image = _this.core.$outer.find('.lg-current .lg-image');
             var _x;
@@ -96,7 +96,7 @@
             }).attr('data-x', x).attr('data-y', y);
         };
 
-        var callScale = function() {
+        var callScale = function () {
             if (scale > 1) {
                 _this.core.$outer.addClass('lg-zoomed');
             } else {
@@ -110,7 +110,7 @@
             zoom(scale);
         };
 
-        var actualSize = function(event, $image, index, fromIcon) {
+        var actualSize = function (event, $image, index, fromIcon) {
             var w = $image.width();
             var nw;
             if (_this.core.s.dynamic) {
@@ -139,7 +139,7 @@
             }
 
             callScale();
-            setTimeout(function() {
+            setTimeout(function () {
                 _this.core.$outer.removeClass('lg-grabbing').addClass('lg-grab');
             }, 10);
         };
@@ -147,18 +147,18 @@
         var tapped = false;
 
         // event triggered after appending slide content
-        _this.core.$el.on('onAferAppendSlide.lg.tm.zoom', function(event, index) {
+        _this.core.$el.on('onAferAppendSlide.lg.tm.zoom', function (event, index) {
 
             // Get the current element
             var $image = _this.core.$slide.eq(index).find('.lg-image');
 
-            $image.on('dblclick', function(event) {
+            $image.on('dblclick', function (event) {
                 actualSize(event, $image, index);
             });
 
-            $image.on('touchstart', function(event) {
+            $image.on('touchstart', function (event) {
                 if (!tapped) {
-                    tapped = setTimeout(function() {
+                    tapped = setTimeout(function () {
                         tapped = null;
                     }, 300);
                 } else {
@@ -173,32 +173,32 @@
         });
 
         // Update zoom on resize and orientationchange
-        $(window).on('resize.lg.zoom scroll.lg.zoom orientationchange.lg.zoom', function() {
+        $(window).on('resize.lg.zoom scroll.lg.zoom orientationchange.lg.zoom', function () {
             _this.pageX = $(window).width() / 2;
             _this.pageY = ($(window).height() / 2) + $(window).scrollTop();
             zoom(scale);
         });
 
-        $('#lg-zoom-out').on('click.lg', function() {
+        $('#lg-zoom-out').on('click.lg', function () {
             if (_this.core.$outer.find('.lg-current .lg-image').length) {
                 scale -= _this.core.s.scale;
                 callScale();
             }
         });
 
-        $('#lg-zoom-in').on('click.lg', function() {
+        $('#lg-zoom-in').on('click.lg', function () {
             if (_this.core.$outer.find('.lg-current .lg-image').length) {
                 scale += _this.core.s.scale;
                 callScale();
             }
         });
 
-        $('#lg-actual-size').on('click.lg', function(event) {
+        $('#lg-actual-size').on('click.lg', function (event) {
             actualSize(event, _this.core.$slide.eq(_this.core.index).find('.lg-image'), _this.core.index, true);
         });
 
         // Reset zoom on slide change
-        _this.core.$el.on('onBeforeSlide.lg.tm', function() {
+        _this.core.$el.on('onBeforeSlide.lg.tm', function () {
             scale = 1;
             _this.resetZoom();
         });
@@ -215,7 +215,7 @@
     };
 
     // Reset zoom effect
-    Zoom.prototype.resetZoom = function() {
+    Zoom.prototype.resetZoom = function () {
         this.core.$outer.removeClass('lg-zoomed');
         this.core.$slide.find('.lg-img-wrap').removeAttr('style data-x data-y');
         this.core.$slide.find('.lg-image').removeAttr('style data-scale');
@@ -225,7 +225,7 @@
         this.pageY = ($(window).height() / 2) + $(window).scrollTop();
     };
 
-    Zoom.prototype.zoomSwipe = function() {
+    Zoom.prototype.zoomSwipe = function () {
         var _this = this;
         var startCoords = {};
         var endCoords = {};
@@ -237,7 +237,7 @@
         // Allow Y direction drag
         var allowY = false;
 
-        _this.core.$slide.on('touchstart.lg', function(e) {
+        _this.core.$slide.on('touchstart.lg', function (e) {
 
             if (_this.core.$outer.hasClass('lg-zoomed')) {
                 var $image = _this.core.$slide.eq(_this.core.index).find('.lg-object');
@@ -255,7 +255,7 @@
 
         });
 
-        _this.core.$slide.on('touchmove.lg', function(e) {
+        _this.core.$slide.on('touchmove.lg', function (e) {
 
             if (_this.core.$outer.hasClass('lg-zoomed')) {
 
@@ -297,7 +297,7 @@
 
         });
 
-        _this.core.$slide.on('touchend.lg', function() {
+        _this.core.$slide.on('touchend.lg', function () {
             if (_this.core.$outer.hasClass('lg-zoomed')) {
                 if (isMoved) {
                     isMoved = false;
@@ -310,7 +310,7 @@
 
     };
 
-    Zoom.prototype.zoomDrag = function() {
+    Zoom.prototype.zoomDrag = function () {
 
         var _this = this;
         var startCoords = {};
@@ -324,7 +324,7 @@
         // Allow Y direction drag
         var allowY = false;
 
-        _this.core.$slide.on('mousedown.lg.zoom', function(e) {
+        _this.core.$slide.on('mousedown.lg.zoom', function (e) {
 
             // execute only on .lg-object
             var $image = _this.core.$slide.eq(_this.core.index).find('.lg-object');
@@ -351,7 +351,7 @@
             }
         });
 
-        $(window).on('mousemove.lg.zoom', function(e) {
+        $(window).on('mousemove.lg.zoom', function (e) {
             if (isDraging) {
                 var _$el = _this.core.$slide.eq(_this.core.index).find('.lg-img-wrap');
                 var distanceX;
@@ -385,7 +385,7 @@
             }
         });
 
-        $(window).on('mouseup.lg.zoom', function(e) {
+        $(window).on('mouseup.lg.zoom', function (e) {
 
             if (isDraging) {
                 isDraging = false;
@@ -409,7 +409,7 @@
         });
     };
 
-    Zoom.prototype.touchendZoom = function(startCoords, endCoords, allowX, allowY) {
+    Zoom.prototype.touchendZoom = function (startCoords, endCoords, allowX, allowY) {
 
         var _this = this;
         var _$el = _this.core.$slide.eq(_this.core.index).find('.lg-img-wrap');
@@ -458,7 +458,7 @@
         }
     };
 
-    Zoom.prototype.destroy = function() {
+    Zoom.prototype.destroy = function () {
 
         var _this = this;
 

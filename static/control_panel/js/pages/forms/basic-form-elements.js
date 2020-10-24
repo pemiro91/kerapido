@@ -38,7 +38,7 @@ $(function () {
         container: '#bs_datepicker_range_container'
     });
 
-     //Advanced form with validation
+    //Advanced form with validation
     var form = $('#wizard_with_validation').show();
     form.steps({
         headerTag: 'h3',
@@ -56,7 +56,9 @@ $(function () {
             setButtonWavesEffect(event);
         },
         onStepChanging: function (event, currentIndex, newIndex) {
-            if (currentIndex > newIndex) { return true; }
+            if (currentIndex > newIndex) {
+                return true;
+            }
 
             if (currentIndex < newIndex) {
                 form.find('.body:eq(' + newIndex + ') label.error').remove();

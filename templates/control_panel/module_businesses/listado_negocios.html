@@ -147,7 +147,8 @@
                                             {% endif %}
                                             {% if request.user.is_administrador or request.user.is_superuser %}
                                                 <a type="button" href="{% url 'factura_bussiness' negocio.id %}"
-                                                   class="btn btn-default waves-effect waves-black" title="ENviar Factura de KeRápido"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   title="ENviar Factura de KeRápido"
                                                    data-role="{{ negocios }}"
                                                    data-href=""
                                                    data-id="{{ negocio.id }}"

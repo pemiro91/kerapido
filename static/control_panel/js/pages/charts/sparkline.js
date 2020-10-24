@@ -20,9 +20,9 @@ $(function () {
 function drawDocSparklines() {
 
     // Bar + line composite charts
-    $('#compositebar').sparkline('html', { type: 'bar', barColor: '#aaf' });
+    $('#compositebar').sparkline('html', {type: 'bar', barColor: '#aaf'});
     $('#compositebar').sparkline([4, 1, 5, 7, 9, 9, 8, 7, 6, 6, 4, 7, 8, 4, 3, 2, 2, 5, 6, 7],
-        { composite: true, fillColor: false, lineColor: 'red' });
+        {composite: true, fillColor: false, lineColor: 'red'});
 
 
     // Line charts taking their values from the tag
@@ -30,7 +30,7 @@ function drawDocSparklines() {
 
     // Larger line charts for the docs
     $('.largeline').sparkline('html',
-        { type: 'line', height: '2.5em', width: '4em' });
+        {type: 'line', height: '2.5em', width: '4em'});
 
     // Customized line chart
     $('#linecustom').sparkline('html',
@@ -40,48 +40,48 @@ function drawDocSparklines() {
         });
 
     // Bar charts using inline values
-    $('.sparkbar').sparkline('html', { type: 'bar' });
+    $('.sparkbar').sparkline('html', {type: 'bar'});
 
     $('.barformat').sparkline([1, 3, 5, 3, 8], {
         type: 'bar',
         tooltipFormat: '{{value:levels}} - {{value}}',
         tooltipValueLookups: {
-            levels: $.range_map({ ':2': 'Low', '3:6': 'Medium', '7:': 'High' })
+            levels: $.range_map({':2': 'Low', '3:6': 'Medium', '7:': 'High'})
         }
     });
 
     // Tri-state charts using inline values
-    $('.sparktristate').sparkline('html', { type: 'tristate' });
+    $('.sparktristate').sparkline('html', {type: 'tristate'});
     $('.sparktristatecols').sparkline('html',
-        { type: 'tristate', colorMap: { '-2': '#fa7', '2': '#44f' } });
+        {type: 'tristate', colorMap: {'-2': '#fa7', '2': '#44f'}});
 
     // Composite line charts, the second using values supplied via javascript
-    $('#compositeline').sparkline('html', { fillColor: false, changeRangeMin: 0, chartRangeMax: 10 });
+    $('#compositeline').sparkline('html', {fillColor: false, changeRangeMin: 0, chartRangeMax: 10});
     $('#compositeline').sparkline([4, 1, 5, 7, 9, 9, 8, 7, 6, 6, 4, 7, 8, 4, 3, 2, 2, 5, 6, 7],
-        { composite: true, fillColor: false, lineColor: 'red', changeRangeMin: 0, chartRangeMax: 10 });
+        {composite: true, fillColor: false, lineColor: 'red', changeRangeMin: 0, chartRangeMax: 10});
 
     // Line charts with normal range marker
     $('#normalline').sparkline('html',
-        { fillColor: false, normalRangeMin: -1, normalRangeMax: 8 });
+        {fillColor: false, normalRangeMin: -1, normalRangeMax: 8});
     $('#normalExample').sparkline('html',
-        { fillColor: false, normalRangeMin: 80, normalRangeMax: 95, normalRangeColor: '#4f4' });
+        {fillColor: false, normalRangeMin: 80, normalRangeMax: 95, normalRangeColor: '#4f4'});
 
     // Discrete charts
     $('.discrete1').sparkline('html',
-        { type: 'discrete', lineColor: 'blue', xwidth: 18 });
+        {type: 'discrete', lineColor: 'blue', xwidth: 18});
     $('#discrete2').sparkline('html',
-        { type: 'discrete', lineColor: 'blue', thresholdColor: 'red', thresholdValue: 4 });
+        {type: 'discrete', lineColor: 'blue', thresholdColor: 'red', thresholdValue: 4});
 
     // Bullet charts
-    $('.sparkbullet').sparkline('html', { type: 'bullet' });
+    $('.sparkbullet').sparkline('html', {type: 'bullet'});
 
     // Pie charts
-    $('.sparkpie').sparkline('html', { type: 'pie', height: '1.0em' });
+    $('.sparkpie').sparkline('html', {type: 'pie', height: '1.0em'});
 
     // Box plots
-    $('.sparkboxplot').sparkline('html', { type: 'box' });
+    $('.sparkboxplot').sparkline('html', {type: 'box'});
     $('.sparkboxplotraw').sparkline([1, 3, 5, 8, 10, 15, 18],
-        { type: 'box', raw: true, showOutliers: true, target: 6 });
+        {type: 'box', raw: true, showOutliers: true, target: 6});
 
     // Box plot with specific field order
     $('.boxfieldorder').sparkline('html', {
@@ -144,7 +144,7 @@ function drawMouseSpeedDemo() {
             if (mpoints.length > mpoints_max)
                 mpoints.splice(0, 1);
             mousetravel = 0;
-            $('#mousespeed').sparkline(mpoints, { width: mpoints.length * 2, tooltipSuffix: ' pixels per second' });
+            $('#mousespeed').sparkline(mpoints, {width: mpoints.length * 2, tooltipSuffix: ' pixels per second'});
         }
         lastmousetime = timenow;
         setTimeout(mdraw, mrefreshinterval);

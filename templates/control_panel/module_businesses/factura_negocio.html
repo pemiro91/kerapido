@@ -63,34 +63,41 @@
                                         {% if pedidos_for_date %}
                                             <table class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th colspan="2" style="text-align: left">A negocio: {{ negocio.nombre }}</th>
-                                                        <th colspan="2" style="text-align: right">Fecha de Emisión: {{ fecha_emision.date }}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th colspan="4" style="text-align: center">Desgloce de Porcentaje a Cobrar por pedidos</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th colspan="3" style="text-align: left">Fecha de pedidos</th>
-                                                        <th style="text-align: right">% a Cobrar</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th colspan="2" style="text-align: left">A
+                                                        negocio: {{ negocio.nombre }}</th>
+                                                    <th colspan="2" style="text-align: right">Fecha de
+                                                        Emisión: {{ fecha_emision.date }}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4" style="text-align: center">Desgloce de Porcentaje a
+                                                        Cobrar por pedidos
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="3" style="text-align: left">Fecha de pedidos</th>
+                                                    <th style="text-align: right">% a Cobrar</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% for p in pedidos_for_date %}
-                                                        <tr>
-                                                            <td colspan="3"><label>{{ p.fecha_reservacion }}</label></td>
-                                                            <td style="text-align: right"><label>{{ p.porciento_pagar }} CUP</label></td>
-                                                        </tr>
-                                                    {% endfor %}
+                                                {% for p in pedidos_for_date %}
+                                                    <tr>
+                                                        <td colspan="3"><label>{{ p.fecha_reservacion }}</label></td>
+                                                        <td style="text-align: right"><label>{{ p.porciento_pagar }}
+                                                            CUP</label></td>
+                                                    </tr>
+                                                {% endfor %}
                                                 </tbody>
                                                 <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th colspan="4" style="text-align: right">Total a pagar: {{ total_pagar.porciento_pagar__sum }} CUP</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th colspan="4" style="text-align: right">Total a
+                                                        pagar: {{ total_pagar.porciento_pagar__sum }} CUP
+                                                    </th>
+                                                </tr>
                                                 </thead>
                                             </table>
                                         {% else %}
@@ -119,8 +126,9 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                                        <textarea id="note" type="text" class="form-control text" rows="10"
-                                                                  name="note_factura_negocio" >
+                                                        <textarea id="note" type="text" class="form-control text"
+                                                                  rows="10"
+                                                                  name="note_factura_negocio">
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -190,10 +198,10 @@
     <script>
         function changeTab() {
             var $active = $('.body .nav-tabs li.active');
-                var a = document.getElementById('enlace_nota'); //or grab it by tagname etc
-                a.href = "notas"
-                $active.next().removeClass('disabled');
-                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            var a = document.getElementById('enlace_nota'); //or grab it by tagname etc
+            a.href = "notas"
+            $active.next().removeClass('disabled');
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
         }
     </script>
 

@@ -104,7 +104,8 @@
                                     <label for="macro">Macro categoria</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <select id="macro" name="macro" class="form-control show-tick" data-live-search="true">
+                                    <select id="macro" name="macro" class="form-control show-tick"
+                                            data-live-search="true">
                                         {% if macros %}
                                             {% for macro in macros %}
                                                 <option value="{{ macro.pk }}">{{ macro.nombre }}</option>

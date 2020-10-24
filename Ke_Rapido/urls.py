@@ -23,7 +23,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from kerapido import views
 from kerapido import views as myapp_views
 from kerapido.api import *
-from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     # ------------- Landing Page -------------#

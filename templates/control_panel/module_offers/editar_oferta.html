@@ -47,7 +47,8 @@
 
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <ol class="breadcrumb breadcrumb-col-amber text-right">
-                        <li><a href="{% url 'offers' negocio.id %}"><i class="material-icons">widgets</i>Ofertas</a></li>
+                        <li><a href="{% url 'offers' negocio.id %}"><i class="material-icons">widgets</i>Ofertas</a>
+                        </li>
                         <li class="active">Actualizar Oferta Laboral</li>
                     </ol>
                 </div>
@@ -72,9 +73,9 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input id="description_corta" name="description_corta"
-                                                      class="form-control no-resize"
-                                                      required value="{{ offer.descripcion_corta }}"
-                                                      placeholder="Escriba el título de la oferta">
+                                                   class="form-control no-resize"
+                                                   required value="{{ offer.descripcion_corta }}"
+                                                   placeholder="Escriba el título de la oferta">
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +87,9 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="description" name="description_offer" cols="30" rows="10" class="form-control no-resize"
-                                                   required
+                                            <textarea id="description" name="description_offer" cols="30" rows="10"
+                                                      class="form-control no-resize"
+                                                      required
                                                       placeholder="Escriba la descripción de la oferta">{{ offer.descripcion }}</textarea>
                                         </div>
                                     </div>
@@ -100,20 +102,20 @@
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="nombre_contacto" name="nombre_contacto"  type="text"
-                                                      class="form-control no-resize" value="{{ offer.nombre_contacto }}"
+                                            <input id="nombre_contacto" name="nombre_contacto" type="text"
+                                                   class="form-control no-resize" value="{{ offer.nombre_contacto }}"
 
-                                                      placeholder="Escriba el nombre de la persona de contacto">
+                                                   placeholder="Escriba el nombre de la persona de contacto">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="correo" name="correo"  type="email"
-                                                      class="form-control no-resize" value="{{ offer.correo }}"
-                                                      required
-                                                      placeholder="Escriba el correo de contacto (opcional)">
+                                            <input id="correo" name="correo" type="email"
+                                                   class="form-control no-resize" value="{{ offer.correo }}"
+                                                   required
+                                                   placeholder="Escriba el correo de contacto (opcional)">
                                         </div>
                                     </div>
                                 </div>
@@ -125,19 +127,19 @@
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="telefono1" name="telefono1"  type="tel" maxlength="8"
-                                                      class="form-control no-resize" value="{{ offer.telefono1 }}"
-                                                      required
-                                                      placeholder="Escriba un telefono de contacto">
+                                            <input id="telefono1" name="telefono1" type="tel" maxlength="8"
+                                                   class="form-control no-resize" value="{{ offer.telefono1 }}"
+                                                   required
+                                                   placeholder="Escriba un telefono de contacto">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="telefono2" name="telefono2"  type="tel" maxlength="8"
-                                                      class="form-control no-resize" value="{{ offer.telefono2 }}"
-                                                      placeholder="Escriba otro telefono de contacto (opcional)">
+                                            <input id="telefono2" name="telefono2" type="tel" maxlength="8"
+                                                   class="form-control no-resize" value="{{ offer.telefono2 }}"
+                                                   placeholder="Escriba otro telefono de contacto (opcional)">
                                         </div>
                                     </div>
                                 </div>

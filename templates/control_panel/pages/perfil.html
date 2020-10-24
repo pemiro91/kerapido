@@ -12,10 +12,10 @@
                 <div class="card profile-card">
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
-{#                        <div class="image-area">#}
-{#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
-{#                                 alt="AdminBSB - Profile Image"/>#}
-{#                        </div>#}
+                        {#                        <div class="image-area">#}
+                        {#                            <img style="width: 90px;height: 90px" src="{% static 'control_panel/images/user.jpg' %}"#}
+                        {#                                 alt="AdminBSB - Profile Image"/>#}
+                        {#                        </div>#}
                         <div class="content-area">
                             <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
                             <p>superusuario</p>
@@ -57,7 +57,8 @@
                             <div class="tab-content">
 
                                 <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
-                                    <form class="form-horizontal" method="post" action="{% url 'my_profile' %}">{% csrf_token %}
+                                    <form class="form-horizontal" method="post"
+                                          action="{% url 'my_profile' %}">{% csrf_token %}
                                         <div class="form-group">
                                             <label for="NameSurname" class="col-sm-2 control-label">Nombre(s)</label>
                                             <div class="col-sm-10">
@@ -84,7 +85,8 @@
                                                 <div class="form-line">
                                                     <input type="tel" maxlength="8" class="form-control" id="phone"
                                                            name="phone"
-                                                           placeholder="teléfono" value="{{ request.user.telefono }}" required>
+                                                           placeholder="teléfono" value="{{ request.user.telefono }}"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
@@ -93,7 +95,8 @@
                                             <div class="col-sm-10">
                                                 <div class="form-line">
                                                     <input type="email" class="form-control" id="Email" name="email"
-                                                           placeholder="correo" value="{{ request.user.email }}" required>
+                                                           placeholder="correo" value="{{ request.user.email }}"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,14 +121,16 @@
                                     </form>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
-                                    <form class="form-horizontal" method="post" action="{% url 'change_password' %}">{% csrf_token %}
+                                    <form class="form-horizontal" method="post"
+                                          action="{% url 'change_password' %}">{% csrf_token %}
                                         <div class="form-group">
                                             <label for="OldPassword" class="col-sm-3 control-label">Contrase&ntilde;a
-                                                    anterior</label>
+                                                anterior</label>
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="OldPassword"
-                                                           name="oldPassword" placeholder="Contrase&ntilde;a anterior" required>
+                                                           name="oldPassword" placeholder="Contrase&ntilde;a anterior"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +140,8 @@
                                             <div class="col-sm-9">
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPassword"
-                                                           name="newPassword" placeholder="Contrase&ntilde;a nueva" required>
+                                                           name="newPassword" placeholder="Contrase&ntilde;a nueva"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +153,8 @@
                                                 <div class="form-line">
                                                     <input type="password" class="form-control" id="NewPasswordConfirm"
                                                            name="newPasswordConfirm"
-                                                           placeholder="Contrase&ntilde;a nueva (Confirmaci&oacute;n)" required>
+                                                           placeholder="Contrase&ntilde;a nueva (Confirmaci&oacute;n)"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>

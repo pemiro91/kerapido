@@ -1,7 +1,7 @@
 /*! lightgallery - v1.2.21 - 2016-06-28
 * http://sachinchoolur.github.io/lightGallery/
 * Copyright (c) 2016 Sachin N; Licensed Apache 2.0 */
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     'use strict';
 
@@ -15,7 +15,7 @@
         videojsOptions: {}
     };
 
-    var Video = function(element) {
+    var Video = function (element) {
 
         this.core = $(element).data('lightGallery');
 
@@ -28,16 +28,16 @@
         return this;
     };
 
-    Video.prototype.init = function() {
+    Video.prototype.init = function () {
         var _this = this;
 
         // Event triggered when video url found without poster
-        _this.core.$el.on('hasVideo.lg.tm', function(event, index, src, html) {
+        _this.core.$el.on('hasVideo.lg.tm', function (event, index, src, html) {
             _this.core.$slide.eq(index).find('.lg-video').append(_this.loadVideo(src, 'lg-object', true, index, html));
             if (html) {
                 if (_this.core.s.videojs) {
                     try {
-                        videojs(_this.core.$slide.eq(index).find('.lg-html5').get(0), _this.core.s.videojsOptions, function() {
+                        videojs(_this.core.$slide.eq(index).find('.lg-html5').get(0), _this.core.s.videojsOptions, function () {
                             if (!_this.videoLoaded) {
                                 this.play();
                             }
@@ -52,12 +52,12 @@
         });
 
         // Set max width for video
-        _this.core.$el.on('onAferAppendSlide.lg.tm', function(event, index) {
+        _this.core.$el.on('onAferAppendSlide.lg.tm', function (event, index) {
             _this.core.$slide.eq(index).find('.lg-video-cont').css('max-width', _this.core.s.videoMaxWidth);
             _this.videoLoaded = true;
         });
 
-        var loadOnClick = function($el) {
+        var loadOnClick = function ($el) {
             // check slide has poster
             if ($el.find('.lg-object').hasClass('lg-has-poster') && $el.find('.lg-object').is(':visible')) {
 
@@ -68,14 +68,14 @@
 
                     var _src;
                     var _html;
-                    var _loadVideo = function(_src, _html) {
+                    var _loadVideo = function (_src, _html) {
 
                         $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html));
 
                         if (_html) {
                             if (_this.core.s.videojs) {
                                 try {
-                                    videojs(_this.core.$slide.eq(_this.core.index).find('.lg-html5').get(0), _this.core.s.videojsOptions, function() {
+                                    videojs(_this.core.$slide.eq(_this.core.index).find('.lg-html5').get(0), _this.core.s.videojsOptions, function () {
                                         this.play();
                                     });
                                 } catch (e) {
@@ -111,7 +111,7 @@
                     // for showing the loading indicator while loading video
                     if (!$el.find('.lg-video-object').hasClass('lg-html5')) {
                         $el.removeClass('lg-complete');
-                        $el.find('.lg-video-object').on('load.lg error.lg', function() {
+                        $el.find('.lg-video-object').on('load.lg error.lg', function () {
                             $el.addClass('lg-complete');
                         });
                     }
@@ -152,19 +152,19 @@
         };
 
         if (_this.core.doCss() && _this.core.$items.length > 1 && ((_this.core.s.enableSwipe && _this.core.isTouch) || (_this.core.s.enableDrag && !_this.core.isTouch))) {
-            _this.core.$el.on('onSlideClick.lg.tm', function() {
+            _this.core.$el.on('onSlideClick.lg.tm', function () {
                 var $el = _this.core.$slide.eq(_this.core.index);
                 loadOnClick($el);
             });
         } else {
 
             // For IE 9 and bellow
-            _this.core.$slide.on('click.lg', function() {
+            _this.core.$slide.on('click.lg', function () {
                 loadOnClick($(this));
             });
         }
 
-        _this.core.$el.on('onBeforeSlide.lg.tm', function(event, prevIndex, index) {
+        _this.core.$el.on('onBeforeSlide.lg.tm', function (event, prevIndex, index) {
 
             var $videoSlide = _this.core.$slide.eq(prevIndex);
             var youtubePlayer = $videoSlide.find('.lg-youtube').get(0);
@@ -193,7 +193,8 @@
                 } else {
                     html5Player.pause();
                 }
-            } if (vkPlayer) {
+            }
+            if (vkPlayer) {
                 $(vkPlayer).attr('src', $(vkPlayer).attr('src').replace('&autoplay', '&noplay'));
             }
 
@@ -214,12 +215,12 @@
 
         });
 
-        _this.core.$el.on('onAfterSlide.lg.tm', function(event, prevIndex) {
+        _this.core.$el.on('onAfterSlide.lg.tm', function (event, prevIndex) {
             _this.core.$slide.eq(prevIndex).removeClass('lg-video-playing');
         });
     };
 
-    Video.prototype.loadVideo = function(src, addClass, noposter, index, html) {
+    Video.prototype.loadVideo = function (src, addClass, noposter, index, html) {
         var video = '';
         var autoplay = 1;
         var a = '';
@@ -283,7 +284,7 @@
         return video;
     };
 
-    Video.prototype.destroy = function() {
+    Video.prototype.destroy = function () {
         this.videoLoaded = false;
     };
 

@@ -17,7 +17,7 @@
                     <img src="{{ negocio_afiliado.portada.url }}" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content">
-                    <h4 >{{ negocio_afiliado.nombre }}</h4>
+                    <h4>{{ negocio_afiliado.nombre }}</h4>
                     <p class="text-darken-4">Categorías:
                         {% for cat in negocio_afiliado.categorias.all %}
                             {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
@@ -33,7 +33,7 @@
                         {% endfor %}</p>
                     <p></p>
                     <ul>
-                        <p >Datos del negocio</p>
+                        <p>Datos del negocio</p>
                         <li>
                             <i class="icofont-check-circled"></i>Dirección: {{ negocio_afiliado.direccion }}, {{ negocio_afiliado.municipio }}
                         </li>

@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content">
                     <h3>Descripción de la Oferta</h3>
-                    <p >{{ oferta.descripcion }}</p>
+                    <p>{{ oferta.descripcion }}</p>
                     <ul>
                         <p>Datos de la persona a contactar</p>
                         <li><i class="icofont-check-circled"></i>Nombre: {{ oferta.negocio.nombre }} </li>
@@ -27,7 +27,8 @@
                         {% elif oferta.negocio.telefono1 == 'null' and oferta.negocio.telefono2 %}
                             <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono2 }} </li>
                         {% else %}
-                            <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono1 }} - {{ oferta.negocio.telefono2 }} </li>
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono1 }}
+                                - {{ oferta.negocio.telefono2 }} </li>
                         {% endif %}
                         <li><i class="icofont-check-circled"></i>Correo: {{ oferta.negocio.usuario_negocio.email }}</li>
                     </ul>

@@ -23,9 +23,10 @@
 
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="factura">
-                                <div class="align-content-center">
-                                    <img style="max-width: 30%" src="{{ pedido.negocio.logo.url }}" class="img-circle"/>
-                                </div>
+                                    <div class="align-content-center">
+                                        <img style="max-width: 30%" src="{{ pedido.negocio.logo.url }}"
+                                             class="img-circle"/>
+                                    </div>
                                     <b>Servicio: {{ pedido.servicio.nombre }}</b>
                                     <br>
                                     <br>
@@ -37,11 +38,13 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td colspan="3"><label>Fecha: {{ pedido.fecha_reservacion_factura|date:"d/m/yy" }}</label></td>
+                                            <td colspan="3">
+                                                <label>Fecha: {{ pedido.fecha_reservacion_factura|date:"d/m/yy" }}</label>
+                                            </td>
                                             <td><label>Hora: {{ pedido.fecha_reservacion_factura|time }}</label></td>
                                         </tr>
                                         {% for p in pedido.reservaciones.all %}
-                                             <tr>
+                                            <tr>
                                                 <th scope="row">{{ p.cantidad_producto }}</th>
                                                 <td colspan="2">{{ p.producto.nombre }}</td>
                                                 <td>{{ p.producto.precio }} cup</td>

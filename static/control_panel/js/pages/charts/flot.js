@@ -145,11 +145,11 @@ $(function () {
     }
 
     $.plot('#multiple_axis_chart', [
-        { data: oilprices, label: 'Oil price ($)', color: '#E91E63' },
-        { data: exchangerates, label: 'USD/EUR exchange rate', yaxis: 2, color: '#00BCD4' }
+        {data: oilprices, label: 'Oil price ($)', color: '#E91E63'},
+        {data: exchangerates, label: 'USD/EUR exchange rate', yaxis: 2, color: '#00BCD4'}
     ], {
-        xaxes: [{ mode: 'time' }],
-        yaxes: [{ min: 0 }, {
+        xaxes: [{mode: 'time'}],
+        yaxes: [{min: 0}, {
             alignTicksWithAxis: 1,
             position: 'right',
             tickFormatter: euroFormatter
@@ -161,7 +161,7 @@ $(function () {
             borderWidth: 1,
             tickColor: '#f3f3f3'
         },
-        legend: { position: 'sw' }
+        legend: {position: 'sw'}
     });
     //====================================================================================================
 
@@ -226,9 +226,11 @@ $(function () {
             show: false
         }
     });
+
     function labelFormatter(label, series) {
         return '<div style="font-size:8pt; text-align:center; padding:2px; color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
     }
+
     //====================================================================================================
 });
 
@@ -237,7 +239,11 @@ function getRandomData() {
 
     while (data.length < totalPoints) {
         var prev = data.length > 0 ? data[data.length - 1] : 50, y = prev + Math.random() * 10 - 5;
-        if (y < 0) { y = 0; } else if (y > 100) { y = 100; }
+        if (y < 0) {
+            y = 0;
+        } else if (y > 100) {
+            y = 100;
+        }
 
         data.push(y);
     }

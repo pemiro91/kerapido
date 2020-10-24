@@ -25,22 +25,23 @@
     <section id="cards" class="cards">
         <div class="container">
             <div class="row">
-            {% for oferta in ofertas %}
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
-                    <div class="card">
-                        <img src="{{ oferta.negocio.portada.url }}" class="card-img-top" width="0" height="260" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="">{{ oferta.negocio.nombre }}</a></h5>
-                            <p class="card-text text-center" style="overflow: hidden;
+                {% for oferta in ofertas %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="card">
+                            <img src="{{ oferta.negocio.portada.url }}" class="card-img-top" width="0" height="260"
+                                 alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="">{{ oferta.negocio.nombre }}</a></h5>
+                                <p class="card-text text-center" style="overflow: hidden;
                                text-overflow: ellipsis;
                                display: -webkit-box;
                                -webkit-line-clamp: 2; /* number of lines to show */
                                -webkit-box-orient: vertical;">{{ oferta.descripcion_corta }}</p>
-                            <a href="{% url 'detalles_oferta' oferta.id %}" class="btn">Más detalles</a>
+                                <a href="{% url 'detalles_oferta' oferta.id %}" class="btn">Más detalles</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </section><!-- Fin de Ofertas Laborales de Afiliados -->

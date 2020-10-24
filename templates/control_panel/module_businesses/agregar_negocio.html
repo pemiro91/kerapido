@@ -317,10 +317,11 @@
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                                 <select id="municipio_bussiness" name="municipio_bussiness"
-                                                        class="form-control show-tick" data-live-search="true" >
+                                                        class="form-control show-tick" data-live-search="true">
                                                     {% if municipios %}
                                                         {% for municipio in municipios %}
-                                                            <option style="margin-left: 25px" value="{{ municipio.pk }}">{{ municipio.nombre }}</option>
+                                                            <option style="margin-left: 25px"
+                                                                    value="{{ municipio.pk }}">{{ municipio.nombre }}</option>
                                                         {% endfor %}
                                                     {% endif %}
                                                 </select>
@@ -366,7 +367,8 @@
                                                     <div class="form-line">
                                                         <input type="email" id="email_bussiness"
                                                                class="form-control"
-                                                               name="email_bussiness" placeholder="Escribe el correo de contacto">
+                                                               name="email_bussiness"
+                                                               placeholder="Escribe el correo de contacto">
                                                     </div>
                                                 </div>
                                             </div>

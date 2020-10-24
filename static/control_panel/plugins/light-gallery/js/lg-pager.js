@@ -1,7 +1,7 @@
 /*! lightgallery - v1.2.21 - 2016-06-28
 * http://sachinchoolur.github.io/lightGallery/
 * Copyright (c) 2016 Sachin N; Licensed Apache 2.0 */
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     'use strict';
 
@@ -9,7 +9,7 @@
         pager: false
     };
 
-    var Pager = function(element) {
+    var Pager = function (element) {
 
         this.core = $(element).data('lightGallery');
 
@@ -22,7 +22,7 @@
         return this;
     };
 
-    Pager.prototype.init = function() {
+    Pager.prototype.init = function () {
         var _this = this;
         var pagerList = '';
         var $pagerCont;
@@ -36,7 +36,7 @@
                 pagerList += '<span class="lg-pager-cont"> <span class="lg-pager"></span><div class="lg-pager-thumb-cont"><span class="lg-caret"></span> <img src="' + _this.core.s.dynamicEl[i].thumb + '" /></div></span>';
             }
         } else {
-            _this.core.$items.each(function() {
+            _this.core.$items.each(function () {
 
                 if (!_this.core.s.exThumbImage) {
                     pagerList += '<span class="lg-pager-cont"> <span class="lg-pager"></span><div class="lg-pager-thumb-cont"><span class="lg-caret"></span> <img src="' + $(this).find('img').attr('src') + '" /></div></span>';
@@ -52,31 +52,31 @@
         $pagerOuter.html(pagerList);
 
         $pagerCont = _this.core.$outer.find('.lg-pager-cont');
-        $pagerCont.on('click.lg touchend.lg', function() {
+        $pagerCont.on('click.lg touchend.lg', function () {
             var _$this = $(this);
             _this.core.index = _$this.index();
             _this.core.slide(_this.core.index, false, false);
         });
 
-        $pagerOuter.on('mouseover.lg', function() {
+        $pagerOuter.on('mouseover.lg', function () {
             clearTimeout(timeout);
             $pagerOuter.addClass('lg-pager-hover');
         });
 
-        $pagerOuter.on('mouseout.lg', function() {
-            timeout = setTimeout(function() {
+        $pagerOuter.on('mouseout.lg', function () {
+            timeout = setTimeout(function () {
                 $pagerOuter.removeClass('lg-pager-hover');
             });
         });
 
-        _this.core.$el.on('onBeforeSlide.lg.tm', function(e, prevIndex, index) {
+        _this.core.$el.on('onBeforeSlide.lg.tm', function (e, prevIndex, index) {
             $pagerCont.removeClass('lg-pager-active');
             $pagerCont.eq(index).addClass('lg-pager-active');
         });
 
     };
 
-    Pager.prototype.destroy = function() {
+    Pager.prototype.destroy = function () {
 
     };
 

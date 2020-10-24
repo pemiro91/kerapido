@@ -21,9 +21,9 @@
         <!-- #END# Basic Examples -->
         <!-- Exportable Table -->
         <div class="row clearfix" style="margin-top:6%">
-        <diV  style="width: 50%;margin-left: 23%">
+            <diV style="width: 50%;margin-left: 23%">
                 {% if messages %}
-                    <ul class="messages align-content-center" >
+                    <ul class="messages align-content-center">
                         {% for message in messages %}
                             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
                                  role="alert">
@@ -57,7 +57,8 @@
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="{% url 'add_product' negocio.id %}"><i class="material-icons">add_circle</i>Agregar</a></li>
+                                    <li><a href="{% url 'add_product' negocio.id %}"><i class="material-icons">add_circle</i>Agregar</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -95,7 +96,8 @@
                                 {% for producto in productos %}
                                     <tr>
                                         <td>{{ producto.id }}</td>
-                                        <td><img src="{{ producto.imagen.url }}" style="max-width: 80px;max-height: 80px"/></td>
+                                        <td><img src="{{ producto.imagen.url }}"
+                                                 style="max-width: 80px;max-height: 80px"/></td>
                                         <td style="overflow: hidden;max-width: 150px;
                                           white-space: pre-line;
                                           text-overflow: ellipsis;">{{ producto.nombre }}</td>

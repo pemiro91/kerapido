@@ -43,15 +43,15 @@ $(function () {
     //Custom Validations ===============================================================================
     //Date
     $.validator.addMethod('customdate', function (value, element) {
-        return value.match(/^\d\d\d\d?-\d\d?-\d\d$/);
-    },
+            return value.match(/^\d\d\d\d?-\d\d?-\d\d$/);
+        },
         'Please enter a date in the format YYYY-MM-DD.'
     );
 
     //Credit card
     $.validator.addMethod('creditcard', function (value, element) {
-        return value.match(/^\d\d\d\d?-\d\d\d\d?-\d\d\d\d?-\d\d\d\d$/);
-    },
+            return value.match(/^\d\d\d\d?-\d\d\d\d?-\d\d\d\d?-\d\d\d\d$/);
+        },
         'Please enter a credit card in the format XXXX-XXXX-XXXX-XXXX.'
     );
     //==================================================================================================

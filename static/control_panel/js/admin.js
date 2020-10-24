@@ -55,7 +55,9 @@ $.AdminBSB.leftSideBar = {
         //Close sidebar
         $(window).click(function (e) {
             var $target = $(e.target);
-            if (e.target.nodeName.toLowerCase() === 'i') { $target = $(e.target).parent(); }
+            if (e.target.nodeName.toLowerCase() === 'i') {
+                $target = $(e.target).parent();
+            }
 
             if (!$target.hasClass('bars') && _this.isOpen() && $target.parents('#leftsidebar').length === 0) {
                 if (!$target.hasClass('js-right-sidebar')) $overlay.fadeOut();
@@ -133,7 +135,7 @@ $.AdminBSB.leftSideBar = {
                 var item = $('.menu .list li.active')[0];
                 if (item) {
                     var activeItemOffsetTop = item.offsetTop;
-                    if (activeItemOffsetTop > 150) $el.slimscroll({ scrollTo: activeItemOffsetTop + 'px' });
+                    if (activeItemOffsetTop > 150) $el.slimscroll({scrollTo: activeItemOffsetTop + 'px'});
                 }
             }
         }
@@ -152,8 +154,7 @@ $.AdminBSB.leftSideBar = {
         if (width < $.AdminBSB.options.leftSideBar.breakpointWidth) {
             $body.addClass('ls-closed');
             $openCloseBar.fadeIn();
-        }
-        else {
+        } else {
             $body.removeClass('ls-closed');
             $openCloseBar.fadeOut();
         }
@@ -177,7 +178,9 @@ $.AdminBSB.rightSideBar = {
         //Close sidebar
         $(window).click(function (e) {
             var $target = $(e.target);
-            if (e.target.nodeName.toLowerCase() === 'i') { $target = $(e.target).parent(); }
+            if (e.target.nodeName.toLowerCase() === 'i') {
+                $target = $(e.target).parent();
+            }
 
             if (!$target.hasClass('js-right-sidebar') && _this.isOpen() && $target.parents('#rightsidebar').length === 0) {
                 if (!$target.hasClass('bars')) $overlay.fadeOut();
@@ -187,7 +190,11 @@ $.AdminBSB.rightSideBar = {
 
         $('.js-right-sidebar').on('click', function () {
             $sidebar.toggleClass('open');
-            if (_this.isOpen()) { $overlay.fadeIn(); } else { $overlay.fadeOut(); }
+            if (_this.isOpen()) {
+                $overlay.fadeIn();
+            } else {
+                $overlay.fadeOut();
+            }
         });
     },
     isOpen: function () {
@@ -245,7 +252,11 @@ $.AdminBSB.navbar = {
         //Open left sidebar panel
         $('.bars').on('click', function () {
             $body.toggleClass('overlay-open');
-            if ($body.hasClass('overlay-open')) { $overlay.fadeIn(); } else { $overlay.fadeOut(); }
+            if ($body.hasClass('overlay-open')) {
+                $overlay.fadeIn();
+            } else {
+                $overlay.fadeOut();
+            }
         });
 
         //Close collapse bar on click event
@@ -280,9 +291,10 @@ $.AdminBSB.input = {
         $parentSelector.find('.form-control').focusout(function () {
             var $this = $(this);
             if ($this.parents('.form-group').hasClass('form-float')) {
-                if ($this.val() == '') { $this.parents('.form-line').removeClass('focused'); }
-            }
-            else {
+                if ($this.val() == '') {
+                    $this.parents('.form-line').removeClass('focused');
+                }
+            } else {
                 $this.parents('.form-line').removeClass('focused');
             }
         });
@@ -308,7 +320,9 @@ $.AdminBSB.input = {
 */
 $.AdminBSB.select = {
     activate: function () {
-        if ($.fn.selectpicker) { $('select:not(.ms)').selectpicker(); }
+        if ($.fn.selectpicker) {
+            $('select:not(.ms)').selectpicker();
+        }
     }
 }
 //==========================================================================================================================
@@ -330,7 +344,8 @@ $.AdminBSB.dropdownMenu = {
             "shown.bs.dropdown": function () {
                 var dropdown = _this.dropdownEffect(this);
                 if (dropdown.effectIn && dropdown.effectOut) {
-                    _this.dropdownEffectEnd(dropdown, function () { });
+                    _this.dropdownEffectEnd(dropdown, function () {
+                    });
                 }
             },
             "hide.bs.dropdown": function (e) {
@@ -356,8 +371,12 @@ $.AdminBSB.dropdownMenu = {
         if (dropdown.length > 0) {
             var udEffectIn = dropdown.data('effect-in');
             var udEffectOut = dropdown.data('effect-out');
-            if (udEffectIn !== undefined) { effectIn = udEffectIn; }
-            if (udEffectOut !== undefined) { effectOut = udEffectOut; }
+            if (udEffectIn !== undefined) {
+                effectIn = udEffectIn;
+            }
+            if (udEffectOut !== undefined) {
+                effectOut = udEffectOut;
+            }
         }
 
         return {
@@ -465,5 +484,7 @@ $(function () {
     $.AdminBSB.select.activate();
     $.AdminBSB.search.activate();
 
-    setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+    setTimeout(function () {
+        $('.page-loader-wrapper').fadeOut();
+    }, 50);
 });

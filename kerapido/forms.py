@@ -1,11 +1,9 @@
 from django import forms
-from django.forms import Select
 
-from kerapido.models import Categoria_Producto, Producto, Negocio, Municipio, Frecuencia
+from kerapido.models import Categoria_Producto, Producto, Negocio
 
 
 class UpdateBusiness(forms.ModelForm):
-
     class Meta:
         model = Negocio
         fields = ['nombre', 'logo', 'portada', 'eslogan']
