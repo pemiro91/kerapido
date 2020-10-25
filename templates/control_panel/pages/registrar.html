@@ -1,0 +1,196 @@
+﻿{% load static %}<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Registrar | Panel de Control</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'control_panel/fonts-icons/css.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'control_panel/fonts-icons/icon.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+
+    <!-- Animation Css -->
+    <link href="{% static 'control_panel/plugins/animate-css/animate.css' %}" rel="stylesheet"/>
+
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
+
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/themes/all-themes.css' %}" rel="stylesheet">
+</head>
+<body class="signup-page">
+{% block messages %}
+    <div class="row mb-3">
+        <div class="col-xl-8 align-items-center">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                             role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if error %}
+                <div class="col-lg-9">
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+<div class="signup-box">
+
+    <div class="card">
+        <div class="body">
+            <form id="sign_up" method="POST">{% csrf_token %}
+                <div class="msg">Registro de Afiliado</div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person_outline</i>
+                        </span>
+                    <div class="form-line">
+                        <label>
+                            <input type="text" class="form-control" name="first_name" placeholder="Nombre(s)" required>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person_outline</i>
+                        </span>
+                    <div class="form-line">
+                        <label>
+                            <input type="text" class="form-control" name="last_name" placeholder="Apellidos" required>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">smartphone</i>
+                        </span>
+                    <div class="form-line fa">
+                        <label>
+                            <input type="tel" maxlength="9" class="form-control" name="phone"
+                                   placeholder="Tel&eacute;fono" required autofocus>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                    <div class="form-line fa">
+                        <label>
+                            <input type="email" class="form-control" name="email" placeholder="Correo" required
+                                   autofocus>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                    <div class="form-line fa">
+                        <label>
+                            <input type="text" class="form-control" name="username" placeholder="Usuario" required>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line fa">
+                        <label>
+                            <input type="password" class="form-control" name="password" minlength="6"
+                                   placeholder="Contrase&ntilde;a" required>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line">
+                        <label>
+                            <input type="password" class="form-control" name="confirm" minlength="6"
+                                   placeholder="Confirmar Contrase&ntilde;a" required>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" name="terminos" id="terms" class="filled-in chk-col-amber">
+                    <label for="terms">He leído y estoy de acuerdo con los
+                        <a href="{% url 'terminos_servicio' %}">términos y condiciones de uso</a>.</label>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xs-5 ">
+                        {#                        <a href="examples/forgot-password.html"><b>Olvidó la contraseña?</b></a>#}
+                    </div>
+                    <div class="col-xs-7 align-right">
+                        <button class="btn btn-default waves-effect waves-black " type="submit">
+                            <i class="material-icons " style="color: #212121">send</i>
+                            <span>REGISTRAR</span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Jquery Core Js -->
+<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+<!-- Select Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+
+<!-- Custom Js -->
+<script src="{% static 'control_panel/js/admin.js' %}"></script>
+
+<!-- Demo Js -->
+<script src="{% static 'control_panel/js/demo.js' %}"></script>
+
+<!-- Bootstrap Notify Plugin Js -->
+<script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+<!-- Custom Js -->
+<script src="{% static 'control_panel/js/pages/ui/notifications.js' %}"></script>
+
+</body>
+
+</html>

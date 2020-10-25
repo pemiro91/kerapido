@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block arbol_ofertas %}
+    <h2>Nuestros Afiliados</h2>
+    <ol>
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'nuestros_afiliados' %}">Nuestros Afiliados</a></li>
+        <li>{{ negocio_afiliado.nombre }}</li>
+    </ol>
+{% endblock %}
+{% block contenido %}
+    <!-- ======= Afiliados ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="{{ negocio_afiliado.portada.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h4>{{ negocio_afiliado.nombre }}</h4>
+                    <p class="text-darken-4">Categorías:
+                        {% for cat in negocio_afiliado.categorias.all %}
+                            {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
+                        {% endfor %}</p>
+
+                    <p class="text-darken-4">Servicios:
+                        {% for servicio in negocio_afiliado.servicios.all %}
+                            {% if forloop.last %}
+                                {{ servicio.nombre }}
+                            {% else %}
+                                {{ servicio.nombre }},
+                            {% endif %}
+                        {% endfor %}</p>
+                    <p></p>
+                    <ul>
+                        <p>Datos del negocio</p>
+                        <li>
+                            <i class="icofont-check-circled"></i>Dirección: {{ negocio_afiliado.direccion }}, {{ negocio_afiliado.municipio }}
+                        </li>
+                        {#                        <li><i class="icofont-check-circled"></i>Municipio: {{ negocio_afiliado.municipio }}</li>#}
+                        <li><i class="icofont-check-circled"></i>Horario:
+                            {% for frecuencia in negocio_afiliado.frecuencia.all %}
+                                {% if forloop.last %}
+                                    {{ frecuencia }}.
+                                {% else %}
+                                    {{ frecuencia }},
+                                {% endif %}
+                            {% endfor %}
+                            De {{ negocio_afiliado.horario }}
+
+                        </li>
+                        {% if negocio_afiliado.telefono1 and negocio_afiliado.telefono2 == 'null' %}
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ negocio_afiliado.telefono1 }}</li>
+                        {% elif negocio_afiliado.telefono1 == 'null' and negocio_afiliado.telefono2 %}
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ negocio_afiliado.telefono2 }} </li>
+                        {% else %}
+                            <li><i class="icofont-check-circled"></i>Teléfonos: {{ negocio_afiliado.telefono1 }}
+                                - {{ negocio_afiliado.telefono2 }} </li>
+                        {% endif %}
+                        <li><i class="icofont-check-circled"></i>Correo: {{ negocio_afiliado.email }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section><!-- End About Section -->
+{% endblock %}

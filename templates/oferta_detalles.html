@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block arbol_ofertas %}
+    <h2>Ofertas Laborales</h2>
+    <ol>
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'ofertas' %}">Ofertas Laborales</a></li>
+        <li>{{ oferta.negocio.nombre }}</li>
+    </ol>
+{% endblock %}
+{% block contenido %}
+    <!-- ======= Oferta Afiliado ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="{{ oferta.negocio.portada.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h3>Descripción de la Oferta</h3>
+                    <p>{{ oferta.descripcion }}</p>
+                    <ul>
+                        <p>Datos de la persona a contactar</p>
+                        <li><i class="icofont-check-circled"></i>Nombre: {{ oferta.negocio.nombre }} </li>
+                        {% if oferta.negocio.telefono1 and oferta.negocio.telefono2 == 'null' %}
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono1 }}</li>
+                        {% elif oferta.negocio.telefono1 == 'null' and oferta.negocio.telefono2 %}
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono2 }} </li>
+                        {% else %}
+                            <li><i class="icofont-check-circled"></i>Teléfono: {{ oferta.negocio.telefono1 }}
+                                - {{ oferta.negocio.telefono2 }} </li>
+                        {% endif %}
+                        <li><i class="icofont-check-circled"></i>Correo: {{ oferta.negocio.usuario_negocio.email }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section><!-- End About Section -->
+{% endblock %}

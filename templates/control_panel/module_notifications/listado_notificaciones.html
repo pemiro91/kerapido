@@ -1,0 +1,241 @@
+{% extends 'control_panel/base.html' %}
+{% load static %}
+{% block header_style %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>
+                CENTRO DE GESTIÓN Y CONTROL DE NOTIFICACIONES
+                <small>Módulo para la gestión y el control de las notificaciones</small>
+            </h2>
+        </div>
+
+        <!-- #END# Basic Examples -->
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <diV style="width: 50%;margin-left: 23%">
+                {% if messages %}
+                    <ul class="messages align-content-center">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <div class="col-lg-9">
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                {% endif %}
+            </diV>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            LISTADO DE NOTIFICACIONES
+                        </h2>
+
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-striped table-hover dataTable ">
+                                <thead>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Tipo</th>
+                                    <th>Mensaje</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Tipo</th>
+                                    <th>Mensaje</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for notificacion in todas_notificaciones %}
+                                    <tr>
+                                        <td>{{ notificacion.id }}</td>
+                                        <td>{{ notificacion.tipo }}</td>
+                                        <td style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ notificacion.mensaje }}</td>
+                                        <td>{{ notificacion.fecha }}</td>
+                                        <td style="overflow: hidden;max-width: 150px;
+                                          white-space: pre-line;
+                                          text-overflow: ellipsis;">{{ notificacion.estado }}</td>
+
+                                        <td>
+                                            {% if notificacion.estado == 'No-Leida' %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href="{% url 'mark_as_read' notificacion.id %}"
+                                                   title="Marcar Notificación como leída"
+                                                   data-toggle="modal" data-target="#ReadModal"
+                                                   data-id="{{ notificacion.id }}">
+                                                    <i class="material-icons">traffic</i>
+                                                </a>
+                                            {% else %}
+                                                <a href="#" type="button"
+                                                   class="btn btn-default waves-effect waves-black"
+                                                   data-href="{% url 'mark_as_no_ead' notificacion.id %}"
+                                                   title="Marcar Notificación como No leída"
+                                                   data-toggle="modal" data-target="#NoReadModal"
+                                                   data-id="{{ notificacion.id }}">
+                                                    <i class="material-icons">traffic</i>
+                                                </a>
+                                            {% endif %}
+                                            <a href="#" type="button" class="btn btn-default waves-effect waves-amber"
+                                               data-href="{% url 'delete_notification' notificacion.id %}"
+                                               data-id="{{ notificacion.id }}"
+                                               data-toggle="modal"
+                                               data-target="#confirm-delete"
+                                               title="Eliminar Categoria">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+    <div class="modal fade" id="ReadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Marcar como Leída</h4>
+                </div>
+                <div class="modal-body">
+
+                    ¿Desea realmente marcar esta notificación como leída?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> MARCAR COMO LEÍDA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="NoReadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #212121">
+                    <h4 class="modal-title" id="defaultModalLabel" style="color: #fff">Marcar como No leída</h4>
+                </div>
+                <div class="modal-body">
+
+                    ¿Desea realmente marcar esta notificación como No leída?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR
+                    </button>
+                    <a type="button" class="btn btn-default btn-ok"> MARCAR COMO NO LEÍDA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el servicio?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+
+    <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
+
+    <script>
+        $('#ReadModal').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+        $('#NoReadModal').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true,
+
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Sin información para mostrar",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "Todos"]],
+                "iDisplayLength": 5
+            });
+        });
+    </script>
+
+{% endblock %}

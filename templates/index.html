@@ -1,0 +1,484 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Ke Rápido-Sitio Web</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'control_panel/images/logo.jpg' %}" rel="icon">
+    <link href="{% static 'control_panel/images/logo.jpg' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'site/css3.css' %}" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'site/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/vendor/venobox/venobox.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'site/css/style.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Alstar - v2.0.0
+    * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex">
+
+        <div class="logo mr-auto">
+            <h1 class="text-dark"><a href="{% url 'index' %}"><span>Ke Rápido</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="#header">Inicio</a></li>
+                <li><a href="#about">Quiénes somos</a></li>
+                <li><a href="#services">Servicios</a></li>
+                {#                <li><a href="#portfolio"> Ofertas</a></li>#}
+                {% ifnotequal bussiness.count 0 %}
+                    <li><a href="#portfolio"> Afiliados</a></li>
+                {% endifnotequal %}
+                <li><a href="#contact">Contáctenos</a></li>
+                {#                <li><a href="#pricing" class="btn-dark" style="color: #FEC010">Descárgue la apk</a></li>#}
+                <li><a href="https://www.apklis.cu/applications?search=habanatrans">Descárgue la apk</a></li>
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
+
+    </div>
+</header><!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+    <div class="hero-container">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+            <div class="carousel-inner" role="listbox">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
+                                                          alt="">
+                    </div>
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animated fadeInDown">Bienvenido
+                                {#                    <span>Alstar</span>#}
+                            </h2>
+                            <p class="animated fadeInUp">¿Todavía no conoce las bondades de la plataforma KeRápido?, le
+                                invitamos a dar un recorrido por la web</p>
+                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">COMENZAR</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
+                                                          alt="">
+                    </div>
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animated fadeInDown">Bienvenido</h2>
+                            <p class="animated fadeInUp">Deguste las exquisitas ofertas de los restaurantes y
+                                paladares cubanos, ya sea por pedido a domicilio, recogida o reservación.</p>
+                            <a href="#about" class="btn-get-started scrollto animated fadeInUp">Comenzar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <div class="carousel-background"><img src="{% static 'site/img/Ke_rapido1.3.3.2_1080x607.jpg' %}"
+                                                          alt="">
+                    </div>
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animated fadeInDown">Bienvenido</h2>
+                            <p class="animated fadeInUp">Si desea aumentar las ventas de su negocio, KeRápido lo
+                                ayudará</p>
+                            <a href="{% url 'register_affiliate' %}" class="btn-get-started scrollto animated fadeInUp">Regístrese
+                                ahora</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon icofont-thin-double-left" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon icofont-thin-double-right" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+            </a>
+
+        </div>
+    </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Quiénes Somos</h2>
+                <p>Ke Rapido tiene el propósito de brindar una herramienta,
+                    que le permite a sus afiliados, gestionar sus negocios y a sus clientes, realizar reservaciones de
+                    productos y/o servicios en linea.De esta forma, pretende garantizar la
+                    retroalimentacion continua entre afiliados y clientes, satisfaciendo sus necesidades.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    {#                    style="margin-top: 5%" #}
+                    <img src="{% static 'control_panel/images/logo.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h3>¿Qué hacemos?</h3>
+                    <p class="font-italic">
+                        El equipo de Ke Rapido tiene la misión de brindar un servicio de excelencia a afiliados y a sus
+                        clientes, con rapidez y máxima calidad.
+                    </p>
+                    <ul>
+                        <li><i class="icofont-check-circled"></i> Nuestros afiliados a través de nuestros servicios,
+                            pueden
+                            gestionar sus negocios, despachar las reservaciones y atender a las solicitudes de sus
+                            clientes.
+                        </li>
+                        <li><i class="icofont-check-circled"></i> Los clientes mediante nuestros servicios, pueden
+                            realizar
+                            reservaciones de productos y/o servicios, ofertados
+                            por nuestros afiliados.
+                        </li>
+                        {#              <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>#}
+                    </ul>
+                    {#            <p>#}
+                    {#              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate#}
+                    {#              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in#}
+                    {#              culpa qui officia deserunt mollit anim id est laborum#}
+                    {#            </p>#}
+                    <h3>¿Hacia donde vamos?</h3>
+                    <p class="font-italic">
+                        El equipo de Ke Rapido tiene la visión de aumentar nuestros servicios, con la posibilidad de
+                        realizar pagos en línea
+                        tanto en el territorio nacional como en el internacional
+                    </p>
+                    <ul>
+                        <li><i class="icofont-check-circled"></i> A Nuestros afiliados, ofrecerles un
+                            mayor alcance a sus productos y/o servicios, con los porcientos más bajos a pagar por los
+                            servicios prestados con la herramienta.
+                        </li>
+                        {#              <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>#}
+                        {#              <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>#}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Servicios</h2>
+                <p>Los principales servicios de Ke Rápido, han sido diseñados y desarrollados pensando en las
+                    necesidades de nuestros
+                    afiliados y de sus clientes </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="icon-box">
+                        <i class="icofont-computer"></i>
+                        <h4><a>Reservación en Línea para Clientes</a></h4>
+                        <p>Los clientes podrán realizar reservaciones de productos y/o servicios ofertados
+                            por nuestros afiliados.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="icon-box">
+                        <i class="icofont-chart-bar-graph"></i>
+                        <h4><a>Gestión de Negocios para Afiliados</a></h4>
+                        <p>Nuestros afiliados podrán gestionar sus negocios, atender solicitudes y despachar
+                            reservaciones realizadas por sus clientes. </p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="icon-box">
+                        <i class="icofont-image"></i>
+                        <h4><a>Promoción de productos y servicios de los negocios</a></h4>
+                        <p>Los clientes y público en general, podrán conocer detalles de los productos y/o servicios
+                            publicado por
+                            los afiliados.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="icon-box">
+                        <i class="icofont-settings"></i>
+                        <h4><a>Publicación de Ofertas Laborales de los Afiliados</a></h4>
+                        <p>Los clientes y público en general, podrán conocer detalles de las ofertas publicadas por
+                            los afiliados.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Section Ofertas ======= -->
+    {% ifnotequal ofertas.count 0 %}
+        <section id="cta" class="cta">
+            <div class="container">
+                <div class="text-center">
+                    <h3>Ofertas Laborales</h3>
+                    <p> Los invitamos a conocer las ofertas laborales publicadas por nuestros afiliados.</p>
+                    <a class="cta-btn" href="{% url 'ofertas' %}">Leer Más</a>
+                </div>
+            </div>
+        </section>
+    {% endifnotequal %}
+    <!-- ======= End Ofertas Section ======= -->
+
+    <!-- ======= Section Afiliados ======= -->
+    {% ifnotequal bussiness.count 0 %}
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Afiliados</h2>
+                    <p>Ke Rápido ofrece a sus afiliados la posibilidad de promocionar sus productos y servicios, con el
+                        objetivo de satisfacer las necesidades de sus clientes.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="portfolio-flters">
+                            <li data-filter="*" class="filter-active">Todos</li>
+                            {% for macro in macro_categorias %}
+                                <li data-filter=".{{ macro.id }}">{{ macro.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row portfolio-container">
+                    {% for negocio in bussiness %}
+
+                        <div class="col-lg-4 col-md-6 portfolio-item {% for m in negocio.macro.all %} {{ m.id }} {% endfor %}">
+                            <img src="{{ negocio.portada.thumbnail.url }}" class="img-fluid" alt=""
+                                 style="height: 280px;width: 350px">
+                            <div class="portfolio-info">
+                                <h4>{{ negocio.nombre }}</h4>
+                                <p>{{ negocio.categoria.nombre }}</p>
+                                <a href="{% url 'detalles_afiliado' negocio.id %}"
+                                   class=" preview-link" title="más detalles"><i class="bx bx-show"></i></a>
+
+                                <i class="bx bxs-purchase-tag">{% for cat in negocio.categorias.all %}
+                                    {% if forloop.last %} {{ cat.nombre }}{% else %}{{ cat.nombre }},{% endif %}
+                                {% endfor %}   </i>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+                {#                <div class="col-lg-12 text-center">#}
+                {#                    <a href="#" class="">Más detalles</a>#}
+                {#                </div>#}
+            </div>
+        </section>
+    {% endifnotequal %}
+    <!-- ======= End Afiliados Section ======= -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact section-bg">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Contáctenos</h2>
+                <p>Ke Rápido pone a su disposición sus datos de contacto y un formulario para la retroalimentación
+                    continua entre clientes y el equipo de trabajo. Esperamos que le sea de gran utilidad.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="info-box  mb-4">
+                        <i class="bx bx-envelope"></i>
+                        <h3>Correo Electrónico</h3>
+                        <p>info@kerapido.com</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="info-box  mb-4">
+                        <i class="bx bx-phone-call"></i>
+                        <h3>Teléfono</h3>
+                        <p>+53 5 6228190</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <form method="post" role="form" class="php-email-form">{% csrf_token %}
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Nombre"
+                                       data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col form-group">
+                                <input type="email" class="form-control" name="email" id="email"
+                                       placeholder="Correo" data-rule="email"
+                                       data-msg="Please enter a valid email"/>
+                                <div class="validate"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto"
+                                   data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" rows="5" data-rule="required"
+                                      data-msg="Please write something for us" placeholder="Mensaje"></textarea>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="loading">Espere por favor</div>
+                            <div class="error-message"></div>
+                            {% if messages %}
+                                <div class="sent-message">Su mensaje ha sido enviado satisfactoriamente. Gracias!</div>
+                            {% endif %}
+
+                        </div>
+                        <div class="text-center">
+                            <button type="submit">Enviar Mensaje</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Nuestras Plataformas de Servicios</h4>
+                    <p>Ke Rápido ofrece, una aplicación para dispositivos con Sistema Operativo
+                        Android, sólo para sus clientes.</p>
+                    <p>Ke Rápido, dispone sólo para sus afiliados, un sistema web para el control de sus negocios</p>
+                    <div class="row ">
+                        {#                        <div class="col-lg-6 col-md-6 ">#}
+                        <img style="margin-right: 15%" src="{% static 'site/img/160138.png' %}" width="25%"/>
+                        {#                        </div>#}
+
+                        {#                        <div class="col-lg-6 col-md-6 ">#}
+                        <img src="{% static 'site/img/web-app.png' %}" width="30%"/>
+                        {#                        </div>#}
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Enlaces Internos</h4>
+                    <ul>
+                        {% if bussiness %}
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'nuestros_afiliados' %}">Nuestros
+                                Afiliados</a></li>
+                        {% endif %}
+                        <li><i class="bx bx-chevron-right"></i> <a href="{% url 'terminos_servicio' %}">Términos del
+                            Servicio</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Sitios de Interés</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://www.apklis.cu/">Apklis</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-info">
+                        <h3 style="color:#FEC010">Ke Rápido</h3>
+                        <p class="pb-3"><em>Les ofrece a sus clientes, una plataforma que permite realizar
+                            pedidos en linea, y otra plataforma a sus afiliados, que permite apoyar en la gestión de sus
+                            negocios.</em></p>
+                        <p>
+                            <strong>Phone:</strong> +53 5 6228190<br>
+                            <strong>Email:</strong> info@kerapido.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">2020
+            &copy; Copyright <strong><span style="color:#FEC010">Ke Rápido.</span></strong>Todos los Derechos Reservados
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'site/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'site/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'site/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+{#<script src="{% static 'site/vendor/php-email-form/validate.js' %}"></script>#}
+<script src="{% static 'site/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'site/vendor/venobox/venobox.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'site/js/main.js' %}"></script>
+
+</body>
+
+</html>

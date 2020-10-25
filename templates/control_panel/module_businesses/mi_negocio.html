@@ -1,0 +1,210 @@
+{% extends "control_panel/base.html" %}
+{% load static %}
+{% block header_style %}
+    <!--WaitMe Css-->
+    <link href="{% static 'control_panel/plugins/waitme/waitMe.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <diV style="width: 50%;margin-left: 23%">
+                {% if messages %}
+                    <ul class="messages align-content-center">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if error %}
+                    <div class="col-lg-9">
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    </div>
+                {% endif %}
+            </diV>
+            <div class="col-xs-12 col-sm-8">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                <div class="panel panel-default panel-post">
+                                    <div class="panel-heading">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a>
+                                                    <img style="height: 65px;width: 65px"
+                                                         src="{{ negocio.logo.url }}"/>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a>{{ negocio.nombre }}</a>
+                                                </h4>
+                                                <i class="material-icons">local_offer</i>
+                                                {% for categoria in negocio.categorias.all %}
+                                                    {% if forloop.last %}
+                                                        <span>{{ categoria }}</span>
+                                                    {% else %}
+                                                        <span>{{ categoria }},</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <br>
+                                                {% for macro in negocio.macro.all %}
+                                                    {% if forloop.last %}
+                                                        <span>{{ macro }}</span>
+                                                    {% else %}
+                                                        <span>{{ macro }},</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="post">
+                                            <div class="post-heading">
+                                                <b>Slogan:</b>
+                                                <p style="font-style: oblique">{{ negocio.eslogan }}</p>
+                                            </div>
+                                            <div class="post-content">
+                                                <img src="{{ negocio.portada.url }}"
+                                                     style="min-width: 72.8%;height: auto;max-width:100%;width: 100% "
+                                                     class="img-responsive"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+
+                <div class="card card-about-me">
+                    <div class="header" style="background-color: #FEC010">
+                        <h2>INFORMACIÓN</h2>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">room</i>
+                                    Dirección
+                                </div>
+                                <div class="content">
+                                    <span>{{ negocio.direccion }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">flag</i>
+                                    Municipio
+                                </div>
+
+                                <div class="content">
+                                    <span>{{ negocio.municipio }}</span>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">widgets</i>
+                                    Servicios
+                                </div>
+                                <div class="content">
+                                    {% for servicio in negocio.servicios.all %}
+                                        <span class="label bg-{{ servicio.color }}">{{ servicio.nombre }}</span>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">access_time</i>
+                                    Horario y Frecuencia
+                                    {#                                    <span>11:00am a 11:00 pm</span>#}
+                                </div>
+                                <div class="content">
+                                    <span>{{ negocio.horario }}</span>
+                                    <br>
+                                    {% for dias in negocio.frecuencia.all %}
+                                        {% if forloop.last %}
+                                            <span>{{ dias }}</span>
+                                        {% else %}
+                                            <span>{{ dias }},</span>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <i class="material-icons">smartphone</i>
+                                    <span>{{ negocio.telefono1 }}</span>
+                                </div>
+                                {% if negocio.telefono2 %}
+                                    <div class="title">
+                                        <i class="material-icons">phone</i>
+                                        <span>{{ negocio.telefono2 }}</span>
+                                    </div>
+                                {% else %}
+                                {% endif %}
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="card profile-card">
+
+                    <div class="profile-footer">
+                        <ul>
+                            <li>
+                                <span>Productos</span>
+                                <span>{{ productos_negocio.count }}</span>
+                            </li>
+                            <li>
+                                <span>Ofertas Laborales</span>
+                                <span>{{ ofertas_laborales.count }}</span>
+                            </li>
+                            <li>
+                                <span>Evaluación</span>
+                                {% if negocio.rating %}
+                                    <span>{{ negocio.rating }}</span>
+                                {% else %}
+                                    <span>0</span>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <span>Comentarios</span>
+                                <span>{{ comentarios_negocio.count }}</span>
+                            </li>
+                        </ul>
+                        {#                        <button class="btn btn-warning btn-lg waves-effect btn-block ">FOLLOW</button>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-notify/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'site/js/main.js' %}"></script>
+
+{% endblock %}

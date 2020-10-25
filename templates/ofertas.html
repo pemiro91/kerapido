@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block arbol_ofertas %}
+    <h2>Ofertas Laborales</h2>
+    <ol>
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li>Ofertas Laborales</li>
+    </ol>
+{% endblock %}
+{% block contenido %}
+    <!-- ======= Descripción de Ofertas Laborales ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <p>
+                    En esta sección los afiliados de Ke Rápido publican sus ofertas laborales, para que clientes y
+                    públicos en general conozcan sus necesidades, y en caso de que les interese se pongan en contacto lo
+                    antes posible.
+                </p>
+            </div>
+        </div>
+    </section><!-- Fin de Descripción de Ofertas Laborales -->
+
+    <!-- ======= Ofertas Laborales de Afiliados ======= -->
+    <section id="cards" class="cards">
+        <div class="container">
+            <div class="row">
+                {% for oferta in ofertas %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="card">
+                            <img src="{{ oferta.negocio.portada.url }}" class="card-img-top" width="0" height="260"
+                                 alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="">{{ oferta.negocio.nombre }}</a></h5>
+                                <p class="card-text text-center" style="overflow: hidden;
+                               text-overflow: ellipsis;
+                               display: -webkit-box;
+                               -webkit-line-clamp: 2; /* number of lines to show */
+                               -webkit-box-orient: vertical;">{{ oferta.descripcion_corta }}</p>
+                                <a href="{% url 'detalles_oferta' oferta.id %}" class="btn">Más detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section><!-- Fin de Ofertas Laborales de Afiliados -->
+{% endblock %}

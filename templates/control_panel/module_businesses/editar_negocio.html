@@ -1,0 +1,649 @@
+{% extends 'control_panel/base.html' %}
+{% load  static %}
+{% block header_style %}
+    <!-- Dropzone Css -->
+    <link href="{% static 'control_panel/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+
+    <!-- Multi Select Css -->
+    <link href="{% static 'control_panel/plugins/multi-select/css/multi-select.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="{% static 'control_panel/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Tagsinput Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+
+    <!-- noUISlider Css -->
+    <link href="{% static 'control_panel/plugins/nouislider/nouislider.min.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2>
+                        GESTIÓN DE NEGOCIOS
+                        <small>Módulo para la gestion de negocios</small>
+                    </h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <ol class="breadcrumb breadcrumb-col-amber text-right">
+                        <li><a href="{{ request.META.HTTP_REFERER }}" onClick="history.go(-1);"><i
+                                class="material-icons">store</i>
+                            Negocios</a>
+                        </li>
+                        <li class="active"><i class="material-icons">add_circle</i>
+                            Modificar información del Negocio
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- #END# Horizontal Layout -->
+        <!-- Basic Validation -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>MODIFICAR INFORMACIÓN DEL NEGOCIO</h2>
+                    </div>
+                    <div class="body">
+                        <form id="Form" name="formBussiness" class="form-horizontal form-form_validation"
+                              enctype="multipart/form-data"
+                              role="form" method="post">{% csrf_token %}
+                            <div>
+                                <ul class="nav nav-tabs tab-col-black" role="tablist">
+                                    <li role="presentation" class="active">
+                                        <a href="#identidad" aria-controls="settings" role="tab"
+                                           data-toggle="tab">Información de Identidad
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#servicios" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Servicios y Horiarios
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#contacto" aria-controls="settings"
+                                           role="tab" data-toggle="tab">Información de Contacto
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="identidad">
+                                        {% for field in update_form %}
+                                            <div class="row clearfix">
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                    <label for="{{ field.name }}">{{ field.label }}</label>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            {{ field }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="category">Categoria</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <select id="category" class="form-control show-tick"
+                                                                name="category_bussiness"
+                                                                multiple required>
+                                                            {% if categorias_marcadas %}
+                                                                {% for macro in macros %}
+                                                                    <optgroup label="{{ macro.nombre }}">
+                                                                        {% for s in categorias_marcadas %}
+                                                                            {% ifequal macro s.macro %}
+                                                                                <option value="{{ s.nombre }}"
+                                                                                        selected>{{ s.nombre }}</option>
+                                                                            {% endifequal %}
+                                                                        {% endfor %}
+                                                                        {% for category in categoria_no_marcados %}
+                                                                            {% ifequal macro category.macro %}
+                                                                                <option value="{{ category.nombre }}">{{ category.nombre }}</option>
+                                                                            {% endifequal %}
+                                                                        {% endfor %}
+                                                                    </optgroup>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
+                                                <a aria-controls="settings"
+                                                   id="enlace_servicio"
+                                                   onclick="return validateFormIdentidadEditar()"
+                                                   role="tab" data-toggle="tab"
+                                                   class="btn btn-default waves-effect waves-amber btnNext ">
+                                                    <i class="material-icons " style="color: #212121">arrow_forward</i>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade in" id="servicios">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="service">Servicios</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <select id="service" name="services_bussiness"
+                                                                class="form-control show-tick"
+                                                                multiple required>
+                                                            {% if servicios_marcados %}
+                                                                {% for s in servicios_marcados %}
+                                                                    <option value="{{ s.nombre }}"
+                                                                            selected>{{ s.nombre }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                            {% if servicios_no_marcados %}
+                                                                {% for servicio in servicios_no_marcados %}
+                                                                    <option value="{{ servicio.nombre }}">{{ servicio.nombre }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="phone">Horario</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <select id="service" name="frecuencia_bussiness"
+                                                                class="form-control" multiple required>
+                                                            {% if frecuencias_marcadas %}
+                                                                {% for fre in frecuencias_marcadas %}
+                                                                    <option value="{{ fre.nombre }}"
+                                                                            selected>{{ fre.nombre }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                            {% if frecuencia_no_marcados %}
+                                                                {% for frecuencia in frecuencia_no_marcados %}
+                                                                    <option value="{{ frecuencia.nombre }}">{{ frecuencia.nombre }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="phone"></label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="demo-masked-input">
+                                                    <div class="input-daterange input-group"
+                                                         id="bs_datepicker_range_container">
+                                                        <span class="input-group-addon">desde</span>
+                                                        <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">access_time</i>
+                                                                </span>
+                                                            <div class="form-line">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           value="{{ hr_init }}"
+                                                                           name="hour_init_bussiness"
+                                                                           placeholder="Ej: 11:00 am">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <span class="input-group-addon">hasta</span>
+                                                        <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">access_time</i>
+                                                                </span>
+                                                            <div class="form-line">
+                                                                <label>
+                                                                    <input type="text" class="form-control time12"
+                                                                           value="{{ hr_end }}"
+                                                                           name="hour_end_bussiness"
+                                                                           placeholder="Ej: 11:30 pm">
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <a href="#identidad" aria-controls="settings"
+                                                   role="tab" data-toggle="tab"
+                                                   class="btn btn-default waves-effect waves-amber btnPrevious">
+                                                    <i class="material-icons " style="color: #212121">arrow_back</i>
+                                                    <span>ATRAS</span></a>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <a aria-controls="settings"
+                                                   id="enlace_contacto"
+                                                   onclick="return validateFormServicio()"
+                                                   role="tab" data-toggle="tab"
+                                                   class="btn btn-default waves-effect waves-amber btnNext">
+                                                    <i class="material-icons " style="color: #212121">arrow_forward</i>
+                                                    <span>GUARDAR Y CONTINUAR</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade in" id="contacto">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="address">Dirección</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input id="address" name="address_bussiness"
+                                                               class="form-control no-resize"
+                                                               required
+                                                               value="{{ negocio.direccion }}"
+                                                               placeholder="Escriba la direccion completa"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="municipio">Municipio</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <select id="municipio" name="municipio_bussiness"
+                                                        class="form-control show-tick"
+                                                        data-live-search="true">
+                                                    {% ifequal negocio.municipio.nombre 'Diez de Octubre' %}
+                                                        <option value="1" selected>Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Arroyo Naranjo' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2" selected>Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Boyeros' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3" selected>Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Playa' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4" selected>Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Habana del Este' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5" selected>Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'San Miguel del Padrón' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6" selected>San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Plaza de la Revolución' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7" selected>Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Centro Habana' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8" selected>Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Marianao' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9" selected>Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'La Lisa' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10" selected>La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Cerro' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11" selected>Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Guanabacoa' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12" selected>Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Habana Vieja' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13" selected>Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Cotorro' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14" selected>Cotorro</option>
+                                                        <option value="15">Regla</option>
+                                                    {% endifequal %}
+                                                    {% ifequal negocio.municipio.nombre 'Regla' %}
+                                                        <option value="1">Diez de Octubre</option>
+                                                        <option value="2">Arroyo Naranjo</option>
+                                                        <option value="3">Boyeros</option>
+                                                        <option value="4">Playa</option>
+                                                        <option value="5">Habana del Este</option>
+                                                        <option value="6">San Miguel del Padrón</option>
+                                                        <option value="7">Plaza de la Revolución</option>
+                                                        <option value="8">Centro Habana</option>
+                                                        <option value="9">Marianao</option>
+                                                        <option value="10">La Lisa</option>
+                                                        <option value="11">Cerro</option>
+                                                        <option value="12">Guanabacoa</option>
+                                                        <option value="13">Habana Vieja</option>
+                                                        <option value="14">Cotorro</option>
+                                                        <option value="15" selected>Regla</option>
+                                                    {% endifequal %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="phone_o">Tel&eacute;fono*</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="tel" id="phone_o" class="form-control"
+                                                               maxlength="8"
+                                                               name="phone_bussiness_o"
+                                                               required
+                                                               value="{{ negocio.telefono1 }}"
+                                                               placeholder="Escribe el Tel&eacute;fono de contacto">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="phone">Tel&eacute;fono</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="tel" id="phone" class="form-control"
+                                                               maxlength="8"
+                                                               name="phone_bussiness"
+                                                               value="{{ negocio.telefono2 }}"
+                                                               placeholder="Escribe el Tel&eacute;fono de contacto">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <label for="email_bussiness">Correo</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="email" id="email_bussiness" class="form-control"
+                                                               name="email_bussiness"
+                                                               value="{{ negocio.email }}"
+                                                               placeholder="Escribe el correo de contacto">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                                <a href="#servicios" aria-controls="settings"
+                                                   role="tab" data-toggle="tab"
+                                                   class="btn btn-default waves-effect waves-amber btnPrevious">
+                                                    <i class="material-icons " style="color: #212121">arrow_back</i>
+                                                    <span>ATRAS</span></a>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                                <button class="btn btn-default waves-effect waves-amber"
+                                                        onclick="return validateFormContacto()"
+                                                        type="submit">
+                                                    <i class="material-icons " style="color: #212121">edit</i>
+                                                    <span>ACTUALIZAR</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block plugin_section %}
+
+    <!-- Select Plugin Js -->
+    <script src="{% static 'control_panel/./plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+    <!-- Bootstrap Colorpicker Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="{% static 'control_panel/plugins/dropzone/dropzone.js' %}"></script>
+
+    <!-- Input Mask Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
+
+    <!-- Multi Select Plugin Js -->
+    <script src="{% static 'control_panel/plugins/multi-select/js/jquery.multi-select.js' %}"></script>
+
+    <!-- Jquery Spinner Plugin Js -->
+    <script src="{% static 'control_panel/plugins/jquery-spinner/js/jquery.spinner.js' %}"></script>
+
+    <!-- Bootstrap Tags Input Plugin Js -->
+    <script src="{% static 'control_panel/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+
+    <!-- noUISlider Plugin Js -->
+    <script src="{% static 'control_panel/plugins/nouislider/nouislider.js' %}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+
+    <!-- Custom Js -->
+    <script src="{% static 'control_panel/js/admin.js' %}"></script>
+    <script src="{% static 'control_panel/js/pages/forms/advanced-form-elements.js' %}"></script>
+    <script src="{% static 'control_panel/js/pages/forms/basic-form-elements.js' %}"></script>
+    <!-- Demo Js -->
+    <script src="{% static 'control_panel/js/demo.js' %}"></script>
+    <script src="{% static 'control_panel/js/validate_negocio.js' %}"></script>
+
+{% endblock %}
