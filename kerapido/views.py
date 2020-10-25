@@ -41,9 +41,9 @@ def principal(request):
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        send_mail(subject, message, 'habanatrans16@gmail.com', ['pemiro91@gmail.com'], fail_silently=False)
+        send_mail(subject, message, email, ['info@kerapido.net'], fail_silently=False)
         messages.success(request, 'Su mensaje ha sido enviado satisfactoriamente. Gracias!')
-        # return redirect('/')
+        return redirect('/')
     context = {'macro_categorias': macro_categorias, 'bussiness': bussiness, 'ofertas': ofertas,
                'prodductos': productos}
     return render(request, "index.html", context)
@@ -2362,22 +2362,25 @@ def add_product(request, id_bussiness):
         if request.user.is_persona_encargada:
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
-        if request.method == 'POST':
-            image_product = request.FILES['image_product']
-            name_product = request.POST.get('name_product')
-            count_product = request.POST.get('count_product')
-            description_product = request.POST.get('description_product')
-            price_product = request.POST.get('price_product')
-            category_product = request.POST.get('category_product')
-            Producto.objects.create(imagen=image_product,
-                                    nombre=name_product, cantidad_producto=count_product,
-                                    descripcion=description_product, precio=price_product,
-                                    negocio=negocio, categoria_id=category_product)
+        add_form = MyForm(request.POST or None, request.FILES or None)
+        if add_form.is_valid():
+            imagen = add_form.cleaned_data['imagen']
+            nombre = add_form.cleaned_data['nombre']
+            cantidad_producto = add_form.cleaned_data['cantidad_producto']
+            descripcion = add_form.cleaned_data['descripcion']
+            precio = add_form.cleaned_data['precio']
+            categoria = add_form.cleaned_data['categoria']
+
+            p = Producto(imagen=imagen, nombre=nombre, cantidad_producto=cantidad_producto,
+                         descripcion=descripcion, precio=precio, categoria=categoria,
+                         negocio=negocio)
+            p.save()
             messages.success(request, 'Producto agregado correctamente')
-            return redirect(reverse('products', args=(id_bussiness,)))
+            return redirect(reverse('products', args=(negocio.id,)))
+
         context = {'business': business, 'negocio': negocio, 'categorias': categorias,
                    'business_persona': business_persona, 'cant_notificaciones': cant_notificaciones,
-                   'notificaciones': notificaciones}
+                   'notificaciones': notificaciones, 'add_form': add_form}
         return render(request, "control_panel/module_products/agregar_producto.html", context)
     return redirect('login')
 

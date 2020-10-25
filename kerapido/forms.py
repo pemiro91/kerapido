@@ -25,7 +25,8 @@ class MyForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['imagen', 'nombre', 'cantidad_producto', 'descripcion', 'cantidad_producto', 'precio', 'categoria']
+        fields = ['imagen', 'nombre', 'cantidad_producto', 'descripcion', 'precio', 'negocio', 'categoria']
+        exclude = ['negocio']
 
         labels = {
             "nombre": "Nombre*",

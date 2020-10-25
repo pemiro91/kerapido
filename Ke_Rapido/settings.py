@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '88du$e5#+ya^q0vf*0i^m1k@&w(f8g-5*@hkxidw-@7ad0#x(d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["kerapido.net", "www.kerapido.net"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "kerapido.net", "www.kerapido.net"]
 
 # Application definition
 
@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'Ke_Rapido.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kerapido',
-        'USER': 'postgres',
-        'PASSWORD': 'postgress',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

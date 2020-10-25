@@ -63,94 +63,22 @@
                     </div>
                     <div class="body">
                         <form id="form-horizontal form-form_validation" enctype="multipart/form-data"
-                              method="POST">{% csrf_token %}
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="last_name">Imagen</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="file" class="form-control file-field" name="image_product">
+                              action="{% url 'add_product' negocio.id %}"
+                              method="post">{% csrf_token %}
+                            {% for field in add_form %}
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="{{ field.name }}">{{ field.label }}</label>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                {{ field }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="name_product">Nombre del producto*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="name_product" type="text" class="form-control text"
-                                                   name="name_product"
-                                                   placeholder="Escriba el nombre del producto"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="count_product">Cantidad*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="count_product" type="number" class="form-control text"
-                                                   name="count_product"
-                                                   placeholder="Escriba la cantidad del producto"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="description">Descripción</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea id="description" name="description_product" cols="30" rows="2"
-                                                      class="form-control no-resize"
-                                                      required
-                                                      placeholder="Escriba la descripción del producto"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="price_product">Precio*</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="price_product" type="number" class="form-control text"
-                                                   name="price_product"
-                                                   placeholder="Escriba el precio del producto"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="categoria">Categoria</label>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                    <select id="categoria" name="category_product" class="form-control show-tick"
-                                            data-live-search="true">
-                                        {% if categorias %}
-                                            {% for categoria in categorias %}
-                                                <option value="{{ categoria.pk }}">{{ categoria.nombre }}</option>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </select>
-                                </div>
-                            </div>
+                            {% endfor %}
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-black" type="submit">
