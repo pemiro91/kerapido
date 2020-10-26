@@ -170,7 +170,7 @@
                                                     <td width="5%">
                                                         <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
                                                     </td>
-                                                    <td width="10%">
+                                                    <td >
                                                         {% for categoria in negocio.categorias.all %}
                                                             {{ categoria.nombre }}<br>
                                                         {% endfor %}
@@ -198,7 +198,7 @@
                                                             DISPONIBLE
                                                         {% endif %}
                                                     </td>
-                                                    <td>
+                                                    <td width="30%">
 
 
                                                         <a type="button"
@@ -432,7 +432,7 @@
                                                 <td width="5%">
                                                     <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
                                                 </td>
-                                                <td width="10%">
+                                                <td>
                                                     {% for categoria in negocio.categorias.all %}
                                                         {{ categoria.nombre }}<br>
                                                     {% endfor %}
@@ -459,7 +459,7 @@
                                                         DISPONIBLE
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td width="30%">
                                                     <a type="button" title="Mostrar Comentarios"
                                                        class="btn btn-default waves-effect waves-black"
                                                        href="{% url 'comments' negocio.id %}"><i
@@ -506,7 +506,7 @@
                                                 <td>
                                                     <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
                                                 </td>
-                                                <td>
+                                                <td >
                                                     {% for categoria in negocio.categorias.all %}
                                                         {{ categoria.nombre }}<br>
                                                     {% endfor %}
