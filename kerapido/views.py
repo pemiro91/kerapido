@@ -476,7 +476,7 @@ def change_password(request):
             U.save()
             messages.success(request, 'Se cambió la contraseña satisfactoriamente')
             return redirect('login')
-        context = {'business': bussiness, 'business_persona': business_persona, 'notificaciones': notificaciones,
+        context = {'business': business, 'business_persona': business_persona, 'notificaciones': notificaciones,
                    'cant_notificaciones': cant_notificaciones}
         return render(request, "control_panel/pages/perfil.html", context)
     return redirect('login')
@@ -2564,18 +2564,42 @@ def add_offer(request, id_bussiness):
             persona_encargada = PerfilPersonaEncargada.objects.get(persona_encargada=request.user)
             business_persona = Negocio.objects.filter(pk=persona_encargada.negocio_pertenece.id)
         if request.method == 'POST':
-            descripcion_corta = request.POST.get('description_corta')
+            description_corta = request.POST.get('description_corta')
             description_offer = request.POST.get('description_offer')
             nombre_contacto = request.POST.get('nombre_contacto')
             correo = request.POST.get('correo')
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
-            Oferta_Laboral.objects.create(descripcion_corta=descripcion_corta,
-                                          descripcion=description_offer,
-                                          nombre_contacto=nombre_contacto,
-                                          negocio=negocio, correo=correo,
-                                          telefono1=telefono1,
-                                          telefono2=telefono2)
+
+            if telefono1 == '' or telefono2 == '':
+                if telefono1 == '':
+                    Oferta_Laboral.objects.create(descripcion_corta=description_corta,
+                                                      descripcion=description_offer,
+                                                      nombre_contacto=nombre_contacto,
+                                                      negocio=negocio, correo=correo,
+                                                      telefono1=None,
+                                                      telefono2=telefono2)
+                elif telefono2 == '':
+                    Oferta_Laboral.objects.create(descripcion_corta=description_corta,
+                                                      descripcion=description_offer,
+                                                      nombre_contacto=nombre_contacto,
+                                                      negocio=negocio, correo=correo,
+                                                      telefono1=telefono1,
+                                                      telefono2=None)
+            elif telefono1 == '' and telefono2 == '':
+                Oferta_Laboral.objects.create(descripcion_corta=description_corta,
+                                              descripcion=description_offer,
+                                              nombre_contacto=nombre_contacto,
+                                              negocio=negocio, correo=correo,
+                                              telefono1=None,
+                                              telefono2=None)
+            else:
+                Oferta_Laboral.objects.create(descripcion_corta=description_corta,
+                                              descripcion=description_offer,
+                                              nombre_contacto=nombre_contacto,
+                                              negocio=negocio, correo=correo,
+                                              telefono1=telefono1,
+                                              telefono2=telefono2)
             messages.success(request, 'Oferta agregada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'business_persona': business_persona,
@@ -2641,12 +2665,35 @@ def update_offer(request, id_bussiness, id_offer):
             correo = request.POST.get('correo')
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
-            Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
-                                                              descripcion=description_offer,
-                                                              nombre_contacto=nombre_contacto,
-                                                              negocio=negocio, correo=correo,
-                                                              telefono1=telefono1,
-                                                              telefono2=telefono2)
+            if telefono1 == '':
+                Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                                      descripcion=description_offer,
+                                                                      nombre_contacto=nombre_contacto,
+                                                                      negocio=negocio, correo=correo,
+                                                                      telefono1=None,
+                                                                      telefono2=telefono2)
+            elif telefono2 == '':
+                    Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                                      descripcion=description_offer,
+                                                                      nombre_contacto=nombre_contacto,
+                                                                      negocio=negocio, correo=correo,
+                                                                      telefono1=telefono1,
+                                                                      telefono2=None)
+            elif telefono1 == '' and telefono2 == '':
+                Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                                  descripcion=description_offer,
+                                                                  nombre_contacto=nombre_contacto,
+                                                                  negocio=negocio, correo=correo,
+                                                                  telefono1=None,
+                                                                  telefono2=None)
+            else:
+                Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                                  descripcion=description_offer,
+                                                                  nombre_contacto=nombre_contacto,
+                                                                  negocio=negocio, correo=correo,
+                                                                  telefono1=telefono1,
+                                                                  telefono2=telefono2)
+
             messages.success(request, 'Oferta modificada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))
         context = {'business': business, 'negocio': negocio, 'offer': offer, 'business_persona': business_persona,
@@ -2730,7 +2777,7 @@ def add_rate(request, id_bussiness):
         notificaciones = []
         cant_notificaciones = 0
         if request.user.is_superuser:
-            notificaciones = Notification.objects.filter(esatdo='No-Leida').order_by('-fecha')[:5]
+            notificaciones = Notification.objects.filter(estado='No-Leida').order_by('-fecha')[:5]
             cant_notificaciones = len(notificaciones)
         elif request.user.is_administrador:
             qset = (

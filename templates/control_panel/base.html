@@ -92,7 +92,7 @@
                                     {% for notificacion in notificaciones %}
                                         {% if notificacion.tipo == 'Usuario' %}
                                             <li>
-                                                <a href="javascript:void(0);">
+                                                <a href="{% url 'users' %}">
                                                     <div class="icon-circle bg-light-green">
                                                         <i class="material-icons">person_add</i>
                                                     </div>
@@ -109,7 +109,7 @@
                                             </li>
                                         {% elif notificacion.tipo == 'Pedido' %}
                                             <li>
-                                                <a href="javascript:void(0);">
+                                                <a href="{% url 'reservations' notificacion.negocio.id %}">
                                                     <div class="icon-circle bg-cyan">
                                                         <i class="material-icons">add_shopping_cart</i>
                                                     </div>
@@ -125,7 +125,7 @@
                                             </li>
                                         {% elif notificacion.tipo == 'Negocio' %}
                                             <li>
-                                                <a href="javascript:void(0);">
+                                                <a href="{% url 'my_bussiness' notificacion.negocio.id %}">
                                                     <div class="icon-circle bg-red">
                                                         <i class="material-icons">business</i>
                                                     </div>
@@ -141,7 +141,7 @@
                                             </li>
                                         {% else %}
                                             <li>
-                                                <a href="javascript:void(0);">
+                                                <a href="{% url 'factura_bussiness' notificacion.negocio.id %}">
                                                     <div class="icon-circle bg-grey">
                                                         <i class="material-icons">assignment</i>
                                                     </div>
@@ -267,13 +267,14 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li>
-                            <a href="{% url 'users' %}">
-                                <i class="material-icons">group</i>
-                                <span>Usuarios</span>
-                            </a>
-                        </li>
                     {% endif %}
+                    <li>
+                        <a href="{% url 'users' %}">
+                            <i class="material-icons">group</i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+
                 {% elif request.user.is_administrador %}
                     <li>
                         <a href="{% url 'users' %}">
@@ -339,6 +340,41 @@
                         </li>
                     {% endif %}
                 {% else %}
+                    {% if business %}
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">folder</i>
+                                <span>Mis Negocios</span>
+                            </a>
+                            <ul class="ml-menu">
+                                {% for negocio in business %}
+                                    <li>
+                                        <a href="javascript:void(0);" class="menu-toggle">
+                                            <span>{{ negocio.nombre }}</span>
+                                        </a>
+                                        <ul class="ml-menu">
+                                            <li>
+                                                <a href="{% url 'category_products' negocio.id %}">Categoria de
+                                                    Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'products' negocio.id %}">Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'rates' negocio.id %}">Tarifas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'offers' negocio.id %}">Ofertas Laborales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'reservations' negocio.id %}">Pedidos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'users' %}">
                             <i class="material-icons">group</i>
