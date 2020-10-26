@@ -107,7 +107,7 @@
                                 <i class="material-icons col-black">local_offer</i>
                             </div>
                             <div class="content">
-                                <div class="text">CATEGORÍAS DE NEGOCIOS</div>
+                                <div class="text">CATEG. DE NEGOCIOS</div>
                                 <div class="number">{{ cantidad_categ_neg }}</div>
                             </div>
                         </div>
@@ -170,9 +170,9 @@
                                                     <td width="5%">
                                                         <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
                                                     </td>
-                                                    <td>
+                                                    <td width="10%">
                                                         {% for categoria in negocio.categorias.all %}
-                                                            {{ categoria.nombre }},
+                                                            {{ categoria.nombre }}<br>
                                                         {% endfor %}
                                                     </td>
 
@@ -432,9 +432,9 @@
                                                 <td width="5%">
                                                     <a href="{% url 'my_bussiness' negocio.id %}">{{ negocio.nombre }}</a>
                                                 </td>
-                                                <td>
+                                                <td width="10%">
                                                     {% for categoria in negocio.categorias.all %}
-                                                        {{ categoria.nombre }},
+                                                        {{ categoria.nombre }}<br>
                                                     {% endfor %}
                                                 </td>
                                                 <td>
@@ -460,7 +460,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    <a type="button"
+                                                    <a type="button" title="Mostrar Comentarios"
                                                        class="btn btn-default waves-effect waves-black"
                                                        href="{% url 'comments' negocio.id %}"><i
                                                             class="material-icons">message</i></a>
@@ -508,7 +508,7 @@
                                                 </td>
                                                 <td>
                                                     {% for categoria in negocio.categorias.all %}
-                                                        {{ categoria.nombre }},
+                                                        {{ categoria.nombre }}<br>
                                                     {% endfor %}
                                                 </td>
                                                 <td>

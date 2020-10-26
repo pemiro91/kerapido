@@ -107,7 +107,7 @@ INSERT INTO kerapido_categoria_negocio (nombre, descripcion, macro_id)
 VALUES ('Bicicleta', '', 3);
 
 INSERT INTO kerapido_servicio (nombre, descripcion, color)
-VALUES ('Comida para llevar', '', 'amber');
+VALUES ('Para recoger', '', 'amber');
 INSERT INTO kerapido_servicio (nombre, descripcion, color)
 VALUES ('Entrega a domicilio', '', 'green');
 INSERT INTO kerapido_servicio (nombre, descripcion, color)
