@@ -2941,3 +2941,7 @@ def mask_as_no_read(request, id_message):
         Notification.objects.filter(pk=id_message).update(estado='No-Leida')
         return redirect('notifications_center')
     return redirect('login')
+
+def apk_construccion(request):
+    context = {}
+    return render(request, "apk.html", context)

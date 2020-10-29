@@ -119,6 +119,8 @@ urlpatterns = [
     path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
     path('api/comment/<int:id_negocio>/', postComentarioApi),
     path('api/comments/<int:pk>/', getComentarioApi),
+
+    path('en_construccion', views.apk_construccion, name="descargas"),
 ]
 
 handler404 = myapp_views.error_404_view

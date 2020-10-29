@@ -1,0 +1,66 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>302 | KeRápido</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'control_panel/images/logo.jpg' %}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'control_panel/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'control_panel/plugins/node-waves/waves.css' %}" rel="stylesheet"/>
+
+    <!-- Custom Css -->
+    <link href="{% static 'control_panel/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="five-zero-zero">
+<div class="five-zero-zero-container">
+    <div class="row ">
+        {#                        <div class="col-lg-6 col-md-6 ">#}
+
+        {#                        </div>#}
+
+        {#                        <div class="col-lg-6 col-md-6 ">#}
+        {#        <img src="{% static 'site/img/web-app.png' %}" width="30%"/>#}
+        {#                        </div>#}
+        <div class="error-code col-xs-12">302
+            <img style="justify-content: center" src="{% static 'site/img/android.png' %}" width="12%"/>
+        </div>
+    </div>
+
+    <div class="error-message justify-content-center">La aplicación para dispositivos móviles de KeRápido se encuentra
+        en proceso de desarrollo.
+    </div>
+    <br>
+    <br>
+    <div class="error-message justify-content-center">
+        ¡Pronto estará disponible para su descarga!
+    </div>
+    <div class="button-place">
+
+        <a href="{% url 'index' %}" class="btn bg-amber btn-lg waves-effect ">IR AL INICIO</a>
+    </div>
+</div>
+
+<!-- Jquery Core Js -->
+<script src="{% static 'control_panel/plugins/jquery/jquery.min.js' %}"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{% static 'control_panel/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{% static 'control_panel/plugins/node-waves/waves.js' %}"></script>
+</body>
+
+</html>
