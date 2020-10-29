@@ -2571,20 +2571,13 @@ def add_offer(request, id_bussiness):
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
 
-            if telefono2 == '':
-                Oferta_Laboral.objects.create(descripcion_corta=description_corta,
-                                                      descripcion=description_offer,
-                                                      nombre_contacto=nombre_contacto,
-                                                      negocio=negocio, correo=correo,
-                                                      telefono1=telefono1,
-                                                      telefono2=None)
-            elif telefono2 != '':
-                Oferta_Laboral.objects.create(descripcion_corta=description_corta,
-                                              descripcion=description_offer,
-                                              nombre_contacto=nombre_contacto,
-                                              negocio=negocio, correo=correo,
-                                              telefono1=telefono1,
-                                              telefono2=telefono2)
+            Oferta_Laboral.objects.create(descripcion_corta=description_corta,
+                                          descripcion=description_offer,
+                                          nombre_contacto=nombre_contacto,
+                                          negocio=negocio,
+                                          correo=correo,
+                                          telefono1=telefono1,
+                                          telefono2=telefono2)
 
             messages.success(request, 'Oferta agregada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))
@@ -2651,20 +2644,13 @@ def update_offer(request, id_bussiness, id_offer):
             correo = request.POST.get('correo')
             telefono1 = request.POST.get('telefono1')
             telefono2 = request.POST.get('telefono2')
-            if telefono2 == '':
-                Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
-                                                                      descripcion=description_offer,
-                                                                      nombre_contacto=nombre_contacto,
-                                                                      negocio=negocio, correo=correo,
-                                                                      telefono1=telefono1,
-                                                                      telefono2=None)
-            elif telefono2 != '':
-                    Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
-                                                                      descripcion=description_offer,
-                                                                      nombre_contacto=nombre_contacto,
-                                                                      negocio=negocio, correo=correo,
-                                                                      telefono1=telefono1,
-                                                                      telefono2=telefono2)
+
+            Oferta_Laboral.objects.filter(id=id_offer).update(descripcion_corta=descripcion_corta,
+                                                              descripcion=description_offer,
+                                                              nombre_contacto=nombre_contacto,
+                                                              negocio=negocio, correo=correo,
+                                                              telefono1=telefono1,
+                                                              telefono2=telefono2)
 
             messages.success(request, 'Oferta modificada correctamente')
             return redirect(reverse('offers', args=(id_bussiness,)))

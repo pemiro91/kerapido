@@ -82,12 +82,12 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="description">Descripción</label>
+                                    <label for="description">Descripción*</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="description" name="description_offer" cols="30" rows="10"
+                                            <textarea id="description" name="description_offer" cols="30" rows="7"
                                                       class="form-control no-resize"
                                                       required
                                                       placeholder="Escriba la descripción de la oferta">{{ offer.descripcion }}</textarea>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="description">Datos del contacto</label>
+                                    <label for="nombre_contacto">Nombre de contacto*</label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
@@ -109,11 +109,17 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="correo">Correo</label>
+                                </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input id="correo" name="correo" type="email"
-                                                   class="form-control no-resize" value="{{ offer.correo }}"
+                                                   class="form-control no-resize"
+                                                   value="{{ offer.correo }}"
                                                    placeholder="Escriba el correo de contacto (opcional)">
                                         </div>
                                     </div>
@@ -121,28 +127,34 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="description">Teléfonos</label>
+                                    <label for="telefono1">Teléfono*</label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="telefono1" name="telefono1" type="tel" maxlength="8" required
-                                                   class="form-control no-resize" value="{{ offer.telefono1 }}"
+                                            <input id="telefono1" name="telefono1" type="tel" maxlength="8"
+                                                   value="{{ offer.telefono1 }}"
+                                                   class="form-control no-resize" required
                                                    placeholder="Escriba un telefono de contacto">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="telefono2">Teléfono2</label>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input id="telefono2" name="telefono2" type="tel" maxlength="8"
-                                                   class="form-control no-resize" value="{{ offer.telefono2 }}"
+                                                   class="form-control no-resize"
+                                                   value="{{ offer.telefono2 }}"
                                                    placeholder="Escriba otro telefono de contacto (opcional)">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row clearfix">
                                 <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-5">
                                     <button class="btn btn-default waves-effect waves-black" type="submit">

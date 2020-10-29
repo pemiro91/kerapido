@@ -136,7 +136,7 @@ class Categoria_Producto(models.Model):
 
 
 class Producto(models.Model):
-    imagen = models.ImageField(upload_to='imagen_plato/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='producto/', null=True, blank=True)
     nombre = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     precio = models.FloatField(max_length=255)
@@ -207,8 +207,8 @@ class Oferta_Laboral(models.Model):
     descripcion_corta = models.CharField(max_length=150)
     descripcion = models.CharField(max_length=255)
     nombre_contacto = models.CharField(max_length=150)
-    telefono1 = models.IntegerField(null=True, blank=True)
-    telefono2 = models.IntegerField(null=True, blank=True)
+    telefono1 = models.CharField(max_length=255)
+    telefono2 = models.CharField(max_length=255, null=True, blank=True)
     correo = models.EmailField()
 
     def __str__(self):
