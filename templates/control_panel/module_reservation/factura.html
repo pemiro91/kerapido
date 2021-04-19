@@ -23,61 +23,73 @@
 
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="factura">
-                                    <div class="align-content-center">
-                                        <img style="max-width: 30%" src="{{ pedido.negocio.logo.url }}"
-                                             class="img-circle"/>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img style="text-align: center;width: 50%;margin-top: 26%;margin-left: 25%"
+                                                 src="{{ pedido.negocio.logo.url }}"
+                                                 class="img-circle"/>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <b style="font-size: 16px"
+                                               class="text-uppercase">Servicio: {{ pedido.servicio.nombre }}</b>
+                                            <br>
+                                            <br>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="4" class="text-uppercase" style="text-align: center">
+                                                        Reservación #{{ pedido.id }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <label>Fecha: {{ pedido.fecha_reservacion_factura|date:"d/m/yy" }}</label>
+                                                    </td>
+                                                    <td><label>Hora: {{ pedido.fecha_reservacion_factura|time }}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Cantidad</th>
+                                                    <th >Nombre del producto</th>
+                                                    <th > Precio (CUP) </th>
+                                                    <th>Precio Final (CUP)</th>
+                                                </tr>
+                                                {% for p in pedido.reservaciones.all %}
+                                                    <tr>
+                                                        <th scope="row">{{ p.cantidad_producto }}</th>
+                                                        <td >{{ p.producto.nombre }}</td>
+                                                        <td style="text-align: left"> {{ p.producto.precio }} cup</td>
+                                                        <td> {% widthratio p.cantidad_producto 1 p.producto.precio %} cup</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td>Servicio: {{ pedido.servicio.nombre }}</td>
+                                                    <td style="text-align: right">Tarifa:</td>
+                                                    <td>{{ pedido.tarifa.precio }} cup</td>
+                                                </tr>
+
+
+                                                </tbody>
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th style="text-align: right">Total a pagar:</th>
+                                                    <th>{{ pedido.total_pagar_user }} cup</th>
+                                                </tr>
+                                                </thead>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td>+ 4% Kérapido</td>
+                                                    <td style="text-align: right">Total:</td>
+                                                    <td>{{ pedido.porciento_pagar }} cup</td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <b>Servicio: {{ pedido.servicio.nombre }}</b>
-                                    <br>
-                                    <br>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="4" style="text-align: center">Reservación #{{ pedido.id }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td colspan="3">
-                                                <label>Fecha: {{ pedido.fecha_reservacion_factura|date:"d/m/yy" }}</label>
-                                            </td>
-                                            <td><label>Hora: {{ pedido.fecha_reservacion_factura|time }}</label></td>
-                                        </tr>
-                                        {% for p in pedido.reservaciones.all %}
-                                            <tr>
-                                                <th scope="row">{{ p.cantidad_producto }}</th>
-                                                <td colspan="2">{{ p.producto.nombre }}</td>
-                                                <td>{{ p.producto.precio }} cup</td>
-                                            </tr>
-                                        {% endfor %}
-                                        <tr>
-                                            <th scope="row">{{ pedido.reservaciones.count }}</th>
-                                            <td>Productos</td>
-                                            <td style="text-align: right">Total:</td>
-                                            <td id="pTotalPagar">{{ pedido.total_pagar }} cup</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td>Servicio de {{ pedido.servicio.nombre }}</td>
-                                            <td style="text-align: right">Total:</td>
-                                            <td>{{ pedido.tarifa.precio }} cup</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td>+ 4%</td>
-                                            <td style="text-align: right">Total:</td>
-                                            <td>{{ pedido.porciento_pagar }} cup</td>
-                                        </tr>
-                                        </tbody>
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th style="text-align: right">Total a pagar:</th>
-                                            <th>{{ pedido.total_pagar_user }} cup</th>
-                                        </tr>
-                                        </thead>
-                                    </table>
+
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="datos_entrega">
                                     <table class="table">

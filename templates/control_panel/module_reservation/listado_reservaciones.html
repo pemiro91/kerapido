@@ -110,10 +110,14 @@
                     <div class="modal-body">
                         <input name="state" type="radio" id="radio_1" value="Pendiente" class="radio-col-orange"/>
                         <label for="radio_1">Pendiente</label>
-                        <input name="state" type="radio" id="radio_2" value="Cancelado" class="radio-col-red"/>
-                        <label for="radio_2">Cancelado</label>
-                        <input name="state" type="radio" id="radio_3" value="Entregado" class="radio-col-green"/>
-                        <label for="radio_3">Entregado</label>
+                        <input name="state" type="radio" id="radio_2" value="Aceptado" class="radio-col-green"/>
+                        <label for="radio_2">Aceptado</label>
+                        <input name="state" type="radio" id="radio_3" value="Proceso" class="radio-col-green"/>
+                        <label for="radio_3">En proceso</label>
+                        <input name="state" type="radio" id="radio_4" value="Cancelado" class="radio-col-red"/>
+                        <label for="radio_4">Cancelado</label>
+                        <input name="state" type="radio" id="radio_5" value="Entregado" class="radio-col-green"/>
+                        <label for="radio_5">Entregado</label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -151,10 +155,14 @@
             var estado = $(this).data('estado');
             var radioId = '';
 
-            if (estado === 'Cancelado')
+            if (estado === 'Aceptado')
                 radioId = 'radio_2';
-            else if (estado === 'Entregado')
+            else if (estado === 'Proceso')
                 radioId = 'radio_3';
+            else if (estado === 'Cancelado')
+                radioId = 'radio_4';
+            else if (estado === 'Entregado')
+                radioId = 'radio_5';
             else
                 radioId = 'radio_1';
             document.forms["state_change"][radioId].checked = true;

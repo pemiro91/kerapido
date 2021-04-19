@@ -64,8 +64,6 @@
 <nav class="navbar">
     <div class="container-fluid">
 
-        {#        <img style="margin-left:48%;margin-top: 1%; display: block;position: absolute"#}
-        {#             src="{% static 'control_panel/images/logo.jpg' %}" width="48" height="48" alt="User"/>#}
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                data-target="#navbar-collapse" aria-expanded="false"></a>
@@ -193,8 +191,6 @@
                         <li><a href="{% url 'my_profile' %}" style="margin-left: 0px"><i
                                 class="material-icons">person</i>Mi Perfil</a></li>
                         <li role="separator" class="divider"></li>
-                        {#                        <li><a href="javascript:void(0);" style="margin-left: 0px"><i class="material-icons">message</i>Mensajes</a>#}
-                        {#                        </li>#}
                         <li><a href="{% url 'logout' %}?next={{ request.path }}" style="margin-left: 0px"><i
                                 class="material-icons">input</i>Salir</a>
                         </li>
@@ -215,11 +211,6 @@
             <div class="">
                 <img src="{% static 'control_panel/images/logo.jpg' %}" width="50" height="50" alt="User"/>
             </div>
-            {#            <div class="info-container">#}
-            {#                <div class="name" data-toggle="dropdown" aria-haspopup="true"#}
-            {#                     aria-expanded="false">kerapido@gmail.com</div>#}
-            {#                <div class="email">kerapido@gmail.com</div>#}
-            {#            </div>#}
         </div>
         <!-- #User Info -->
         <!-- Menu -->

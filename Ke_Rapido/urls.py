@@ -22,6 +22,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from kerapido import views
 from kerapido import views as myapp_views
+from knox import views as knox_views
 from kerapido.api import *
 
 urlpatterns = [
@@ -89,7 +90,8 @@ urlpatterns = [
     path('my_bussiness/<int:id_bussiness>', views.my_bussiness, name="my_bussiness"),
     path('add_bussiness', views.add_bussiness, name="add_bussiness"),
     path('update_bussiness/<int:id_bussiness>', views.update_bussiness, name="update_bussiness"),
-    path('delete_bussiness/<int:id_rate>', views.delete_bussiness, name="delete_bussiness"),
+    path('delete_bussiness/<int:id_bussiness>', views.delete_bussiness, name="delete_bussiness"),
+    path('delete_bussiness_panel/<int:id_bussiness>', views.delete_bussiness_panel, name="delete_bussiness_panel"),
     path('factura_bussiness/<int:id_bussiness>', views.factura_bussiness, name="factura_bussiness"),
     path('activate_business/<int:id_bussiness>', views.activate_business, name="activate_business"),
     path('blocked_business/<int:id_bussiness>', views.blocked_business, name="blocked_business"),
@@ -107,18 +109,22 @@ urlpatterns = [
     path('mark_no_read/<int:id_message>', views.mask_as_no_read, name="mark_as_no_ead"),
 
     # ------------- Api -------------#
-    path('api/account/register', UserCreate.as_view()),
-    path('api/login', login),
+    path('api/user/register', RegistrationAPIView.as_view()),
+    path('api/user/<int:pk>/', UserDetail.as_view()),
+    path('api/login', loginApp),
+
     path('api-auth/', include('rest_framework.urls')),
-    path('api/negocios/', getNegociosApi),
-    path('api/negocios/<int:pk>/', getNegocioApi),
-    path('api/productos/<int:pk>/', getProductoApi),
-    path('api/servicio/<int:pk>/', getServicioApiForID),
+    path('api/negocios', NegocioList.as_view()),
+    path('api/negocios/<int:pk>/', NegocioDetail.as_view()),
+    path('api/productos/<int:pk>/', ProductoList.as_view()),
+    path('api/servicio/<int:pk>/', ServicioList.as_view()),
     path('api/reservar/', postReservaApi),
     path('api/reservas/<int:pk>/', getReservasApiForID),
-    path('api/tarifas/<int:pk>/', getTarifaEntregaApiForID),
+    path('api/tarifas/<int:pk>/', TarifaEntregaList.as_view()),
     path('api/comment/<int:id_negocio>/', postComentarioApi),
-    path('api/comments/<int:pk>/', getComentarioApi),
+    path('api/comments/<int:pk>/', ComentarioList.as_view()),
+    path('api/categorias/<int:pk>/', CategoriaList.as_view()),
+    # path('api/account/logout', Logout.as_view()),
 
     path('en_construccion', views.apk_construccion, name="descargas"),
 ]

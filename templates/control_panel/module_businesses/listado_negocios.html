@@ -163,7 +163,7 @@
                                                data-id="{{ negocio.id }}"
                                                data-toggle="modal"
                                                data-target="#confirm-delete"
-                                               title="Eliminar Negocio">
+                                               title="Eliminar Pacho">
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </td>
@@ -321,6 +321,21 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="defaultModalLabel">Desea eliminar el negocio?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a type="button" class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block plugin_section %}
     <!-- Jquery DataTable Plugin Js -->
@@ -335,6 +350,12 @@
     <script src="{% static 'control_panel/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
 
     <!-- Custom Js -->
+
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
 
     <script src="{% static 'control_panel/js/pages/tables/jquery-datatable.js' %}"></script>
     <script>

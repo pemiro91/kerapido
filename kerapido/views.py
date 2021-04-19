@@ -1833,6 +1833,14 @@ def delete_bussiness(request, id_bussiness):
     if request.user.is_authenticated:
         p = Negocio.objects.get(id=id_bussiness)
         p.delete()
+        return redirect('bussiness')
+    return redirect('login')
+
+
+def delete_bussiness_panel(request, id_bussiness):
+    if request.user.is_authenticated:
+        p = Negocio.objects.get(id=id_bussiness)
+        p.delete()
         return redirect('panel')
     return redirect('login')
 
@@ -2941,6 +2949,7 @@ def mask_as_no_read(request, id_message):
         Notification.objects.filter(pk=id_message).update(estado='No-Leida')
         return redirect('notifications_center')
     return redirect('login')
+
 
 def apk_construccion(request):
     context = {}

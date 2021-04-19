@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'stdimage',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,5 @@ EMAIL_PORT = 465
 TEMPLATE_CONTEXT_PROCESSORS = {
     'django.core.context_processors.request'
 }
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
